@@ -1,0 +1,1 @@
+# qlik-cloud-app-analyzer
