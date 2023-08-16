@@ -1,0 +1,64 @@
+name: Build a draft release
+
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+  
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Retrieve version from VERSION
+        run: |
+          RELVER=$(cat VERSION | tr -d '[:space:]')
+          echo "RELVER=$RELVER" >> $GITHUB_ENV
+
+      - name: Retrieve app name from APPNAME
+        run: |
+          APPNAME=$(cat APPNAME)
+          echo "APPNAME=$APPNAME" >> $GITHUB_ENV
+      
+      - name: Retrieve latest installer PDF from qlik-cloud-monitoring-apps repo
+        uses: robinraju/release-downloader@v1.8
+        with:
+          repository: "qlik-oss/qlik-cloud-monitoring-apps"
+          latest: true
+          fileName: "Qlik-Cloud-Monitoring-Applications-Installation-Guide.pdf"
+        
+      - name: Draft a release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ env.RELVER }}
+          body: |
+            **!Important - review then remove this top section**
+
+            - [ ] Verify the .pdf and .qvf are correct
+            - [ ] Align the tag to the release version
+            - [ ] Verify release name matches tag (e.g. v1.2.1)
+            - [ ] Add any comments on breaking changes/ amends to the auto generated release notes
+            - [ ] Delete this section
+
+            We are pleased to release version ${{ env.RELVER }} of the ${{ env.APPNAME }}.
+
+            Find attached the app (${{ env.APPNAME }}.qvf) and install guide (Qlik-Cloud-Monitoring-Applications-Installation-Guide.pdf).
+
+            The following changes have been made for this release:
+            - Change 1
+            - Change 2
+            
+          draft: true
+          tag_name: ${{ env.RELVER }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            ./app/${{ env.APPNAME }}.qvf
+            ./Qlik-Cloud-Monitoring-Applications-Installation-Guide.pdf
+            
