@@ -21,9 +21,13 @@ It provides information such as:
 * Threshold analysis for fields, tables, rows and more
 * Reload times and peak RAM utilization by app
 
-## Installing/ updating
+## Installing / Updating
 
-A PDF containing installation instructions is attached to each [release](/../../releases).
+These applications can be installed via an interactive Qlik Application Automation [installer](https://community.qlik.com/t5/Official-Support-Articles/Qlik-Cloud-Monitoring-Apps-Workflow-Guide/ta-p/2134140) or [manually](/../../releases) using the PDF guide.
+
+## Subscription Compatibility
+
+Some monitoring apps are designed for specific Qlik Cloud subscription types. Refer to the compatibility matrix within the [Qlik Cloud Monitoring Apps](https://github.com/qlik-oss/qlik-cloud-monitoring-apps?tab=readme-ov-file#applications) repository.
 
 ## Support policy
 
