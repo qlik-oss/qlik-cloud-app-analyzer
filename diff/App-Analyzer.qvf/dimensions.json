@@ -1,0 +1,990 @@
+[
+  {
+    "qInfo": {
+      "qId": "naSQwe",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppIsDistributed"
+      ],
+      "qFieldLabels": [
+        "App Is Distributed"
+      ],
+      "title": "App Is Distributed",
+      "coloring": {
+        "changeHash": "0.7895209643916978",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Is Distributed",
+      "description": "Whether the application has been distributed to Qlik Cloud from either Qlik Sense Enterprise Client-Managed or QlikView Publisher.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "Yryypc",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppType"
+      ],
+      "qFieldLabels": [
+        "App Type"
+      ],
+      "title": "App Type",
+      "coloring": {
+        "changeHash": "0.7374040589314534",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Type",
+      "description": "Whether the app is a Qlik Sense app 'QS' or QlikView app 'QV'.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "UzSkZx",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppName"
+      ],
+      "qFieldLabels": [
+        "App Name"
+      ],
+      "title": "App Name",
+      "coloring": {
+        "changeHash": "0.4047392446283158",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Name",
+      "description": "The text representation of the AppName field (not unique).",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ZVnSHD",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "SpaceName",
+        "AppNameUnique"
+      ],
+      "qFieldLabels": [],
+      "title": "Space / App Drill",
+      "coloring": {
+        "changeHash": "0.48802918054617495"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space / App Drill",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "wGAQkj",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "SpaceType",
+        "AppNameUnique"
+      ],
+      "qFieldLabels": [],
+      "title": "Space Type / App Drill",
+      "coloring": {
+        "changeHash": "0.30076452731396386"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space Type / App Drill",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "xdLfma",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNameUnique"
+      ],
+      "qFieldLabels": [
+        "App Name"
+      ],
+      "qLabelExpression": "='App Name'",
+      "title": "App Name",
+      "coloring": {
+        "changeHash": "0.5579733322611093",
+        "colorMapRef": "xdLfma"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Name",
+      "description": "Unique to each AppId (to distinguish apps with same name)",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "LLBNL",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppReloadCPUTimeOverThreshold"
+      ],
+      "qFieldLabels": [
+        "App Reload CPU Time Over Threshold"
+      ],
+      "title": "App Reload CPU Time Over Threshold",
+      "coloring": {
+        "changeHash": "0.6833195424484029",
+        "colorMapRef": "LLBNL",
+        "hasValueColors": false
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Apps which exceeded the specified CPU reload time threshold of ' \u0026 If(GetPossibleCount(ReloadCPUTimeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(ReloadCPUTimeThreshold,'#,##0')) \u0026 ' milliseconds.'\r\n"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Reload CPU Time Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ZyZdFRJ",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "FieldValueCountOverThreshold"
+      ],
+      "qFieldLabels": [
+        "Field Value Count Over Threshold"
+      ],
+      "title": "Field Value Count Over Threshold",
+      "coloring": {
+        "changeHash": "0.7131246903418667",
+        "colorMapRef": "ZyZdFRJ",
+        "hasValueColors": false
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Indicates if the number of records within a given field (in a given table within an app) exceeds the threshold of ' \u0026 If(GetPossibleCount(FieldValueCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(FieldValueCountThreshold,'#,##0'))"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Field Value Count Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "PXPjVb",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TableNoOfRowsOverThreshold"
+      ],
+      "qFieldLabels": [
+        "Table Rows Over Threshold"
+      ],
+      "title": "Table Rows Over Threshold",
+      "coloring": {
+        "changeHash": "0.42966356192171795",
+        "colorMapRef": "PXPjVb",
+        "hasValueColors": false
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Table has row count which exceeds the threshold of ' \u0026 If(GetPossibleCount(TableRecordCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',num(TableRecordCountThreshold ,'#,##0'))"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Table Rows Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "51444e43-428e-4182-b4c7-ac1297c2b439",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppRAMOverThreshold"
+      ],
+      "qFieldLabels": [
+        "App RAM Over Threshold"
+      ],
+      "qLabelExpression": "='Over Threshold'",
+      "title": "App RAM Over Threshold",
+      "coloring": {
+        "colorMapRef": "51444e43-428e-4182-b4c7-ac1297c2b439",
+        "changeHash": "0.6945628311156382"
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Indicates if an app fills a larger initial memory footprint (in RAM) than the threshold of ' \u0026 \r\nIf(GetPossibleCount(AppRAMSizeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',num(AppRAMSizeThreshold/1024/1024, '#,##0 MB'))"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "VqbusF",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TenantID"
+      ],
+      "qFieldLabels": [
+        "Tenant ID"
+      ],
+      "title": "Tenant ID",
+      "coloring": {
+        "changeHash": "0.0000655078187519198"
+      }
+    },
+    "qMetaDef": {
+      "title": "Tenant ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "c414ce69-9dc0-43db-9c19-03aa9c723826",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TenantName"
+      ],
+      "qFieldLabels": [
+        "Tenant Name"
+      ],
+      "title": "Tenant Name",
+      "coloring": {
+        "colorMapRef": "VqbusF",
+        "changeHash": "0.5055398365080799"
+      }
+    },
+    "qMetaDef": {
+      "title": "Tenant Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "30075aec-11f9-4443-9d4f-07c152c5ca22",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SpaceType"
+      ],
+      "qFieldLabels": [
+        "Space Type"
+      ],
+      "title": "Space Type",
+      "coloring": {
+        "colorMapRef": "jTp",
+        "changeHash": "0.22998799281671922"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space Type",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "302103d0-76a0-4b28-adb5-a6772dd9f13f",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppContainsSyntheticKeys"
+      ],
+      "qFieldLabels": [
+        "App Contains Synthetic Keys"
+      ],
+      "qLabelExpression": "='Synthetic Keys'",
+      "title": "App Contains Synthetic Keys",
+      "coloring": {
+        "colorMapRef": "302103d0-76a0-4b28-adb5-a6772dd9f13f",
+        "changeHash": "0.6024181657734502"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Contains Synthetic Keys",
+      "description": "Indicates if an app's data model contains one or more synthetic keys.\nA synthetic key is created when two or more fields are found in two or more tables within an app data model.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "38e85aea-6109-4979-9b51-5caea76a3fe2",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TableIsIsland"
+      ],
+      "qFieldLabels": [
+        "Table is Island"
+      ],
+      "title": "Table is Island",
+      "coloring": {
+        "colorMapRef": "38e85aea-6109-4979-9b51-5caea76a3fe2",
+        "changeHash": "0.7688994804830713"
+      }
+    },
+    "qMetaDef": {
+      "title": "Table is Island",
+      "description": "Indicates if a table is associated with any other table within app data model.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "CbxZCa",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppContainsCircularReference(s)"
+      ],
+      "qFieldLabels": [
+        "App Contains Circular Reference(s)"
+      ],
+      "title": "App Contains Circular Reference(s)",
+      "coloring": {
+        "changeHash": "0.3482140279209649"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Contains Circular Reference(s)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "DUzVJmb",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "App Reload CPU Time (ms)"
+      ],
+      "qFieldLabels": [
+        "Reload CPU Time (ms)"
+      ],
+      "title": "Reload CPU Time (ms)",
+      "coloring": {
+        "changeHash": "0.6365413925956545",
+        "colorMapRef": "DUzVJmb"
+      }
+    },
+    "qMetaDef": {
+      "title": "Reload CPU Time (ms)",
+      "description": "Engine CPU time spent during last app reload, given in milliseconds (ms). Note: this is not the same as Reload Duration reported in other Monitor Apps, but is specific to the time that the engine spent to reload the app.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "DWWVJMe",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "FieldNameUnique"
+      ],
+      "qFieldLabels": [
+        "Field Name"
+      ],
+      "title": "Field Name",
+      "coloring": {
+        "changeHash": "0.28828767915577735",
+        "colorMapRef": "DWWVJMe"
+      }
+    },
+    "qMetaDef": {
+      "title": "Field Name",
+      "description": "Unique to each app and table",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "Jqnkt",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TableName"
+      ],
+      "qFieldLabels": [
+        "Table Name"
+      ],
+      "title": "Table Name",
+      "coloring": {
+        "changeHash": "0.4065949123596533",
+        "colorMapRef": "Jqnkt"
+      }
+    },
+    "qMetaDef": {
+      "title": "Table Name",
+      "description": "Table within app data model.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "KPmZpJ",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "SpaceType",
+        "SpaceName"
+      ],
+      "qFieldLabels": [],
+      "title": "Space Type / Space (Drill)",
+      "coloring": {
+        "changeHash": "0.311708625878961"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space Type / Space (Drill)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "KWRXFA",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppTableNoOfRowsOverThreshold"
+      ],
+      "qFieldLabels": [
+        "App Record Count Over Threshold"
+      ],
+      "qLabelExpression": "='Over Threshold'",
+      "title": "App Record Count Over Threshold",
+      "coloring": {
+        "changeHash": "0.13545987601547305",
+        "colorMapRef": "KWRXFA"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Record Count Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "LmDeuHf",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppOwnerName"
+      ],
+      "qFieldLabels": [
+        "App Owner Name"
+      ],
+      "title": "App Owner Name",
+      "coloring": {
+        "changeHash": "0.35235878554670896"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Owner Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "LpV",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "Date"
+      ],
+      "qFieldLabels": [
+        "Last Reload (Date)"
+      ],
+      "qLabelExpression": "='Last Reload'",
+      "title": "Last Reload (Date)",
+      "coloring": {
+        "changeHash": "0.4317201136855524"
+      }
+    },
+    "qMetaDef": {
+      "title": "Last Reload (Date)",
+      "description": "Date when the app was last reloaded",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "MHeec",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "AppNameUnique",
+        "TableNameUnique"
+      ],
+      "qFieldLabels": [],
+      "title": "App/Table",
+      "coloring": {
+        "changeHash": "0.2674543464021011"
+      }
+    },
+    "qMetaDef": {
+      "title": "App/Table",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "NAtXCDN",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppRAM_MB"
+      ],
+      "qFieldLabels": [
+        "App RAM MB"
+      ],
+      "title": "App RAM MB",
+      "coloring": {
+        "changeHash": "0.06142808807938471"
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM MB",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "QZaRcgP",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "FieldName"
+      ],
+      "qFieldLabels": [
+        "Field Name"
+      ],
+      "title": "Field Name",
+      "coloring": {
+        "changeHash": "0.2228693499604315"
+      }
+    },
+    "qMetaDef": {
+      "title": "Field Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "QnDejYm",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppLastReloadTime"
+      ],
+      "qFieldLabels": [
+        "Last Reloaded (Timestamp)"
+      ],
+      "qLabelExpression": "='Last Reloaded'",
+      "title": "Last Reloaded (Timestamp)",
+      "coloring": {
+        "changeHash": "0.01501817277729356",
+        "colorMapRef": "QnDejYm"
+      }
+    },
+    "qMetaDef": {
+      "title": "Last Reloaded (Timestamp)",
+      "description": "Timestamp when app was last reloaded.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "RJHTvXD",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppID"
+      ],
+      "qFieldLabels": [
+        "AppID"
+      ],
+      "title": "AppID",
+      "coloring": {
+        "changeHash": "0.3365595010616116"
+      }
+    },
+    "qMetaDef": {
+      "title": "AppID",
+      "description": "App ID as reported in QMC",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "SJYFL",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SpaceID"
+      ],
+      "qFieldLabels": [
+        "Space ID"
+      ],
+      "title": "Space ID",
+      "coloring": {
+        "changeHash": "0.8141436690962127",
+        "colorMapRef": "SJYFL"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "TgtUBPj",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppLastReloadedBucket"
+      ],
+      "qFieldLabels": [
+        "Last Reloaded"
+      ],
+      "title": "Last Reloaded",
+      "coloring": {
+        "changeHash": "0.2159770920474109"
+      }
+    },
+    "qMetaDef": {
+      "title": "Last Reloaded",
+      "description": "Buckets of time when app was last reloaded",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "Ubyjm",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "AppNameUnique",
+        "TableNameUnique",
+        "FieldNameUnique"
+      ],
+      "qFieldLabels": [],
+      "title": "App/Table/Field",
+      "coloring": {
+        "changeHash": "0.49197250112674396",
+        "colorMapRef": "Ubyjm"
+      }
+    },
+    "qMetaDef": {
+      "title": "App/Table/Field",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "XjSDQjq",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppOwnerID"
+      ],
+      "qFieldLabels": [
+        "App Owner UserID"
+      ],
+      "title": "App Owner UserID",
+      "coloring": {
+        "changeHash": "0.26308138905732936",
+        "colorMapRef": "XjSDQjq"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Owner UserID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ZJjue",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "FieldIsSynthetic"
+      ],
+      "qFieldLabels": [
+        "Field is Synthetic"
+      ],
+      "title": "Field is Synthetic",
+      "coloring": {
+        "changeHash": "0.7975901477699365",
+        "colorMapRef": "ZJjue"
+      }
+    },
+    "qMetaDef": {
+      "title": "Field is Synthetic",
+      "description": "Indicates if a field is part of a synthetic key.\nA synthetic key is created when two or more fields are found in two or more tables within an app data model.\nNote that Synthetic Fields will be listed as having 0 field records. Please rely on the field cardinality to understand the volume of records for these synthetic fields.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "b1075397-f3d7-4fe4-8c4b-c2ceaeeb5608",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TableNameUnique"
+      ],
+      "qFieldLabels": [
+        "Table Name (Unique)"
+      ],
+      "qLabelExpression": "='Table Name'",
+      "title": "Table Name (Unique)",
+      "coloring": {
+        "colorMapRef": "b1075397-f3d7-4fe4-8c4b-c2ceaeeb5608",
+        "changeHash": "0.9132711859547264"
+      }
+    },
+    "qMetaDef": {
+      "title": "Table Name (Unique)",
+      "description": "Unique table name within each app (to distinguish tables with same name but from different apps.)",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "fe0d6c30-0942-4bb7-9217-9e83ffca5786",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppOwnerName"
+      ],
+      "qFieldLabels": [
+        "App Owner"
+      ],
+      "title": "App Owner",
+      "coloring": {
+        "colorMapRef": "fe0d6c30-0942-4bb7-9217-9e83ffca5786",
+        "changeHash": "0.05650589097645531"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Owner",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "jTp",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SpaceName"
+      ],
+      "qFieldLabels": [
+        "Space Name"
+      ],
+      "title": "Space Name",
+      "coloring": {
+        "changeHash": "0.6197249518793"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "pbcfKp",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppContainsDataIsland(s)"
+      ],
+      "qFieldLabels": [
+        "App Contains Data Island(s)"
+      ],
+      "qLabelExpression": "='Data Island(s)'",
+      "title": "App Contains Data Island(s)",
+      "coloring": {
+        "changeHash": "0.37825000562961386",
+        "colorMapRef": "pbcfKp"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Contains Data Island(s)",
+      "description": "Indicates if an app contains one or more island tables in the data model.\nAn island table is one which does not share any common field with another table and, therefore, is not associated with other data tables.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "xJhu",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppRollingTimestamp"
+      ],
+      "qFieldLabels": [
+        "App Rolling Timestamp"
+      ],
+      "title": "App Rolling Timestamp",
+      "coloring": {
+        "changeHash": "0.349107441106167"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Rolling Timestamp",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "yqXsXS",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TableContainsSyntheticKeys"
+      ],
+      "qFieldLabels": [
+        "Table Contains Synthetic Keys"
+      ],
+      "title": "Table Contains Synthetic Keys",
+      "coloring": {
+        "changeHash": "0.023041202968332453",
+        "colorMapRef": "yqXsXS"
+      }
+    },
+    "qMetaDef": {
+      "title": "Table Contains Synthetic Keys",
+      "description": "Indicates if a table within an app data model contains one or more synthetic keys.\nA synthetic key is created when two or more fields are found in two or more tables within an app data model.",
+      "tags": []
+    }
+  }
+]

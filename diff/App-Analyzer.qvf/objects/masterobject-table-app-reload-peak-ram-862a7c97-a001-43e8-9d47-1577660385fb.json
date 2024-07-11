@@ -1,0 +1,252 @@
+{
+  "qInfo": {
+    "qId": "862a7c97-a001-43e8-9d47-1577660385fb",
+    "qType": "masterobject"
+  },
+  "qMetaDef": {
+    "title": "App Reload Peak RAM",
+    "tags": []
+  },
+  "qHyperCubeDef": {
+    "qDimensions": [
+      {
+        "qDef": {
+          "qGrouping": "N",
+          "qFieldDefs": [
+            "AppPeakRAMOverThreshold"
+          ],
+          "qFieldLabels": [
+            "Over Threshold"
+          ],
+          "qSortCriterias": [
+            {
+              "qSortByAscii": -1,
+              "qSortByLoadOrder": 1,
+              "qExpression": {}
+            }
+          ],
+          "qNumberPresentations": [],
+          "qActiveField": 0,
+          "autoSort": false,
+          "cId": "cQprB",
+          "othersLabel": "Others",
+          "textAlign": {
+            "auto": false,
+            "align": "left"
+          },
+          "representation": {
+            "type": "text",
+            "urlPosition": "dimension",
+            "urlLabel": "",
+            "linkUrl": ""
+          }
+        },
+        "qOtherTotalSpec": {
+          "qOtherMode": "OTHER_OFF",
+          "qOtherCounted": {
+            "qv": "10"
+          },
+          "qOtherLimit": {
+            "qv": "0"
+          },
+          "qOtherLimitMode": "OTHER_GE_LIMIT",
+          "qForceBadValueKeeping": true,
+          "qApplyEvenWhenPossiblyWrongResult": true,
+          "qOtherSortMode": "OTHER_SORT_DESCENDING",
+          "qTotalMode": "TOTAL_OFF",
+          "qReferencedExpression": {}
+        },
+        "qOtherLabel": {
+          "qv": "Others"
+        },
+        "qTotalLabel": {},
+        "qCalcCond": {},
+        "qAttributeExpressions": [
+          {
+            "qExpression": "If(AppPeakRAMOverThreshold AND NOT Text(AppPeakRAMOverThreshold)='Unknown (Likely QV App)',$(c_red_breeze_alpha(255)))",
+            "qAttribute": true,
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        }
+      }
+    ],
+    "qMeasures": [
+      {
+        "qLibraryId": "mJjqmb",
+        "qDef": {
+          "qTags": [],
+          "qGrouping": "N",
+          "qNumFormat": {
+            "qType": "U",
+            "qnDec": 10,
+            "qUseThou": 0
+          },
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "autoSort": true,
+          "cId": "Lzha",
+          "numFormatFromTemplate": true,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "representation": {
+            "type": "text",
+            "indicator": {
+              "showTextValues": true,
+              "applySegmentColors": false,
+              "position": "left"
+            }
+          },
+          "conditionalColoring": {
+            "segments": {
+              "limits": [],
+              "paletteColors": [
+                {
+                  "index": 6,
+                  "icon": "dot"
+                }
+              ]
+            }
+          }
+        },
+        "qSortBy": {
+          "qSortByNumeric": -1,
+          "qSortByLoadOrder": 1,
+          "qExpression": {}
+        },
+        "qAttributeExpressions": [],
+        "qAttributeDimensions": [],
+        "qCalcCond": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qTrendLines": [],
+        "qMiniChartDef": {
+          "qSortBy": {
+            "qExpression": {}
+          },
+          "qOtherTotalSpec": {
+            "qOtherMode": "OTHER_OFF",
+            "qOtherCounted": {},
+            "qOtherLimit": {},
+            "qOtherLimitMode": "OTHER_GT_LIMIT",
+            "qForceBadValueKeeping": true,
+            "qApplyEvenWhenPossiblyWrongResult": true,
+            "qOtherSortMode": "OTHER_SORT_DESCENDING",
+            "qTotalMode": "TOTAL_OFF",
+            "qReferencedExpression": {}
+          },
+          "qMaxNumberPoints": -1,
+          "qAttributeExpressions": []
+        }
+      }
+    ],
+    "qInterColumnSortOrder": [
+      0,
+      1
+    ],
+    "qSuppressMissing": true,
+    "qInitialDataFetch": [],
+    "qReductionMode": "N",
+    "qMode": "S",
+    "qPseudoDimPos": -1,
+    "qNoOfLeftDims": -1,
+    "qMaxStackedCells": 5000,
+    "qCalcCond": {},
+    "qTitle": {},
+    "qCalcCondition": {
+      "qCond": {},
+      "qMsg": {}
+    },
+    "qColumnOrder": [
+      0,
+      1
+    ],
+    "qExpansionState": [],
+    "qDynamicScript": [],
+    "columnOrder": [
+      0,
+      1
+    ],
+    "columnWidths": [
+      -1,
+      -1
+    ],
+    "qLayoutExclude": {
+      "qHyperCubeDef": {
+        "qDimensions": [],
+        "qMeasures": [],
+        "qInterColumnSortOrder": [],
+        "qInitialDataFetch": [],
+        "qReductionMode": "N",
+        "qMode": "S",
+        "qPseudoDimPos": -1,
+        "qNoOfLeftDims": -1,
+        "qMaxStackedCells": 5000,
+        "qCalcCond": {},
+        "qTitle": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qColumnOrder": [],
+        "qExpansionState": [],
+        "qDynamicScript": []
+      }
+    }
+  },
+  "showTitles": true,
+  "title": {
+    "qStringExpression": {
+      "qExpr": "='App Reload Peak RAM (Warning Threshold: ' \u0026 Num((AppRAMPeakReloadSizeThreshold/1024/1024),'#,##0') \u0026 ' MB)'"
+    }
+  },
+  "subtitle": "",
+  "footnote": {
+    "qStringExpression": {
+      "qExpr": "='This warning threshold is ' \u0026 Num($(vAppRAMToQuotaPercentThreshold),'#,##0%') \u0026 ' of your App Reload Peak RAM Quota'"
+    }
+  },
+  "showDetails": true,
+  "totals": {
+    "show": false,
+    "position": "noTotals",
+    "label": "Totals"
+  },
+  "scrolling": {
+    "keepFirstColumnInView": false,
+    "horizontal": true
+  },
+  "multiline": {
+    "wrapTextInHeaders": true,
+    "wrapTextInCells": true
+  },
+  "visualization": "table",
+  "masterVersion": 0.96,
+  "metadata": {},
+  "labelExpression": {
+    "qStringExpression": {
+      "qExpr": "='App Reload Peak RAM (Warning Threshold: ' \u0026 Num((AppRAMPeakReloadSizeThreshold/1024/1024),'#,##0') \u0026 ' MB)'"
+    }
+  },
+  "components": [
+    {
+      "key": "general"
+    },
+    {
+      "key": "theme",
+      "content": {
+        "hoverEffect": true
+      }
+    }
+  ]
+}

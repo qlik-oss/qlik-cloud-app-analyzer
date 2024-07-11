@@ -1,0 +1,1733 @@
+///$tab About
+/* 
+
+    _______                      _______              ______                          
+    ___    |_______________      ___    |____________ ___  /____  ____________________
+    __  /| |__  __ \__  __ \     __  /| |_  __ \  __ `/_  /__  / / /__  /_  _ \_  ___/
+    _  ___ |_  /_/ /_  /_/ /     _  ___ |  / / / /_/ /_  / _  /_/ /__  /_/  __/  /    
+    /_/  |_|  .___/_  .___/      /_/  |_/_/ /_/\__,_/ /_/  _\__, / _____/\___//_/     
+           /_/     /_/                                     /____/                      
+        
+    
+    Copyright 2023 QlikTech International
+    Created by Daniel Pilla, Master Principal Analytics Platform Architect, Qlik
+
+	About the "App Analyzer" app:
+    
+    The App Analyzer provides a comprehensive dashboard to analyze application metadata across a Qlik Sense tenant(s),
+    providing developers and administrators a holistic view of the makeup of all of their applications. 
+
+    This application iterates over application metadata API endpoints and uses additional calls to the quotas, items, 
+    and spaces API endpoints.
+
+    The data from the metadata endpoint includes:
+
+      - reload time
+      - base RAM footprint
+      - reload peak RAM
+      - field metadata including cardinality, tags, total count, RAM size
+      - table metadata including fields, rows, key fields, RAM size
+      ...and more
+
+    Given that this application provides RAM statistics for both base RAM footprint and peak reload RAM, it is encouraged
+    to use this application to track applications against tenant quota limits. The application exposes the data points to
+    optimize the applications to keep them under those limits, as well as use trending analysis to anticipate when
+    an application might hit a limit.
+
+    Enjoy!
+
+*/
+
+///$tab ** Configuration **
+Trace Configuration;
+
+////////////////////////////////////////////////////////////////////////////////////////
+// *Required* Configuration 
+
+// IMPORTANT: To run this application, the user must be a "Tenant Admin" and must have an API Key, which requires the "Developer Role"
+// and APIs to be enabled within the tenant.
+
+/*
+1. The name of the REST connection that will be used. You must first create a valid REST connection to any endpoint to Qlik Sense tenant.
+		Example: '<Space>:<Connection Name>'
+        			Note: ':<Connection Name>' is the relative path which will check for a connection in the current space.
+		Example Connection: 
+					URL: 			https://<tenant-name>.<region>.qlikcloud.com/api/v1/items
+					Header: 		"Authorization"
+					Header Value: 	"Bearer <token>"
+		For reference on how to connect: 
+					https://qlik.dev/tutorials/generate-your-first-api-key
+*/
+Set vu_rest_connection = ':monitoring_apps_REST';
+   
+/*
+2. The full path to where you want to store your QVDs.
+		Example: 'lib://<Space>:<DataFiles>'
+        			Note: 'lib://:<Connection Name>' is the relative path which will check for a connection in the current space.
+*/
+Set vu_qvd_storage_connection = 'lib://:DataFiles';
+
+////////////////////////////////////////////////////////////////////////////////////////
+///$tab * Optional Configuration *
+////////////////////////////////////////////////////////////////////////////////////////
+// Optional Configuration (No need to change these unless you desire) 
+
+Set vu_track_app_meta_over_time			= 1;	// Store QVDs of high-level app metadata on every reload to track growth over time.
+Set vu_track_app_meta_retention			= 90;	// Days to retain the rolling app metadata.
+Set vu_months_in_reload_interval 		= 3;	// Width of app last reload date for grouping apps in this app
+
+Set vu_personal_space_user_field = 'Name';		// The user field to best represent the user: 'Id', 'Name', 'Subject', 'Email'
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+// Multitenant App Configuration
+
+// This application has support for multi-tenancy. If this app is designated as a "parent" app, it loads in the generated
+// QVDs of all "child" apps from a centralized location (e.g., AWS S3, Azure Blob, or Google Cloud Storage where the 
+// "QlikMetaCollection" directory resides) and does not directly harvest any data itself, meaning it depends on the existence 
+// of "child" apps. If designated as a child app, it writes out all of its final QVDs post harvest to a centralized location.
+
+Set vu_multi_tenant_enabled 			= 0;					// To enable Multitenant app support, regardless of "Parent" or "Child" (1 or 0)
+
+Set vu_is_parent_app 					= 0;					// If this application is to be the parent app across varying tenants (1 or 0)
+
+// The connection to the parent directory of the QlikMetaCollection directory, which houses all of the multitenant metadata.
+// This is the root location to read/write all QVDs to so that they can be loaded across tenants (S3, Azure Blob, or Google 
+// Cloud Storage). The final path will resemble "QlikMetaCollection/Tenants/<TenantID>/Monitoring/<Monitoring App Name>/<Table>.qvd". 
+// The location below should point to the parent directory of the "QlikMetaCollection" folder. If the "QlikMetaCollection" 
+// folder does not exist, it will be automatically created.
+
+// **Azure Blob, AWS S3, and Google CLoud Storage have been tested and confirmed to work without any modifications**
+SET vu_qlik_meta_collection_parent_dir = 'lib://:';			// Parent directory of the "QlikMetaCollection" folder (trailing slash optional)
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+// Visual Thresholds - change these if you want to highlight specific apps based on these attributes
+
+Set vAppRAMToQuotaPercentThreshold				= .8;			// The percentage of your tenant threshold for App RAM size for flagging apps that are getting close
+Set vAppReloadPeakRAMToQuotaPercentThreshold	= .8;			// The percentage of the 5 GB reload peak RAM cap for flagging apps that are getting close
+Set vAppRecordCountThreshold 					= 100000000; 	// Number of records in an app
+Set vTableRecordCountThreshold 					= 50000000; 	// Number of records in a table
+Set vFieldValueCountThreshold 					= 10000000; 	// Number of field records
+Set vFieldCardinalityThreshold 					= 1000000; 		// Number of distinct field values
+Set vNoOfFields 								= 150; 			// Number of Distinct Fields
+Set vReloadCPUTimeThreshold 					= 1800000; 		// CPU Time spent on last reload (milliseconds); default = 1,800,000 = 30 Minutes
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+///$tab Variables
+Sub variables
+  
+//// General System  & Date Time Variables
+  Set ThousandSep		=',';
+  Set DecimalSep		='.';
+  Set TimeFormat		= 'hh:mm:ss';
+  Set DateFormat		= 'YYYY-MM-DD';
+  Set TimestampFormat	= 'YYYY-MM-DD hh:mm:ss';
+  Set FirstWeekDay=6;
+  Set BrokenWeeks=1;
+  Set ReferenceDay=0;
+  Set FirstMonthOfYear=1;
+  Set CollationLocale='en-US';
+  Set MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+  Set LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+  Set DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+  Set LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+  Set NumericalAbbreviation='3:k;6:M;9:B;12:T;15:P;18:E;21:Z;24:Y;-3:m;-6:μ;-9:n;-12:p;-15:f;-18:a;-21:z;-24:y';
+  
+  Set vCapacityLicenseStandardTierQuota = 10737418240; // 10 GB for the standard tier app base RAM quota under the capacity license
+  Set vAppRAMPeakReloadSizeQuota 		= 42949672960; // 40 GB for reload peak RAM  
+  Set CreateSearchIndexOnReload			= 1;	       // to assist search results in app
+  Search Exclude '*ID','_*','*Tim*';				   // Exclude these fields from the global search.
+  Set HidePrefix='_';
+  
+  Let vu_tenant_fqdn = GetSysAttr('tenantUrl');
+  
+//// Calendar Variables
+  Let vLast24Hours 		=	Num(TimeStamp(Now(1)-1));
+  Let vLast72Hours 		=	Num(TimeStamp(Now(1)-3));
+  Let vLast7Days 		=	Num(TimeStamp(Now(1)-7));
+  Let vLast30Days	 	=	Num(TimeStamp(Now(1)-30));
+  Let vLast60Days 		=	Num(TimeStamp(Now(1)-60));
+  Let vLast90Days 		=	Num(TimeStamp(Now(1)-90)); 
+  
+//// Run-time variables
+  Let vStartTime 			= Now(1);
+  Let LastReloadTime 		= Timestamp(LastSuccessfulReloadStartTime);
+  Let app_qvd_name			= Lower(Replace('$(app_name)',' ','_'));
+  Set output_qvd_name		= '$(vu_qvd_storage_connection)/$(app_qvd_name)_$1_$2.qvd';
+  Set rolling_qvd_name		= '$(vu_qvd_storage_connection)/app_analyzer_rolling.qvd';
+  
+  Set vIncremental 					= 1;  // Incremental load flag -- default = 1 (active). This can be disabled by setting to 0 (why do that?)
+  Set vu_personal_space_user_list  = 'id','name','subject','email';
+  Let app_reload_metadata_qvd 		= '$(output_qvd_name(AppReloadCPUMetadata,$(app_version)))';
+  Let incremental_qvds_available	= If(Len(FileTime('$(app_reload_metadata_qvd)'))>0,1,0);  // Check to see that incremental QVDs are available
+  Let rolling_qvds_available	 	= If(Len(FileTime('$(rolling_qvd_name)'))>0,1,0);  // Check to see that rolling QVD is available
+  Let incremental_message 			= If($(incremental_qvds_available)=1,'Incremental QVDs found','No Incremental QVDs found. Do not panic. I can fix that.');
+  If $(vu_is_parent_app) = 0 then
+    Trace $(incremental_message);
+  End if
+  Let vLastReloadTime 				= TimeStamp(ReloadTime());
+  Let vReloadTimeDiffFromGMT 		= Now(1) - GMT();
+  
+  Set vRollingLineSelect = 'App RAM (MB)'; // Set default view for the Rolling data visualizations.
+
+
+//// Colors
+  Set c_light_gray			= 'RGB(240,240,240)';
+  Set c_threshold_red		= 'RGB(165,67,67)';
+  Set c_red					= 'RGB(204,102,119)';
+  Set c_orange 				= 'RGB(233,141,54)'; 
+  Set c_yellow				= 'RGB(221,204,119)';
+  Set c_blue				= 'RGB(68,119,170)';
+  Set c_green				= 'RGB(17,119,51)';
+  Set c_gray 				= 'RGB(150,150,150)';
+  Set c_lightred 			= 'RGB(240,209,214)';
+  Set c_lightblue 			= 'RGB(188,181,201)'; 
+  //// ARGB colors -- requires input value to set the intensity (alpha) value of the color. Example using field [dual90]:  $(c_red_alpha(dual90)) 
+  Set c_red_alpha			= 'ARGB($1,204,102,119)';
+  Set c_orange_alpha		= 'ARGB($1,233,141,54)'; 
+  Set c_yellow_alpha		= 'ARGB($1,221,204,119)';
+  Set c_blue_alpha			= 'ARGB($1,68,119,170)';
+  Set c_green_alpha			= 'ARGB($1,17,119,51)';
+  Set c_gray_alpha			= 'ARGB($1,150,150,150)';
+  Set c_red_breeze_alpha	= 'ARGB($1,155,58,59)';
+  Set c_orange_breeze_alpha	= 'ARGB($1,233,141,54)';
+  Set c_teal_breeze_alpha	= 'ARGB($1,19,118,122)';
+  Set c_green_breeze_alpha	= 'ARGB($1,101,177,99)';
+  Set c_red_0_green_alpha	= 'IF($1=0,c_red,ARGB($1,101,177,99))';
+
+End Sub
+
+///$tab Check License
+Sub check_license
+
+    // check to see whether the tenant is on a capacity license
+
+    LIB Connect To '$(vu_rest_connection)';
+
+    RestConnectorMasterTable:
+    SQL SELECT 
+        "__KEY_root",
+        (SELECT 
+            "name",
+            "__FK_allotments"
+        FROM "allotments" FK "__FK_allotments")
+    FROM JSON (wrap on) "root" PK "__KEY_root"
+    WITH CONNECTION (  
+        URL "https://$(vu_tenant_fqdn)/api/v1/licenses/overview"
+    );
+
+    [CheckLicense]:
+    Load	
+        [name]
+    Resident RestConnectorMasterTable
+    Where [name]='fullUser';
+
+    Drop Table RestConnectorMasterTable;
+
+	Set vIsCapacityLicense = 0;
+    If NoOfRows('CheckLicense') > 0 THEN
+        Set vIsCapacityLicense = 1;
+    End If
+
+    Drop Table CheckLicense;
+
+End Sub
+
+
+///$tab Check Version
+Sub check_version
+
+    // check to see whether the app is the latest version
+
+    LIB Connect To '$(vu_rest_connection)';
+
+    RestConnectorMasterTable:
+    SQL SELECT 
+        "id",
+        "name",
+        "version",
+        "source",
+        "qcmaInstaller",
+        "oemInstaller"
+    FROM JSON (wrap on) "root"
+    WITH CONNECTION (  
+        URL "https://raw.githubusercontent.com/qlik-oss/qlik-cloud-monitoring-apps/main/manifests/resources.json",
+        HTTPHEADER "Authorization" ""
+    );
+
+    [Version]:
+    Load	
+        [version]
+    Resident RestConnectorMasterTable
+    Where name='$(app_name)';
+
+    Drop Table RestConnectorMasterTable;
+
+    Let vLatestVersion = Peek('version',0,'Version');
+    Let vIsLatestVersion = If('$(vLatestVersion)'='v$(app_version)',1,0);
+
+    Drop Table Version;
+
+End Sub
+///$tab Tenant Metadata
+Sub get_tenant_metadata
+
+    LIB Connect To '$(vu_rest_connection)';
+
+    RestConnectorMasterTable:
+    SQL SELECT 
+        "__KEY_root",
+        (SELECT 
+            "id",
+            "name",
+            "datacenter",
+            "created",
+            "status",
+            "__FK_data",
+            "__KEY_data",
+            (SELECT 
+                "@Value",
+                "__FK_hostnames"
+            FROM "hostnames" FK "__FK_hostnames" ArrayValueAlias "@Value")
+        FROM "data" PK "__KEY_data" FK "__FK_data")
+    FROM JSON (wrap on) "root" PK "__KEY_root"
+    WITH CONNECTION (  
+      URL "https://$(vu_tenant_fqdn)/api/v1/tenants"
+    );
+
+    [Hostname]:
+    Load	
+        [@Value] AS Hostname
+    Resident RestConnectorMasterTable
+    Where Not IsNull([__FK_hostnames]);
+
+
+    [TenantMetadata]:
+    Load	
+        [id] AS TenantID,
+        [name] AS TenantName,
+        [datacenter] AS TenantDataCenter,
+        Date([created]) AS TenantCreatedDate,
+        [status] AS TenantStatus,
+        Peek('Hostname',0,'Hostname') AS Hostname,
+        TimeStamp('$(vStartTime)') AS LastReloadStartTime
+    Resident RestConnectorMasterTable
+    Where Not IsNull([__FK_data]);
+
+    Drop Table Hostname;
+    Drop Table RestConnectorMasterTable;
+
+    Let vTenantID = Peek('TenantID',0,'TenantMetadata');
+
+End Sub
+///$tab Tenant Quotas
+Sub get_quota
+
+    LIB Connect To '$(vu_rest_connection)';
+
+    RestConnectorMasterTable:
+    SQL SELECT 
+        "id",
+        "type",
+        "__KEY_data",
+        (SELECT 
+            "quota",
+            "unit",
+            "usage",
+            "__KEY_attributes",
+            "__FK_attributes"
+        FROM "attributes" PK "__KEY_attributes" FK "__FK_attributes")
+    FROM JSON (wrap off) "data" PK "__KEY_data"
+    WITH CONNECTION (  
+      URL "https://$(vu_tenant_fqdn)/api/v1/quotas?reportUsage=true"
+    );
+
+    [Quotas]:
+    Load	
+        [id] as QuotaResource,
+        [type] as QuotaType,
+        '$(vTenantID)' AS TenantID,
+        [__KEY_data]
+    Resident RestConnectorMasterTable
+    Where not IsNull([__KEY_data]);
+
+    Left Join(Quotas)
+    Load	
+        If($(vIsCapacityLicense)=1 and [unit]='bytes',$(vCapacityLicenseStandardTierQuota),
+        	(If([unit]='bytes' and [quota]<>-1,[quota],If([unit]='bytes','Unlimited'))))  as Quota_Bytes,
+        If($(vIsCapacityLicense)=1 and [unit]='bytes',$(vCapacityLicenseStandardTierQuota)/(1024*1024),
+        	(If([unit]='bytes' and [quota]<>-1,[quota]/(1024*1024),If([unit]='bytes','Unlimited'))))  as Quota_MB,
+        If($(vIsCapacityLicense)=1 and [unit]='bytes',$(vCapacityLicenseStandardTierQuota)/(1024*1024*1024),
+        	(If([unit]='bytes' and [quota]<>-1,[quota]/(1024*1024*1024),If([unit]='bytes','Unlimited'))))  as Quota_GB,
+        If([unit]='spaces' and [quota]<>-1,[quota],If([unit]='spaces','Unlimited')) as QuotaSpace,
+        [unit] as QuotaUnit,
+        [usage] as QuotaUsage,
+        [__FK_attributes] as [__KEY_data]
+    Resident RestConnectorMasterTable
+    Where not IsNull([__FK_attributes]);
+
+    Drop Table RestConnectorMasterTable;
+    Drop Field [__KEY_data];
+
+    QuotaMemBytes:
+    Load
+        If(Quota_Bytes='Unlimited',999999999999999999999999999999999999,Quota_Bytes) as Quota_Bytes
+    Resident Quotas
+    Where QuotaResource='app_mem_size';
+
+    AppRAMSizeQuotas:
+    Load
+        If(Peek('Quota_Bytes',0,'QuotaMemBytes')<>999999999999999999999999999999999999,Peek('Quota_Bytes',0,'QuotaMemBytes'),'Unlimited') AS AppRAMSizeQuota,
+        Peek('Quota_Bytes',0,'QuotaMemBytes')*$(vAppRAMToQuotaPercentThreshold) AS AppRAMSizeThreshold,
+        $(vAppRAMPeakReloadSizeQuota)*$(vAppReloadPeakRAMToQuotaPercentThreshold) AS AppRAMPeakReloadSizeThreshold,
+        $(vAppRecordCountThreshold) AS AppRecordCountThreshold,
+        $(vTableRecordCountThreshold) AS TableRecordCountThreshold,
+        $(vFieldValueCountThreshold) AS FieldValueCountThreshold,
+        $(vFieldCardinalityThreshold) AS FieldCardinalityThreshold,
+        $(vNoOfFields) AS NoOfFields,
+        $(vReloadCPUTimeThreshold) AS ReloadCPUTimeThreshold,
+        '$(vTenantID)' AS TenantID
+    Autogenerate 1;
+
+    Drop Table QuotaMemBytes;
+    Drop Field Quota_Bytes;
+
+End Sub
+
+///$tab Get User Field
+Sub get_user_field
+
+    Lookup_UserVariable_FieldName:
+    Load * Inline [
+        UserVariable	,FieldName
+        id				,AppOwnerID
+        subject			,AppOwnerSubject
+        email			,AppOwnerEmail
+        name			,AppOwnerName
+    ];
+
+    If Match(Lower('$(vu_personal_space_user_field)'),$(vu_personal_space_user_list)) Then
+
+        Trace Using '$(vu_personal_space_user_field)' to construct 'Personal' space names;
+
+        Let vPersonalUserField = Lookup('FieldName','UserVariable',Lower('$(vu_personal_space_user_field)'),'Lookup_UserVariable_FieldName');
+
+    Else
+
+        Trace The value for the variable 'vu_personal_space_user_field' must contain one of: $(vu_personal_space_user_list);
+        Trace The value found was: '$(vu_personal_space_user_field)';
+        Trace Defaulting to 'Subject';
+
+        Set vPersonalUserField = 'AppOwnerSubject';
+
+    End If
+    
+    Drop Table Lookup_UserVariable_FieldName;
+  
+End Sub
+///$tab Users
+Sub get_users
+
+  Set vParams = 'limit=100';
+
+  Do
+    
+    LIB Connect To '$(vu_rest_connection)';
+
+    RestConnectorMasterTable:
+    SQL SELECT 
+        "__KEY_root",
+        (SELECT 
+            "__KEY_links",
+            "__FK_links",
+            (SELECT 
+                "href",
+                "__FK_self"
+            FROM "self" FK "__FK_self"),
+            (SELECT 
+                "href" AS "href_u0",
+                "__FK_next"
+            FROM "next" FK "__FK_next")
+        FROM "links" PK "__KEY_links" FK "__FK_links"),
+        (SELECT 
+            "id",
+            "tenantId",
+            "created",
+            "lastUpdated",
+            "status",
+            "name",
+            "subject",
+            "email",
+            "__KEY_data",
+            "__FK_data",
+            (SELECT 
+                "@Value",
+                "__FK_roles"
+            FROM "roles" FK "__FK_roles" ArrayValueAlias "@Value"),
+            (SELECT 
+                "__KEY_links_u0",
+                "__FK_links_u0",
+                (SELECT 
+                    "href" AS "href_u1",
+                    "__FK_self_u0"
+                FROM "self" FK "__FK_self_u0")
+            FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+        FROM "data" PK "__KEY_data" FK "__FK_data")
+    FROM JSON (wrap on) "root" PK "__KEY_root"
+    WITH CONNECTION (  
+      URL "https://$(vu_tenant_fqdn)/api/v1/users?$(vParams)"
+    );
+
+
+    Users:
+    Load	
+    	[id] as AppOwnerID,
+//         [id] AS UserID,
+//         [tenantId],
+//         Date([created]) AS AppOwnerCreatedDate,
+//         Date([lastUpdated]) AS AppOwnerLastUpdatedDate,
+        [status] as AppOwnerStatus,
+        [name] as AppOwnerName,
+        [subject] as AppOwnerSubject,
+        If(Len([email])>0,[email],'[None]') as AppOwnerEmail
+    Resident RestConnectorMasterTable
+    Where Not IsNull([__FK_data])
+    And Match(status,'disabled','active');
+
+    NextURL:
+    Load	
+    	[href_u0] AS NextURL
+    Resident RestConnectorMasterTable
+    Where Not IsNull([__FK_next]);
+
+    Drop Table RestConnectorMasterTable;
+    
+    Let vParams = SubField(Peek('NextURL',0,'NextURL'),'?',-1);
+    Let vNextURLRows = NoOfRows('NextURL');
+
+    Drop Table NextURL;
+    
+  Loop While $(vNextURLRows)>0;
+  
+  Concatenate(Users)
+  Load
+  	  '[Unknown]' 	as AppOwnerID,
+      '[Unknown]' 	as AppOwnerStatus,
+      '[Unknown]'  	as AppOwnerName,
+      '[Unknown]' 	as AppOwnerSubject,
+      '[Unknown]'	as AppOwnerEmail
+  AutoGenerate(1);
+  
+  Concatenate(Users)
+  Load
+  	  '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerID,
+      '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerStatus,
+      '[Qlik Sense Enterprise Client-Managed]'  	as AppOwnerName,
+      '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerSubject,
+      '[Unknown]'								as AppOwnerEmail
+  AutoGenerate(1);
+  
+  Concatenate(Users)
+  Load
+  	  '[QlikView Publisher]' 	as AppOwnerID,
+      '[QlikView Publisher]' 	as AppOwnerStatus,
+      '[QlikView Publisher]'  as AppOwnerName,
+      '[QlikView Publisher]' 	as AppOwnerSubject,
+      '[Unknown]'			as AppOwnerEmail
+  AutoGenerate(1);
+  
+  Map_AppOwner_Exists:
+  Mapping Load Distinct
+  	  AppOwnerID,
+      1
+  Resident Users;
+  
+  Map_UserID_AppOwnerName:
+  Mapping Load Distinct
+  	  AppOwnerID,
+      AppOwnerName
+  Resident Users;
+  
+  Map_UserID_AppOwnerID:
+  Mapping Load Distinct
+  	  AppOwnerID,
+      AppOwnerID
+  Resident Users;
+  
+  Map_UserID_AppOwnerSubject:
+  Mapping Load Distinct
+  	  AppOwnerID,
+      AppOwnerSubject
+  Resident Users;
+  
+  Map_UserID_AppOwnerEmail:
+  Mapping Load Distinct
+  	  AppOwnerID,
+      AppOwnerEmail
+  Resident Users;
+  
+  Call get_user_field
+  
+  Map_UserID_$(vPersonalUserField):
+  Mapping Load Distinct
+      AppOwnerID,
+      $(vPersonalUserField)
+  Resident Users;
+      
+End Sub
+///$tab Spaces
+Sub get_spaces
+
+    Set vParams = 'limit=100';
+
+    [Spaces]:
+    Load * Inline [SpaceID];
+
+
+    Do
+
+      LIB Connect To '$(vu_rest_connection)';
+
+      RestConnectorMasterTable:
+      SQL SELECT 
+          "__KEY_root",
+          (SELECT 
+              "id",
+              "type",
+              "ownerId",
+              "tenantId",
+              "name",
+              "description",
+              "createdAt",
+              "createdBy",
+              "updatedAt",
+              "__KEY_data",
+              "__FK_data",
+              (SELECT 
+                  "__KEY_meta",
+                  "__FK_meta"
+              FROM "meta" PK "__KEY_meta" FK "__FK_meta"),
+              (SELECT 
+                  "__KEY_links",
+                  "__FK_links"
+              FROM "links" PK "__KEY_links" FK "__FK_links")
+          FROM "data" PK "__KEY_data" FK "__FK_data"),
+          (SELECT 
+              "__KEY_links_u0",
+              "__FK_links_u0",
+              (SELECT 
+                  "href" AS "href_u2",
+                  "__FK_next"
+              FROM "next" FK "__FK_next")
+          FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+      FROM JSON (wrap on) "root" PK "__KEY_root"
+      WITH CONNECTION (  
+        URL "https://$(vu_tenant_fqdn)/api/v1/spaces?$(vParams)"
+      );
+
+      Concatenate (Spaces)
+      Load	
+          [id] as SpaceID,
+          Capitalize([type]) as SpaceType,
+          [ownerId] as SpaceOwnerID,
+          // [tenantId],
+          [name] as SpaceName,
+          [description] as SpaceDescription,
+          TimeStamp([createdAt]) as SpaceCreatedTime,
+          [createdBy] as SpaceCreatedBy
+          // [updatedAt],
+          // [__KEY_data],
+          // [__FK_data] as [__KEY_root]
+      Resident RestConnectorMasterTable
+      Where not IsNull([__FK_data]);
+
+      NextURL:
+      Load	
+          [href_u2] as NextURL
+      Resident RestConnectorMasterTable
+      Where not IsNull([__FK_next]);
+
+      Drop Table RestConnectorMasterTable;
+
+      Let vParams = SubField(Peek('NextURL',0,'NextURL'),'?',-1);
+      Let vNextURLRows = NoOfRows('NextURL');
+
+      Drop Table NextURL;
+
+    Loop while $(vNextURLRows)>0;
+    
+    Concatenate(Spaces)
+    Load
+        '[Staged]' as SpaceID,
+        '[Staged]' as SpaceName,
+        '[Staged]' as SpaceType
+    AutoGenerate(1);
+
+    AllSpacesMap:
+    Mapping Load Distinct
+        SpaceID,
+        1
+    Resident Spaces;
+    
+    Map_SpaceID_SpaceName:
+    Mapping Load Distinct
+        SpaceID,
+        Text(SpaceName) AS SpaceName
+    Resident Spaces;
+
+End Sub
+
+///$tab Apps
+Sub get_apps
+
+    Set vParams = 'limit=100&resourceType=app,qvapp&noActions=true';
+    Set vAppLoop = 1;
+
+    Do
+
+      LIB Connect to '$(vu_rest_connection)';
+
+      RestConnectorMasterTable:
+      SQL SELECT 
+          "__KEY_root",
+          (SELECT 
+              "name" AS "name_u0",
+              "resourceCustomAttributes",
+              "resourceUpdatedAt",
+              "resourceType",
+              "resourceId",
+              "resourceCreatedAt",
+              "id" AS "id_u0",
+              "createdAt",
+              "updatedAt",
+              "creatorId",
+              "updaterId",
+              "tenantId",
+              "isFavorited" AS "isFavorited_u0",
+              "ownerId" AS "ownerId_u0",
+              "description" AS "description_u0",
+              "__KEY_data",
+              "__FK_data",
+              (SELECT 
+                  "_resourcetype",
+                  "createdDate",
+                  "description",
+                  "dynamicColor",
+                  "hasSectionAccess",
+                  "id",
+                  "lastReloadTime",
+                  "modifiedDate",
+                  "name",
+                  "originAppId",
+                  "owner",
+                  "ownerId",
+                  "publishTime",
+                  "published",
+                  "spaceId",
+                  "thumbnail",
+                  "encrypted",
+                  "__FK_resourceAttributes"
+              FROM "resourceAttributes" FK "__FK_resourceAttributes"),
+              (SELECT 
+                  "__KEY_links",
+                  "__FK_links"
+              FROM "links" PK "__KEY_links" FK "__FK_links"),
+              (SELECT 
+                  "__KEY_meta",
+                  "__FK_meta",
+                  (SELECT 
+                      "id" AS "id_u1",
+                      "name" AS "name_u1",
+                      "__FK_tags"
+                  FROM "tags" FK "__FK_tags")
+              FROM "meta" PK "__KEY_meta" FK "__FK_meta")
+          FROM "data" PK "__KEY_data" FK "__FK_data"),
+          (SELECT 
+              "__KEY_links_u0",
+              "__FK_links_u0",
+              (SELECT 
+                  "href" AS "href_u4",
+                  "__FK_next"
+              FROM "next" FK "__FK_next")
+          FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+      FROM JSON (wrap on) "root" PK "__KEY_root"
+      WITH CONNECTION (  
+          URL "https://$(vu_tenant_fqdn)/api/v1/items?$(vParams)"
+      );
+
+
+      [Apps]:
+      Load
+          '$(vTenantID)' AS TenantID,
+          [name_u0] as AppName,
+          // [resourceCustomAttributes],
+          // [resourceUpdatedAt],
+          If([resourceType]='app','QS','QV') AS AppType,
+          [resourceId] as AppID,
+          TimeStamp([resourceCreatedAt]) as AppCreatedTime,
+          // [id_u0] as [id_u0],
+          // [createdAt],
+          TimeStamp([updatedAt]) as AppUpdatedTime,
+          [creatorId] as AppCreatorID,
+          [updaterId] as AppUpdaterID,
+          // [tenantId],
+          [isFavorited_u0] as AppIsFavorited,
+          [description_u0] as AppDescription
+      Resident RestConnectorMasterTable
+      Where not IsNull([__FK_data]);
+
+      AppDetails:
+      Load	
+          // [_resourcetype],
+          // [createdDate],
+          // [description],
+          // [dynamicColor],
+          If([published]='True',1,0) as AppIsDistributed,
+          If([published]='True' and _resourcetype = 'app','[Qlik Sense Enterprise Client-Managed]',
+          If([published]='True' and _resourcetype = 'qvapp','[QlikView Publisher]',
+          If(Len([ownerId])>4,[ownerId],'[Unknown]'))) as AppOwnerID,
+          [hasSectionAccess] as AppHasSectionAccess,
+          [id] as AppID,
+          TimeStamp([lastReloadTime]) as AppLastReloadTime,
+          TimeStamp(TimeStamp([lastReloadTime]) + $(vReloadTimeDiffFromGMT)) as AppLastReloadTimeLocalServerTime,
+          // [modifiedDate],
+          // [name],
+          [originAppId] as AppOriginalID,
+          // [ownerId],
+  //         [published] as AppPublished, // Only relevant for apps distributed from QSEoW
+          TimeStamp([publishTime]) as AppPublishedTime,
+          If(ApplyMap('AllSpacesMap',spaceId)<>1,
+              If(Len(ApplyMap('Map_UserID_$(vPersonalUserField)',ownerId))>0,
+                  'Personal - ' & ApplyMap('Map_UserID_$(vPersonalUserField)',ownerId),
+                  '[Staged]'
+                 ),
+              spaceId
+              ) as SpaceID,
+          // [thumbnail],
+          [encrypted] as AppEncrypted,
+          [__FK_resourceAttributes] & '|$(vAppLoop)' as [_KeyTags]
+      Resident RestConnectorMasterTable
+      Where Not IsNull([__FK_resourceAttributes]);
+
+      AppTags:
+      Load	
+          [id_u1] as [AppTagID],
+          [name_u1] as [AppTag],
+          [__FK_tags] & '|$(vAppLoop)' as [_KeyTags]
+      Resident RestConnectorMasterTable
+      Where Not IsNull([__FK_tags]);
+
+      NextURL:
+      Load	
+          [href_u4] as NextURL
+      Resident RestConnectorMasterTable
+      Where not IsNull([__FK_next]);
+
+      Drop Table RestConnectorMasterTable;
+
+      Let vParams = SubField(Peek('NextURL',0,'NextURL'),'?',-1);
+      Let vNextURLRows = NoOfRows('NextURL');
+      Let vAppLoop = $(vAppLoop)+1;
+
+      Drop Table NextURL;
+
+    Loop while $(vNextURLRows)>0;
+    
+    Concatenate(Spaces)
+    Load Distinct
+        SpaceID,
+        SpaceID as SpaceName,
+        'Personal' as SpaceType,
+        AppOwnerID as SpaceOwnerID,
+        '[N/A]' as SpaceDescription,
+        '[N/A]' as SpaceCreatedTime,
+        '[N/A]' as SpaceCreatedBy
+    Resident AppDetails
+    Where WildMatch(SpaceID,'Personal - *');
+    
+    Set OtherSymbol = +;
+    
+    Concatenate(Users)
+    Load 
+		*,
+      	'[Deleted]' 	as AppOwnerStatus,
+      	'[Deleted]'  	as AppOwnerName,
+      	'[Deleted]' 	as AppOwnerSubject,
+      	'[Deleted]'		as AppOwnerEmail
+    Inline [
+    	AppOwnerID
+        +
+    ];
+    
+    AllAppsMap:
+    Mapping Load Distinct
+        AppID,
+        1
+    Resident Apps;
+    
+    Map_AppID_AppType:
+    Mapping Load Distinct
+        AppID,
+        AppType
+    Resident Apps;
+
+    Left Join(Apps)
+    Load 
+    	*,
+        ApplyMap('Map_UserID_AppOwnerSubject',AppOwnerID) AS _AppOwnerSubjectForOEMDash
+    Resident AppDetails;
+
+    Drop Table AppDetails;
+
+End Sub
+///$tab Metadata
+Sub app_metadata
+
+    If incremental_qvds_available=1 then   // If incremental QVDs are available -- this is set in the "configuration" section of script
+        Let loaded_app_ids = '$(output_qvd_name(AppRAM,$(app_version)))';
+
+        LoadedAppIDs:
+        Mapping Load Distinct
+            AppID,
+            1
+        From '$(loaded_app_ids)'(qvd);
+
+        [AppIDs]:
+        Load Distinct
+            AppID,
+            AppType
+        Resident Apps
+        Where (AppLastReloadTimeLocalServerTime>=TimeStamp('$(vLastReloadTime)') or ApplyMap('LoadedAppIDs',AppID,'Not in QVD')='Not in QVD') ;
+
+        IncrementalAppMap:
+        Mapping Load Distinct
+            AppID as _IncrementalGUID,
+            1
+        Resident AppIDs;
+    Else
+        [AppIDs]:
+        Load Distinct
+            AppID,
+            AppType
+        Resident Apps;
+    End If
+
+    For i=0 to NoOfRows('AppIDs')-1
+      	// Loop through each of the apps in our list (from api/v1/items)
+        Let vAppGUID = Peek('AppID',i,'AppIDs');
+        Let vAppType = Peek('AppType',i,'AppIDs');
+        Let vResourceType = Pick(Match('$(vAppType)','QS','QV'),'app','qvapp');
+
+        LIB Connect To '$(vu_rest_connection)';
+
+        RestConnectorMasterTable:
+        SQL SELECT 
+            "__KEY_root",
+            (SELECT 
+                "resourceId",
+                "__KEY_data",
+                "__FK_data"
+            FROM "data" PK "__KEY_data" FK "__FK_data")
+        FROM JSON (wrap on) "root" PK "__KEY_root"
+        WITH CONNECTION (  
+            URL "https://$(vu_tenant_fqdn)/api/v1/items?resourceType=$(vResourceType)&resourceId=$(vAppGUID)"
+        );
+
+        [CheckAppExists]:
+        Load	
+            [resourceId]
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data]);
+
+        Drop Table RestConnectorMasterTable;
+
+        IF NoOfRows('CheckAppExists') > 0 THEN
+
+            For a=1 to 3	//  loop logic.
+                Trace Working on App $(vAppGUID).;
+                LIB Connect To '$(vu_rest_connection)';
+                RestConnectorMasterTable:
+                SQL SELECT 
+                    "static_byte_size",
+                    "has_section_access",
+                    "is_direct_query_mode",
+                    "__KEY_root",
+                    (SELECT 
+                        "cpu_time_spent_ms",
+                        "peak_memory_bytes",
+                        "__KEY_reload_meta",
+                        "__FK_reload_meta",
+                        (SELECT 
+                            "logical_cores",
+                            "total_memory",
+                            "__FK_hardware"
+                        FROM "hardware" FK "__FK_hardware")
+                    FROM "reload_meta" PK "__KEY_reload_meta" FK "__FK_reload_meta"),
+                    (SELECT 
+                        "name",
+                        "is_system",
+                        "is_hidden",
+                        "is_semantic",
+                        "distinct_only",
+                        "cardinal",
+                        "total_count",
+                        "is_locked",
+                        "always_one_selected",
+                        "is_numeric",
+                        "comment",
+                        "byte_size",
+                        "__KEY_fields",
+                        "__FK_fields",
+                        (SELECT 
+                            "@Value",
+                            "__FK_src_tables"
+                        FROM "src_tables" FK "__FK_src_tables" ArrayValueAlias "@Value"),
+                        (SELECT 
+                            "@Value" AS "@Value_u0",
+                            "__FK_tags"
+                        FROM "tags" FK "__FK_tags" ArrayValueAlias "@Value_u0")
+                    FROM "fields" PK "__KEY_fields" FK "__FK_fields"),
+                    (SELECT 
+                        "name" AS "name_u0",
+                        "is_system" AS "is_system_u0",
+                        "is_semantic" AS "is_semantic_u0",
+                        "is_loose",
+                        "no_of_rows",
+                        "no_of_fields",
+                        "no_of_key_fields",
+                        "comment" AS "comment_u0",
+                        "byte_size" AS "byte_size_u0",
+                        "__FK_tables"
+                    FROM "tables" FK "__FK_tables")
+                FROM JSON (wrap on) "root" PK "__KEY_root"
+                WITH CONNECTION (  
+                    URL "https://$(vu_tenant_fqdn)/api/v1/apps/$(vAppGUID)/data/metadata"
+                );	
+
+                If ScriptError<>12 then	// Successfully found app metadata. If ScriptError = 12, there was an issue fetching metadata
+
+                    [AppReloadCPUMetadata]:
+                    Load 
+                        If(ApplyMap('Map_AppID_AppType','$(vAppGUID)')='QV','Unknown (QV App)',[cpu_time_spent_ms]) as [App Reload CPU Time (ms)],
+                        If(ApplyMap('Map_AppID_AppType','$(vAppGUID)')='QV','Unknown (QV App)',[peak_memory_bytes]) AS [AppRAMPeakReload_Byte],
+                        If(ApplyMap('Map_AppID_AppType','$(vAppGUID)')='QV','Unknown (QV App)',Round([peak_memory_bytes]/1073741824,0.01)) AS [AppRAMPeakReload_GB],
+                        If(ApplyMap('Map_AppID_AppType','$(vAppGUID)')='QV','Unknown (QV App)',Round([peak_memory_bytes]/1048576,1)) AS [AppRAMPeakReload_MB],
+                        '$(vAppGUID)' as _IncrementalGUID,
+                        '$(vAppGUID)' as AppID
+                    Resident RestConnectorMasterTable
+                    Where not IsNull([__FK_reload_meta]);
+
+                    [ServerHardware]:
+                    Load
+                        If(ApplyMap('Map_AppID_AppType','$(vAppGUID)')='QV','Unknown (QV App)',[logical_cores]) as [ServerLogicalCores],
+                        If(ApplyMap('Map_AppID_AppType','$(vAppGUID)')='QV','Unknown (QV App)',[total_memory]) as [ServerTotalMemory],
+                        '$(vAppGUID)' as AppID,
+                        '$(vAppGUID)' as _IncrementalGUID
+                    Resident RestConnectorMasterTable
+                    Where not IsNull([__FK_hardware]);
+
+                    [FieldTags]:
+                    Load 
+                        [@Value_u0] as [FieldTag],
+                        '$(vAppGUID)' & '_' & [__FK_tags] as _KeyFields,
+                        '$(vAppGUID)' as TempAppID,
+                        '$(vAppGUID)' as _IncrementalGUID
+                    Resident RestConnectorMasterTable
+                    Where not IsNull([__FK_tags]);
+
+                    map_synthetic_fields:
+                    Mapping Load 
+                        '$(vAppGUID)' & '_' & [__FK_tags] as _KeyFields,
+                        Dual('Synthetic Field',1) as field_is_synthetic
+                    Resident RestConnectorMasterTable
+                    Where not IsNull([__FK_tags]) and WildMatch([@Value_u0],'*keypart*','*syn*')>0;  
+
+                    [Fields]:
+                    Load 	
+                        [name] AS FieldName,
+                        ApplyMap('map_synthetic_fields','$(vAppGUID)' & '_' & [__KEY_fields],Dual('Not Synthetic',0)) AS FieldIsSynthetic,
+                        //[is_system] AS [FieldIsSystem],
+                        [is_hidden] AS [FieldIsHidden],
+                        [is_semantic] AS [FieldIsSemantic],
+                        [distinct_only] AS [FieldDistinctOnly],
+                        [cardinal] AS [FieldCardinality],
+                        [total_count] AS [FieldTotalCount],
+                        [is_locked] AS [FieldISLocked],
+                        [always_one_selected] AS [FieldAlwaysOneSelected],
+                        [is_numeric] AS [FieldIsNumeric],
+                        [comment] AS [FieldComment],
+                        [byte_size]/1073741824 AS [FieldSize_GB],
+                        [byte_size]/1048576 AS [FieldSize_MB],
+                        '$(vAppGUID)' & '_' & name AS FieldID,
+                        '$(vAppGUID)' AS _IncrementalGUID,
+                        '$(vAppGUID)' & '_' & [__KEY_fields] AS _KeyFields
+                    Resident RestConnectorMasterTable
+                    Where Not IsNull([__FK_fields]) AND [is_system]='False';
+
+                    [FieldSourceTables]:
+                    Load 	
+                        [@Value] AS [FieldSourceTable],
+                        '$(vAppGUID)' & '_' & [@Value] AS TableID,
+                        '$(vAppGUID)' AS _IncrementalGUID,
+                        '$(vAppGUID)' & '_' & [__FK_src_tables] AS _KeyFields
+                    Resident RestConnectorMasterTable
+                    Where Not IsNull([__FK_src_tables]);
+
+                    [Tables]:
+                    Load 
+                        [name_u0] AS [TableName],
+                        //[is_system_u0] AS [TableIsSystem],
+                        [is_semantic_u0] AS [TableIsSemantic],
+                        [is_loose] AS [TableIsLoose],
+                        If([is_loose]='True',1,0) AS TableIsLooseFlag,
+                        [no_of_rows] AS [TableNoOfRows],
+                        [no_of_fields] AS [TableNoOfFields],	// This does not count synthetic key fields
+                        [no_of_key_fields] AS [TableNoOfKeyFields],	// This does not count non-key fields
+                        [no_of_fields]+If([no_of_key_fields]>0,[no_of_key_fields],0) as [Table Total # of Fields],	// Includes key and synthetic key fields 
+                        [comment_u0] AS [TableComment],
+                        [byte_size_u0]/1073741824 AS [TableSize_GB],
+                        [byte_size_u0]/1048576 AS [TableSize_MB],
+                        '$(vAppGUID)' & '_' & [name_u0] AS TableID,
+                        '$(vAppGUID)' AS _IncrementalGUID,
+                        '$(vAppGUID)' AS AppID
+                    Resident RestConnectorMasterTable
+                    Where Not IsNull([__FK_tables]) AND [is_system_u0]='False';
+
+                    [AppRAM]:
+                    Load 
+                        [static_byte_size] as AppRAM_Bytes,
+                        [has_section_access] as AppHasSectionAccess,
+                        [is_direct_query_mode] as AppHasDirectQueryMode,
+                        Round([static_byte_size]/(1024*1024*1024),0.01) as [AppRAM_GB], 
+                        Round([static_byte_size]/(1024*1024),1) as [AppRAM_MB],
+                        //[__KEY_root] as [__KEY_root]
+                        '$(vAppGUID)' as AppID,
+                        '$(vAppGUID)' as _IncrementalGUID
+                    Resident RestConnectorMasterTable
+                    Where not IsNull([__KEY_root]);
+
+                    Trace $(vAppGUID) metadata fetched okay.;
+                    Drop Table RestConnectorMasterTable;
+                    Exit For	// We successfully fetched app metadata and can proceed onward. Woohoo!
+
+                Else
+                    Drop Table RestConnectorMasterTable;
+                    Trace Script Error = 12: File $(vAppGUID) has wrong format;
+                    If a<3 then	//  loop logic.
+                    	Trace 'Trying again...';
+                    ElseIf a=3 then
+                        AppEndpointsNotFound:
+                        Load
+                            '$(vAppGUID)' as AppID,
+                            1 as AppEndpointNotFound
+                        AutoGenerate(1);
+                    End If
+                End If
+            Next a // loop for error handling
+
+        End If;
+
+        Drop Table CheckAppExists;
+
+    Next i
+
+    // LOAD (Concatenate) & Store each table into QVD (for incremental loading)
+    For Each table in 'AppRAM','AppReloadCPUMetadata','ServerHardware','FieldTags','Fields','FieldSourceTables','Tables'
+        Trace Calling load_qvd on '$(table)';
+        Call load_qvd ('$(table)')
+        Trace Calling store_qvd on '$(table)';
+        Call store_qvd ('$(table)')
+    Next table
+
+
+    Drop Field _IncrementalGUID;
+
+    // Calculate Tables count and Island Tables
+    map_num_tables:
+    Mapping Load Distinct
+        AppID,
+        Count(TableID) as NumTables
+    Resident Tables
+    Group By AppID;
+
+    Rename Table Tables to TEMP;
+
+    Tables:
+    Load Distinct
+        *,
+        If(ApplyMap('map_num_tables',AppID,0)>1 and [TableNoOfKeyFields]=0,Dual('Island Table',1),Dual('Not an Island',0)) as TableIsIsland
+    Resident TEMP;
+
+    Drop Table TEMP;
+
+    Let vAppRAMSizeQuota = Peek('AppRAMSizeQuota',0,'AppRAMSizeQuotas');
+    Let vAppRAMSizeThreshold = Peek('AppRAMSizeThreshold',0,'AppRAMSizeQuotas');
+    Let vAppRAMPeakReloadSizeThreshold = Peek('AppRAMPeakReloadSizeThreshold',0,'AppRAMSizeQuotas');
+
+    // CLEAN UP DATA MODEL
+    Left Join(Apps)
+    Load Distinct 
+        *,
+        If(ApplyMap('Map_AppID_AppType',AppID)='QV',Dual('Unknown (Likely QV App)',-1),(If([App Reload CPU Time (ms)]>=$(vReloadCPUTimeThreshold),Dual('Reload CPU Time Exceeded',1),Dual('Reload CPU Time OK',0)))) as AppReloadCPUTimeOverThreshold,
+        If(ApplyMap('Map_AppID_AppType',AppID)='QV',Dual('Unknown (Likely QV App)',-1),(If([AppRAMPeakReload_Byte]>=$(vAppRAMPeakReloadSizeThreshold),Dual('App Peak Reload RAM Exceeded',1),Dual('App Peak Reload RAM OK',0)))) as AppPeakRAMOverThreshold
+    Resident AppReloadCPUMetadata;
+
+    Left Join(Apps)
+    Load Distinct 
+        *
+    Resident AppRAM;
+
+    Drop Tables AppReloadCPUMetadata, AppRAM;
+
+    // Synthetic Tables exists at App Level
+    map_app_synthetic:
+    Mapping Load 
+        Distinct TempAppID as AppID,
+        Dual('Has Synthetic Keys',1) as AppContainsSyntheticKeys
+    Resident FieldTags
+    Where (FieldTag='$keypart' OR FieldTag='$syn');
+
+    //  Synthetic Keys exist at Table Level
+    Left Join(FieldSourceTables)
+    Load
+        If(FieldIsSynthetic>0,Dual('Synthetic Keys Present',1),Dual('No Synthetic Keys',0)) as TableContainsSyntheticKeys,
+        _KeyFields
+    Resident Fields;
+
+    Drop Field TempAppID;
+
+    // Island Tables exist at App level
+    map_app_data_islands:
+    Mapping Load 
+        AppID,
+        If(Max(TableIsIsland)>0,Dual('Has Island Table',1)) as [AppContainsDataIsland(s)]
+    Resident Tables
+    Where TableIsIsland=1
+    Group By AppID;	// Just return one record per appID
+
+    // Tables Record Count by App
+    map_app_table_record_count:
+    Mapping Load 
+        AppID,
+        Sum(TableNoOfRows) as [AppTableNoOfRowsMapping]
+    Resident Tables
+    Group By AppID;
+
+    // Circular References
+    map_app_circular_reference:
+    Mapping Load 
+        AppID,
+        Sum(TableIsLooseFlag) as [TableIsLooseFlagSummed]
+    Resident Tables
+    Group by AppID;
+
+    Drop Field TableIsLooseFlag;
+
+    // Number of distinct fields by App
+    map_app_distinct_fields:
+    Mapping Load
+        SubField(FieldID,'_',1) as AppID,
+        Count(FieldID) as AppNumberOfDistinctFields  
+    Resident Fields
+    Group By SubField(FieldID,'_',1);
+
+
+    // Last Reload Date Windows and Calendar
+    MinMax:
+    Load
+        Max(AppLastReloadTime) as AppLastReloadTimeMax,
+        Min(AppLastReloadTime) as AppLastReloadTimeMin
+    Resident Apps
+    Where Num(Date(AppLastReloadTime))>0;
+
+    Let vAppLastReloadTimeMax = YearStart(FieldValue('AppLastReloadTimeMax',1));
+    Let vAppLastReloadTimeMin = YearStart(FieldValue('AppLastReloadTimeMin',1));
+    Let vMaxYear = Num(Year(Date('$(vAppLastReloadTimeMax)')))+1;
+    Let vMinYear = Num(Year(Date('$(vAppLastReloadTimeMin)')));
+    Drop Table MinMax;
+
+    AppLastReloadedBuckets:
+    Load 
+        Dual(
+            Date(AddMonths('$(vAppLastReloadTimeMin)',(RecNo()*$(vu_months_in_reload_interval))-$(vu_months_in_reload_interval))) 
+            & ' -> ' & AddMonths(Date('$(vAppLastReloadTimeMin)'),RecNo()*$(vu_months_in_reload_interval))
+            ,Num(AddMonths('$(vAppLastReloadTimeMin)',(RecNo()*$(vu_months_in_reload_interval))-$(vu_months_in_reload_interval)))) 
+            as AppLastReloadedBucket,
+        Date(AddMonths('$(vAppLastReloadTimeMin)',(RecNo()*$(vu_months_in_reload_interval))-$(vu_months_in_reload_interval))) as FromDate,
+        AddMonths(Date('$(vAppLastReloadTimeMin)'),RecNo()*$(vu_months_in_reload_interval)) as ToDate
+    AutoGenerate ($(vMaxYear) - $(vMinYear))*(Ceil(12/$(vu_months_in_reload_interval)));
+
+    IntervalMatch (AppLastReloadTime) 
+    Left Join
+    Load Distinct FromDate, ToDate 
+    Resident AppLastReloadedBuckets;
+
+    Left Join (Apps)
+    Load Distinct
+        AppLastReloadedBucket,
+        AppLastReloadTime
+    Resident AppLastReloadedBuckets;
+
+    Drop Table AppLastReloadedBuckets;
+
+    Rename Table Apps to TEMP;
+    Rename Field AppLastReloadedBucket to AppLastReloadedBucketTemp;
+
+    // Add and update fields in the Apps table
+    Apps:
+    Load Distinct
+        *,
+        ApplyMap('map_num_tables',AppID,0) as AppNoOfTables,
+        ApplyMap('map_app_synthetic',AppID,Dual('No Synthetic Keys',0)) as AppContainsSyntheticKeys,
+        ApplyMap('map_app_data_islands',AppID,Dual('No Data Islands',0)) as [AppContainsDataIsland(s)],
+        ApplyMap('map_app_distinct_fields',AppID,0) as AppNumberOfDistinctFields,
+        ApplyMap('map_app_table_record_count',AppID,0) as AppTableNoOfRows,
+        If(ApplyMap('map_app_circular_reference',AppID,0)<1,Dual('No Circular Reference(s)',0),Dual('Has Circular Reference(s)',1)) as [AppContainsCircularReference(s)],
+        If(ApplyMap('map_app_table_record_count',AppID,0)>=$(vAppRecordCountThreshold),Dual('App Record Count Exceeded',1),Dual('App Record Count OK',0)) as AppTableNoOfRowsOverThreshold,
+        If(ApplyMap('map_app_distinct_fields',AppID,0)>=$(vNoOfFields),Dual('Field Count Exceeded',1),Dual('Field Count OK',0)) as AppNumberOfDistinctFieldsOverThreshold,
+        If(Len(AppLastReloadedBucketTemp)>1,AppLastReloadedBucketTemp,Dual('App Has Not Been Reloaded (On June ' & Chr(39) & '18+ or on a Qlik tenant)',-1)) as AppLastReloadedBucket,
+        If(AppRAM_Bytes>=$(vAppRAMSizeThreshold),Dual('App RAM Exceeded',1),Dual('App RAM OK',0)) as AppRAMOverThreshold,
+        If('$(vAppRAMSizeQuota)'<>'Unlimited',AppRAM_Bytes/'$(vAppRAMSizeQuota)','Unlimited') as AppRAMPercentToQuota,
+        If('$(vAppRAMSizeQuota)'<>'Unlimited' and (AppRAM_Bytes/'$(vAppRAMSizeQuota)') >= .6,Pow((AppRAM_Bytes/'$(vAppRAMSizeQuota)')+1.2,7),Null()) as _AppRAMPercentToQuotaColor,
+        AppRAMPeakReload_Byte/'$(vAppRAMPeakReloadSizeQuota)' as AppRAMPeakReloadPercentToQuota,
+        If(AppRAMPeakReload_Byte/'$(vAppRAMPeakReloadSizeQuota)' >= .6,Pow((AppRAMPeakReload_Byte/'$(vAppRAMPeakReloadSizeQuota)')+1.2,7),Null()) as _AppRAMPeakReloadPercentToQuotaColor
+    Resident TEMP;
+
+    Drop Table TEMP;
+    Drop Field AppLastReloadedBucketTemp;
+
+    // Handling for 'unlimited' quotas
+    If '$(vAppRAMSizeQuota)'='Unlimited' then
+        MaxAppPercentToQuota:
+        Load
+            1 as MaxAppRAMPercentToQuota,
+            Max(AppRAMPeakReloadPercentToQuota) as MaxAppRAMPeakReloadPercentToQuota
+        Resident Apps;
+    Else
+        MaxAppPercentToQuota:
+        Load
+            Max(AppRAMPercentToQuota) as MaxAppRAMPercentToQuota,
+            Max(AppRAMPeakReloadPercentToQuota) as MaxAppRAMPeakReloadPercentToQuota
+        Resident Apps;
+    End If
+
+    Let vAppRAMSizeQuota = '';
+    Let vAppRAMSizeThreshold = '';
+    Let vAppRAMPeakReloadSizeThreshold = '';
+
+    Let app_count = Num(NoOfRows('Apps'),'#,##0'); // This is the actual number of Apps.
+
+    // create buckets for app RAM percent to quota
+    Let vMaxAppRAMPercentToQuota = Peek('MaxAppRAMPercentToQuota',0,'MaxAppPercentToQuota');
+
+    Concatenate (Apps)
+    Load
+        (IterNo()-1) * .1 + .01 as AppRAMPercentToQuota
+    AutoGenerate(1)
+    While ((IterNo()-1) * .1 + .01) <= $(vMaxAppRAMPercentToQuota) or ((IterNo()-1) * .1 + .01) <= 1;
+
+
+    // create buckets for app RAM reload peak percent to quota
+    Let vMaxAppRAMPeakReloadPercentToQuota = Peek('MaxAppRAMPeakReloadPercentToQuota',0,'MaxAppPercentToQuota');
+
+    DROP TABLE MaxAppPercentToQuota;
+
+    Concatenate (Apps)
+    Load
+        (IterNo()-1) * .1 + .01 as AppRAMPeakReloadPercentToQuota
+    AutoGenerate(1)
+    While ((IterNo()-1) * .1 + .01) <= $(vMaxAppRAMPeakReloadPercentToQuota) or ((IterNo()-1) * .1 + .01) <= 1;
+
+    // Create mapping tables for FieldNameUnique dualing with App GUIDs
+    map_key_fields_table_id:
+    Mapping Load Distinct
+      [_KeyFields],
+      TableID
+    Resident FieldSourceTables;
+
+    map_table_id_app_id:
+    Mapping Load Distinct
+      TableID,
+      AppID
+    Resident Tables;
+
+    // Update fields table
+    Rename Table Fields to TEMP;
+
+    Fields:
+    Load
+        *,
+        If([FieldTotalCount]>=$(vFieldValueCountThreshold),Dual('Field Total Count Exceeded',1),Dual('Field Total Count OK',0)) as FieldValueCountOverThreshold,
+        If([FieldCardinality]>=$(vFieldCardinalityThreshold),Dual('Field Cardinality Exceeded',1),Dual('Field Cardinality OK',0)) as FieldCardinalityOverThreshold
+    Resident TEMP;
+
+    Drop Table TEMP;
+
+    // Update Tables table
+    Rename Table Tables to TEMP;
+
+    Tables:
+    Load
+        *,
+        If([TableNoOfRows]>=$(vTableRecordCountThreshold),Dual('Table Rows Exceeded',1),Dual('Table Rows OK',0)) as TableNoOfRowsOverThreshold
+    Resident TEMP;
+
+    Drop Table TEMP;
+
+    If NoOfRows('AppIDs') > 0 THEN
+      	Drop Table AppIDs;
+    End If
+
+    Trace Metadata for $(app_count) apps has been assembled!; // Note the actual number of rows in the final table is higher than the number of apps due to AppRAMPercentToQuota
+  
+End Sub
+///$tab Incremental QVD
+// For loading a table from QVD ///////////////////
+Sub load_qvd (table)
+
+    Let qvd_name = '$(output_qvd_name($(table),$(app_version)))';
+    If $(incremental_qvds_available)=1 then
+
+      Trace Looking to load: $(qvd_name).;
+      Let file_size = If(IsNull(FileSize('$(qvd_name)')),0,FileSize('$(qvd_name)'));
+
+      If file_size > 0 then
+          Trace File size is $(file_size) bytes;
+          Trace Fetching data from: $(qvd_name);
+          Trace $(table);
+
+          $(table):
+          Load Distinct 
+              * 
+          From '$(qvd_name)'(qvd)
+          Where ApplyMap('IncrementalAppMap',_IncrementalGUID)<>1
+          and ApplyMap('AllAppsMap',_IncrementalGUID)=1;
+
+      Else
+          Trace Could not find file: $(qvd_name).;
+      End If
+
+    End If
+
+End Sub
+
+
+// For storing a table to QVD ///////////////////
+Sub store_qvd (table)
+    Let qvd_name = '$(output_qvd_name($(table),$(app_version)))';
+    Trace Storing $(qvd_name).;
+    Store $(table) into '$(qvd_name)' (qvd);
+    Trace $(qvd_name) stored!;
+End Sub
+
+// Store QVDs of high-level app metadata on every reload to track growth over time ///////////////////
+Sub store_app_meta_rolling
+
+	app_analyzer_rolling:
+    Load Distinct
+        AppID,
+        [App Reload CPU Time (ms)] as [App Reload CPU Time (ms) - Rolling],
+        [AppRAM_GB] as [AppRAM_GB - Rolling],
+        [AppRAM_MB] as [AppRAM_MB - Rolling],
+        [AppRAMPeakReload_GB] as [AppRAMPeakReload_GB - Rolling],
+        [AppRAMPeakReload_MB] as [AppRAMPeakReload_MB - Rolling],
+        [AppNoOfTables] as [AppNoOfTables - Rolling],
+        [AppNumberOfDistinctFields] as [AppNumberOfDistinctFields - Rolling],
+        [AppTableNoOfRows] as [AppTableNoOfRows - Rolling],
+        Date(Floor(Today(1))) as AppRollingTimestamp,
+        Date(Floor(Today(1))) & '|' & AppID as _app_meta_key
+     Resident Apps
+     Where Len(AppID)>0;
+     
+     If $(rolling_qvds_available) then
+    	Trace Fetching data from: app_analyzer_rolling.qvd;
+        
+        app_analyzer_rolling:
+    	Load
+            *
+        From $(rolling_qvd_name) (qvd)
+        Where ApplyMap('AllAppsMap',AppID)=1
+        and Today(1)-Date(AppRollingTimestamp)<=$(vu_track_app_meta_retention)
+        and not Exists(_app_meta_key);
+    End If
+     
+     Trace Storing app_analyzer_rolling.qvd;
+     Store app_analyzer_rolling into $(rolling_qvd_name) (qvd);
+     Trace app_analyzer_rolling.qvd stored!;
+     
+End Sub
+///$tab Multi-Tenant
+Sub write_tenant_qvds(location, sub_dir, name, is_parent)
+    Trace Storing QlikMetaCollection QVDs.;
+
+    Let location = If(Right('$(location)',1)='/',Left('$(location)',Len('$(location)')-1),'$(location)');
+
+    If $(is_parent)=0 then
+        Let vFullLocation = '$(location)/QlikMetaCollection/Tenants/$(vTenantID)/$(sub_dir)/$(name)';
+    Else
+        Let vFullLocation = '$(location)/QlikMetaCollection/CompiledTenants/$(sub_dir)/$(name)';
+    End if
+
+    For i = 0 to NoOfTables()-1
+        Let vTableName = TableName($(i));
+        Trace Storing $(vTableName).;
+        Store $(vTableName) Into [$(vFullLocation)/$(vTableName).qvd](qvd);
+        Trace $(vTableName) stored!;
+    Next i
+  
+End Sub
+
+Sub load_multi_tenant_qvds(location, sub_dir, name)
+
+	Let vDirLocation = If(Right('$(location)',1)='/',Left('$(location)',Len('$(location)')-1),'$(location)');
+    Let vAnyFileFound = 0;
+
+	Let vTenants = 1;
+	For Each Dir in DirList('$(vDirLocation)/QlikMetaCollection/Tenants/')
+
+        Let vFolder = '$(Dir)$(sub_dir)/$(name)/';
+        Let vTenant = TextBetween('$(vFolder)','$(vDirLocation)/','/$(sub_dir)/');
+        Trace --------------------;
+        Trace Looking to load data for Tenant: $(vTenant);
+        Trace --------------------;
+
+        Let vTenantFileFound = 0;
+        For Each file in FileList('$(vFolder)')
+            If WildMatch('$(file)','*.qvd') THEN
+                Let vAnyFileFound = 1;
+                Let vTenantFileFound = 1;
+
+                Let vTableName = TextBetween(Subfield('$(file)','/',-1),Null(),'.qvd');
+                "$(vTableName)":
+                Load Distinct
+                    *
+                From [$(file)](qvd);
+            End If
+        Next file
+
+        If $(vTenantFileFound) then
+            Trace Completed loading QVDs for Tenant: $(vTenant);
+            Let vTenants = $(vTenants) + 1;
+        Else
+          	Trace No QVDs were found for Tenant: $(vTenant);
+        End If
+              
+    Next Dir
+    
+    Let vTenants = $(vTenants) - 1;
+    
+    If $(vAnyFileFound)>0 then
+        Trace --------------------;
+        Trace Successfully loaded data from $(vTenants) Tenants!;
+        Trace --------------------;
+    Else
+        Trace --------------------;
+        Trace No QVDs were Found! Confirm that this directory is the parent directory of "QlikMetaCollection".;
+        Trace --------------------;
+    End If
+
+
+End Sub
+///$tab Calendar
+Sub calendar
+
+    //AppLastReloadTime
+    Trace Working on master Calendar for AppLastReloadTime;
+
+    AppLastReloadTime:
+    Load Distinct 
+        AppLastReloadTime,
+        Date(Floor(AppLastReloadTime), 'MMM YYYY') 											as Month,
+        WeekStart(AppLastReloadTime) 														as [Week Beginning],
+        MakeDate(Year(AppLastReloadTime),Month(AppLastReloadTime),Day(AppLastReloadTime)) 	as Date,
+        If(AppLastReloadTime>=$(vLast24Hours),1) 											as last24hours,
+        If(AppLastReloadTime>=$(vLast7Days),1) 												as last7days,
+        If(AppLastReloadTime>=$(vLast30Days),1) 											as last30days,
+        If(AppLastReloadTime>=$(vLast60Days),1)												as last60days,
+        If(AppLastReloadTime>=$(vLast90Days),1)												as last90days
+    Resident Apps
+    Order By AppLastReloadTime desc;
+
+    // Establish Sort Order of Timeframe
+    timeframe_temp:
+    Load * Inline [
+        Timeframe
+        Last 24 Hours
+        Last 7 Days
+        Last 30 Days
+        Last 60 Days
+        Last 90 Days
+    ];
+
+    Last_AppLastReloadTime:
+    NoConcatenate Load Distinct AppLastReloadTime, 'Last 24 Hours' as [Timeframe] Resident AppLastReloadTime Where last24hours=1;
+    Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 7 Days'  as [Timeframe] Resident AppLastReloadTime Where last7days=1;
+    Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 30 Days' as [Timeframe] Resident AppLastReloadTime Where last30days=1;
+    Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 60 Days' as [Timeframe] Resident AppLastReloadTime Where last60days=1;
+    Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 90 Days' as [Timeframe] Resident AppLastReloadTime Where last90days=1;
+
+    Drop Fields last24hours,last7days,last30days,last60days,last90days;
+    Drop Table timeframe_temp;
+
+End Sub
+
+///$tab Cleanup
+Sub cleanup
+
+   // Drop spaces without any apps
+   Rename Table Spaces To TEMP;
+
+   Spaces:
+   Left Keep (Apps)
+   Load * Resident TEMP;
+
+   Drop Table TEMP;
+   
+   // Remove users that are not app owners
+   Rename Table Users To TEMP;
+   
+   Users:
+   Left Keep (Apps)
+   Load * Resident TEMP;
+   
+   Drop Table TEMP;
+ 
+End Sub;
+///$tab Autonumber
+Sub autonumber
+
+	Drop Field _app_meta_key;
+	Autonumber _KeyFields, _KeyTags;
+
+    Left Join(Spaces)
+    Load Distinct
+    	SpaceID,
+        Dual(SpaceName,AutoNumber(SpaceID)) as SpaceNameUnique
+    Resident Spaces;
+    
+    Left Join(Apps)
+    Load Distinct
+    	AppID,
+        Dual(AppName,AutoNumber(AppID)) as AppNameUnique
+    Resident Apps;
+    
+    If NoOfRows('map_key_fields_table_id') > 0 then
+    Else
+        // Create mapping tables for FieldNameUnique dualing with App GUIDs
+        map_key_fields_table_id:
+        Mapping Load Distinct
+            [_KeyFields],
+            TableID
+        Resident FieldSourceTables;
+
+        map_table_id_app_id:
+        Mapping Load Distinct
+            TableID,
+            AppID
+        Resident Tables;
+    End If
+    
+    Left Join(Fields)
+    Load Distinct
+    	_KeyFields,
+        Dual(FieldName,AutoNumber(FieldName & '_' & ApplyMap('map_table_id_app_id',ApplyMap('map_key_fields_table_id',_KeyFields)))) as FieldNameUnique
+    Resident Fields;
+    
+    Left Join(Tables)
+    Load Distinct
+    	TableID,
+        Dual(TableName,AutoNumber(TableName & '_' & AppID)) as TableNameUnique
+    Resident Tables;
+    
+End Sub
+///$tab Helper Functions
+Sub execute_sub(sub_routine)
+    Trace Working on $(sub_routine);
+    Let sub_start = Num(Now(1));
+    Call $(sub_routine)
+    Let sub_finish = Num(Now(1));
+    Let sub_duration = Num(Round((sub_finish-sub_start)*86400),'#,##0');
+    Trace $(sub_routine) completed after $(sub_duration) seconds.;
+End Sub
+///$tab Reload Logic
+Let reload_start = Now(1);
+//// App Variables & Messaging
+// Reset these variables
+Set ahora = ; 
+Set msg =; 
+Set startMsg=; 
+Set comp=;
+Let vTenants = 0;
+
+Set app_name		= 'App Analyzer';
+Set app_version		= '5.2.0';
+Let comp 			= ComputerName(); 
+Let engine_ver 		= PurgeChar(EngineVersion(),Chr(39)); 
+Let startMsg 		= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
+
+Trace $(startMsg);
+
+Sub load_core_data
+    Trace Loading data...;
+    For Each sub_routine in 'check_license','check_version','get_tenant_metadata','get_quota','get_users','get_spaces','get_apps','app_metadata'
+        Call execute_sub(sub_routine)
+    Next sub_routine
+    
+    If $(vu_track_app_meta_over_time) then
+        Call store_app_meta_rolling
+    End If
+End Sub
+
+Sub transform_data
+    Trace Transforming data...;
+    For Each sub_routine in 'calendar','cleanup','autonumber'
+        Call execute_sub(sub_routine)
+    Next sub_routine
+End Sub
+
+
+// Main
+If $(vu_multi_tenant_enabled)=1 then 
+    If $(vu_is_parent_app)=1 then
+        Trace This application is configured for a Multitenant setup and has been designated as a **Parent** app.;
+        Trace This application will attempt to load all of the QVDs that have been generated for the $(app_name) within the "QlikMetaCollection" folder found within "$(vu_qlik_meta_collection_parent_dir)";
+        Trace This application will then store all resulting QVDs to a "CompiledTenants" directory.;
+        
+        Call execute_sub('variables')
+        Call execute_sub('load_multi_tenant_qvds(''$(vu_qlik_meta_collection_parent_dir)'',''Monitoring'',''$(app_name)'')')
+
+        If $(vTenants)>0 then
+            Call transform_data
+        End If
+        
+        Trace This application will attempt to store all of the tables from this model to the "QlikMetaCollection/CompiledTenants" folder found within $(vu_qlik_meta_collection_parent_dir);
+  		Call execute_sub('write_tenant_qvds(''$(vu_qlik_meta_collection_parent_dir)'',''Monitoring'',''$(app_name)'',1)')
+        
+        Trace Data fetched from $(vTenants) tenants.;
+    Else
+        Trace This application is configured for a Multitenant setup and has been designated as a **Child** app.;
+        Trace This application will attempt to store all of the tables from this model to the "QlikMetaCollection" folder found within "$(vu_qlik_meta_collection_parent_dir)";
+		
+        Call execute_sub('variables')
+        Call load_core_data
+        Call execute_sub('write_tenant_qvds(''$(vu_qlik_meta_collection_parent_dir)'',''Monitoring'',''$(app_name)'',0)')
+        Call transform_data
+    End If
+Else
+    Call execute_sub('variables')
+    Call load_core_data
+    Call transform_data
+
+    Trace Data fetched from $(vu_tenant_fqdn);
+End If
+
+LET reload_end = Now(1);
+LET reload_duration = Num(Ceil((reload_end-reload_start)*86400),'#,##0');
+LET reload_message = 'At $(reload_end), $(app_name) v$(app_version) finished reloading on $(comp) (QIX Engine $(engine_ver)) after $(reload_duration) seconds.';
+Trace $(reload_message);

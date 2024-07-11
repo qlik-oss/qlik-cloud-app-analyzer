@@ -1,0 +1,274 @@
+{
+  "qInfo": {
+    "qId": "0769b40c-7658-42ff-ad1e-7e0464ffeb50",
+    "qType": "masterobject"
+  },
+  "qMetaDef": {
+    "title": "App Base RAM",
+    "tags": []
+  },
+  "qHyperCubeDef": {
+    "qDimensions": [
+      {
+        "qLibraryId": "51444e43-428e-4182-b4c7-ac1297c2b439",
+        "qDef": {
+          "qGrouping": "N",
+          "qFieldDefs": [],
+          "qFieldLabels": [],
+          "qSortCriterias": [
+            {
+              "qSortByAscii": -1,
+              "qSortByLoadOrder": 1,
+              "qExpression": {}
+            }
+          ],
+          "qNumberPresentations": [],
+          "qActiveField": 0,
+          "autoSort": false,
+          "cId": "HhnYJ",
+          "othersLabel": "Others",
+          "textAlign": {
+            "auto": false,
+            "align": "left"
+          },
+          "representation": {
+            "type": "text",
+            "urlLabel": ""
+          }
+        },
+        "qNullSuppression": true,
+        "qOtherTotalSpec": {
+          "qOtherMode": "OTHER_OFF",
+          "qOtherCounted": {
+            "qv": "10"
+          },
+          "qOtherLimit": {
+            "qv": "0"
+          },
+          "qOtherLimitMode": "OTHER_GE_LIMIT",
+          "qForceBadValueKeeping": true,
+          "qApplyEvenWhenPossiblyWrongResult": true,
+          "qOtherSortMode": "OTHER_SORT_DESCENDING",
+          "qTotalMode": "TOTAL_OFF",
+          "qReferencedExpression": {}
+        },
+        "qOtherLabel": {
+          "qv": "Others"
+        },
+        "qTotalLabel": {},
+        "qCalcCond": {},
+        "qAttributeExpressions": [
+          {
+            "qExpression": "If(AppRAMOverThreshold\u003e0,$(c_red_breeze_alpha(255)))",
+            "qAttribute": true,
+            "qNumFormat": {
+              "qType": "U",
+              "qnDec": 10,
+              "qUseThou": 0
+            },
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        }
+      }
+    ],
+    "qMeasures": [
+      {
+        "qLibraryId": "mJjqmb",
+        "qDef": {
+          "qTags": [],
+          "qGrouping": "N",
+          "qNumFormat": {
+            "qType": "U",
+            "qnDec": 10,
+            "qUseThou": 0
+          },
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "autoSort": true,
+          "cId": "Lzha",
+          "numFormatFromTemplate": true,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "representation": {
+            "type": "text",
+            "indicator": {
+              "showTextValues": true,
+              "applySegmentColors": false,
+              "position": "left"
+            }
+          },
+          "conditionalColoring": {
+            "segments": {
+              "limits": [],
+              "paletteColors": [
+                {
+                  "index": 6,
+                  "icon": "dot"
+                }
+              ]
+            }
+          }
+        },
+        "qSortBy": {
+          "qSortByNumeric": -1,
+          "qSortByLoadOrder": 1,
+          "qExpression": {}
+        },
+        "qAttributeExpressions": [],
+        "qAttributeDimensions": [],
+        "qCalcCond": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qTrendLines": [],
+        "qMiniChartDef": {
+          "qSortBy": {
+            "qExpression": {}
+          },
+          "qOtherTotalSpec": {
+            "qOtherMode": "OTHER_OFF",
+            "qOtherCounted": {},
+            "qOtherLimit": {},
+            "qOtherLimitMode": "OTHER_GT_LIMIT",
+            "qForceBadValueKeeping": true,
+            "qApplyEvenWhenPossiblyWrongResult": true,
+            "qOtherSortMode": "OTHER_SORT_DESCENDING",
+            "qTotalMode": "TOTAL_OFF",
+            "qReferencedExpression": {}
+          },
+          "qMaxNumberPoints": -1,
+          "qAttributeExpressions": []
+        }
+      }
+    ],
+    "qInterColumnSortOrder": [
+      0,
+      1
+    ],
+    "qSuppressMissing": true,
+    "qInitialDataFetch": [],
+    "qReductionMode": "N",
+    "qMode": "S",
+    "qPseudoDimPos": -1,
+    "qNoOfLeftDims": -1,
+    "qMaxStackedCells": 5000,
+    "qCalcCond": {},
+    "qTitle": {},
+    "qCalcCondition": {
+      "qCond": {},
+      "qMsg": {}
+    },
+    "qColumnOrder": [
+      0,
+      1
+    ],
+    "qExpansionState": [],
+    "qDynamicScript": [],
+    "columnOrder": [
+      0,
+      1
+    ],
+    "columnWidths": [
+      -1,
+      -1
+    ],
+    "qLayoutExclude": {
+      "qHyperCubeDef": {
+        "qDimensions": [],
+        "qMeasures": [],
+        "qInterColumnSortOrder": [],
+        "qInitialDataFetch": [],
+        "qReductionMode": "N",
+        "qMode": "S",
+        "qPseudoDimPos": -1,
+        "qNoOfLeftDims": -1,
+        "qMaxStackedCells": 5000,
+        "qCalcCond": {},
+        "qTitle": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qColumnOrder": [],
+        "qExpansionState": [],
+        "qDynamicScript": []
+      }
+    }
+  },
+  "showTitles": true,
+  "title": {
+    "qStringExpression": {
+      "qExpr": "='App Base RAM (Warning Threshold: ' \u0026 If(GetPossibleCount(AppRAMSizeQuota)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',If(Only({\u003cQuotaResource={'app_mem_size'}\u003e}Quota_MB) = 'Unlimited','Unlimited)',Num(AppRAMSizeThreshold/1048576,'#,##0') \u0026 ' MB)'))"
+    }
+  },
+  "subtitle": "",
+  "footnote": {
+    "qStringExpression": {
+      "qExpr": "='This warning threshold is ' \u0026 Num($(vAppRAMToQuotaPercentThreshold),'#,##0%') \u0026 ' of your App RAM Quota'"
+    }
+  },
+  "showDetails": true,
+  "totals": {
+    "show": false,
+    "position": "noTotals",
+    "label": "Totals"
+  },
+  "scrolling": {
+    "keepFirstColumnInView": false,
+    "horizontal": true
+  },
+  "multiline": {
+    "wrapTextInHeaders": true,
+    "wrapTextInCells": true
+  },
+  "visualization": "table",
+  "masterVersion": 0.96,
+  "metadata": {},
+  "labelExpression": {
+    "qStringExpression": {
+      "qExpr": "='App Base RAM (Warning Threshold: ' \u0026 If(GetPossibleCount(AppRAMSizeQuota)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',If(Only({\u003cQuotaResource={'app_mem_size'}\u003e}Quota_MB) = 'Unlimited','Unlimited)',Num(AppRAMSizeThreshold/1048576,'#,##0') \u0026 ' MB)'))"
+    }
+  },
+  "components": [
+    {
+      "key": "theme",
+      "content": {
+        "fontSize": null,
+        "fontColor": {
+          "index": -1,
+          "color": null
+        },
+        "hoverEffect": true,
+        "hoverColor": {
+          "index": -1,
+          "color": null
+        },
+        "hoverFontColor": {
+          "index": -1,
+          "color": null
+        },
+        "rowHeight": null
+      },
+      "header": {
+        "fontSize": 13,
+        "fontColor": {
+          "index": -1,
+          "color": null
+        }
+      }
+    },
+    {
+      "key": "general"
+    }
+  ]
+}

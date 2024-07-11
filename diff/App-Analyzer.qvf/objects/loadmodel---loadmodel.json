@@ -1,0 +1,196 @@
+{
+  "qInfo": {
+    "qId": "LoadModel",
+    "qType": "LoadModel"
+  },
+  "qMetaDef": {},
+  "connectionMetaDataModels": {},
+  "tables": [],
+  "queries": [],
+  "associations": {},
+  "locale": {
+    "0": "e",
+    "1": "n",
+    "2": "-",
+    "3": "U",
+    "4": "S"
+  },
+  "defaultCalendar": {
+    "id": "autoCalendar",
+    "name": "autoCalendar",
+    "appliedToTags": [
+      "$date"
+    ],
+    "derivedFields": [
+      {
+        "id": "Decade",
+        "name": "Decade",
+        "translation": "",
+        "definition": "Dual(Div(Year($1),10)*10, MakeDate(Div(Year($1),10)*10, 1, 1))",
+        "tags": [
+          "$axis",
+          "$decade"
+        ],
+        "selected": false
+      },
+      {
+        "id": "Year",
+        "name": "Year",
+        "translation": "scripteditor.autoCalendarYear",
+        "definition": "Dual(Year($1), YearStart($1))",
+        "tags": [
+          "$axis",
+          "$year"
+        ],
+        "selected": true
+      },
+      {
+        "id": "Quarter",
+        "name": "Quarter",
+        "translation": "scripteditor.autoCalendarQuarter",
+        "definition": "Dual('Q'\u0026Num(Ceil(Num(Month($1))/3)),Num(Ceil(NUM(Month($1))/3),00))",
+        "tags": [
+          "$quarter",
+          "$cyclic"
+        ],
+        "selected": true
+      },
+      {
+        "id": "YearQuarter",
+        "name": "YearQuarter",
+        "translation": "scripteditor.autoCalendarQuarterYear",
+        "definition": "Dual(Year($1)\u0026'-Q'\u0026Num(Ceil(Num(Month($1))/3)),QuarterStart($1))",
+        "tags": [
+          "$yearquarter",
+          "$qualified"
+        ],
+        "selected": true
+      },
+      {
+        "id": "_YearQuarter",
+        "name": "_YearQuarter",
+        "translation": "scripteditor.autoCalendarQuarterYear",
+        "definition": "Dual('Q'\u0026Num(Ceil(Num(Month($1))/3)),QuarterStart($1))",
+        "tags": [
+          "$yearquarter",
+          "$hidden",
+          "$simplified"
+        ],
+        "selected": true
+      },
+      {
+        "id": "Month",
+        "name": "Month",
+        "translation": "scripteditor.autoCalendarMonth",
+        "definition": "Month($1)",
+        "tags": [
+          "$month",
+          "$cyclic"
+        ],
+        "selected": true
+      },
+      {
+        "id": "YearMonth",
+        "name": "YearMonth",
+        "translation": "scripteditor.autoCalendarMonthYear",
+        "definition": "Dual(Year($1)\u0026'-'\u0026Month($1), monthstart($1))",
+        "tags": [
+          "$axis",
+          "$yearmonth",
+          "$qualified"
+        ],
+        "selected": true
+      },
+      {
+        "id": "_YearMonth",
+        "name": "_YearMonth",
+        "translation": "scripteditor.autoCalendarMonthYear",
+        "definition": "Dual(Month($1), monthstart($1))",
+        "tags": [
+          "$axis",
+          "$yearmonth",
+          "$simplified",
+          "$hidden"
+        ],
+        "selected": true
+      },
+      {
+        "id": "Week",
+        "name": "Week",
+        "translation": "scripteditor.autoCalendarWeek",
+        "definition": "Dual('W'\u0026Num(Week($1),00), Num(Week($1),00))",
+        "tags": [
+          "$weeknumber",
+          "$cyclic"
+        ],
+        "selected": true
+      },
+      {
+        "id": "YearWeek",
+        "name": "YearWeek",
+        "translation": "",
+        "definition": "Dual(Year($1)\u0026'-W'\u0026num(Week($1),00), weekstart($1))",
+        "tags": [
+          "$yearweek"
+        ],
+        "selected": false
+      },
+      {
+        "id": "WeekDay",
+        "name": "WeekDay",
+        "translation": "",
+        "definition": "Dual(WeekDay($1),num(WeekDay($1)))",
+        "tags": [
+          "$weekday"
+        ],
+        "selected": false
+      },
+      {
+        "id": "Date",
+        "name": "Date",
+        "translation": "scripteditor.autoCalendarDate",
+        "definition": "Date(Floor($1))",
+        "tags": [
+          "$axis",
+          "$date",
+          "$qualified"
+        ],
+        "selected": true
+      },
+      {
+        "id": "_Date",
+        "name": "_Date",
+        "translation": "scripteditor.autoCalendarDate",
+        "definition": "Date(Floor($1), 'D')",
+        "tags": [
+          "$axis",
+          "$date",
+          "$hidden",
+          "$simplified"
+        ],
+        "selected": true
+      }
+    ],
+    "groups": [
+      {
+        "name": "YearMonthDay",
+        "drillDown": "true",
+        "fieldRefs": [
+          "Year",
+          "Month",
+          "WeekDay"
+        ]
+      },
+      {
+        "name": "YearMonth",
+        "drillDown": "false",
+        "fieldRefs": [
+          "Year",
+          "Month"
+        ]
+      }
+    ],
+    "deriveFieldsType": "fieldExplicit"
+  },
+  "schemaVersion": 2.1
+}

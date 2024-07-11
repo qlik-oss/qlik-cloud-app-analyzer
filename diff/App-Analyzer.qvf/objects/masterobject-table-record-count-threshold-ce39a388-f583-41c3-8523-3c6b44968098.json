@@ -1,0 +1,248 @@
+{
+  "qInfo": {
+    "qId": "ce39a388-f583-41c3-8523-3c6b44968098",
+    "qType": "masterobject"
+  },
+  "qMetaDef": {
+    "title": "Record Count Threshold",
+    "tags": []
+  },
+  "qHyperCubeDef": {
+    "qDimensions": [
+      {
+        "qLibraryId": "KWRXFA",
+        "qDef": {
+          "qGrouping": "N",
+          "qFieldDefs": [],
+          "qFieldLabels": [],
+          "qSortCriterias": [
+            {
+              "qSortByAscii": -1,
+              "qSortByLoadOrder": 1,
+              "qExpression": {}
+            }
+          ],
+          "qNumberPresentations": [],
+          "qActiveField": 0,
+          "autoSort": false,
+          "cId": "sypESp",
+          "othersLabel": "Others",
+          "textAlign": {
+            "auto": false,
+            "align": "left"
+          },
+          "representation": {
+            "type": "text",
+            "urlLabel": ""
+          }
+        },
+        "qNullSuppression": true,
+        "qOtherTotalSpec": {
+          "qOtherMode": "OTHER_OFF",
+          "qOtherCounted": {
+            "qv": "10"
+          },
+          "qOtherLimit": {
+            "qv": "0"
+          },
+          "qOtherLimitMode": "OTHER_GE_LIMIT",
+          "qForceBadValueKeeping": true,
+          "qApplyEvenWhenPossiblyWrongResult": true,
+          "qOtherSortMode": "OTHER_SORT_DESCENDING",
+          "qTotalMode": "TOTAL_OFF",
+          "qReferencedExpression": {}
+        },
+        "qOtherLabel": {
+          "qv": "Others"
+        },
+        "qTotalLabel": {},
+        "qCalcCond": {},
+        "qAttributeExpressions": [
+          {
+            "qExpression": "If(AppTableNoOfRowsOverThreshold\u003e0,$(c_red_breeze_alpha(255)))",
+            "qAttribute": true,
+            "qNumFormat": {
+              "qType": "U",
+              "qnDec": 10,
+              "qUseThou": 0
+            },
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        }
+      }
+    ],
+    "qMeasures": [
+      {
+        "qLibraryId": "mJjqmb",
+        "qDef": {
+          "qTags": [],
+          "qGrouping": "N",
+          "qNumFormat": {
+            "qType": "U",
+            "qnDec": 10,
+            "qUseThou": 0
+          },
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "autoSort": true,
+          "cId": "Uvupzd",
+          "numFormatFromTemplate": true,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "representation": {
+            "type": "text",
+            "indicator": {
+              "showTextValues": true,
+              "applySegmentColors": false,
+              "position": "left"
+            }
+          },
+          "conditionalColoring": {
+            "segments": {
+              "limits": [],
+              "paletteColors": [
+                {
+                  "index": 6,
+                  "icon": "dot"
+                }
+              ]
+            }
+          }
+        },
+        "qSortBy": {
+          "qSortByNumeric": -1,
+          "qSortByLoadOrder": 1,
+          "qExpression": {}
+        },
+        "qAttributeExpressions": [],
+        "qAttributeDimensions": [],
+        "qCalcCond": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qTrendLines": [],
+        "qMiniChartDef": {
+          "qSortBy": {
+            "qExpression": {}
+          },
+          "qOtherTotalSpec": {
+            "qOtherMode": "OTHER_OFF",
+            "qOtherCounted": {},
+            "qOtherLimit": {},
+            "qOtherLimitMode": "OTHER_GT_LIMIT",
+            "qForceBadValueKeeping": true,
+            "qApplyEvenWhenPossiblyWrongResult": true,
+            "qOtherSortMode": "OTHER_SORT_DESCENDING",
+            "qTotalMode": "TOTAL_OFF",
+            "qReferencedExpression": {}
+          },
+          "qMaxNumberPoints": -1,
+          "qAttributeExpressions": []
+        }
+      }
+    ],
+    "qInterColumnSortOrder": [
+      0,
+      1
+    ],
+    "qSuppressMissing": true,
+    "qInitialDataFetch": [],
+    "qReductionMode": "N",
+    "qMode": "S",
+    "qPseudoDimPos": -1,
+    "qNoOfLeftDims": -1,
+    "qMaxStackedCells": 5000,
+    "qCalcCond": {},
+    "qTitle": {},
+    "qCalcCondition": {
+      "qCond": {},
+      "qMsg": {}
+    },
+    "qColumnOrder": [
+      0,
+      1
+    ],
+    "qExpansionState": [],
+    "qDynamicScript": [],
+    "columnOrder": [
+      0,
+      1
+    ],
+    "columnWidths": [
+      -1,
+      -1
+    ],
+    "qLayoutExclude": {
+      "qHyperCubeDef": {
+        "qDimensions": [],
+        "qMeasures": [],
+        "qInterColumnSortOrder": [],
+        "qInitialDataFetch": [],
+        "qReductionMode": "N",
+        "qMode": "S",
+        "qPseudoDimPos": -1,
+        "qNoOfLeftDims": -1,
+        "qMaxStackedCells": 5000,
+        "qCalcCond": {},
+        "qTitle": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qColumnOrder": [],
+        "qExpansionState": [],
+        "qDynamicScript": []
+      }
+    }
+  },
+  "showTitles": true,
+  "title": {
+    "qStringExpression": {
+      "qExpr": "='Record Count (Warning Threshold: ' \u0026 If(GetPossibleCount(AppRecordCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(AppRecordCountThreshold/1000000,'#,##0 MM')) \u0026 ')'"
+    }
+  },
+  "subtitle": "",
+  "footnote": {
+    "qStringExpression": {
+      "qExpr": "'This threshold is arbitrary and is not limited by quota.'"
+    }
+  },
+  "showDetails": true,
+  "totals": {
+    "show": false,
+    "position": "noTotals",
+    "label": "Totals"
+  },
+  "scrolling": {
+    "keepFirstColumnInView": false,
+    "horizontal": true
+  },
+  "multiline": {
+    "wrapTextInHeaders": true,
+    "wrapTextInCells": true
+  },
+  "visualization": "table",
+  "masterVersion": 0.96,
+  "metadata": {},
+  "components": [
+    {
+      "key": "general"
+    },
+    {
+      "key": "theme",
+      "content": {
+        "hoverEffect": true
+      }
+    }
+  ]
+}

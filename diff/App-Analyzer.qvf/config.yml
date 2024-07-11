@@ -1,0 +1,7 @@
+script: script.qvs
+connections: connections.yml
+dimensions: dimensions.json
+measures: measures.json
+objects: objects/*.json
+variables: variables.json
+app-properties: app-properties.json

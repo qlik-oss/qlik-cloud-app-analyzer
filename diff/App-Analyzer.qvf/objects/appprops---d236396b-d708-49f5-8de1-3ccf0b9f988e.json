@@ -1,0 +1,25 @@
+{
+  "qInfo": {
+    "qId": "d236396b-d708-49f5-8de1-3ccf0b9f988e",
+    "qType": "appprops"
+  },
+  "qMetaDef": {},
+  "sheetTitleBgColor": {
+    "color": "none",
+    "index": 0
+  },
+  "sheetTitleGradientColor": {
+    "color": "none",
+    "index": 0
+  },
+  "sheetTitleColor": "#7b7a78",
+  "sheetLogoThumbnail": {
+    "qStaticContentUrlDef": {
+      "qUrl": "/api/v1/apps/<appId>/media/files/Powered-By-Qlik-Mark-Horizontal_RGB.png"
+    }
+  },
+  "sheetLogoPosition": "right",
+  "rtl": false,
+  "theme": "horizon",
+  "disableCellNavMenu": true
+}
