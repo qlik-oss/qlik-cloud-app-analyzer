@@ -1,0 +1,261 @@
+{
+  "qInfo": {
+    "qId": "f0c13afb-6c4b-4a63-9742-83dae0a9441a",
+    "qType": "masterobject"
+  },
+  "qMetaDef": {
+    "title": "multi-kpi-css",
+    "description": "",
+    "tags": []
+  },
+  "qHyperCubeDef": {
+    "qDimensions": [
+      {
+        "qDef": {
+          "qGrouping": "N",
+          "qFieldDefs": [
+            "=1"
+          ],
+          "qFieldLabels": [
+            ""
+          ],
+          "qSortCriterias": [
+            {
+              "qSortByNumeric": 1,
+              "qSortByAscii": 1,
+              "qSortByLoadOrder": 1,
+              "qExpression": {}
+            }
+          ],
+          "qNumberPresentations": [],
+          "qActiveField": 0,
+          "autoSort": true,
+          "cId": "DMhR",
+          "othersLabel": "Others"
+        },
+        "qOtherTotalSpec": {
+          "qOtherMode": "OTHER_OFF",
+          "qOtherCounted": {
+            "qv": "10"
+          },
+          "qOtherLimit": {
+            "qv": "0"
+          },
+          "qOtherLimitMode": "OTHER_GE_LIMIT",
+          "qForceBadValueKeeping": true,
+          "qApplyEvenWhenPossiblyWrongResult": true,
+          "qOtherSortMode": "OTHER_SORT_DESCENDING",
+          "qTotalMode": "TOTAL_OFF",
+          "qReferencedExpression": {}
+        },
+        "qOtherLabel": {
+          "qv": "Others"
+        },
+        "qTotalLabel": {},
+        "qCalcCond": {},
+        "qAttributeExpressions": [],
+        "qAttributeDimensions": [],
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        }
+      }
+    ],
+    "qMeasures": [
+      {
+        "qDef": {
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "=1",
+          "qNumFormat": {
+            "qType": "U",
+            "qnDec": 10,
+            "qUseThou": 0
+          },
+          "qAccumulate": 0,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "autoSort": true,
+          "cId": "tYdZrT",
+          "numFormatFromTemplate": true,
+          "autoFormatTemplate": "0A",
+          "labelColor": {
+            "index": 14,
+            "color": "#000000"
+          },
+          "conditionalValueColor": false,
+          "valueColor": {
+            "index": 6,
+            "color": "#4477aa"
+          },
+          "useLink": false,
+          "kpiLink": "",
+          "hideLabel": false,
+          "hideValue": false,
+          "groupByDimension": false,
+          "groupByDimensionValue": "",
+          "ovParams": false,
+          "size": " ",
+          "labelOrientation": "",
+          "labelOrder": "first",
+          "fontStyles": "",
+          "textAlignment": "center",
+          "valueIcon": "",
+          "iconPosition": "label",
+          "iconOrder": "first",
+          "iconSize": "",
+          "infographic": false,
+          "embeddedItem": ""
+        },
+        "qSortBy": {
+          "qSortByNumeric": -1,
+          "qSortByLoadOrder": 1,
+          "qExpression": {}
+        },
+        "qAttributeExpressions": [
+          {
+            "qAttribute": true
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qTrendLines": [],
+        "qMiniChartDef": {
+          "qSortBy": {
+            "qExpression": {}
+          },
+          "qOtherTotalSpec": {
+            "qOtherMode": "OTHER_OFF",
+            "qOtherCounted": {},
+            "qOtherLimit": {},
+            "qOtherLimitMode": "OTHER_GT_LIMIT",
+            "qForceBadValueKeeping": true,
+            "qApplyEvenWhenPossiblyWrongResult": true,
+            "qOtherSortMode": "OTHER_SORT_DESCENDING",
+            "qTotalMode": "TOTAL_OFF",
+            "qReferencedExpression": {}
+          },
+          "qMaxNumberPoints": -1,
+          "qAttributeExpressions": []
+        },
+        "sheetLink": ""
+      }
+    ],
+    "qInterColumnSortOrder": [
+      0,
+      1
+    ],
+    "qInitialDataFetch": [
+      {
+        "qLeft": 0,
+        "qTop": 0,
+        "qWidth": 16,
+        "qHeight": 80
+      }
+    ],
+    "qReductionMode": "N",
+    "qMode": "S",
+    "qPseudoDimPos": -1,
+    "qNoOfLeftDims": -1,
+    "qMaxStackedCells": 5000,
+    "qCalcCond": {},
+    "qTitle": {},
+    "qCalcCondition": {
+      "qCond": {},
+      "qMsg": {}
+    },
+    "qColumnOrder": [],
+    "qExpansionState": [],
+    "qDynamicScript": [],
+    "qLayoutExclude": {
+      "qHyperCubeDef": {
+        "qDimensions": [],
+        "qMeasures": [],
+        "qInterColumnSortOrder": [],
+        "qInitialDataFetch": [],
+        "qReductionMode": "N",
+        "qMode": "S",
+        "qPseudoDimPos": -1,
+        "qNoOfLeftDims": -1,
+        "qMaxStackedCells": 5000,
+        "qCalcCond": {},
+        "qTitle": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qColumnOrder": [],
+        "qExpansionState": [],
+        "qDynamicScript": []
+      }
+    }
+  },
+  "script": "",
+  "showTitles": true,
+  "title": "",
+  "subtitle": "",
+  "footnote": "",
+  "disableNavMenu": false,
+  "showDetails": true,
+  "showDetailsExpression": false,
+  "options": {
+    "dimShowAs": "segment",
+    "dimDivideBy": "auto",
+    "dimensionsOrientation": "horizontal",
+    "dimLabelOrientation": "top attached",
+    "dimLabelSize": "",
+    "dimHideLabels": false,
+    "dimCenteredLabels": true,
+    "dimHideBorders": false,
+    "dimHideInternalBorders": false,
+    "labelOrientation": "",
+    "labelOrder": "first",
+    "size": "normal",
+    "divideBy": "one",
+    "backgroundColor": {
+      "index": 0,
+      "color": "#ffffff"
+    },
+    "verticalAlign": "center-aligned-items",
+    "styles": ".cell .null-value .value {\n    color: #ffffff !important;\n    background: #ffffff !important;\n}\n\n.qv-pt .cell.null-value {\n    background-color: #ffffff;\n}\n\n.qv-st-data-cell-null-value {\n    background-color: #ffffff !important;\n    left: -99999px !important;\n    position: relative !important;\n}\n\n.qv-object-qlik-multi-kpi {\n    display: none;\n}\n\n.qv-object-qlik-variable-input {\n    border: none !important;\n}\n\n.qv-object-qlik-variable-input .qv-inner-object {\n\tbackground-color: transparent !important;\n}"
+  },
+  "visualization": "qlik-multi-kpi",
+  "version": 1.4,
+  "extensionMeta": {
+    "translationKey": "",
+    "icon": "kpi",
+    "iconChar": "puzzle",
+    "isLibraryItem": true,
+    "visible": true,
+    "IconDefinition": {},
+    "name": "Multi KPI",
+    "description": "A tiled chart that shows one KPI per dimension value and measure.\nVersion: 0.121.0",
+    "template": "qlik-multi-kpi",
+    "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
+    "isThirdParty": true,
+    "type": "visualization",
+    "version": "0.121.0",
+    "preview": "multikpi.png",
+    "keywords": "qlik-sense, visualization",
+    "author": "Alexander Nerush \u003cale.nerush@gmail.com\u003e",
+    "homepage": "https://github.com/alner/qsSimpleKPI",
+    "license": "MIT",
+    "repository": "https://github.com/alner/qsSimpleKPI",
+    "dependencies": {
+      "qlik-sense": "\u003e=5.5.x"
+    },
+    "bundle": {
+      "id": "qlik-visualization-bundle",
+      "name": "Qlik Visualization bundle",
+      "description": "This is a set of supported objects that expands the visualization capabilities of Qlik Sense. These can be used in addition to the objects found under 'Charts'. For support conditions and limitations, see the documentation."
+    },
+    "installer": "QlikExtensionBundler",
+    "folder": "_visualization-bundle",
+    "previewIconURL": "https://cdn.qlikcloud.com/qmfe/sense-client/8.226.0/_visualization-bundle/qlik-multi-kpi/multikpi.png"
+  },
+  "masterVersion": 0.96
+}

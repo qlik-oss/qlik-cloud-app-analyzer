@@ -229,7 +229,7 @@
   "title": "App Reload Peak RAM (MB)",
   "subtitle": "",
   "footnote": "",
-  "disableNavMenu": false,
+  "disableNavMenu": true,
   "showDetails": true,
   "components": [],
   "barGrouping": {

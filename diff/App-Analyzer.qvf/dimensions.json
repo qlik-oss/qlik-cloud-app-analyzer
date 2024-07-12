@@ -1,6 +1,971 @@
 [
   {
     "qInfo": {
+      "qId": "gepLVn",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "SessionStartTimeDate",
+        "SessionStartTimeDateHourFloored",
+        "SessionMinute"
+      ],
+      "qFieldLabels": [
+        "Session Date",
+        "Session Hour",
+        "Session Minute"
+      ],
+      "qAlias": "Session Time Drill",
+      "title": "Session Time Drill",
+      "coloring": {
+        "changeHash": "0.10493989075402443",
+        "hasValueColors": false,
+        "colorMapRef": "gepLVn"
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Time Drill",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "TPDBUmw",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionLink"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Link"
+      ],
+      "qAlias": "Sheet Consumption Link",
+      "title": "Sheet Consumption Link",
+      "coloring": {
+        "changeHash": "0.8931134528115181",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Link",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ERVkNV",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionOrderDuration"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Order Duration"
+      ],
+      "qAlias": "Sheet Consumption Order Duration",
+      "title": "Sheet Consumption Order Duration",
+      "coloring": {
+        "changeHash": "0.5462255832567104",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Order Duration",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "9cb8d426-910e-46d4-b9e3-6d85845561cd",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetNotAccessedInOver90Days"
+      ],
+      "qFieldLabels": [
+        "Sheet Not Accessed In Over 90 Days"
+      ],
+      "qAlias": "Sheet Not Accessed In Over 90 Days",
+      "title": "Sheet Not Accessed In Over 90 Days",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.231717574181175",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Not Accessed In Over 90 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "f1d2f737-0cb4-420a-88e8-5f47a6478af5",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetNotAccessedInOver60Days"
+      ],
+      "qFieldLabels": [
+        "Sheet Not Accessed In Over 60 Days"
+      ],
+      "qAlias": "Sheet Not Accessed In Over 60 Days",
+      "title": "Sheet Not Accessed In Over 60 Days",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.007952464571853612",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Not Accessed In Over 60 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "203f65a2-6298-4ba3-a98c-e1718a067f34",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetNotAccessedInOver30Days"
+      ],
+      "qFieldLabels": [
+        "Sheet Not Accessed In Over 30 Days"
+      ],
+      "qAlias": "Sheet Not Accessed In Over 30 Days",
+      "title": "Sheet Not Accessed In Over 30 Days",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.31643458301914507",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Not Accessed In Over 30 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "dd3e5074-1217-4909-a77f-e4bd364723f0",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionUserSubject"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption User Subject"
+      ],
+      "qAlias": "Sheet Consumption User Subject",
+      "title": "Sheet Consumption User Subject",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.22291888778677826",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption User Subject",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "4dd12f8b-af0e-486b-a5aa-9963fc2c5c21",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionUserName"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption User Name"
+      ],
+      "qAlias": "Sheet Consumption User Name",
+      "title": "Sheet Consumption User Name",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.15432183544332023",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption User Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "0a453c66-ee47-4529-b632-8510e6ece7d3",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionUserID"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption User ID"
+      ],
+      "qAlias": "Sheet Consumption User ID",
+      "title": "Sheet Consumption User ID",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.49435301998072356",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption User ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5fc8ee74-2f14-4f5d-8530-f23201c9a534",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionState"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption State"
+      ],
+      "qAlias": "Sheet Consumption State",
+      "title": "Sheet Consumption State",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.6380771183012812",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption State",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "45ed1475-47f8-4959-977c-2eaafa435ea0",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionSheetID"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Sheet ID"
+      ],
+      "qAlias": "Sheet Consumption Sheet ID",
+      "title": "Sheet Consumption Sheet ID",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.20815020082156388",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Sheet ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "bbb57477-2c74-4bc3-830c-b27b3f7855e4",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionOrder"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Order"
+      ],
+      "qAlias": "Sheet Consumption Order",
+      "title": "Sheet Consumption Order",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.5018607768820647",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Order",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "vuys",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionEventTime"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Event Time"
+      ],
+      "qAlias": "Sheet Consumption Event Time",
+      "title": "Sheet Consumption Event Time",
+      "coloring": {
+        "changeHash": "0.6631569806797164",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Event Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "NpjPU",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "=SessionDurationInterval"
+      ],
+      "qFieldLabels": [
+        "Session Duration"
+      ],
+      "qAlias": "Session Duration",
+      "title": "Session Duration",
+      "coloring": {
+        "changeHash": "0.08403642768928687",
+        "hasValueColors": false,
+        "colorMapRef": "NpjPU"
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Duration",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "pfPzY",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionUserIsOAuthClient"
+      ],
+      "qFieldLabels": [
+        "Session User Is OAuth Client"
+      ],
+      "qAlias": "Session User Is OAuth Client",
+      "title": "Session User Is OAuth Client",
+      "coloring": {
+        "changeHash": "0.9194262235131749",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session User Is OAuth Client",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "f7de35bb-4c6f-4c9c-8e75-80720646c4f8",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNotAccessedInOver90Days"
+      ],
+      "qFieldLabels": [
+        "App Not Accessed In Over 90 Days"
+      ],
+      "qAlias": "App Not Accessed In Over 90 Days",
+      "title": "App Not Accessed In Over 90 Days",
+      "coloring": {
+        "colorMapRef": "zppEW",
+        "changeHash": "0.33554390682967195",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Not Accessed In Over 90 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "458248be-2be2-46ae-83dd-1114997a1c4c",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNotAccessedInOver60Days"
+      ],
+      "qFieldLabels": [
+        "App Not Accessed In Over 60 Days"
+      ],
+      "qAlias": "App Not Accessed In Over 60 Days",
+      "title": "App Not Accessed In Over 60 Days",
+      "coloring": {
+        "colorMapRef": "zppEW",
+        "changeHash": "0.4979327187347673",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Not Accessed In Over 60 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "zppEW",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNotAccessedInOver30Days"
+      ],
+      "qFieldLabels": [
+        "App Not Accessed In Over 30 Days"
+      ],
+      "qAlias": "App Not Accessed In Over 30 Days",
+      "title": "App Not Accessed In Over 30 Days",
+      "coloring": {
+        "changeHash": "0.050399330459625524",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Not Accessed In Over 30 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "fDmJdG",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionMonthYear"
+      ],
+      "qFieldLabels": [
+        "Session Month/Year"
+      ],
+      "qAlias": "Session Month/Year",
+      "title": "Session Month/Year",
+      "coloring": {
+        "changeHash": "0.7595221363510813",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Month/Year",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mPXPk",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionHourAMPM"
+      ],
+      "qFieldLabels": [
+        "Session Hour AM/PM"
+      ],
+      "qAlias": "Session Hour AM/PM",
+      "title": "Session Hour AM/PM",
+      "coloring": {
+        "changeHash": "0.18353119612891078",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Hour AM/PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mNDra",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionYear"
+      ],
+      "qFieldLabels": [
+        "Session Year"
+      ],
+      "qAlias": "Session Year",
+      "title": "Session Year",
+      "coloring": {
+        "changeHash": "0.09218944886025571",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Year",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "94a77138-5887-41ce-8774-69abed2dfb88",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionStartTimeDate"
+      ],
+      "qFieldLabels": [
+        "Session Date"
+      ],
+      "qAlias": "Session Date",
+      "title": "Session Date",
+      "coloring": {
+        "colorMapRef": "94a77138-5887-41ce-8774-69abed2dfb88",
+        "changeHash": "0.905275286070182",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Date",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "pJfpVD",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ConsumptionConcurrencyMinute"
+      ],
+      "qFieldLabels": [
+        "Session Concurrency Minute"
+      ],
+      "qAlias": "Session Concurrency Minute",
+      "title": "Session Concurrency Minute",
+      "coloring": {
+        "changeHash": "0.9909567913386697",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Concurrency Minute",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "KWDTPy",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionDay"
+      ],
+      "qFieldLabels": [
+        "Session Day"
+      ],
+      "qAlias": "Session Day",
+      "title": "Session Day",
+      "coloring": {
+        "changeHash": "0.942572528591781",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Day",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5875f585-b248-4a2b-8ac7-056a5dfcd168",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionWeekBeginning"
+      ],
+      "qFieldLabels": [
+        "Session Week Beginning"
+      ],
+      "qAlias": "Session Week Beginning",
+      "title": "Session Week Beginning",
+      "coloring": {
+        "colorMapRef": "fKStPS",
+        "changeHash": "0.14425428486365477",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Week Beginning",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "9423292c-8c7d-47ac-a409-1105c71d3e01",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionTimeframe"
+      ],
+      "qFieldLabels": [
+        "Session Timeframe"
+      ],
+      "qAlias": "Session Timeframe",
+      "title": "Session Timeframe",
+      "coloring": {
+        "colorMapRef": "fKStPS",
+        "changeHash": "0.2836369849815592",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Timeframe",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "fKStPS",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionMonth"
+      ],
+      "qFieldLabels": [
+        "Session Month"
+      ],
+      "qAlias": "Session Month",
+      "title": "Session Month",
+      "coloring": {
+        "changeHash": "0.7748731024214093",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Month",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "0d423085-715e-4e84-9b5e-66effe13c4b8",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionUserSubject"
+      ],
+      "qFieldLabels": [
+        "Session User Subject"
+      ],
+      "qAlias": "Session User Subject",
+      "title": "Session User Subject",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.46612050214926404",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session User Subject",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "79f9610e-9ecf-4f4f-b580-6150e085d209",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionUserName"
+      ],
+      "qFieldLabels": [
+        "Session User Name"
+      ],
+      "qAlias": "Session User Name",
+      "title": "Session User Name",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.6655798243262854",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session User Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "a144c88f-45e4-439e-877b-e39a7c1d5ad5",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionUserID"
+      ],
+      "qFieldLabels": [
+        "Session User ID"
+      ],
+      "qAlias": "Session User ID",
+      "title": "Session User ID",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.9439838395226499",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session User ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "0e845749-dc32-44ca-9c62-706dec49f170",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionStartTime"
+      ],
+      "qFieldLabels": [
+        "Session Start Time"
+      ],
+      "qAlias": "Session Start Time",
+      "title": "Session Start Time",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.693758285375994",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Start Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "837a5f12-b656-4a39-a373-4475b9cf431d",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionID"
+      ],
+      "qFieldLabels": [
+        "Session ID"
+      ],
+      "qAlias": "Session ID",
+      "title": "Session ID",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.19448843713619568",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ffbe4b07-02ca-4d56-919e-c7ca22990015",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionEndTimeDate"
+      ],
+      "qFieldLabels": [
+        "Session End Time Date"
+      ],
+      "qAlias": "Session End Time Date",
+      "title": "Session End Time Date",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.7239143401338564",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session End Time Date",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "19d828e6-802a-4677-b57e-153cd5a92b98",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionEndTime"
+      ],
+      "qFieldLabels": [
+        "Session End Time"
+      ],
+      "qAlias": "Session End Time",
+      "title": "Session End Time",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.5587518217765461",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session End Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "40154fd0-94c3-4bc6-bb49-0d40b83a0a81",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionDurationMinutes"
+      ],
+      "qFieldLabels": [
+        "Session Duration Minutes"
+      ],
+      "qAlias": "Session Duration Minutes",
+      "title": "Session Duration Minutes",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.11864647267690209",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Duration Minutes",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "b1bda33e-3b45-43ac-b887-228fba76c313",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionDurationInterval"
+      ],
+      "qFieldLabels": [
+        "Session Duration Interval"
+      ],
+      "qAlias": "Session Duration Interval",
+      "title": "Session Duration Interval",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.0015795553735220569",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Duration Interval",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "naSQwe",
       "qType": "dimension"
     },

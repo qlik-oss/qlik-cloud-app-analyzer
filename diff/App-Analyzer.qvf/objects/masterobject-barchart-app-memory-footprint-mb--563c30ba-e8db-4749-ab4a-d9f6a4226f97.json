@@ -304,5 +304,6 @@
     "spacing": 3
   },
   "components": [],
-  "masterVersion": 0.96
+  "masterVersion": 0.96,
+  "disableNavMenu": true
 }
