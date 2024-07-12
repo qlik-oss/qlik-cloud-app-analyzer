@@ -1,0 +1,256 @@
+{
+  "qInfo": {
+    "qId": "cc45614d-8fdf-4fe4-ac76-4995cefcf498",
+    "qType": "masterobject"
+  },
+  "qMetaDef": {
+    "title": "Spaces Quota",
+    "description": "",
+    "tags": []
+  },
+  "qHyperCubeDef": {
+    "qDimensions": [],
+    "qMeasures": [
+      {
+        "qLibraryId": "RApX",
+        "qDef": {
+          "qTags": [],
+          "qGrouping": "N",
+          "qNumFormat": {
+            "qType": "U",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qDec": ".",
+            "qThou": ","
+          },
+          "qAccumulate": 0,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "='Quota: Shared Spaces'",
+          "autoSort": true,
+          "cId": "EFrDUU",
+          "numFormatFromTemplate": true,
+          "measureAxis": {
+            "min": 2.5,
+            "max": 7.5
+          },
+          "conditionalColoring": {
+            "useConditionalColoring": true,
+            "singleColor": 3,
+            "paletteSingleColor": {
+              "index": 12
+            },
+            "segments": {
+              "limits": [],
+              "paletteColors": [
+                {
+                  "index": -1,
+                  "color": "#26a0a7"
+                }
+              ]
+            },
+            "useBaseColors": true
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByNumeric": -1,
+          "qSortByLoadOrder": 1,
+          "qExpression": {}
+        },
+        "qAttributeExpressions": [],
+        "qAttributeDimensions": [],
+        "qCalcCond": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qTrendLines": [],
+        "qMiniChartDef": {
+          "qSortBy": {
+            "qExpression": {}
+          },
+          "qOtherTotalSpec": {
+            "qOtherMode": "OTHER_OFF",
+            "qOtherCounted": {},
+            "qOtherLimit": {},
+            "qOtherLimitMode": "OTHER_GT_LIMIT",
+            "qForceBadValueKeeping": true,
+            "qApplyEvenWhenPossiblyWrongResult": true,
+            "qOtherSortMode": "OTHER_SORT_DESCENDING",
+            "qTotalMode": "TOTAL_OFF",
+            "qReferencedExpression": {}
+          },
+          "qMaxNumberPoints": -1,
+          "qAttributeExpressions": []
+        }
+      },
+      {
+        "qLibraryId": "a15861ed-0207-4629-b1b4-4cf892a0ac26",
+        "qDef": {
+          "qTags": [],
+          "qGrouping": "N",
+          "qNumFormat": {
+            "qType": "F",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "0%",
+            "qDec": ".",
+            "qThou": ","
+          },
+          "qAccumulate": 0,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "autoSort": true,
+          "cId": "TPtYsQd",
+          "numFormatFromTemplate": true,
+          "measureAxis": {
+            "min": 0.5,
+            "max": 1.1
+          },
+          "conditionalColoring": {
+            "useConditionalColoring": true,
+            "singleColor": 3,
+            "paletteSingleColor": {
+              "index": 12
+            },
+            "segments": {
+              "limits": [
+                {
+                  "value": 0.6,
+                  "gradient": false
+                },
+                {
+                  "value": 0.8,
+                  "gradient": false
+                }
+              ],
+              "paletteColors": [
+                {
+                  "color": "#b0afae",
+                  "icon": "m",
+                  "index": 1
+                },
+                {
+                  "color": "#ddcc77",
+                  "icon": "è",
+                  "index": -1
+                },
+                {
+                  "color": "#9b3a3b",
+                  "icon": "¢",
+                  "index": -1
+                }
+              ]
+            },
+            "useBaseColors": false
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByNumeric": -1,
+          "qSortByLoadOrder": 1,
+          "qExpression": {}
+        },
+        "qAttributeExpressions": [],
+        "qAttributeDimensions": [],
+        "qCalcCond": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qTrendLines": [],
+        "qMiniChartDef": {
+          "qSortBy": {
+            "qExpression": {}
+          },
+          "qOtherTotalSpec": {
+            "qOtherMode": "OTHER_OFF",
+            "qOtherCounted": {},
+            "qOtherLimit": {},
+            "qOtherLimitMode": "OTHER_GT_LIMIT",
+            "qForceBadValueKeeping": true,
+            "qApplyEvenWhenPossiblyWrongResult": true,
+            "qOtherSortMode": "OTHER_SORT_DESCENDING",
+            "qTotalMode": "TOTAL_OFF",
+            "qReferencedExpression": {}
+          },
+          "qMaxNumberPoints": -1,
+          "qAttributeExpressions": []
+        }
+      }
+    ],
+    "qInterColumnSortOrder": [
+      0,
+      1
+    ],
+    "qSuppressMissing": true,
+    "qInitialDataFetch": [
+      {
+        "qLeft": 0,
+        "qTop": 0,
+        "qWidth": 500,
+        "qHeight": 10
+      }
+    ],
+    "qReductionMode": "N",
+    "qMode": "S",
+    "qPseudoDimPos": -1,
+    "qNoOfLeftDims": -1,
+    "qMaxStackedCells": 5000,
+    "qCalcCond": {
+      "qv": "'$(vAppRAMSizeQuota)'\u003c\u003e'Unlimited'"
+    },
+    "qTitle": {},
+    "qCalcCondition": {
+      "qCond": {
+        "qv": "'$(vAppRAMSizeQuota)'\u003c\u003e'Unlimited'"
+      },
+      "qMsg": {
+        "qv": "Shared Spaces quota is set to Unlimited"
+      }
+    },
+    "qColumnOrder": [],
+    "qExpansionState": [],
+    "qDynamicScript": [],
+    "qLayoutExclude": {
+      "qHyperCubeDef": {
+        "qDimensions": [],
+        "qMeasures": [],
+        "qInterColumnSortOrder": [],
+        "qInitialDataFetch": [],
+        "qReductionMode": "N",
+        "qMode": "S",
+        "qPseudoDimPos": -1,
+        "qNoOfLeftDims": -1,
+        "qMaxStackedCells": 5000,
+        "qCalcCond": {},
+        "qTitle": {},
+        "qCalcCondition": {
+          "qCond": {},
+          "qMsg": {}
+        },
+        "qColumnOrder": [],
+        "qExpansionState": [],
+        "qDynamicScript": []
+      }
+    },
+    "customErrorMessage": {
+      "calcCond": "Shared Spaces quota is set to Unlimited"
+    }
+  },
+  "showTitles": false,
+  "title": "",
+  "subtitle": "",
+  "footnote": "",
+  "showDetails": false,
+  "showMeasureTitle": true,
+  "textAlign": "center",
+  "layoutBehavior": "responsive",
+  "fontSize": "M",
+  "useLink": false,
+  "sheetLink": "",
+  "openUrlInNewTab": true,
+  "visualization": "kpi",
+  "masterVersion": 0.96
+}

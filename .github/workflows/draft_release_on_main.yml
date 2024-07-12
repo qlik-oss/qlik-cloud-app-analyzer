@@ -11,54 +11,49 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      
+    if: ${{ github.actor != 'dependabot[bot]' }} && ${{ github.actor != 'renovate[bot]' }}  
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
-      - name: Retrieve version from VERSION
-        run: |
-          RELVER=$(cat VERSION | tr -d '[:space:]')
-          echo "RELVER=$RELVER" >> $GITHUB_ENV
 
-      - name: Retrieve app name from APPNAME
+      - name: Retrieve app name & assets from config
         run: |
-          APPNAME=$(cat APPNAME)
+          APPNAME=$(jq -r '.name' "release.json")
           echo "APPNAME=$APPNAME" >> $GITHUB_ENV
-      
-      - name: Retrieve latest installer PDF from qlik-cloud-monitoring-apps repo
-        uses: robinraju/release-downloader@v1.8
-        with:
-          repository: "qlik-oss/qlik-cloud-monitoring-apps"
-          latest: true
-          fileName: "Qlik-Cloud-Monitoring-Applications-Installation-Guide.pdf"
+          URLS=$(jq -r '.externalAssets[].url' "release.json")
+
+          for URL in $URLS; do
+              FILENAME=$(basename "$URL")
+              # Perform desired operations with the URL
+              # Example: Download the file
+              curl -L -o "./assets/$FILENAME" "$URL"
+          done
         
       - name: Draft a release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: ${{ env.RELVER }}
           body: |
             **!Important - review then remove this top section**
 
-            - [ ] Verify the .pdf and .qvf are correct
-            - [ ] Align the tag to the release version
-            - [ ] Verify release name matches tag (e.g. v1.2.1)
-            - [ ] Add any comments on breaking changes/ amends to the auto generated release notes
+            - [ ] Verify the resources from /assets are attached correctly to this release
+            - [ ] Set the tag to a semver matching the release (e.g. `v1.9.3`)
+            - [ ] Add any comments on breaking changes/ amends to the auto generated release notes below
             - [ ] Delete this section
 
-            We are pleased to release version ${{ env.RELVER }} of the ${{ env.APPNAME }}.
+            We are pleased to release ${{ env.APPNAME }}. Assets are attached to this release for your convenience.
 
-            Find attached the app (${{ env.APPNAME }}.qvf) and install guide (Qlik-Cloud-Monitoring-Applications-Installation-Guide.pdf).
-
-            The following changes have been made for this release:
-            - Change 1
-            - Change 2
+            ## What's Changed
             
+            The following changes have been made for this release:
+            
+            - Change 1.
+            - Change 2.
+            - Change 3.
+
           draft: true
-          tag_name: ${{ env.RELVER }}
           generate_release_notes: true
           fail_on_unmatched_files: true
           files: |
-            ./app/${{ env.APPNAME }}.qvf
-            ./Qlik-Cloud-Monitoring-Applications-Installation-Guide.pdf
+            ./assets/*
             

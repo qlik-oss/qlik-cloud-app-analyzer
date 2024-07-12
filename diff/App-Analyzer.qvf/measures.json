@@ -1,0 +1,1262 @@
+[
+  {
+    "qInfo": {
+      "qId": "KmPemCj",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Apps Over CPU Reload Time Threshold",
+      "qDef": "Num(Count({\u003cAppReloadCPUTimeOverThreshold={1}\u003e}DISTINCT AppID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#138185",
+          "index": 13
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Count of apps which exceeded the specified CPU reload time threshold of ' \u0026 If(GetPossibleCount(ReloadCPUTimeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(ReloadCPUTimeThreshold,'#,##0')) \u0026 ' milliseconds.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Apps Over CPU Reload Time Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "HgLjeK",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Reload CPU Time Exceeded",
+      "qDef": "Count({\u003cAppReloadCPUTimeOverThreshold={'Reload CPU Time Exceeded'}\u003e} DISTINCT AppID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If an application has a cpu reload time of greater than ' \u0026 If(GetPossibleCount(ReloadCPUTimeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(ReloadCPUTimeThreshold,'#,##0')) \u0026 ' ms.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Reload CPU Time Exceeded",
+      "description": "",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "njDZZd",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Field Count Exceeded",
+      "qDef": "Count({\u003cAppNumberOfDistinctFieldsOverThreshold={'Field Count Exceeded'}\u003e} DISTINCT AppID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If the number of distinct fields within an application is over a thresholds, currently set at ' \u0026 If(GetPossibleCount(NoOfFields)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',NoOfFields) \u0026 ' fields.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Field Count Exceeded",
+      "description": "",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mKKNj",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Field Cardinality Exceeded",
+      "qDef": "Count({\u003cFieldCardinalityOverThreshold={'Field Cardinality Exceeded'}\u003e} DISTINCT FieldID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If the field cardinality of a field is over the set threshold, currently set at ' \u0026 If(GetPossibleCount(FieldCardinalityThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(FieldCardinalityThreshold,'#,##0')) \u0026 '.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Field Cardinality Exceeded",
+      "description": "",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "QhHwRqJ",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Fields Over Record Threshold",
+      "qDef": "Num(Count({\u003cFieldValueCountOverThreshold={1}\u003e}DISTINCT FieldID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Indicates if the number of values within a given field (in a given table within an app) exceeds the currently set threshold of ' \u0026 If(GetPossibleCount(FieldValueCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(FieldValueCountThreshold,'#,##0'))"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Fields Over Record Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mVxdT",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Tables Over Record Threshold",
+      "qDef": "Count({\u003cTableNoOfRowsOverThreshold={1}\u003e}DISTINCT TableID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If a table exceeds the threshold for number of records in a table, currently set to ' \u0026 If(GetPossibleCount(TableRecordCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(TableRecordCountThreshold,'#,##0')) \u0026 '.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Tables Over Record Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "SBUCJ",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Table Rows Exceeded",
+      "qDef": "Count({\u003cTableNoOfRowsOverThreshold={'Table Rows Exceeded'}\u003e} DISTINCT TableID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If a table exceeds the threshold for number of records in a table, currently set to ' \u0026 If(GetPossibleCount(TableRecordCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(TableRecordCountThreshold,'#,##0')) \u0026 '.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Table Rows Exceeded",
+      "description": "",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "HpKJSS",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Record Count Exceeded",
+      "qDef": "Count({\u003cAppTableNoOfRowsOverThreshold={'App Record Count Exceeded'}\u003e} DISTINCT AppID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If a table has greater than ' \u0026 If(GetPossibleCount(TableRecordCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(TableRecordCountThreshold,'#,##0')) \u0026 ' records, the current set threshold.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Record Count Exceeded",
+      "description": "",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "MkmsBv",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App RAM Size % Against Quota",
+      "qDef": "If(AppRAMSizeQuota\u003c\u003e'Unlimited',Num(Round(Avg(AppRAMPercentToQuota),.01),'##0%'),'Unlimited')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'The percentage of the base RAM footprint per-app against the tenant quota, which is ' \u0026 If(GetPossibleCount(AppRAMSizeQuota)=1,If(IsNum(AppRAMSizeQuota),AppRAMSizeQuota/1024/1024 \u0026 ' MB.',AppRAMSizeQuota),'\u003cVaries Across Tenants\u003e')"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM Size % Against Quota",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "28fd9f54-9e0c-4983-a0a5-fbd982e4b744",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg App RAM Footprint (GB)",
+      "qDef": "Num(Avg(AppRAM_GB),'#,##0.0#')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg App RAM Footprint (GB)",
+      "description": "(Average) The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "8cadd565-4493-4214-9718-90148b3f4dbc",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Table # of Fields",
+      "qDef": "Num(Sum([Table Total # of Fields]),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Table # of Fields",
+      "description": "Count of fields per table.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "APQFj",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Reload Peak RAM Against Quota",
+      "qDef": "Num(Sum(AppRAMPeakReload_Byte)/$(vAppRAMPeakReloadSizeQuota),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "App Reload Peak RAM Against Quota",
+      "description": "The peak RAM used in an application's reload against the set quota, which is 5 GB.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "DFeXkd",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "# Tables",
+      "qDef": "Num(Count(DISTINCT TableID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#138185",
+          "index": 13
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "# Tables",
+      "description": "Count of unique tables within apps.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "DeGbpNA",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "# Fields",
+      "qDef": "Num(Count(DISTINCT FieldID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#138185",
+          "index": 13
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "# Fields",
+      "description": "Count of unique fields within apps.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "EfsEUJ",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Managed Spaces",
+      "qDef": "Count({\u003cSpaceType={'Managed'}\u003e}DISTINCT SpaceID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'The count of managed spaces within a tenant'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Managed Spaces",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "FZZykp",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App RAM GB (Rolling)",
+      "qDef": "Avg([AppRAM_GB - Rolling])",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'(Average) The average rolling base RAM footprint. The current rolling window is set to ' \u0026 $(vu_track_app_meta_retention) \u0026 ' days.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM GB (Rolling)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "KBxY",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App RAM Exceeded",
+      "qDef": "Count({\u003cAppRAMOverThreshold={'App RAM Exceeded'}\u003e} DISTINCT AppID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If the app has a base RAM footprint is over ' \u0026 ($(vAppRAMToQuotaPercentThreshold)*100) \u0026 '% of the tenant per-app RAM quota, where the quota is ' \r\n\u0026 If(Only({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB) \u003c\u003e 'Unlimited',Num(Avg({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB),'#,##0'), Num(Only(Quota_MB),'#,##0')) \u0026 ' MB.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM Exceeded",
+      "description": "",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "LyyD",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Synthetic Fields",
+      "qDef": "Num(Count({\u003cFieldIsSynthetic={\"\u003e0\"}\u003e}DISTINCT FieldID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Synthetic Fields",
+      "description": "Fields which are common across more than one table, thus creating a synthetic key.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "MHfcB",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Reload Peak RAM (MB)",
+      "qDef": "Num(Sum(AppRAMPeakReload_MB),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "App Reload Peak RAM (MB)",
+      "description": "The peak memory that an application consumes on reload, which can be significantly higher than the base RAM footprint due to temp RAM utilized for additional calculations, aggregations, memory intensive functions (think rand()), etc.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "MNXqwq",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "# Field Records",
+      "qDef": "Num(Sum(FieldTotalCount),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#65d3da",
+          "index": 14
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Count of records within a field in a table in an app. Note that synthetic key fields will report # Field Records = 0. Please use Field Cardinality for these fields.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "# Field Records",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "MmPwnGq",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Days Since Last Reload",
+      "qDef": "Num(Today(1)-Date,'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "gradient": {
+          "colors": [
+            {
+              "color": "#b0afae",
+              "index": 1
+            },
+            {
+              "color": "#138185",
+              "index": 13
+            }
+          ],
+          "breakTypes": [
+            true
+          ],
+          "limits": [
+            90
+          ],
+          "limitType": "absolute"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Days Since Last Reload",
+      "description": "How many days since the last reload of this app?",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "QKkunQj",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Field RAM Footprint (MB)",
+      "qDef": "Num(Sum(FieldSize_MB),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#26a0a7",
+          "index": 12
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Field RAM Footprint (MB)",
+      "description": "Initial memory consumed by a field within an during reload.\nIn aggregate, this total Field RAM footprint might be larger than the total App RAM footprint due to fields existing on more than one table.\n(Measure shading / coloring relative to the max value found for this measure in your current selections.)",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "RApX",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Quota: Shared Spaces",
+      "qDef": "If(Only({\u003cQuotaResource={'shared_spaces'}\u003e}QuotaSpace)\u003c\u003e'Unlimited',Avg({\u003cQuotaResource={'shared_spaces'}\u003e}QuotaSpace),Only(QuotaSpace))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If using Qlik Sense Business, there is a quota on the number of shared spaces, which is ' \r\n\u0026 If(Only({\u003cQuotaResource={'shared_spaces'}\u003e}QuotaSpace)\u003c\u003e'Unlimited',Avg({\u003cQuotaResource={'shared_spaces'}\u003e}QuotaSpace),Only(QuotaSpace)) \u0026 '.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Quota: Shared Spaces",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "TMkjfM",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Apps Contain Data Island(s)",
+      "qDef": "Count({\u003c[AppContainsDataIsland(s)]={1}\u003e}DISTINCT AppID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Apps Contain Data Island(s)",
+      "description": "Count of apps which contain one or more island tables in the data model.\nAn island table is one which does not share any common field with another table and, therefore, is not associated with other data tables.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "UapeyK",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Quota: App In-Memory Size (MB)",
+      "qDef": "If(Only({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB) \u003c\u003e 'Unlimited',Avg({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB), Only(Quota_MB))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'The tenant quota for the base RAM footprint of an application, which is ' \r\n\u0026 If(Only({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB) \u003c\u003e 'Unlimited',Num(Avg({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB),'#,##0'), Num(Only(Quota_MB),'#,##0')) \u0026 ' MB.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Quota: App In-Memory Size (MB)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "XLGbrd",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Total Table RAM Footprint (MB)",
+      "qDef": "Num(Sum(TableSize_MB),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Total Table RAM Footprint (MB)",
+      "description": "Net impact to RAM for a table in an app.\n(Measure shading / coloring relative to the max value found for this measure in your current selections.)",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "a15861ed-0207-4629-b1b4-4cf892a0ac26",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "% to Quota Shared Spaces",
+      "qDef": "Only({\u003cQuotaResource={'shared_spaces'}\u003e} QuotaUsage)/Only({\u003cQuotaResource={'shared_spaces'}\u003e} QuotaSpace)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'If using Qlik Sense Business, there is a quota on the number of shared spaces within a tenant. This measure reports the percentage of that quota.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "% to Quota Shared Spaces",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "a2d994eb-b418-457f-826e-1512bb4caba0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App RAM Footprint (MB)",
+      "qDef": "Num(Sum(AppRAM_MB),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#26a0a7",
+          "index": 12
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM Footprint (MB)",
+      "description": "The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "cKhw",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Table RAM Footprint (MB)",
+      "qDef": "Num(Sum(TableSize_MB),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Table RAM Footprint (MB)",
+      "description": "The memory footprint of a data table within an app when reloaded.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "d52bdf9d-8a74-4784-9e03-229fc4bcd81a",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg App RAM Footprint (MB)",
+      "qDef": "Num(Avg(AppRAM_MB),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg App RAM Footprint (MB)",
+      "description": "(Average) The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "dqaJTc",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Shared Spaces",
+      "qDef": "Count({\u003cSpaceType={'Shared'}\u003e}DISTINCT SpaceID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'The count of shared spaces.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Shared Spaces",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "e2423d6a-1e60-433a-8752-40a933f47d10",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App RAM Footprint (GB)",
+      "qDef": "Num(Sum(AppRAM_GB),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#578b60",
+          "index": 10
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM Footprint (GB)",
+      "description": "The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "eZJJSjQ",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Contains Synthetic Keys",
+      "qDef": "Num(Count({\u003c[AppContainsSyntheticKeys]={1}\u003e}DISTINCT AppID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Contains Synthetic Keys",
+      "description": "Indicates if an app's data model contains one or more synthetic keys.\nA synthetic key is created when two or more fields are found in two or more tables within an app data model.",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "gjpZqpd",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Field Cardinality",
+      "qDef": "Num(Sum(FieldCardinality),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Field Cardinality",
+      "description": "Cardinality is a measure of uniqueness of field values. Higher cardinality means more unique field values, which generally results in higher memory utilization.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "hfuzD",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Quota: App Upload Disk Size (MB)",
+      "qDef": "If(Only({\u003cQuotaResource={'app_upload_disk_size'}\u003e} Quota_MB) \u003c\u003e 'Unlimited',Avg({\u003cQuotaResource={'app_upload_disk_size'}\u003e} Quota_MB), Only(Quota_MB))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'The quota for the maximum app upload size, which is ' \u0026 If(Only({\u003cQuotaResource={'app_upload_disk_size'}\u003e} Quota_MB) \u003c\u003e 'Unlimited',Avg({\u003cQuotaResource={'app_upload_disk_size'}\u003e} Quota_MB), Only(Quota_MB)) \u0026 ' MB.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Quota: App Upload Disk Size (MB)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "jwdTSzy",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Table # Records",
+      "qDef": "Num(Sum(TableNoOfRows),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#65d3da",
+          "index": 14
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Table # Records",
+      "description": "Count of records within a given table in an app data model.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mJjqmb",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Apps",
+      "qDef": "Num(Count(DISTINCT AppID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#26a0a7",
+          "index": 12
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'The count of distinct applications.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Apps",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mjCu",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Contains Circular Reference(s)",
+      "qDef": "Count({\u003c[AppContainsCircularReference(s)]={'Has Circular Reference(s)'}\u003e} DISTINCT AppID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Contains Circular Reference(s)",
+      "description": "The number of apps that contain circular references (loops) in their data models.",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "pYMtfp",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Last Reload Time",
+      "qDef": "Time(AppLastReloadTime,'h:mm:ss')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Last Reload Time",
+      "description": "The latest timestamp when an app was reloaded in Sense.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "pjfXy",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App RAM MB (Rolling)",
+      "qDef": "Avg([AppRAM_MB - Rolling])",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {},
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "''(Average) The average rolling base RAM footprint. The current rolling window is set to ' \u0026 $(vu_track_app_meta_retention) \u0026 ' days.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM MB (Rolling)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "tmjp",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "App Contains Data Island(s)",
+      "qDef": "Count({\u003c[AppContainsDataIsland(s)]={'Has Island Table'}\u003e} DISTINCT AppID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Contains Data Island(s)",
+      "description": "The number of apps that contain data islands (tables that are not associated to any other tables within the data model).",
+      "tags": [
+        "alert"
+      ]
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "uGWVjpe",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Island Tables",
+      "qDef": "Num(Sum(TableIsIsland),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Island Tables",
+      "description": "Count of tables within an app which are \"islands\", meaning that they are not associated with any other table in the data model.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "vvuJJXF",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Reload CPU Time",
+      "qDef": "Time([App Reload CPU Time (ms)]/86400000,'hh:mm:ss')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Reload CPU Time",
+      "description": "Engine CPU time spent during last app reload, given in milliseconds (ms). Note: this is not the same as Reload Duration reported in other Monitor Apps, but is specific to the time that the engine spent to reload the app.",
+      "tags": []
+    }
+  }
+]

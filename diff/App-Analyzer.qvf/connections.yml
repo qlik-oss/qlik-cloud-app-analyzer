@@ -1,0 +1,16 @@
+connections:
+  MyDataFiles:
+    type: qix-datafiles.exe
+    connectionstring: CUSTOM CONNECT TO "provider=qix-datafiles.exe;path=mydatafiles;"
+    username: 
+    password: 
+  DataFiles:
+    type: qix-datafiles.exe
+    connectionstring: CUSTOM CONNECT TO "provider=qix-datafiles.exe;path=datafiles;"
+    username: 
+    password: 
+  DataPrepAppCache:
+    type: qix-datafiles.exe
+    connectionstring: CUSTOM CONNECT TO "provider=qix-datafiles.exe;path=dataprepappcache;"
+    username: 
+    password: 

@@ -1,6 +1,6 @@
-> **Warning**
-> This application is _community supported_. This means that you should not contact
-> Qlik Support for help with this app. See below for additional information
+> [!IMPORTANT]
+> This project is _community supported_. This means that you should not contact
+> Qlik Support for help with these apps. See below for additional information
 > on how to raise issues on this repository to ask for help.
 
 # Qlik Cloud App Analyzer

@@ -1,0 +1,27 @@
+{
+  "qInfo": {
+    "qId": "ColorMapModel_KWRXFA",
+    "qType": "ColorMap"
+  },
+  "qMetaDef": {},
+  "colorMap": {
+    "colors": [
+      {
+        "value": "App Record Count Exceeded",
+        "baseColor": {
+          "color": "#a54343",
+          "index": 3
+        }
+      }
+    ],
+    "nul": null,
+    "oth": null,
+    "pal": null,
+    "single": {
+      "color": "none",
+      "index": 0
+    },
+    "usePal": null,
+    "autoFill": true
+  }
+}
