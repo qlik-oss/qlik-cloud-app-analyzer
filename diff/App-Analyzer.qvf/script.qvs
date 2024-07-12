@@ -9,7 +9,7 @@
            /_/     /_/                                     /____/                      
         
     
-    Copyright 2023 QlikTech International
+    Copyright 2024 QlikTech International
     Created by Daniel Pilla, Master Principal Analytics Platform Architect, Qlik
 
 	About the "App Analyzer" app:
@@ -74,9 +74,51 @@ Set vu_qvd_storage_connection = 'lib://:DataFiles';
 
 Set vu_track_app_meta_over_time			= 1;	// Store QVDs of high-level app metadata on every reload to track growth over time.
 Set vu_track_app_meta_retention			= 90;	// Days to retain the rolling app metadata.
-Set vu_months_in_reload_interval 		= 3;	// Width of app last reload date for grouping apps in this app
+Set vu_months_in_reload_interval 		= 3;	// Width of app last reload date for grouping apps in this app.
+Set vu_initial_days_back 				= 90;	// The number of days back to fetch consumption data initially, before incrementally building. Max of 90.
+Set vu_session_rolling_range 			= 365; 	// Maximum days back to store session data in QVDs -- default 365
+Set vu_GMT_offset 						= 0;	// The timezone difference from GMT. Modifies the reload times and session times to the desired GMT offset.
+//	Example 1: -5
+//	Example 2: 5
 
 Set vu_personal_space_user_field = 'Name';		// The user field to best represent the user: 'Id', 'Name', 'Subject', 'Email'
+
+Set vu_sessions_table_preset_filter = 'Totals'; 	// Set the default filter for the Sessions table on the Sessions Overview sheet. Defaults to All.
+// Can be one of: 
+//		All
+//    	Totals
+//    	CMTD
+//    	PMTD
+
+Set vu_sessions_container_1_preset_filter = 'Sessions by App';	// Set the default filter for the first sessions container on the Sessions Overview sheet. Defaults to Sessions by User.
+// Can be one of: 
+//		Sessions by User
+//    	Users by App
+//    	Concurrent Users by App
+//    	Sessions by User
+//		Apps Viewed by User
+
+Set vu_sessions_container_2_preset_filter = 'Sessions Over Time';	// Set the default filter for the second sessions container on the Sessions Overview sheet. Defaults to Sessions Over Time.
+// Can be one of: 
+//		Sessions Over Time
+//    	Users Over Time
+//    	Concurrent Sessions Over Time
+//    	Concurrent Users Over Time
+
+Set vu_sessions_pivot_preset_filter = 'Users'; // Set the default filter for the Sessions by Hour pivot on the Session Time Analysis sheet. Defaults to Sessions.
+// Can be one of: 
+//		Sessions
+//		Sessions CM
+//		Sessions PMTD
+//		Sessions PM
+//		Users
+//		Users CM
+//		Users PMTD
+//		Users PM
+//    	Concurrent Users
+//    	Concurrent Users CM
+//		Concurrent Users PMTD
+//		Concurrent Users PM
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -142,39 +184,110 @@ Sub variables
   Set vCapacityLicenseStandardTierQuota = 10737418240; // 10 GB for the standard tier app base RAM quota under the capacity license
   Set vAppRAMPeakReloadSizeQuota 		= 42949672960; // 40 GB for reload peak RAM  
   Set CreateSearchIndexOnReload			= 1;	       // to assist search results in app
-  Search Exclude '*ID','_*','*Tim*';				   // Exclude these fields from the global search.
+  Search Exclude '*ID','_*','*Time*','*Duration*','*Date*'; // Exclude these fields from the global search.
   Set HidePrefix='_';
   
-  Let vu_tenant_fqdn = GetSysAttr('tenantUrl');
-  
-//// Calendar Variables
-  Let vLast24Hours 		=	Num(TimeStamp(Now(1)-1));
-  Let vLast72Hours 		=	Num(TimeStamp(Now(1)-3));
-  Let vLast7Days 		=	Num(TimeStamp(Now(1)-7));
-  Let vLast30Days	 	=	Num(TimeStamp(Now(1)-30));
-  Let vLast60Days 		=	Num(TimeStamp(Now(1)-60));
-  Let vLast90Days 		=	Num(TimeStamp(Now(1)-90)); 
+  Let vu_tenant_fqdn 	= GetSysAttr('tenantUrl');
+  Let vu_tenant_alias 	= GetSysAttr('tenantUrlAlias');
   
 //// Run-time variables
-  Let vStartTime 			= Now(1);
-  Let LastReloadTime 		= Timestamp(LastSuccessfulReloadStartTime);
-  Let app_qvd_name			= Lower(Replace('$(app_name)',' ','_'));
-  Set output_qvd_name		= '$(vu_qvd_storage_connection)/$(app_qvd_name)_$1_$2.qvd';
-  Set rolling_qvd_name		= '$(vu_qvd_storage_connection)/app_analyzer_rolling.qvd';
-  
-  Set vIncremental 					= 1;  // Incremental load flag -- default = 1 (active). This can be disabled by setting to 0 (why do that?)
-  Set vu_personal_space_user_list  = 'id','name','subject','email';
-  Let app_reload_metadata_qvd 		= '$(output_qvd_name(AppReloadCPUMetadata,$(app_version)))';
-  Let incremental_qvds_available	= If(Len(FileTime('$(app_reload_metadata_qvd)'))>0,1,0);  // Check to see that incremental QVDs are available
-  Let rolling_qvds_available	 	= If(Len(FileTime('$(rolling_qvd_name)'))>0,1,0);  // Check to see that rolling QVD is available
-  Let incremental_message 			= If($(incremental_qvds_available)=1,'Incremental QVDs found','No Incremental QVDs found. Do not panic. I can fix that.');
+  Let vStartTime 					= Now(1);
+  Let vSessionsTableColumnFilter	= '$(vu_sessions_table_preset_filter)';
+  Let vSessionsPivotMeasureModifier	= '$(vu_sessions_pivot_preset_filter)';
+  Let vSessionsContainer1Tab		= '$(vu_sessions_container_1_preset_filter)';
+  Let vSessionsContainer2Tab		= '$(vu_sessions_container_2_preset_filter)';
+  Set vSessionsPivotDimensionsModifier = 'SessionUserName';
+  Set vSessionsPivotMeasureModifier = 'Sessions';
+  Set vSessionsPivotColumnModifier  = 'SessionHourAMPM';
+  Let vAppQVDName					= Lower(Replace('$(app_name)',' ','_'));
+  Set vOutputQVDName				= '$(vu_qvd_storage_connection)/$(vAppQVDName)_$1_$2.qvd';
+  Set vRollingQVDName				= '$(vu_qvd_storage_connection)/app_analyzer_rolling.qvd';
+  Let vMaxSessionAge				= TimeStamp(Date(Today(1)) - $(vu_session_rolling_range));
+  Let vReloadDiffFromGMTString	= If(vu_GMT_offset=0,'GMT-00:00',
+      If(vu_GMT_offset<0,'GMT-' & Right('0' & Replace(vu_GMT_offset,'-',''),2) & ':00',
+      If(vu_GMT_offset>0,'GMT+' & Right('0' & vu_GMT_offset,2) & ':00'))); 
+  Let vReloadTimeDiffFromGMT		= ConvertToLocalTime('$(vStartTime)','$(vReloadDiffFromGMTString)') - GMT();
+  Set vu_personal_space_user_list  	= 'id','name','subject','email';
+  Let v90BackGMT				 	= Date(Today(1) - 90);
+  Let vSheetUsageAddedDate			= MakeDate(2024,6,1);
+  Let vInitialDaysBack			 	= If($(vu_initial_days_back)>0 AND $(vu_initial_days_back)<=90,Date(Today(1) - $(vu_initial_days_back)),$(v90BackGMT));
+  Let vInitialDaysBack				= If(Date('$(vInitialDaysBack)')<=Date('$(vSheetUsageAddedDate)'),Date('$(vSheetUsageAddedDate)'),Date('$(vInitialDaysBack)')); // reset to June 1st 2024 if less than setting to account for when sheet usage data was added
+  Let vConsumptionQVD			 	= '$(vOutputQVDName(Consumption,$(app_version)))';
+  Let vConsumptionMinutes			= 1;
+  Set vSessions						= 1;
+  Set vSheetConsumptionNoNewRecords = 0; // Instantiate as zero
+  Let vAppReloadMetadataQVD 		= '$(vOutputQVDName(AppReloadCPUMetadata,$(app_version)))';
+  Let vIncrementalQVDsAvailable		= If(Len(FileTime('$(vAppReloadMetadataQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
+  Let vRollingQVDsAvailable	 		= If(Len(FileTime('$(vRollingQVDName)'))>0,1,0);  // Check to see that rolling QVD is available
+  Let vIncrementalMessage 			= If($(vIncrementalQVDsAvailable)=1,'Incremental QVDs found','No Incremental QVDs found. Do not panic. I can fix that.');
   If $(vu_is_parent_app) = 0 then
-    Trace $(incremental_message);
+    Trace $(vIncrementalMessage);
   End if
-  Let vLastReloadTime 				= TimeStamp(ReloadTime());
-  Let vReloadTimeDiffFromGMT 		= Now(1) - GMT();
   
+  Let vLastReloadTime 				= TimeStamp(ReloadTime());
+
   Set vRollingLineSelect = 'App RAM (MB)'; // Set default view for the Rolling data visualizations.
+  
+//// Calendar Variables
+
+  Let vLast7Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-7) + $(vReloadTimeDiffFromGMT)));
+  Let vLast30Days	 	=	Num(Floor(TimeStamp('$(vStartTime)'-30) + $(vReloadTimeDiffFromGMT)));
+  Let vLast60Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-60) + $(vReloadTimeDiffFromGMT)));
+  Let vLast90Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-90) + $(vReloadTimeDiffFromGMT)));
+  
+//// Indicators
+  SET i_up_down 		= 'Pick($1+2,'' 📉'','' '' &Repeat('' '',9),'' 📈'')';
+ 
+//// Incremental Date Logic
+  
+  If $(vu_is_parent_app)=0 THEN
+
+      If $(vIncrementalQVDsAvailable)=1 THEN
+      
+          TRACE Looking to load: $(qvd_name).;
+          LET file_size = If(IsNull(FileSize('$(vConsumptionQVD)')),0,FileSize('$(vConsumptionQVD)'));
+
+          IF file_size > 0 then // this handles for when there were zero sessions on the first load, i.e., new tenant with programmatic deployment
+              Trace File size is $(file_size) bytes;
+              Trace Fetching data from: $(qvd_name);
+              Trace $(table);
+      
+              ConsumptionMaxEndTimeTemp:
+              Load
+                  SessionEndTime
+              From '$(vConsumptionQVD)'(qvd)
+              Where Not Exists(SessionEndTime);
+
+              ConsumptionMaxEndTime:
+              Load 
+                  Max(SessionEndTime) AS ConsumptionMaxEndTime
+              Resident ConsumptionMaxEndTimeTemp;
+
+              LET vIncrementalStartTime = Peek('ConsumptionMaxEndTime',0,'ConsumptionMaxEndTime') - (1 / 24 / 60);
+
+              DROP TABLES ConsumptionMaxEndTimeTemp,ConsumptionMaxEndTime;
+
+              LET vIncrementalStartTimeDisplay = TimeStamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss.fff');
+
+              TRACE Incremental will resume from: $(vIncrementalStartTimeDisplay);
+
+              SET vIncrementalStartTimeDisplay =;
+              
+          ELSE
+          
+          	  LET vIncrementalStartTime = '$(vInitialDaysBack)';
+              
+          END IF
+
+      ELSE
+
+          TRACE $(vIncrementalMessage);
+
+          LET vIncrementalStartTime = '$(vInitialDaysBack)';
+
+      END IF
+
+  END IF
 
 
 //// Colors
@@ -189,10 +302,10 @@ Sub variables
   Set c_lightred 			= 'RGB(240,209,214)';
   Set c_lightblue 			= 'RGB(188,181,201)'; 
   //// ARGB colors -- requires input value to set the intensity (alpha) value of the color. Example using field [dual90]:  $(c_red_alpha(dual90)) 
-  Set c_red_alpha			= 'ARGB($1,204,102,119)';
+  Set c_red_alpha			= 'ARGB($1,192,57,43)';
   Set c_orange_alpha		= 'ARGB($1,233,141,54)'; 
   Set c_yellow_alpha		= 'ARGB($1,221,204,119)';
-  Set c_blue_alpha			= 'ARGB($1,68,119,170)';
+  Set c_blue_alpha			= 'ARGB($1,16,101,128)';
   Set c_green_alpha			= 'ARGB($1,17,119,51)';
   Set c_gray_alpha			= 'ARGB($1,150,150,150)';
   Set c_red_breeze_alpha	= 'ARGB($1,155,58,59)';
@@ -202,7 +315,6 @@ Sub variables
   Set c_red_0_green_alpha	= 'IF($1=0,c_red,ARGB($1,101,177,99))';
 
 End Sub
-
 ///$tab Check License
 Sub check_license
 
@@ -431,6 +543,64 @@ Sub get_user_field
     Drop Table Lookup_UserVariable_FieldName;
   
 End Sub
+///$tab OAuth Clients
+Sub get_oauth_clients
+
+  	// subroutine to fetch oauth clients so that they can be easily excluded from analysis as they consume user sessions
+
+    Set vParams = 'limit=100';
+
+    Do
+    
+        LIB Connect To '$(vu_rest_connection)';
+
+        RestConnectorMasterTable:
+        SQL SELECT 
+            "__KEY_root",
+            (SELECT 
+                "clientName"
+            FROM "data" PK "__KEY_data" FK "__FK_data"),
+            (SELECT 
+                (SELECT 
+                    "href",
+                    "__FK_next"
+                FROM "next" FK "__FK_next")
+            FROM "links" PK "__KEY_links" FK "__FK_links")
+        FROM JSON (wrap on) "root" PK "__KEY_root"
+        WITH CONNECTION (  
+          URL "https://$(vu_tenant_fqdn)/api/v1/oauth-clients?$(vParams)"
+        );
+        
+        [OAuthClients]:
+        Load
+            [clientName] as OAuthClientName
+        Resident RestConnectorMasterTable
+        Where Not IsNull([clientName]);
+
+        NextURL:
+        Load	
+            [href] as NextURL
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_next]);
+
+        Drop Table RestConnectorMasterTable;
+
+        Let vParams = SubField(Peek('NextURL',0,'NextURL'),'?',-1);
+        Let vNextURLRows = NoOfRows('NextURL');
+
+        Drop Table NextURL;
+
+    Loop While $(vNextURLRows)>0;
+    
+	Map_OAuthClientName: // No map yet to support OEM Dash
+    Load Distinct
+    	OAuthClientName & '|$(vTenantID)' AS OAuthClientNameKey,
+        1
+    Resident OAuthClients;
+    
+    Drop Table OAuthClients;
+      
+End Sub
 ///$tab Users
 Sub get_users
 
@@ -548,8 +718,8 @@ Sub get_users
       1
   Resident Users;
   
-  Map_UserID_AppOwnerName:
-  Mapping Load Distinct
+  Map_UserID_AppOwnerName: // No map yet to support OEM Dash
+  Load Distinct
   	  AppOwnerID,
       AppOwnerName
   Resident Users;
@@ -560,7 +730,13 @@ Sub get_users
       AppOwnerID
   Resident Users;
   
-  Map_UserID_AppOwnerSubject:
+  Map_UserID_AppOwnerSubject: // No map yet to support OEM Dash
+  Load Distinct
+  	  AppOwnerID,
+      AppOwnerSubject
+  Resident Users;
+  
+  Map_UserID_AppOwnerSubject_OEM: // Need as mapping is done in "Apps" section for OEM field
   Mapping Load Distinct
   	  AppOwnerID,
       AppOwnerSubject
@@ -639,7 +815,7 @@ Sub get_spaces
           // [tenantId],
           [name] as SpaceName,
           [description] as SpaceDescription,
-          TimeStamp([createdAt]) as SpaceCreatedTime,
+          Timestamp(Timestamp([createdAt]) + $(vReloadTimeDiffFromGMT)) AS SpaceCreatedTime,
           [createdBy] as SpaceCreatedBy
           // [updatedAt],
           // [__KEY_data],
@@ -770,10 +946,10 @@ Sub get_apps
           // [resourceUpdatedAt],
           If([resourceType]='app','QS','QV') AS AppType,
           [resourceId] as AppID,
-          TimeStamp([resourceCreatedAt]) as AppCreatedTime,
+          Timestamp(Timestamp([resourceCreatedAt]) + $(vReloadTimeDiffFromGMT)) as AppCreatedTime,
           // [id_u0] as [id_u0],
           // [createdAt],
-          TimeStamp([updatedAt]) as AppUpdatedTime,
+          Timestamp(Timestamp([updatedAt]) + $(vReloadTimeDiffFromGMT)) as AppUpdatedTime,
           [creatorId] as AppCreatorID,
           [updaterId] as AppUpdaterID,
           // [tenantId],
@@ -794,14 +970,14 @@ Sub get_apps
           If(Len([ownerId])>4,[ownerId],'[Unknown]'))) as AppOwnerID,
           [hasSectionAccess] as AppHasSectionAccess,
           [id] as AppID,
-          TimeStamp([lastReloadTime]) as AppLastReloadTime,
-          TimeStamp(TimeStamp([lastReloadTime]) + $(vReloadTimeDiffFromGMT)) as AppLastReloadTimeLocalServerTime,
+          Timestamp(Timestamp([lastReloadTime]) + $(vReloadTimeDiffFromGMT)) as AppLastReloadTime,
+          Timestamp(Timestamp([lastReloadTime]) + $(vReloadTimeDiffFromGMT)) as AppLastReloadTimeLocalServerTime,
           // [modifiedDate],
           // [name],
           [originAppId] as AppOriginalID,
           // [ownerId],
   //         [published] as AppPublished, // Only relevant for apps distributed from QSEoW
-          TimeStamp([publishTime]) as AppPublishedTime,
+  		  Timestamp(Timestamp([publishTime]) + $(vReloadTimeDiffFromGMT)) as AppPublishedTime,
           If(ApplyMap('AllSpacesMap',spaceId)<>1,
               If(Len(ApplyMap('Map_UserID_$(vPersonalUserField)',ownerId))>0,
                   'Personal - ' & ApplyMap('Map_UserID_$(vPersonalUserField)',ownerId),
@@ -811,7 +987,7 @@ Sub get_apps
               ) as SpaceID,
           // [thumbnail],
           [encrypted] as AppEncrypted,
-          [__FK_resourceAttributes] & '|$(vAppLoop)' as [_KeyTags]
+          [__FK_resourceAttributes] & '|$(vAppLoop)|$(vTenantID)' as [_KeyTags]
       Resident RestConnectorMasterTable
       Where Not IsNull([__FK_resourceAttributes]);
 
@@ -819,7 +995,7 @@ Sub get_apps
       Load	
           [id_u1] as [AppTagID],
           [name_u1] as [AppTag],
-          [__FK_tags] & '|$(vAppLoop)' as [_KeyTags]
+          [__FK_tags] & '|$(vAppLoop)|$(vTenantID)' as [_KeyTags]
       Resident RestConnectorMasterTable
       Where Not IsNull([__FK_tags]);
 
@@ -876,21 +1052,298 @@ Sub get_apps
         AppID,
         AppType
     Resident Apps;
+    
+    Map_AppID_TenantID: // No map yet for OEM dashboard
+    Load Distinct
+        AppID,
+        TenantID
+    Resident Apps;
 
     Left Join(Apps)
     Load 
     	*,
-        ApplyMap('Map_UserID_AppOwnerSubject',AppOwnerID) AS _AppOwnerSubjectForOEMDash
+        ApplyMap('Map_UserID_AppOwnerSubject_OEM',AppOwnerID) AS _AppOwnerSubjectForOEMDash
     Resident AppDetails;
 
     Drop Table AppDetails;
 
 End Sub
+///$tab App Consumption
+Sub get_consumption
+
+    If $(vIncrementalQVDsAvailable)=1 And Not IsNull('$(vIncrementalStartTime)') Then
+    	Let vMaxEndTime = Replace(Timestamp('$(vIncrementalStartTime)','YYYY-MM-DD hh:mm:ssZ'),' ','T');
+    Else
+    	Let vMaxEndTime = Replace(Timestamp('$(vInitialDaysBack)','YYYY-MM-DD hh:mm:ssZ'),' ','T');
+    End If
+
+    Set vParams = 'filter=(endTime ge %22$(vMaxEndTime)%22)&limit=100';
+    
+    Consumption: 
+    LOAD * INLINE [SessionID];
+    
+    Do
+
+        Lib Connect To '$(vu_rest_connection)';
+
+        RestConnectorMasterTable:
+        SQL SELECT 
+            "__KEY_root",
+            (SELECT 
+                "id",
+                "userId",
+                "sessionId",
+                "appId",
+                "endTime",
+                "duration",
+                "allotmentId",
+                "capacityUsed",
+                "minutesUsed",
+                "licenseUsage",
+                "__FK_data"
+            FROM "data" FK "__FK_data"),
+            (SELECT 
+                "__KEY_links",
+                "__FK_links",
+                (SELECT 
+                    "href",
+                    "__FK_next"
+                FROM "next" FK "__FK_next"),
+                (SELECT 
+                    "href" AS "href_u0",
+                    "__FK_prev"
+                FROM "prev" FK "__FK_prev")
+            FROM "links" PK "__KEY_links" FK "__FK_links")
+        FROM JSON (wrap on) "root" PK "__KEY_root"
+        WITH CONNECTION (  
+        URL "https://$(vu_tenant_fqdn)/api/v1/licenses/consumption?$(vParams)"
+        );
+        
+        Concatenate(Consumption)
+        Load
+            [id] AS SessionID,
+            [id] AS _IncrementalConsumptionGUID,
+            [sessionId] AS SessionIDProxy,
+            [userId] AS SessionUserID,
+            [appId] AS AppID,
+            [endTime] AS SessionEndTime,
+            [duration] AS SessionDuration,
+            Round(duration/60000) AS SessionDurationMinutes,
+            [allotmentId] AS SessionAllotmentID,
+            [capacityUsed] AS SessionCapacityUsed,
+            [minutesUsed] AS SessionMinutesUsed,
+            [licenseUsage] AS SessionLicenseUsage
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data]);
+
+        NextURL:
+        Load Distinct 
+            [href] AS NextURL
+        Resident RestConnectorMasterTable
+        Where  NOT match(href,'');
+        Drop Table RestConnectorMasterTable;
+
+        Let vParams = SubField(Peek('NextURL',0,'NextURL'),'?',-1);
+        Let vNextURLRows = NoOfRows('NextURL');
+
+        Drop Table NextURL;
+
+    Loop While $(vNextURLRows)>0;
+    
+    If $(vIncrementalQVDsAvailable)=1 And NoOfRows('Consumption')>0 Then 
+        
+        IncrementalConsumptionMap:
+        Mapping Load Distinct
+            SessionID as _IncrementalConsumptionGUID,
+            1
+        Resident Consumption;
+
+        Trace Calling load_qvd on Consumption;
+        Call load_qvd('Consumption')
+        Trace Calling store_qvd on Consumption;
+        Call store_qvd('Consumption');
+
+        Drop Field _IncrementalConsumptionGUID;
+        
+    ElseIf NoOfRows('Consumption')>0 Then
+    
+        Trace Calling store_qvd on Consumption;
+        Call store_qvd('Consumption');
+
+	Else
+    
+    	Set vSessions = 0;
+      
+    End If
+    
+End Sub
+///$tab Audit Sheet Consumption
+SUB get_audit_sheet_consumption
+
+    LET vCounter = 0;
+    LET vNextURL = '';
+    LET vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
+    
+    IF $(vIncrementalQVDsAvailable)=1 THEN
+    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    ELSE
+    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    END IF
+    
+    SheetConsumption: 
+    LOAD * INLINE [AppID];
+                
+    DO
+    
+        LIB CONNECT TO '$(vu_rest_connection)';
+
+        RestConnectorMasterTable:
+        SQL SELECT 
+            "__KEY_root",
+            (SELECT 
+                "id",
+                "eventId",
+                "eventTime",
+                "eventType",
+                "source",
+                "tenantId",
+                "userId",
+                "__KEY_data",
+                "__FK_data",
+                (SELECT 
+                    "appId",
+                    "sheetId",
+                    "sheetState",
+                    "__FK_data_u0"
+                FROM "data" FK "__FK_data_u0"),
+                (SELECT 
+                    "__KEY_links",
+                    "__FK_links",
+                    (SELECT 
+                        "Href",
+                        "__FK_Self"
+                    FROM "Self" FK "__FK_Self"),
+                    (SELECT 
+                        "href",
+                        "__FK_self"
+                    FROM "self" FK "__FK_self")
+                FROM "links" PK "__KEY_links" FK "__FK_links")
+            FROM "data" PK "__KEY_data" FK "__FK_data"),
+            (SELECT 
+                "Prev",
+                "__KEY_links_u0",
+                "__FK_links_u0",
+                (SELECT 
+                    "Href" AS "Href_u0",
+                    "__FK_Self_u0"
+                FROM "Self" FK "__FK_Self_u0"),
+                (SELECT 
+                    "Href" AS "Href_u1",
+                    "__FK_Next"
+                FROM "Next" FK "__FK_Next"),
+                (SELECT 
+                    "href" AS "href_u0",
+                    "__FK_self_u0"
+                FROM "self" FK "__FK_self_u0"),
+                (SELECT 
+                    "href" AS "href_u1",
+                    "__FK_next"
+                FROM "next" FK "__FK_next")
+            FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+        FROM JSON (wrap on) "root" PK "__KEY_root"
+        WITH CONNECTION (  
+            URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=com.qlik/analytics&eventType=com.qlik.v1.analytics.analytics-app-client.sheet-view.opened$(vISO_8601_Date_Range)$(vNextURL)"
+        );
+        
+        CONCATENATE(SheetConsumption)
+        LOAD	
+        	[appId] AS AppID,
+            [sheetId] AS SheetConsumptionSheetID,
+            [sheetState] AS SheetConsumptionState,
+            [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_SheetConsumptionTempKey]
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_data_u0]);
+
+        [SheetConsumptionTemp]:
+        LOAD	
+        	[id] AS [_IncrementalSheetConsumptionID],
+            [eventId] AS [SheetConsumptionEventID],
+            Date([eventTime]) AS [SheetConsumptionEventTime],
+//             [eventType],
+//             [source],
+//             [tenantId],
+            [userId] AS [SheetConsumptionUserID],
+            [__KEY_data] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_SheetConsumptionTempKey]
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_data]);
+        
+        [NextURL]:
+        LOAD	
+            [href_u1] AS NextURL
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_next]);
+
+        DROP TABLE RestConnectorMasterTable;
+
+        LET vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
+        
+        IF SubStringCount('$(vNextURL)','&') >= 1 THEN
+            LET vNextURL = TextBetween('$(vNextURL)',Null(),'&');
+        END IF
+
+        LET vNextURL = '&next=' & '$(vNextURL)';
+
+        LET vNextURLRows = NoOfRows('NextURL');
+
+        DROP TABLE NextURL;
+        
+        LET vCounter = $(vCounter) + 1;
+        
+    LOOP WHILE $(vNextURLRows)>0;
+    
+    Left Join (SheetConsumption)
+    Load * Resident SheetConsumptionTemp;
+    
+    Drop Table SheetConsumptionTemp;
+    Drop Field _SheetConsumptionTempKey;
+    
+    If $(vIncrementalQVDsAvailable)=1 And NoOfRows('SheetConsumption')>0 Then 
+    
+        IncrementalSheetConsumptionMap:
+        Mapping Load Distinct
+            _IncrementalSheetConsumptionID,
+            1
+        Resident SheetConsumption;
+
+        Trace Calling load_qvd on Consumption;
+        Call load_qvd('SheetConsumption')
+        Trace Calling store_qvd on Consumption;
+        Call store_qvd('SheetConsumption');
+
+        Drop Field _IncrementalSheetConsumptionID;
+                
+    ElseIf NoOfRows('SheetConsumption')>0 Then
+    
+        Trace Calling store_qvd on Consumption;
+        Call store_qvd('SheetConsumption');
+        
+    Else
+    
+        Trace Calling load_qvd on Consumption;
+        Set vSheetConsumptionNoNewRecords = 1;
+        Call load_qvd('SheetConsumption')
+        
+    End if;
+        
+END SUB
 ///$tab Metadata
 Sub app_metadata
 
-    If incremental_qvds_available=1 then   // If incremental QVDs are available -- this is set in the "configuration" section of script
-        Let loaded_app_ids = '$(output_qvd_name(AppRAM,$(app_version)))';
+	AppIDs:
+    LOAD * INLINE [AppID,AppType];
+
+    If vIncrementalQVDsAvailable=1 then   // If incremental QVDs are available -- this is set in the "configuration" section of script
+        Let loaded_app_ids = '$(vOutputQVDName(AppRAM,$(app_version)))';
 
         LoadedAppIDs:
         Mapping Load Distinct
@@ -898,7 +1351,7 @@ Sub app_metadata
             1
         From '$(loaded_app_ids)'(qvd);
 
-        [AppIDs]:
+        CONCATENATE(AppIDs)
         Load Distinct
             AppID,
             AppType
@@ -911,7 +1364,7 @@ Sub app_metadata
             1
         Resident AppIDs;
     Else
-        [AppIDs]:
+        Concatenate(AppIDs)
         Load Distinct
             AppID,
             AppType
@@ -1380,9 +1833,19 @@ Sub app_metadata
 
     Drop Table TEMP;
 
-    If NoOfRows('AppIDs') > 0 THEN
-      	Drop Table AppIDs;
-    End If
+    Drop Table AppIDs;
+    
+    Set OtherSymbol = +;
+    
+    Concatenate(Apps)
+    Load 
+		*,
+        '$(vTenantID)'  AS TenantID,
+      	'[Deleted]' 	AS AppName
+    Inline [
+    	AppID
+        +
+    ];
 
     Trace Metadata for $(app_count) apps has been assembled!; // Note the actual number of rows in the final table is higher than the number of apps due to AppRAMPercentToQuota
   
@@ -1391,8 +1854,8 @@ End Sub
 // For loading a table from QVD ///////////////////
 Sub load_qvd (table)
 
-    Let qvd_name = '$(output_qvd_name($(table),$(app_version)))';
-    If $(incremental_qvds_available)=1 then
+    Let qvd_name = '$(vOutputQVDName($(table),$(app_version)))';
+    If $(vIncrementalQVDsAvailable)=1 then
 
       Trace Looking to load: $(qvd_name).;
       Let file_size = If(IsNull(FileSize('$(qvd_name)')),0,FileSize('$(qvd_name)'));
@@ -1401,13 +1864,47 @@ Sub load_qvd (table)
           Trace File size is $(file_size) bytes;
           Trace Fetching data from: $(qvd_name);
           Trace $(table);
-
-          $(table):
-          Load Distinct 
-              * 
-          From '$(qvd_name)'(qvd)
-          Where ApplyMap('IncrementalAppMap',_IncrementalGUID)<>1
-          and ApplyMap('AllAppsMap',_IncrementalGUID)=1;
+          
+          If '$(table)' = 'Consumption' Then
+          
+              $(table):
+              Load Distinct 
+                  * 
+              From '$(qvd_name)'(qvd)
+              Where ApplyMap('IncrementalConsumptionMap',_IncrementalConsumptionGUID)<>1
+              And SessionEndTime >= Date('$(vMaxSessionAge)');
+              
+          Elseif '$(table)' = 'SheetConsumption' Then
+          
+              If $(vSheetConsumptionNoNewRecords)<>1 Then
+          
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where ApplyMap('IncrementalSheetConsumptionMap',_IncrementalSheetConsumptionID)<>1
+                  And SheetConsumptionEventTime >= Date('$(vMaxSessionAge)');
+                  
+              Else
+              
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where SheetConsumptionEventTime >= Date('$(vMaxSessionAge)');
+                  
+              End If
+          
+          Else
+          
+              $(table):
+              Load Distinct 
+                  * 
+              From '$(qvd_name)'(qvd)
+              Where ApplyMap('IncrementalAppMap',_IncrementalGUID)<>1
+              and ApplyMap('AllAppsMap',_IncrementalGUID)=1;
+          
+          End If
 
       Else
           Trace Could not find file: $(qvd_name).;
@@ -1420,9 +1917,10 @@ End Sub
 
 // For storing a table to QVD ///////////////////
 Sub store_qvd (table)
-    Let qvd_name = '$(output_qvd_name($(table),$(app_version)))';
+    Let qvd_name = '$(vOutputQVDName($(table),$(app_version)))';
     Trace Storing $(qvd_name).;
     Store $(table) into '$(qvd_name)' (qvd);
+    Let file_size_$(table) = FileSize('$(qvd_name)');
     Trace $(qvd_name) stored!;
 End Sub
 
@@ -1445,20 +1943,21 @@ Sub store_app_meta_rolling
      Resident Apps
      Where Len(AppID)>0;
      
-     If $(rolling_qvds_available) then
+     If $(vRollingQVDsAvailable) then
     	Trace Fetching data from: app_analyzer_rolling.qvd;
         
         app_analyzer_rolling:
     	Load
             *
-        From $(rolling_qvd_name) (qvd)
+        From $(vRollingQVDName) (qvd)
         Where ApplyMap('AllAppsMap',AppID)=1
         and Today(1)-Date(AppRollingTimestamp)<=$(vu_track_app_meta_retention)
         and not Exists(_app_meta_key);
     End If
      
      Trace Storing app_analyzer_rolling.qvd;
-     Store app_analyzer_rolling into $(rolling_qvd_name) (qvd);
+     Store app_analyzer_rolling into $(vRollingQVDName) (qvd);
+     Let file_size_app_analyzer_rolling = FileSize('$(vRollingQVDName)');
      Trace app_analyzer_rolling.qvd stored!;
      
 End Sub
@@ -1534,23 +2033,282 @@ Sub load_multi_tenant_qvds(location, sub_dir, name)
 
 
 End Sub
+///$tab Transform
+Sub transform
+
+	// build maps for OEM dashboard
+
+	Rename Table Map_UserID_AppOwnerName To TEMP;
+
+	Map_UserID_AppOwnerName:
+    Mapping Load Distinct
+    	*
+    Resident TEMP;
+    
+    Drop Table TEMP;
+    
+	Rename Table Map_UserID_AppOwnerSubject To TEMP;
+
+	Map_UserID_AppOwnerSubject:
+    Mapping Load Distinct
+    	*
+    Resident TEMP;
+    
+    Drop Table TEMP;
+    
+	Rename Table Map_OAuthClientName To TEMP;
+
+	Map_OAuthClientName:
+    Mapping Load Distinct
+    	*
+    Resident TEMP;
+    
+    Drop Table TEMP;
+    
+	Rename Table Map_AppID_TenantID To TEMP;
+
+	Map_AppID_TenantID:
+    Mapping Load Distinct
+    	*
+    Resident TEMP;
+    
+    Drop Table TEMP;
+    
+    // Drop spaces without any apps
+    Rename Table Spaces To TEMP;
+
+    Spaces:
+    Left Keep (Apps)
+    Load * Resident TEMP;
+
+    Drop Table TEMP;
+    
+    Rename Table Consumption To TEMP;
+    Rename Field SessionEndTime to SessionEndTimeTemp; // changes casting to new field
+    
+    [Consumption]:
+    Load
+    	*,
+        AutoNumber(SessionStartTime & '|' & SessionEndTime) AS _ConsumptionExecutionConcurrencyKey,
+        Date(Floor(SessionStartTime)) AS SessionStartTimeDate,
+        Date(Floor(SessionStartTime,1/24)) AS SessionStartTimeDateHourFloored,
+        Hour(SessionStartTime) AS SessionHour,
+        Minute(SessionStartTime) AS SessionMinute,
+        Dual(Text(Time(SessionStartTime,'h TT')),Hour(SessionStartTime)) AS SessionHourAMPM,
+        If(Date(Floor(SessionStartTime))<$(vLast90Days),'True','False') AS AppNotAccessedInOver90Days,
+        If(Date(Floor(SessionStartTime))<$(vLast60Days),'True','False') AS AppNotAccessedInOver60Days,
+        If(Date(Floor(SessionStartTime))<$(vLast30Days),'True','False') AS AppNotAccessedInOver30Days
+    WHERE SessionStartTime>=Date('$(vSheetUsageAddedDate)') 
+    ;
+    Load
+        *,
+        If(ApplyMap('Map_OAuthClientName',SessionUserName & '|' & ApplyMap('Map_AppID_TenantID',AppID,Null()))=1,'True','False') as SessionUserIsOAuthClient,
+        Timestamp(SessionEndTime-SessionDurationInterval) AS SessionStartTime
+    ;
+    Load
+//         SessionAllotmentID,
+        AppID,
+        SessionCapacityUsed,
+        SessionDuration AS SessionDurationMS,
+        Interval(Round(SessionDuration/1000)/(60*60*24),'hh:mm:ss') as SessionDurationInterval,
+        //Interval(SessionDurationMinutes/60/24) AS SessionDurationInterval,
+        SessionDurationMinutes,
+        Date(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS SessionEndTime,
+        Date(Floor(Timestamp(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT)))) AS SessionEndTimeDate,
+        Num(SessionEndTimeTemp) as deleteme,
+//         SessionID,
+//         SessionIDProxy,
+        AutoNumber(SessionID & '|' & AppID) AS SessionID, // SessionID is the proxy session which needs to combine with the AppID for a pseudo app session ID. The ID field is generated from mongo and can't be used
+        SessionMinutesUsed,
+        ApplyMap('Map_UserID_AppOwnerName',SessionUserID,'[Deleted]') AS SessionUserName,
+        ApplyMap('Map_UserID_AppOwnerSubject',SessionUserID,'[Deleted]') AS SessionUserSubject,
+        SessionUserID,
+        SessionLicenseUsage
+    Resident TEMP;
+    
+    Drop Field SessionDuration;
+    
+    Drop Table TEMP;
+    
+    Rename Table SheetConsumption To TEMP;
+    
+    SheetConsumption:
+    Load
+        AppID,
+        SheetConsumptionSheetID,
+        SheetConsumptionState,
+        SheetConsumptionEventID,
+        Timestamp(Timestamp(SheetConsumptionEventTime) + $(vReloadTimeDiffFromGMT)) AS SheetConsumptionEventTime,
+        SheetConsumptionUserID,
+        SheetConsumptionUserID AS SessionUserID,
+        ApplyMap('Map_UserID_AppOwnerName',SheetConsumptionUserID,'[Deleted]') AS SheetConsumptionUserName,
+        ApplyMap('Map_UserID_AppOwnerSubject',SheetConsumptionUserID,'[Deleted]') AS SheetConsumptionUserSubject
+    Resident TEMP
+    Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vSheetUsageAddedDate)');
+
+	Drop Table TEMP;
+    
+    If Not ($(vu_multi_tenant_enabled)=1 And $(vu_is_parent_app)=1) And NoOfRows('Consumption')>0 THEN
+    
+    	////////////////////////////////
+    	// Calculating app concurrency
+        ////////////////////////////////
+        
+        SessionMinMaxDates:
+        LOAD
+            Floor(Min("SessionStartTime"),1/24/60) AS "Session Start Time Min",
+            Ceil(Max("SessionEndTime"),1/24/60) AS "Session End Time Max"
+        RESIDENT Consumption;
+
+        LET vConsumptionMinDate = Peek('Session Start Time Min',0,'SessionMinMaxDates');
+        LET vConsumptionMaxDate = Peek('Session End Time Max',0,'SessionMinMaxDates');
+        
+        DROP TABLE SessionMinMaxDates;
+
+        Let vMinutes = Ceil(($(vConsumptionMaxDate)-$(vConsumptionMinDate))*24*(60/$(vConsumptionMinutes)));
+        
+        ConsumptionMinutesTemp:
+        Load Distinct
+            TimeStamp(Round(Date($(vConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) AS ConsumptionConcurrencyMinuteTemp
+//             Timestamp(Date($(vConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo()))) AS ConsumptionConcurrencyMinuteTemp
+        Autogenerate $(vMinutes);
+                        
+        Left Join
+        IntervalMatch (ConsumptionConcurrencyMinuteTemp) 
+        Load 
+            SessionStartTime,
+            SessionEndTime
+        Resident Consumption;
+        
+        ConumptionConcurrencyMinutes:
+        Left Keep (Consumption)
+        Load
+            Timestamp(ConsumptionConcurrencyMinuteTemp,'YYYY-MM-DD hh:mm:ss') AS ConsumptionConcurrencyMinute,
+        	AutoNumber(SessionStartTime&'|'&SessionEndTime) AS _ConsumptionExecutionConcurrencyKey
+        Resident ConsumptionMinutesTemp;
+
+        Drop Table ConsumptionMinutesTemp;
+        
+        Autonumber _ConsumptionExecutionConcurrencyKey;
+        
+        ////////////////////////////////
+    	// Merging sheet usage to sessions by AppID, UserID, and Timestamp into single table
+        ////////////////////////////////
+        
+        Left Join(Consumption)
+        IntervalMatch(SheetConsumptionEventTime, AppID, SessionUserID)
+        LOAD         	
+        	SessionStartTime,
+            SessionEndTime,
+            AppID,
+            SessionUserID
+        Resident Consumption;
+        
+        Left Join (Consumption)
+        LOAD *
+        Resident SheetConsumption;
+
+        DROP Table SheetConsumption;
+
+		// Split off into two tables linking on SessionID
+        
+        SheetConsumptionTemp:
+        Load Distinct
+            *,
+            If(Peek(SessionID)<>SessionID,1,Peek(SheetConsumptionOrder)+1) AS SheetConsumptionOrder
+            ;
+        Load Distinct
+            SessionID,
+            SheetConsumptionSheetID,
+            SheetConsumptionState,
+            SheetConsumptionEventID,
+            SheetConsumptionEventTime,
+            SheetConsumptionUserID,
+            SheetConsumptionUserName,
+            SheetConsumptionUserSubject,
+            If(Date(Floor(SheetConsumptionEventTime))<$(vLast90Days),'True','False') AS SheetNotAccessedInOver90Days,
+            If(Date(Floor(SheetConsumptionEventTime))<$(vLast60Days),'True','False') AS SheetNotAccessedInOver60Days,
+            If(Date(Floor(SheetConsumptionEventTime))<$(vLast30Days),'True','False') AS SheetNotAccessedInOver30Days,
+            SessionEndTime AS SessionEndTimeTemp,
+            'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/' & AppID & '/sheet/' & SheetConsumptionSheetID AS SheetConsumptionLink
+        Resident Consumption
+        Where Len(SheetConsumptionSheetID)>0
+        ORDER BY SessionID ASC, SheetConsumptionEventTime ASC;
+        
+        SheetConsumption:
+        NoConcatenate
+        Load 
+        	*,
+            If(Peek(SessionID)<>SessionID,
+            	Interval(SessionEndTimeTemp-SheetConsumptionEventTime),
+                Interval(Peek(SheetConsumptionEventTime)-SheetConsumptionEventTime))
+			AS SheetConsumptionOrderDuration
+            ;
+        Load 
+        	*
+        Resident SheetConsumptionTemp
+        ORDER BY SessionID DESC, SheetConsumptionEventTime DESC;
+        
+        Drop Table SheetConsumptionTemp;
+
+        Rename Table Consumption To TEMP;
+        Drop Field SessionEndTimeTemp;
+
+        Consumption:
+        Load Distinct
+            _ConsumptionExecutionConcurrencyKey,
+            SessionStartTimeDate,
+            SessionHour,
+            SessionMinute,
+            SessionHourAMPM,
+            SessionStartTimeDateHourFloored,
+            AppNotAccessedInOver90Days,
+            AppNotAccessedInOver60Days,
+            AppNotAccessedInOver30Days,
+            SessionUserIsOAuthClient,
+            SessionStartTime,
+            AppID,
+            SessionCapacityUsed,
+            SessionDurationMS,
+            SessionDurationInterval,
+            SessionDurationMinutes,
+            SessionEndTime,
+            SessionEndTimeDate,
+            SessionID,
+            SessionMinutesUsed,
+            SessionUserName,
+            SessionUserSubject,
+            SessionUserID,
+            SessionLicenseUsage
+        Resident TEMP;
+
+        Drop Table TEMP;
+             	
+    Else
+    
+    	Drop Field _ConsumptionExecutionConcurrencyKey;
+        Drop Field SessionUserID From SheetConsumption;
+
+    End If
+ 
+End Sub;
+
 ///$tab Calendar
 Sub calendar
 
-    //AppLastReloadTime
+    // Built off of timestamp, not off of date as changes would break the OEM Dashboard
     Trace Working on master Calendar for AppLastReloadTime;
 
     AppLastReloadTime:
     Load Distinct 
         AppLastReloadTime,
-        Date(Floor(AppLastReloadTime), 'MMM YYYY') 											as Month,
+        Month(AppLastReloadTime)															as Month,
         WeekStart(AppLastReloadTime) 														as [Week Beginning],
         MakeDate(Year(AppLastReloadTime),Month(AppLastReloadTime),Day(AppLastReloadTime)) 	as Date,
-        If(AppLastReloadTime>=$(vLast24Hours),1) 											as last24hours,
-        If(AppLastReloadTime>=$(vLast7Days),1) 												as last7days,
-        If(AppLastReloadTime>=$(vLast30Days),1) 											as last30days,
-        If(AppLastReloadTime>=$(vLast60Days),1)												as last60days,
-        If(AppLastReloadTime>=$(vLast90Days),1)												as last90days
+        If(AppLastReloadTime>=$(vLast7Days),1,0) 											as last7days,
+        If(AppLastReloadTime>=$(vLast30Days),1,0) 											as last30days,
+        If(AppLastReloadTime>=$(vLast60Days),1,0)											as last60days,
+        If(AppLastReloadTime>=$(vLast90Days),1,0)											as last90days
     Resident Apps
     Order By AppLastReloadTime desc;
 
@@ -1558,7 +2316,6 @@ Sub calendar
     timeframe_temp:
     Load * Inline [
         Timeframe
-        Last 24 Hours
         Last 7 Days
         Last 30 Days
         Last 60 Days
@@ -1566,39 +2323,59 @@ Sub calendar
     ];
 
     Last_AppLastReloadTime:
-    NoConcatenate Load Distinct AppLastReloadTime, 'Last 24 Hours' as [Timeframe] Resident AppLastReloadTime Where last24hours=1;
-    Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 7 Days'  as [Timeframe] Resident AppLastReloadTime Where last7days=1;
+    NoConcatenate Load Distinct AppLastReloadTime, 'Last 7 Days'  as [Timeframe] Resident AppLastReloadTime Where last7days=1;
     Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 30 Days' as [Timeframe] Resident AppLastReloadTime Where last30days=1;
     Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 60 Days' as [Timeframe] Resident AppLastReloadTime Where last60days=1;
     Concatenate (Last_AppLastReloadTime) Load Distinct AppLastReloadTime, 'Last 90 Days' as [Timeframe] Resident AppLastReloadTime Where last90days=1;
 
-    Drop Fields last24hours,last7days,last30days,last60days,last90days;
+    Drop Fields last7days,last30days,last60days,last90days;
+    Drop Table timeframe_temp;
+    
+    //SessionStartTime
+    Trace Working on master Calendar for SessionStartDate;
+    
+    Let vStartTimeGMTOffset = TimeStamp(TimeStamp('$(vStartTime)') + $(vReloadTimeDiffFromGMT));
+
+	// Built off of date
+    SessionStartTime:
+    Load Distinct 
+        SessionStartTimeDate,
+        Month(SessionStartTimeDate)			 								as SessionMonth,
+        Year(SessionStartTimeDate)			 								as SessionYear,
+        Dual(Month(SessionStartTimeDate) & '-' & Year(SessionStartTimeDate),MonthStart(SessionStartTimeDate)) AS SessionMonthYear,
+        Day(SessionStartTimeDate)											as SessionDay,
+        WeekStart(SessionStartTimeDate) 									as SessionWeekBeginning,
+        If(SessionStartTimeDate>=$(vLast7Days),1,0) 						as SessionLast7Days,
+        If(SessionStartTimeDate>=$(vLast30Days),1,0) 						as SessionLast30Days,
+        If(SessionStartTimeDate>=$(vLast60Days),1,0)						as SessionLast60Days,
+        If(SessionStartTimeDate>=$(vLast90Days),1,0)						as SessionLast90Days,
+        If(InMonth(SessionStartTimeDate,'$(vStartTime)',0),1,0) 			as SessionInCurrentMTD,
+        If(InMonth(SessionStartTimeDate,'$(vStartTime)',-1),1,0) 			as SessionInPriorMonth,
+        If(InMonthToDate(SessionStartTimeDate,'$(vStartTime)',-1),1,0) 		as SessionInPriorMTD
+    Resident Consumption
+    Order By SessionStartTimeDate desc;
+
+    // Establish Sort Order of Timeframe
+    timeframe_temp:
+    Load * Inline [
+        SessionTimeframe
+        Last 7 Days
+        Last 30 Days
+        Last 60 Days
+        Last 90 Days
+    ];
+
+    Last_SessionStartDate:
+    NoConcatenate Load Distinct SessionStartTimeDate, 'Last 7 Days'  as [SessionTimeframe] Resident SessionStartTime Where SessionLast7Days=1;
+    Concatenate (Last_SessionStartDate) Load Distinct SessionStartTimeDate, 'Last 30 Days' as [SessionTimeframe] Resident SessionStartTime Where SessionLast30Days=1;
+    Concatenate (Last_SessionStartDate) Load Distinct SessionStartTimeDate, 'Last 60 Days' as [SessionTimeframe] Resident SessionStartTime Where SessionLast60Days=1;
+    Concatenate (Last_SessionStartDate) Load Distinct SessionStartTimeDate, 'Last 90 Days' as [SessionTimeframe] Resident SessionStartTime Where SessionLast90Days=1;
+
+    Drop Fields SessionLast7Days,SessionLast30Days,SessionLast60Days,SessionLast90Days;
     Drop Table timeframe_temp;
 
 End Sub
 
-///$tab Cleanup
-Sub cleanup
-
-   // Drop spaces without any apps
-   Rename Table Spaces To TEMP;
-
-   Spaces:
-   Left Keep (Apps)
-   Load * Resident TEMP;
-
-   Drop Table TEMP;
-   
-   // Remove users that are not app owners
-   Rename Table Users To TEMP;
-   
-   Users:
-   Left Keep (Apps)
-   Load * Resident TEMP;
-   
-   Drop Table TEMP;
- 
-End Sub;
 ///$tab Autonumber
 Sub autonumber
 
@@ -1666,7 +2443,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name		= 'App Analyzer';
-Set app_version		= '5.2.0';
+Set app_version		= '6.0.0';
 Let comp 			= ComputerName(); 
 Let engine_ver 		= PurgeChar(EngineVersion(),Chr(39)); 
 Let startMsg 		= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
@@ -1675,18 +2452,20 @@ Trace $(startMsg);
 
 Sub load_core_data
     Trace Loading data...;
-    For Each sub_routine in 'check_license','check_version','get_tenant_metadata','get_quota','get_users','get_spaces','get_apps','app_metadata'
+    For Each sub_routine in 'check_license','check_version','get_tenant_metadata','get_quota','get_oauth_clients','get_users','get_spaces','get_apps','get_consumption','get_audit_sheet_consumption','app_metadata'
         Call execute_sub(sub_routine)
     Next sub_routine
     
     If $(vu_track_app_meta_over_time) then
         Call store_app_meta_rolling
+    Else
+    	Let file_size_app_analyzer_rolling = 0;
     End If
 End Sub
 
 Sub transform_data
     Trace Transforming data...;
-    For Each sub_routine in 'calendar','cleanup','autonumber'
+    For Each sub_routine in 'transform','calendar','autonumber'
         Call execute_sub(sub_routine)
     Next sub_routine
 End Sub

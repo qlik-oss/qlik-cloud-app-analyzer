@@ -151,5 +151,6 @@
   },
   "isRecommended": true,
   "masterVersion": 0.96,
-  "metadata": {}
+  "metadata": {},
+  "disableNavMenu": true
 }

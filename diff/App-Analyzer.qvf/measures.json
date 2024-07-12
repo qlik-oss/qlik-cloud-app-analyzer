@@ -1,6 +1,2904 @@
 [
   {
     "qInfo": {
+      "qId": "a4daa496-cc51-42eb-baf8-3da6d364592d",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheets Viewed by Session PMTD",
+      "qDef": "{\u003cSessionInPriorMTD={1}\u003e}Count(DISTINCT SheetConsumptionSheetID)/Count(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheets Viewed by Session PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "74931593-1926-4159-84ab-7707e8223755",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheets Viewed by Session PM",
+      "qDef": "{\u003cSessionInPriorMonth={1}\u003e}Count(DISTINCT SheetConsumptionSheetID)/Count(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheets Viewed by Session PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "aeecaSm",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheets Viewed by Session",
+      "qDef": "Count(DISTINCT SheetConsumptionSheetID)/Count(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheets Viewed by Session",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "81d67742-e8c5-4b1e-9ea3-494cd9e6814a",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheets Viewed by Session CM",
+      "qDef": "{\u003cSessionInCurrentMTD={1}\u003e}Count(DISTINCT SheetConsumptionSheetID)/Count(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheets Viewed by Session CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "db8db67e-10f2-4c99-abf8-d7d38894c1d2",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheets Viewed by Session CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Avg Sheets Viewed by Session CM vs PMTD])\u003e=1,\n    Sign([Avg Sheets Viewed by Session CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheets Viewed by Session CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "a3313a95-8b21-499f-8ff0-91c93a640051",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheets Viewed by Session CM vs PMTD",
+      "qDef": "[Avg Sheets Viewed by Session CM]-[Avg Sheets Viewed by Session PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheets Viewed by Session CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "cf8a2aca-9a70-43dc-8f12-6b50a4a40431",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheet Users CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Sheet Users CM vs PMTD])\u003e=1,\n    Sign([Sheet Users CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheet Users CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "1b31807b-b769-4747-ae1b-4720e2fb07a8",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheet Users CM vs PMTD",
+      "qDef": "[Sheet Users CM]-[Sheet Users PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheet Users CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "6cc953cd-31e8-4426-8cd8-4dedae900318",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheet Users PM",
+      "qDef": "Count({\u003cSessionInPriorMonth={1}\u003e}DISTINCT SheetConsumptionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheet Users PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "a05828dc-7528-475c-92af-ebc6e901f250",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheet Users PMTD",
+      "qDef": "Count({\u003cSessionInPriorMTD={1}\u003e}DISTINCT SheetConsumptionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheet Users PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "bfbb2b4b-ef9f-41c9-8d0e-bdbc2de63a8d",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheet Users CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e}DISTINCT SheetConsumptionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheet Users CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "e8c8414d-731c-4e28-9537-419ef97ff5d5",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Max Avg Sheet Navigation Events by Session and Day CM and PMTD",
+      "qDef": "RangeMax(\r\n    Max(\n        Aggr(\n            {\u003cSessionInCurrentMTD={1}\u003e}Count(DISTINCT SheetConsumptionEventID)/Count(DISTINCT SessionID),\n            SessionDay\n        )\n    ),\n    Max(\n        Aggr(\n            {\u003cSessionInPriorMTD={1}\u003e}Count(DISTINCT SheetConsumptionEventID)/Count(DISTINCT SessionID),\n            SessionDay\n        )\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Max Avg Sheet Navigation Events by Session and Day CM and PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "96e74bf0-c53b-4f69-aa9d-0ae151f9679f",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session PMTD",
+      "qDef": "{\u003cSessionInPriorMTD={1}\u003e}\r\nCount(DISTINCT SheetConsumptionEventID)/\nCount(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "c4311e0a-17a2-4e0b-9efc-63e9d98c068d",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session PM",
+      "qDef": "{\u003cSessionInPriorMonth={1}\u003e}\r\nCount(DISTINCT SheetConsumptionEventID)/\nCount(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "87b23350-5cb3-4bdb-8541-1596270aa80f",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session CM",
+      "qDef": "{\u003cSessionInCurrentMTD={1}\u003e}\r\nCount(DISTINCT SheetConsumptionEventID)/\nCount(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ec3fb56b-5e00-46c7-8d87-845b5bd16bad",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session",
+      "qDef": "Count(DISTINCT SheetConsumptionEventID)/\r\nCount(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "93c9c0a8-a468-402e-b1f6-902680cf57d0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session PMTD (Line)",
+      "qDef": "[Avg Sheet Navigation Events by Session PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#b1b1b1",
+          "index": -1
+        }
+      },
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session PMTD (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "9a74e248-2f48-4dfb-85c5-54fd506e0ba0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Avg Sheet Navigation Events by Session CM vs PMTD])\u003e=1,\n    Sign([Avg Sheet Navigation Events by Session CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "30ed12ed-a4ef-456a-9967-ee2b3a659078",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session CM vs PMTD",
+      "qDef": "[Avg Sheet Navigation Events by Session CM]-[Avg Sheet Navigation Events by Session PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "e155f7fb-d29a-459e-a529-7d171947e8c0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet Navigation Events by Session CM (Line)",
+      "qDef": "[Avg Sheet Navigation Events by Session CM]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#006580",
+          "index": 6
+        }
+      },
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet Navigation Events by Session CM (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5446dd1f-b86a-4f0c-8012-8d89be5f06de",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration PMTD and CM",
+      "qDef": "Time(Frac(Avg({\u003cSessionInCurrentMTD={1}\u003e+\u003cSessionInPriorMTD={1}\u003e}SheetConsumptionOrderDuration)))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration PMTD and CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "82f20342-dc35-45f1-8b9b-f22daf72e482",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration PMTD (Line)",
+      "qDef": "Time(Frac(Avg({\u003cSessionInPriorMTD={1}\u003e}SheetConsumptionOrderDuration)))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "IV",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "hh:mm:ss"
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {
+        "baseColor": {
+          "color": "#b1b1b1",
+          "index": -1
+        }
+      },
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration PMTD (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "36be4d6f-1fcb-440a-9539-e992d313d8f0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration CM (Line)",
+      "qDef": "Time(Frac(Avg({\u003cSessionInCurrentMTD={1}\u003e}SheetConsumptionOrderDuration)))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "IV",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "hh:mm:ss"
+      },
+      "isCustomFormatted": false,
+      "coloring": {
+        "baseColor": {
+          "color": "#006580",
+          "index": 6
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration CM (Line)",
+      "description": "Used for KPI line chart",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "542295ce-91b6-43f4-861e-57482bd202ba",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Avg Sheet View Duration CM vs PMTD])\u003e=1,\n    Sign([Avg Sheet View Duration CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "195964ce-4337-4157-91cd-272a031c2243",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration CM vs PMTD",
+      "qDef": "Interval([Avg Sheet View Duration CM] - [Avg Sheet View Duration PMTD])",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "IV",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "h:mm:ss"
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "4d890dcc-ab9b-4659-b1d0-8269df8fe718",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration PM",
+      "qDef": "Interval(Avg({\u003cSessionInPriorMonth={1}\u003e}SheetConsumptionOrderDuration))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "IV",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "h:mm:ss"
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "204e8e49-571d-4e06-b1c3-ec80edd4b656",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration PMTD",
+      "qDef": "Interval(Avg({\u003cSessionInPriorMTD={1}\u003e}SheetConsumptionOrderDuration))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "IV",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "h:mm:ss"
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "0ece90b2-c0b8-4e2a-a3d4-0bafb182edb2",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration CM",
+      "qDef": "Interval(Avg({\u003cSessionInCurrentMTD={1}\u003e}SheetConsumptionOrderDuration))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "IV",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "h:mm:ss"
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "25ee5714-977c-47d4-82a4-a7f1e6f3d3af",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed PMTD and CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e+\u003cSessionInPriorMTD={1}\u003e}DISTINCT SheetConsumptionSheetID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed PMTD and CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "8e06d861-73fa-4ee5-a3a9-1a6787d68f18",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed PMTD (Line)",
+      "qDef": "[Sheets Viewed PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {
+        "baseColor": {
+          "color": "#b1b1b1",
+          "index": -1
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed PMTD (Line)",
+      "description": "Used for KPI line chart",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "a14d7fdb-8182-49a2-a98d-f58f9c4aec48",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed CM (Line)",
+      "qDef": "[Sheets Viewed CM]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {
+        "baseColor": {
+          "color": "#006580",
+          "index": 6
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed CM (Line)",
+      "description": "Used for KPI line chart",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "LmWw",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed CM vs PMTD",
+      "qDef": "[Sheets Viewed CM] - [Sheets Viewed PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "kqjbBT",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Sheets Viewed CM vs PMTD])\u003e=1,\n    Sign([Sheets Viewed CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5dd408e3-2837-416c-a724-3e211a062d2e",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed PMTD",
+      "qDef": "Count({\u003cSessionInPriorMTD={1}\u003e}DISTINCT SheetConsumptionSheetID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "804c4a47-332f-4070-b053-2670d57f33b3",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed PM",
+      "qDef": "Count({\u003cSessionInPriorMonth={1}\u003e}DISTINCT SheetConsumptionSheetID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "9570f910-6ce7-4d5e-95c9-df6cc0d985c3",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e}DISTINCT SheetConsumptionSheetID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "sXmapC",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheet View Duration",
+      "qDef": "Interval(Avg(SheetConsumptionOrderDuration))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "IV",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "h:mm:ss"
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Sheet View Duration",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "jrWScA",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheet Users",
+      "qDef": "Count(DISTINCT SheetConsumptionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheet Users",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "BRtgVS",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Sheets Viewed by App",
+      "qDef": "{\u003cSheetConsumptionSheetID={\"*\"}\u003e}\r\nAvg(\n\tAggr(\n    \t[Sheets Viewed],\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0.0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Avg Sheets Viewed by App",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "efc4c56f-6ad8-430c-9bc3-67a13785f103",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheet Navigation Events",
+      "qDef": "Count(DISTINCT SheetConsumptionEventID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheet Navigation Events",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "nrHkV",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sheets Viewed",
+      "qDef": "Count(DISTINCT SheetConsumptionSheetID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sheets Viewed",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "YhBZJec",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users PMTD and CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e+\u003cSessionInPriorMTD={1}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Users PMTD and CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "XVGqN",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users Last 90 Days",
+      "qDef": "Count({\u003cSessionTimeframe={'Last 90 Days'}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Users Last 90 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "duRy",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users Last 60 Days",
+      "qDef": "Count({\u003cSessionTimeframe={'Last 60 Days'}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Users Last 60 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "daEjcPH",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users Last 30 Days",
+      "qDef": "Count({\u003cSessionTimeframe={'Last 30 Days'}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Users Last 30 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "EjVgYk",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Users CM vs PMTD])\u003e=1,\n    Sign([Users CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Users CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "HtScje",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users CM vs PMTD",
+      "qDef": "[Users CM] - [Users PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Users CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "b1f83df4-f8ab-4113-8d22-a4d78d37d42b",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions PMTD and CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e+\u003cSessionInPriorMTD={1}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions PMTD and CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "af06a166-f855-4adc-af9f-609bff53cbd4",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Sessions CM vs PMTD])\u003e=1,\n    Sign([Sessions CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "986a6a40-904e-46cb-bda0-a18088f25a8f",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions CM vs PMTD",
+      "qDef": "[Sessions CM] - [Sessions PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "eb9a119a-5521-4bed-8ce3-728b43184c0a",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions by App PMTD",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMTD={1}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions by App PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "604202a9-f687-4fc2-a3c8-9b8bab66bdc0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users by App CM",
+      "qDef": "Max(\r\n    Aggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInCurrentMTD={1}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users by App CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "3adb9c05-6ed4-4914-a280-bea25141856b",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users by App PMTD",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMTD={1}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users by App PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "34a82bbb-9d5a-4910-8aaf-868c87d50dc0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users by App PM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMonth={1}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users by App PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "e7461ada-a0fc-464f-ae09-a364dedfc198",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users by App CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Concurrent Users by App CM vs PMTD])\u003e=1,\n    Sign([Concurrent Users by App CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users by App CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "d5edbae3-6eba-4ede-9038-bc77de351028",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users by App CM vs PMTD",
+      "qDef": "[Concurrent Users by App CM] - [Concurrent Users by App PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users by App CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "10179e43-a332-4c1f-97dc-dd8059f3a837",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users by App",
+      "qDef": "Max(\r\n    Aggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)\n",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users by App",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "73ebb3a5-eef4-4dee-8ec5-26a484113b4e",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions by App PMTD and CM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cSessionInCurrentMTD={1},ConsumptionConcurrencyMinute={\"*\"}\u003e+\u003cSessionInPriorMTD={1},ConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions by App PMTD and CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "23668356-ac25-4e52-a4b4-57126e0c70f8",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions by App PM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMonth={1}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions by App PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ad90e415-de59-49ab-a9b8-2d5ccdf6b441",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions by App CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Concurrent Sessions by App CM vs PMTD])\u003e=1,\n    Sign([Concurrent Sessions by App CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions by App CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "d6f5671f-136f-4b70-b950-a207c9141fa5",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions by App CM vs PMTD",
+      "qDef": "[Concurrent Sessions by App CM] - [Concurrent Sessions by App PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions by App CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "e4ee192b-0cae-4053-bf99-f27c4301c083",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions by App CM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInCurrentMTD={1}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions by App CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "b67b463b-a807-463e-97c5-a66960da0679",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions by App",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute,\n        AppID\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions by App",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "91934018-ba31-43f9-be1b-e7e55d570dd6",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Session Duration PMTD and CM",
+      "qDef": "Time(Frac(Avg({\u003cSessionInCurrentMTD={1}\u003e+\u003cSessionInPriorMTD={1}\u003e}SessionDurationInterval)))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Session Duration PMTD and CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ac3279ed-51ff-466d-9a10-7992deb81b7a",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration PMTD (Line)",
+      "qDef": "Time(Frac(Avg({\u003cSessionInPriorMTD={1}\u003e}SessionDurationInterval)))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {
+        "baseColor": {
+          "color": "#b1b1b1",
+          "index": -1
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration PMTD (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "95046a0b-5358-42ed-be5d-2c3bde3cc6c6",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration CM (Line)",
+      "qDef": "Time(Frac(Avg({\u003cSessionInCurrentMTD={1}\u003e}SessionDurationInterval)))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {
+        "baseColor": {
+          "color": "#006580",
+          "index": 6
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration CM (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "4e408edf-f494-4fd5-937d-8141afc5d9b7",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions PMTD (Line)",
+      "qDef": "[Concurrent Sessions PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#b1b1b1",
+          "index": -1
+        }
+      },
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions PMTD (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "2cc1e77a-351f-442d-96e7-0683a5966819",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions CM (Line)",
+      "qDef": "[Concurrent Sessions CM]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#006580",
+          "index": 6
+        }
+      },
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions CM (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "bf1268fd-3e13-408d-a396-714d0eb4f183",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions PMTD and CM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cSessionInCurrentMTD={1},ConsumptionConcurrencyMinute={\"*\"}\u003e+\u003cSessionInPriorMTD={1},ConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions PMTD and CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "7337d531-18a4-4dff-a9d7-27431a2cf85e",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions PMTD (Line)",
+      "qDef": "Count({\u003cSessionInPriorMTD={1}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#b1b1b1",
+          "index": -1
+        }
+      },
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions PMTD (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "7ad18e54-1082-4616-97ca-aad31bdff7d8",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions CM (Line)",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#006580",
+          "index": 6
+        }
+      },
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions CM (Line)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "c9826a46-cc39-4a1b-bb70-93dbbbb8a5d0",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users PMTD (Line)",
+      "qDef": "[Users PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {
+        "baseColor": {
+          "color": "#b1b1b1",
+          "index": -1
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Users PMTD (Line)",
+      "description": "Used for KPI line chart",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "BCwzQ",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users CM (Line)",
+      "qDef": "[Users CM]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {
+        "baseColor": {
+          "color": "#006580",
+          "index": 6
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Users CM (Line)",
+      "description": "Used for KPI line chart",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "QEEV",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Last Used Ago (Day Hour:Min)",
+      "qDef": "Interval(Date('$(vStartTimeGMTOffset)')-Max(SessionStartTime),'d hh:mm')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Last Used Ago (Day Hour:Min)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "30b24002-1c84-48be-8af9-8aa4034dc706",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Avg Session Duration CM vs PMTD])\u003e=1,\n    Sign([Avg Session Duration CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "74f8add2-6be2-4985-83d3-3f88de931bda",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration PM",
+      "qDef": "Dual(Time(Frac(Avg({\u003cSessionInPriorMonth={1}\u003e}SessionDurationInterval))),Avg({\u003cSessionInPriorMonth={1}\u003e}SessionDurationMS))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ce8377f7-95f4-439c-8625-fc5acc49e632",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration PMTD",
+      "qDef": "Dual(Time(Frac(Avg({\u003cSessionInPriorMTD={1}\u003e}SessionDurationInterval))),Avg({\u003cSessionInPriorMTD={1}\u003e}SessionDurationMS))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "6bd4576a-32ec-4881-9529-46928d37ad68",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration CM vs PMTD",
+      "qDef": "[Avg Session Duration CM] - [Avg Session Duration PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "2301d1d5-c4cc-409d-b960-35d9ed0d64e4",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration CM",
+      "qDef": "Dual(Time(Frac(Avg({\u003cSessionInCurrentMTD={1}\u003e}SessionDurationInterval))),Avg({\u003cSessionInCurrentMTD={1}\u003e}SessionDurationMS))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "LjUx",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Avg Session Duration",
+      "qDef": "Dual(Time(Frac(Avg(SessionDurationInterval))),Avg(SessionDurationMS))",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Avg Session Duration",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "8f10ef9e-170c-453a-b87b-f5ab625b035e",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Concurrent Sessions CM vs PMTD])\u003e=1,\n    Sign([Concurrent Sessions CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "e2af9e6e-b5e7-4828-8aab-9d8ebfe4bc72",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions CM vs PMTD",
+      "qDef": "[Concurrent Sessions CM] - [Concurrent Sessions PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "2f93ccbd-9aa0-4520-a765-867551a476a6",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Concurrent Users CM vs PMTD])\u003e=1,\n    Sign([Concurrent Users CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "nEmDGta",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users CM vs PMTD",
+      "qDef": "[Concurrent Users CM] - [Concurrent Users PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "1cbeb1b3-5f34-4bd4-b0ec-b3493d3b4053",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions PM",
+      "qDef": "Count({\u003cSessionInPriorMonth={1}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "cc8e0530-7084-4a15-892a-3991251e7247",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions PMTD",
+      "qDef": "Count({\u003cSessionInPriorMTD={1}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "711aa09b-6d43-4f42-bfae-be0bb6f1a624",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "KWVFuQ",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users",
+      "qDef": "Count(DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Users",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "HaPQzr",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users PMTD",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMTD={1}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "pEEvpv",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users",
+      "qDef": "Max(\r\n    Aggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute\n    )\n)\n",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "MmPwnGq",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Days Since Last Reload",
+      "qDef": "Num(Date('$(vStartTimeGMTOffset)')-Date,'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "gradient": {
+          "colors": [
+            {
+              "color": "#ffffff",
+              "index": 1
+            },
+            {
+              "color": "#b0afae",
+              "index": 13
+            }
+          ],
+          "breakTypes": [
+            true
+          ],
+          "limits": [
+            90
+          ],
+          "limitType": "absolute"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Days Since Last Reload",
+      "description": "How many days since the last reload of this app?",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "FPZDKjP",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users Last 7 Days",
+      "qDef": "Count({\u003cSessionTimeframe={'Last 7 Days'}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Users Last 7 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "BZQJC",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users PM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMonth={1}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ujrWXc",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Users CM",
+      "qDef": "Max(\r\n    Aggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInCurrentMTD={1}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute\n    )\n)\n",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Users CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "euGt",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions PM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMonth={1}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "kMJH",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions PMTD",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInPriorMTD={1}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ppBjKe",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions CM",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"},SessionInCurrentMTD={1}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "yptHK",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Concurrent Sessions",
+      "qDef": "Max(\r\n\tAggr(\n        Count({\u003cConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionID),\n        ConsumptionConcurrencyMinute\n    )\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Concurrent Sessions",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "dUMp",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users PM",
+      "qDef": "Count({\u003cSessionInPriorMonth={1}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Users PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "HhrQnHH",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users PMTD",
+      "qDef": "Count({\u003cSessionInPriorMTD={1}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Users PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "FzJbpRr",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Users CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e}DISTINCT SessionUserID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Users CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "zZLDq",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Sessions",
+      "qDef": "Count(DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Sessions",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mJjqmb",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Apps",
+      "qDef": "Num(Count({\u003cAppName-={'[Deleted]'}\u003e}DISTINCT AppID),'#,##0')",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "U",
+        "qnDec": 10,
+        "qUseThou": 0
+      },
+      "coloring": {
+        "baseColor": {
+          "color": "#26a0a7",
+          "index": -1
+        }
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'The count of distinct applications.'"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Apps",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "KmPemCj",
       "qType": "measure"
     },
@@ -608,50 +3506,6 @@
   },
   {
     "qInfo": {
-      "qId": "MmPwnGq",
-      "qType": "measure"
-    },
-    "qMeasure": {
-      "qLabel": "Days Since Last Reload",
-      "qDef": "Num(Today(1)-Date,'#,##0')",
-      "qGrouping": "N",
-      "qExpressions": [],
-      "qActiveExpression": 0,
-      "qNumFormat": {
-        "qType": "U",
-        "qnDec": 10,
-        "qUseThou": 0
-      },
-      "coloring": {
-        "gradient": {
-          "colors": [
-            {
-              "color": "#b0afae",
-              "index": 1
-            },
-            {
-              "color": "#138185",
-              "index": 13
-            }
-          ],
-          "breakTypes": [
-            true
-          ],
-          "limits": [
-            90
-          ],
-          "limitType": "absolute"
-        }
-      }
-    },
-    "qMetaDef": {
-      "title": "Days Since Last Reload",
-      "description": "How many days since the last reload of this app?",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
       "qId": "QKkunQj",
       "qType": "measure"
     },
@@ -1059,40 +3913,6 @@
     "qMetaDef": {
       "title": "Table # Records",
       "description": "Count of records within a given table in an app data model.",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "mJjqmb",
-      "qType": "measure"
-    },
-    "qMeasure": {
-      "qLabel": "Apps",
-      "qDef": "Num(Count(DISTINCT AppID),'#,##0')",
-      "qGrouping": "N",
-      "qExpressions": [],
-      "qActiveExpression": 0,
-      "qNumFormat": {
-        "qType": "U",
-        "qnDec": 10,
-        "qUseThou": 0
-      },
-      "coloring": {
-        "baseColor": {
-          "color": "#26a0a7",
-          "index": 12
-        }
-      },
-      "descriptionExpression": {
-        "qStringExpression": {
-          "qExpr": "'The count of distinct applications.'"
-        }
-      }
-    },
-    "qMetaDef": {
-      "title": "Apps",
-      "description": "",
       "tags": []
     }
   },

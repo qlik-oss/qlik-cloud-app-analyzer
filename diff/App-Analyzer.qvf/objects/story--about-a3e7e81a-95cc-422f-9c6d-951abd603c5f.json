@@ -10,9 +10,7 @@
     },
     "rank": 0,
     "thumbnail": {
-      "qStaticContentUrlDef": {
-        "qUrl": "/api/v1/apps/<appId>/media/files/Icon_Advanced_Analytics_grey.png"
-      }
+      "qStaticContentUrlDef": {}
     },
     "qChildListDef": {
       "qData": {
