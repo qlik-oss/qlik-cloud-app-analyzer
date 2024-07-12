@@ -12,7 +12,7 @@
 The App Analyzer is a Qlik Sense application built for Qlik Cloud, which helps
 you to analyze and monitor Qlik Sense applications in your tenant.
 
-![Sheets in the App Analyzer](/images/readme_sheets.png)
+![Sheets in the App Analyzer](/images/Sessions_Overview.png)
 
 It provides information such as:
 
