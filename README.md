@@ -20,6 +20,8 @@ It provides information such as:
 * Synthetic keys and island tables to help improve app development
 * Threshold analysis for fields, tables, rows and more
 * Reload times and peak RAM utilization by app
+* User session info
+* Sheet-level tracking
 
 ## Installing / Updating
 
