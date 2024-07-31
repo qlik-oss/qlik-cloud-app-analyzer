@@ -142,7 +142,7 @@ Set vu_is_parent_app 					= 0;					// If this application is to be the parent ap
 // folder does not exist, it will be automatically created.
 
 // **Azure Blob, AWS S3, and Google CLoud Storage have been tested and confirmed to work without any modifications**
-SET vu_qlik_meta_collection_parent_dir = 'lib://:';			// Parent directory of the "QlikMetaCollection" folder (trailing slash optional)
+SET vu_qlik_meta_collection_parent_dir = 'lib://:';		// Parent directory of the "QlikMetaCollection" folder (trailing slash optional)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -216,8 +216,11 @@ Sub variables
   Let vConsumptionMinutes			= 1;
   Set vSessions						= 1;
   Set vSheetConsumptionNoNewRecords = 0; // Instantiate as zero
+  Set vAppExportNoNewRecords 		= 0; // Instantiate as zero
   Let vAppReloadMetadataQVD 		= '$(vOutputQVDName(AppReloadCPUMetadata,$(app_version)))';
+  Let vAppExportQVD 		= '$(vOutputQVDName(ExportFromApp,$(app_version)))';
   Let vIncrementalQVDsAvailable		= If(Len(FileTime('$(vAppReloadMetadataQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
+  Let vIncrementalExportQVDsAvailable = If(Len(FileTime('$(vAppExportQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
   Let vRollingQVDsAvailable	 		= If(Len(FileTime('$(vRollingQVDName)'))>0,1,0);  // Check to see that rolling QVD is available
   Let vIncrementalMessage 			= If($(vIncrementalQVDsAvailable)=1,'Incremental QVDs found','No Incremental QVDs found. Do not panic. I can fix that.');
   If $(vu_is_parent_app) = 0 then
@@ -244,7 +247,7 @@ Sub variables
 
       If $(vIncrementalQVDsAvailable)=1 THEN
       
-          TRACE Looking to load: $(qvd_name).;
+          TRACE Looking to load: $(vConsumptionQVD).;
           LET file_size = If(IsNull(FileSize('$(vConsumptionQVD)')),0,FileSize('$(vConsumptionQVD)'));
 
           IF file_size > 0 then // this handles for when there were zero sessions on the first load, i.e., new tenant with programmatic deployment
@@ -1134,7 +1137,8 @@ Sub get_consumption
             [minutesUsed] AS SessionMinutesUsed,
             [licenseUsage] AS SessionLicenseUsage
         Resident RestConnectorMasterTable
-        Where Not IsNull([__FK_data]);
+        Where Not IsNull([__FK_data])
+        And Len(appId)>0; // The appId field can appear null when there is an immediate disconnect after the connection -- excluding these
 
         NextURL:
         Load Distinct 
@@ -1336,6 +1340,209 @@ SUB get_audit_sheet_consumption
     End if;
         
 END SUB
+///$tab Audit Export
+SUB get_audit_export_from_app
+
+    LET vCounter = 0;
+    LET vNextURL = '';
+    LET vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
+    
+    IF $(vIncrementalQVDsAvailable)=1 THEN
+    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    ELSE
+    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    END IF
+                
+    DO
+    
+        LIB CONNECT TO '$(vu_rest_connection)';
+
+        RestConnectorMasterTable:
+        SQL SELECT 
+            "__KEY_root",
+            (SELECT 
+                "id",
+                "contentType",
+                "eventId",
+                "eventTime",
+                "eventType",
+                "eventTypeVersion",
+                "source",
+                "tenantId",
+                "userId",
+                "__KEY_data",
+                "__FK_data",
+                (SELECT 
+                    "endTime",
+                    "reportId",
+                    "requestId",
+                    "startTime",
+                    "success",
+                    "templateType",
+                    "traceId",
+                    "version",
+                    "__KEY_data_u0",
+                    "__FK_data_u0",
+                    (SELECT 
+                        "@Value",
+                        "__FK_appIds"
+                    FROM "appIds" FK "__FK_appIds" ArrayValueAlias "@Value"),
+                    (SELECT 
+                        "@Value" AS "@Value_u0",
+                        "__FK_tags"
+                    FROM "tags" FK "__FK_tags" ArrayValueAlias "@Value_u0")
+                FROM "data" PK "__KEY_data_u0" FK "__FK_data_u0"),
+                (SELECT 
+                    "__KEY_links",
+                    "__FK_links",
+                    (SELECT 
+                        "Href",
+                        "__FK_Self"
+                    FROM "Self" FK "__FK_Self"),
+                    (SELECT 
+                        "href",
+                        "__FK_self"
+                    FROM "self" FK "__FK_self")
+                FROM "links" PK "__KEY_links" FK "__FK_links")
+            FROM "data" PK "__KEY_data" FK "__FK_data"),
+            (SELECT 
+                "Prev",
+                "__KEY_links_u0",
+                "__FK_links_u0",
+                (SELECT 
+                    "Href" AS "Href_u0",
+                    "__FK_Self_u0"
+                FROM "Self" FK "__FK_Self_u0"),
+                (SELECT 
+                    "Href" AS "Href_u1",
+                    "__FK_Next"
+                FROM "Next" FK "__FK_Next"),
+                (SELECT 
+                    "href" AS "href_u0",
+                    "__FK_self_u0"
+                FROM "self" FK "__FK_self_u0"),
+                (SELECT 
+                    "href" AS "href_u1",
+                    "__FK_next"
+                FROM "next" FK "__FK_next")
+            FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+        FROM JSON (wrap on) "root" PK "__KEY_root"
+        WITH CONNECTION (
+        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=com.qlik/reporting-service&eventType=com.qlik.v1.reporting-service.audit$(vISO_8601_Date_Range)$(vNextURL)"
+		);
+
+        [ExportFromAppID]:
+        LOAD	
+        	[@Value] AS AppID,
+            [__FK_appIds] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp]
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_appIds]);
+
+        [ExportFromAppType]:
+        LOAD	
+        	[@Value_u0] AS [ExportFromAppType],
+            [__FK_tags] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp]
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_tags])
+        AND [@Value_u0] = 'sense-dialog.download';
+
+        [ExportFromApp]:
+        LOAD	
+        	Date([endTime]) AS ExportFromAppEndTime,
+            [reportId] AS ExportFromAppReportID,
+            [requestId] AS ExportFromAppRequestID,
+            Date([startTime]) AS ExportFromAppStartTime,
+            [success] AS ExportFromAppSuccessful,
+            If(WildMatch([templateType],'*image*'),'Image or PDF',If(WildMatch([templateType],'*data*'),'Data','[Unknown]')) AS ExportFromAppTemplateType,
+            //[traceId],
+            //[version] AS ExportFromAppTemplateVersion,
+            [__KEY_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp],
+            [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp2]
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_data_u0]);
+        
+        [ExportFromAppMeta]:
+        LOAD	
+        	[id] AS ExportFromAppTransactionID,
+            [id] AS _IncrementalExportFromAppTransactionID,
+//             [contentType],
+//             [eventId],
+//             [eventTime],
+//             [eventType],
+//             [eventTypeVersion],
+//             [source],
+//             [tenantId],
+            [userId] AS ExportFromAppUserID,
+            [__KEY_data] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp2]
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_data]);
+        
+        [NextURL]:
+        LOAD	
+            [href_u1] AS NextURL
+        RESIDENT RestConnectorMasterTable
+        WHERE NOT IsNull([__FK_next]);
+
+        DROP TABLE RestConnectorMasterTable;
+
+        LET vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
+        
+        IF SubStringCount('$(vNextURL)','&') >= 1 THEN
+            LET vNextURL = TextBetween('$(vNextURL)',Null(),'&');
+        END IF
+
+        LET vNextURL = '&next=' & '$(vNextURL)';
+
+        LET vNextURLRows = NoOfRows('NextURL');
+
+        DROP TABLE NextURL;
+        
+        LET vCounter = $(vCounter) + 1;
+        
+    LOOP WHILE $(vNextURLRows)>0;
+    
+    Inner Join (ExportFromApp)
+    Load * Resident ExportFromAppID;
+    
+    Inner Join (ExportFromApp)
+    Load * Resident ExportFromAppType;
+    
+    Inner Join (ExportFromApp)
+    Load * Resident ExportFromAppMeta;
+    
+    Drop Tables ExportFromAppID,ExportFromAppType, ExportFromAppMeta;
+    Drop Fields _KeyExportFromApp, _KeyExportFromApp2, ExportFromAppType;
+    
+    If $(vIncrementalExportQVDsAvailable)=1 And NoOfRows('ExportFromApp')>0 Then 
+    
+        IncrementalExportFromAppReportIDMap:
+        Mapping Load Distinct
+            _IncrementalExportFromAppTransactionID,
+            1
+        Resident ExportFromApp;
+
+        Trace Calling load_qvd on ExportFromApp;
+        Call load_qvd('ExportFromApp')
+        Trace Calling store_qvd on ExportFromApp;
+        Call store_qvd('ExportFromApp');
+
+        Drop Field _IncrementalExportFromAppTransactionID;
+                
+    ElseIf NoOfRows('ExportFromApp')>0 Then
+    
+        Trace Calling store_qvd on ExportFromApp;
+        Call store_qvd('ExportFromApp');
+        
+    Else
+    
+        Trace Calling load_qvd on ExportFromApp;
+        Set vAppExportNoNewRecords = 1;
+        Call load_qvd('ExportFromApp')
+        
+    End if;
+        
+END SUB
+
 ///$tab Metadata
 Sub app_metadata
 
@@ -1894,6 +2101,27 @@ Sub load_qvd (table)
                   Where SheetConsumptionEventTime >= Date('$(vMaxSessionAge)');
                   
               End If
+              
+          Elseif '$(table)' = 'ExportFromApp' Then
+          
+              If $(vAppExportNoNewRecords)<>1 Then
+          
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where ApplyMap('IncrementalExportFromAppReportIDMap',_IncrementalExportFromAppTransactionID)<>1
+                  And ExportFromAppStartTime >= Date('$(vMaxSessionAge)');
+                  
+              Else
+              
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where ExportFromAppStartTime >= Date('$(vMaxSessionAge)');
+                  
+              End If
           
           Else
           
@@ -2083,6 +2311,21 @@ Sub transform
 
     Drop Table TEMP;
     
+    Rename Table ExportFromApp To TEMP;
+    Rename Field ExportFromAppEndTime To ExportFromAppEndTimeTemp;
+    Rename Field ExportFromAppStartTime To ExportFromAppStartTimeTemp;
+    
+    ExportFromApp:
+    LOAD
+    	*,
+        ExportFromAppUserID AS SessionUserIDTemp, // for intervalmatch of exports,
+        Date(Timestamp(ExportFromAppEndTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS ExportFromAppEndTime,
+        Date(Timestamp(ExportFromAppStartTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS ExportFromAppStartTime
+    Resident TEMP;
+    
+    Drop Table TEMP;
+    Drop Fields ExportFromAppEndTimeTemp, ExportFromAppStartTimeTemp;
+    
     Rename Table Consumption To TEMP;
     Rename Field SessionEndTime to SessionEndTimeTemp; // changes casting to new field
     
@@ -2115,7 +2358,6 @@ Sub transform
         SessionDurationMinutes,
         Date(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS SessionEndTime,
         Date(Floor(Timestamp(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT)))) AS SessionEndTimeDate,
-        Num(SessionEndTimeTemp) as deleteme,
 //         SessionID,
 //         SessionIDProxy,
         AutoNumber(SessionID & '|' & AppID) AS SessionID, // SessionID is the proxy session which needs to combine with the AppID for a pseudo app session ID. The ID field is generated from mongo and can't be used
@@ -2123,6 +2365,7 @@ Sub transform
         ApplyMap('Map_UserID_AppOwnerName',SessionUserID,'[Deleted]') AS SessionUserName,
         ApplyMap('Map_UserID_AppOwnerSubject',SessionUserID,'[Deleted]') AS SessionUserSubject,
         SessionUserID,
+        SessionUserID AS SessionUserIDTemp,
         SessionLicenseUsage
     Resident TEMP;
     
@@ -2169,12 +2412,11 @@ Sub transform
         
         ConsumptionMinutesTemp:
         Load Distinct
-            TimeStamp(Round(Date($(vConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) AS ConsumptionConcurrencyMinuteTemp
-//             Timestamp(Date($(vConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo()))) AS ConsumptionConcurrencyMinuteTemp
+            TimeStamp(Round(Date($(vConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) AS ConsumptionConcurrencyMinute
         Autogenerate $(vMinutes);
                         
         Left Join
-        IntervalMatch (ConsumptionConcurrencyMinuteTemp) 
+        IntervalMatch (ConsumptionConcurrencyMinute) 
         Load 
             SessionStartTime,
             SessionEndTime
@@ -2183,7 +2425,7 @@ Sub transform
         ConumptionConcurrencyMinutes:
         Left Keep (Consumption)
         Load
-            Timestamp(ConsumptionConcurrencyMinuteTemp,'YYYY-MM-DD hh:mm:ss') AS ConsumptionConcurrencyMinute,
+            Timestamp(ConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') AS ConsumptionConcurrencyMinute,
         	AutoNumber(SessionStartTime&'|'&SessionEndTime) AS _ConsumptionExecutionConcurrencyKey
         Resident ConsumptionMinutesTemp;
 
@@ -2222,7 +2464,7 @@ Sub transform
             SheetConsumptionSheetID,
             SheetConsumptionState,
             SheetConsumptionEventID,
-            SheetConsumptionEventTime,
+            TimeStamp(SheetConsumptionEventTime,'YYYY-MM-DD hh:mm:ss') AS SheetConsumptionEventTime,
             SheetConsumptionUserID,
             SheetConsumptionUserName,
             SheetConsumptionUserSubject,
@@ -2234,7 +2476,7 @@ Sub transform
         Resident Consumption
         Where Len(SheetConsumptionSheetID)>0
         ORDER BY SessionID ASC, SheetConsumptionEventTime ASC;
-        
+
         SheetConsumption:
         NoConcatenate
         Load 
@@ -2242,7 +2484,11 @@ Sub transform
             If(Peek(SessionID)<>SessionID,
             	Interval(SessionEndTimeTemp-SheetConsumptionEventTime),
                 Interval(Peek(SheetConsumptionEventTime)-SheetConsumptionEventTime))
-			AS SheetConsumptionOrderDuration
+			AS SheetConsumptionOrderDuration,
+            If(Peek(SessionID)<>SessionID,
+            	TimeStamp(SessionEndTimeTemp,'YYYY-MM-DD hh:mm:ss'),
+                TimeStamp(Peek(SheetConsumptionEventTime),'YYYY-MM-DD hh:mm:ss'))
+			AS SheetConsumptionEventEndTime
             ;
         Load 
         	*
@@ -2250,7 +2496,45 @@ Sub transform
         ORDER BY SessionID DESC, SheetConsumptionEventTime DESC;
         
         Drop Table SheetConsumptionTemp;
+        
+        ////////////////////////////////
+    	// Merging app exports to sheet consumption by AppID, UserID, and Timestamp into single table
+        ////////////////////////////////
+        
+        Left Join(Consumption)
+        IntervalMatch(ExportFromAppStartTime, AppID, SessionUserIDTemp)
+        Load         	
+        	SessionStartTime,
+            SessionEndTime,
+            AppID,
+            SessionUserIDTemp
+        Resident Consumption;
+        
+        Left Join (Consumption)
+        Load *
+        Resident ExportFromApp;
 
+        Drop Table ExportFromApp;
+        
+        ExportFromApp:
+        Load Distinct
+        	SessionID,
+        	'True' AS SessionHadExport,
+            ExportFromAppEndTime,
+            ExportFromAppReportID,
+            ExportFromAppRequestID,
+            ExportFromAppStartTime,
+            ExportFromAppSuccessful,
+            ExportFromAppTemplateType,
+            ExportFromAppTransactionID
+            //ExportFromAppUserID
+        Resident Consumption
+        Where Len(ExportFromAppStartTime)>0;
+        
+        ////////////////////////////////
+    	// Strip back consumption after removing sheet usage and exports
+        ////////////////////////////////
+        
         Rename Table Consumption To TEMP;
         Drop Field SessionEndTimeTemp;
 
@@ -2283,14 +2567,15 @@ Sub transform
         Resident TEMP;
 
         Drop Table TEMP;
-             	
+ 	
     Else
     
     	Drop Field _ConsumptionExecutionConcurrencyKey;
         Drop Field SessionUserID From SheetConsumption;
+        Drop Field SessionUserIDTemp;
 
     End If
- 
+     
 End Sub;
 
 ///$tab Calendar
@@ -2380,7 +2665,7 @@ End Sub
 Sub autonumber
 
 	Drop Field _app_meta_key;
-	Autonumber _KeyFields, _KeyTags;
+	Autonumber _KeyFields, _KeyTags, ExportFromAppTransactionID;
 
     Left Join(Spaces)
     Load Distinct
@@ -2443,7 +2728,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name		= 'App Analyzer';
-Set app_version		= '6.0.0';
+Set app_version		= '6.1.1';
 Let comp 			= ComputerName(); 
 Let engine_ver 		= PurgeChar(EngineVersion(),Chr(39)); 
 Let startMsg 		= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
@@ -2452,7 +2737,7 @@ Trace $(startMsg);
 
 Sub load_core_data
     Trace Loading data...;
-    For Each sub_routine in 'check_license','check_version','get_tenant_metadata','get_quota','get_oauth_clients','get_users','get_spaces','get_apps','get_consumption','get_audit_sheet_consumption','app_metadata'
+    For Each sub_routine in 'check_license','check_version','get_tenant_metadata','get_quota','get_oauth_clients','get_users','get_spaces','get_apps','get_consumption','get_audit_sheet_consumption','get_audit_export_from_app','app_metadata'
         Call execute_sub(sub_routine)
     Next sub_routine
     

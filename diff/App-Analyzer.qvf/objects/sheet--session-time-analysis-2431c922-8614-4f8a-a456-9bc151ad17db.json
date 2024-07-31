@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-11T14:16:08.054Z",
-    "rank": 1,
+    "rank": 1.000000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/2.png"
