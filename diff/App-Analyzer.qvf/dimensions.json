@@ -1,6 +1,165 @@
 [
   {
     "qInfo": {
+      "qId": "QdDYzE",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppID"
+      ],
+      "qFieldLabels": [
+        "App ID"
+      ],
+      "qAlias": "App ID",
+      "title": "App ID",
+      "coloring": {
+        "changeHash": "0.6490108795319958",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ntCpRT",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionHadExport"
+      ],
+      "qFieldLabels": [
+        "Session Had Export"
+      ],
+      "qAlias": "Session Had Export",
+      "title": "Session Had Export",
+      "coloring": {
+        "changeHash": "0.17899990140657662",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Had Export",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "49555767-c950-49da-a619-bd2e5277fbf7",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppTransactionID"
+      ],
+      "qFieldLabels": [
+        "Export From App Transaction ID"
+      ],
+      "qAlias": "Export From App Transaction ID",
+      "title": "Export From App Transaction ID",
+      "coloring": {
+        "colorMapRef": "HGdfB",
+        "changeHash": "0.3644045585670863",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App Transaction ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5ec0555a-ebfc-40de-9d83-b1e8dd155c9f",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppTemplateType"
+      ],
+      "qFieldLabels": [
+        "Export From App Template Type"
+      ],
+      "qAlias": "Export From App Template Type",
+      "title": "Export From App Template Type",
+      "coloring": {
+        "colorMapRef": "HGdfB",
+        "changeHash": "0.8808048438340144",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App Template Type",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "367ea56a-a30e-4ec7-86d5-9671fa7b6207",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppEndTime"
+      ],
+      "qFieldLabels": [
+        "Export From App End Time"
+      ],
+      "qAlias": "Export From App End Time",
+      "title": "Export From App End Time",
+      "coloring": {
+        "colorMapRef": "HGdfB",
+        "changeHash": "0.2615076823844895",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App End Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "HGdfB",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppStartTime"
+      ],
+      "qFieldLabels": [
+        "Export From App Start Time"
+      ],
+      "qAlias": "Export From App Start Time",
+      "title": "Export From App Start Time",
+      "coloring": {
+        "changeHash": "0.38317029797219737",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App Start Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "gepLVn",
       "qType": "dimension"
     },

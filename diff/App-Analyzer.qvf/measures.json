@@ -1,6 +1,236 @@
 [
   {
     "qInfo": {
+      "qId": "AqEUPDA",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports Data",
+      "qDef": "{\u003cExportFromAppTemplateType={'Data'}\u003e} [Exports]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Exports Data",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "hdQSP",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports Image/PDF",
+      "qDef": "{\u003cExportFromAppTemplateType={'Image or PDF'}\u003e} [Exports]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Exports Image/PDF",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "6d581437-9deb-42e3-a48a-d9f50711c997",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports PMTD",
+      "qDef": "Count({\u003cSessionInPriorMTD={1}\u003e}DISTINCT ExportFromAppTransactionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Exports PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "fb4ef43b-17eb-421b-b2a7-fb018fa2f305",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports PM",
+      "qDef": "Count({\u003cSessionInPriorMonth={1}\u003e}DISTINCT ExportFromAppTransactionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Exports PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "e3769951-62de-407d-8212-2778f9fcbdc4",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports CM vs PMTD (Indicator)",
+      "qDef": "If(\r\n\tLen([Exports CM vs PMTD])\u003e=1,\n    Sign([Exports CM vs PMTD]),\n    0\n)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Exports CM vs PMTD (Indicator)",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "d1db32ba-3d7c-4194-9742-dc2ccadb7896",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports CM vs PMTD",
+      "qDef": "[Exports CM] - [Exports PMTD]",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Exports CM vs PMTD",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ee1e03ba-a590-479a-a15d-a7434349cf05",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports CM",
+      "qDef": "Count({\u003cSessionInCurrentMTD={1}\u003e}DISTINCT ExportFromAppTransactionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Exports CM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "MHjCKhJ",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Exports",
+      "qDef": "Count(DISTINCT ExportFromAppTransactionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "isCustomFormatted": false,
+      "numFormatFromTemplate": true,
+      "coloring": {}
+    },
+    "qMetaDef": {
+      "title": "Exports",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "a4daa496-cc51-42eb-baf8-3da6d364592d",
       "qType": "measure"
     },
