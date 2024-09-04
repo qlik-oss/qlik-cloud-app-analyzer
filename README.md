@@ -14,6 +14,8 @@ you to analyze and monitor Qlik Sense applications in your tenant.
 
 ![Sheets in the App Analyzer](/images/Sessions_Overview.png)
 
+[![YouTube](http://i.ytimg.com/vi/7yXxFceYbHs/hqdefault.jpg)](https://www.youtube.com/watch?v=7yXxFceYbHs)
+
 It provides information such as:
 
 * App, Table and Field memory footprints
