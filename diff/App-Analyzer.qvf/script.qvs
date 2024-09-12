@@ -1166,8 +1166,6 @@ Sub get_consumption
         Call load_qvd('Consumption')
         Trace Calling store_qvd on Consumption;
         Call store_qvd('Consumption');
-
-        Drop Field _IncrementalConsumptionGUID;
         
     ElseIf NoOfRows('Consumption')>0 Then
     
@@ -1323,8 +1321,6 @@ SUB get_audit_sheet_consumption
         Call load_qvd('SheetConsumption')
         Trace Calling store_qvd on Consumption;
         Call store_qvd('SheetConsumption');
-
-        Drop Field _IncrementalSheetConsumptionID;
                 
     ElseIf NoOfRows('SheetConsumption')>0 Then
     
@@ -1525,8 +1521,6 @@ SUB get_audit_export_from_app
         Call load_qvd('ExportFromApp')
         Trace Calling store_qvd on ExportFromApp;
         Call store_qvd('ExportFromApp');
-
-        Drop Field _IncrementalExportFromAppTransactionID;
                 
     ElseIf NoOfRows('ExportFromApp')>0 Then
     
@@ -1804,7 +1798,6 @@ Sub app_metadata
         Trace Calling store_qvd on '$(table)';
         Call store_qvd ('$(table)')
     Next table
-
 
     Drop Field _IncrementalGUID;
 
@@ -2728,7 +2721,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name		= 'App Analyzer';
-Set app_version		= '6.1.1';
+Set app_version		= '6.1.2';
 Let comp 			= ComputerName(); 
 Let engine_ver 		= PurgeChar(EngineVersion(),Chr(39)); 
 Let startMsg 		= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
