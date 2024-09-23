@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-10T18:09:54.794Z",
-    "rank": 0.000000,
+    "rank": 0,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/1.png"
@@ -155,7 +155,7 @@
             "label": "Sessions Over Time",
             "bounds": {
               "height": 9,
-              "width": 26,
+              "width": 21,
               "x": -1,
               "y": -0.5
             },
@@ -168,8 +168,8 @@
             "label": "Users Over Time",
             "bounds": {
               "height": 9,
-              "width": 25,
-              "x": 25,
+              "width": 20,
+              "x": 20,
               "y": -0.5
             },
             "condition": {
@@ -181,8 +181,8 @@
             "label": "Concurrent Sessions Over Time",
             "bounds": {
               "height": 9,
-              "width": 25,
-              "x": 50,
+              "width": 20,
+              "x": 40,
               "y": -0.5
             },
             "condition": {
@@ -194,8 +194,21 @@
             "label": "Concurrent Users Over Time",
             "bounds": {
               "height": 9,
-              "width": 26,
-              "x": 75,
+              "width": 20,
+              "x": 60,
+              "y": -0.5
+            },
+            "condition": {
+              "qValueExpression": {}
+            }
+          },
+          {
+            "childRefId": "TfArjrw",
+            "label": "Concurrent Apps Over Time",
+            "bounds": {
+              "height": 9,
+              "width": 21,
+              "x": 80,
               "y": -0.5
             },
             "condition": {
@@ -259,6 +272,21 @@
             "condition": {
               "qValueExpression": {
                 "qExpr": "=If('$(vSessionsContainer2Tab)'='Concurrent Users Over Time',1,0)"
+              }
+            }
+          },
+          {
+            "childRefId": "pMAacXks",
+            "label": "Concurrent Apps Over Time",
+            "bounds": {
+              "height": 90,
+              "width": 100,
+              "x": 0,
+              "y": 10
+            },
+            "condition": {
+              "qValueExpression": {
+                "qExpr": "=If('$(vSessionsContainer2Tab)'='Concurrent Apps Over Time',1,0)"
               }
             }
           }
@@ -1635,6 +1663,7 @@
               "qMeasures": [
                 {
                   "qDef": {
+                    "qLabel": "Concurrent Sessions",
                     "qTags": [],
                     "qGrouping": "N",
                     "qDef": "Count(DISTINCT SessionID)",
@@ -1781,7 +1810,40 @@
             },
             "script": "",
             "refLine": {
-              "refLines": [],
+              "refLines": [
+                {
+                  "show": {
+                    "qValueExpression": {
+                      "qExpr": "$(vAnonymousConcurrentSessions)\u003e0"
+                    }
+                  },
+                  "label": "Concurrent Session Limit",
+                  "showLabel": true,
+                  "refLineExpr": {
+                    "value": {
+                      "qValueExpression": {
+                        "qExpr": "=$(vAnonymousConcurrentSessions)"
+                      }
+                    },
+                    "label": {
+                      "qStringExpression": {
+                        "qExpr": "=$(vAnonymousConcurrentSessions)"
+                      }
+                    }
+                  },
+                  "showValue": true,
+                  "paletteColor": {
+                    "index": -1,
+                    "color": "#767676"
+                  },
+                  "style": {
+                    "lineThickness": 2,
+                    "lineType": "8 4"
+                  },
+                  "coloredBackground": false,
+                  "cId": "psPtdA"
+                }
+              ],
               "refLines2": [],
               "dimRefLines": []
             },
@@ -2042,6 +2104,7 @@
               "qMeasures": [
                 {
                   "qDef": {
+                    "qLabel": "Concurrent Users",
                     "qTags": [],
                     "qGrouping": "N",
                     "qDef": "Count(DISTINCT SessionUserID)",
@@ -2385,6 +2448,589 @@
             "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb",
             "containerChildId": "mEwA",
             "childRefId": "prSJGERS"
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "dce343d6-fe3b-4355-81d1-a8786088ed07",
+              "qType": "action-button"
+            },
+            "qMetaDef": {},
+            "runtimeExpressionEvaluation": false,
+            "actions": [
+              {
+                "actionLabel": "Concurrent Apps Over Time",
+                "actionType": "setVariable",
+                "bookmark": "",
+                "field": "",
+                "variable": "vSessionsContainer2Tab",
+                "showSystemVariables": false,
+                "softLock": false,
+                "value": "Concurrent Apps Over Time",
+                "partial": false,
+                "automation": "",
+                "automationId": "",
+                "automationPostData": false,
+                "automationTriggered": false,
+                "automationShowNotification": false,
+                "automationNotificationDuration": 4,
+                "automationOpenLinkSameWindow": false,
+                "cyclicDimensionId": "",
+                "indexStepper": 1,
+                "cId": "vqhyzkp"
+              }
+            ],
+            "navigation": {
+              "action": "none",
+              "appId": "",
+              "sheet": "",
+              "chartId": "",
+              "story": "",
+              "websiteUrl": "",
+              "sameWindow": false,
+              "odagLink": ""
+            },
+            "useEnabledCondition": false,
+            "enabledCondition": 1,
+            "showTitles": false,
+            "title": "",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": true,
+            "showDetails": false,
+            "showDetailsExpression": false,
+            "style": {
+              "label": "Concurrent Apps Over Time",
+              "showLabel": true,
+              "icon": {
+                "useIcon": false,
+                "iconType": "",
+                "position": "left"
+              },
+              "font": {
+                "fontFamily": "Source Sans Pro",
+                "useColorExpression": false,
+                "color": {
+                  "index": 1,
+                  "color": "#ffffff",
+                  "alpha": 1
+                },
+                "colorExpression": "",
+                "size": 0.7,
+                "sizeFixed": "12",
+                "sizeBehavior": "fixed",
+                "style": {
+                  "bold": true,
+                  "italic": false,
+                  "underline": false
+                },
+                "align": "center"
+              },
+              "background": {
+                "useColorExpression": true,
+                "color": {
+                  "index": 9,
+                  "color": "#a16090",
+                  "alpha": 1
+                },
+                "colorExpression": {
+                  "qStringExpression": {
+                    "qExpr": "If('$(vSessionsContainer2Tab)'='Concurrent Apps Over Time',RGB(161,96,144),RGB(169,179,182))"
+                  }
+                },
+                "mode": "none",
+                "useImage": false,
+                "url": {
+                  "qStaticContentUrlDef": {}
+                },
+                "size": "auto",
+                "position": "centerCenter"
+              },
+              "border": {
+                "useColorExpression": false,
+                "color": {
+                  "index": -1,
+                  "color": "none"
+                },
+                "colorExpression": "",
+                "useBorder": false,
+                "radius": 0,
+                "width": 0
+              }
+            },
+            "components": [
+              {
+                "key": "general",
+                "borderRadius": "0px",
+                "bgColor": {
+                  "color": {
+                    "index": 0,
+                    "color": "none",
+                    "alpha": 1
+                  }
+                },
+                "borderColor": {
+                  "index": 1,
+                  "color": "#ffffff",
+                  "alpha": 1
+                }
+              }
+            ],
+            "visualization": "action-button",
+            "version": "1.42.1",
+            "childRefId": "TfArjrw",
+            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "05fedbe5-f1b0-4d5d-82c1-9dcfb783d01a",
+              "qType": "combochart"
+            },
+            "qMetaDef": {},
+            "qHyperCubeDef": {
+              "qDimensions": [
+                {
+                  "qLibraryId": "pJfpVD",
+                  "qDef": {
+                    "qGrouping": "N",
+                    "qFieldDefs": [],
+                    "qFieldLabels": [],
+                    "qSortCriterias": [
+                      {
+                        "qSortByNumeric": 1,
+                        "qSortByAscii": 1,
+                        "qSortByLoadOrder": 1,
+                        "qExpression": {}
+                      }
+                    ],
+                    "qNumberPresentations": [],
+                    "qActiveField": 0,
+                    "autoSort": true,
+                    "cId": "BFXmq",
+                    "othersLabel": "Others",
+                    "forecast": {
+                      "stepSize": "days"
+                    }
+                  },
+                  "qOtherTotalSpec": {
+                    "qOtherMode": "OTHER_OFF",
+                    "qOtherCounted": {
+                      "qv": "10"
+                    },
+                    "qOtherLimit": {
+                      "qv": "0"
+                    },
+                    "qOtherLimitMode": "OTHER_GE_LIMIT",
+                    "qForceBadValueKeeping": true,
+                    "qApplyEvenWhenPossiblyWrongResult": true,
+                    "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                    "qTotalMode": "TOTAL_OFF",
+                    "qReferencedExpression": {}
+                  },
+                  "qOtherLabel": {
+                    "qv": "Others"
+                  },
+                  "qTotalLabel": {},
+                  "qCalcCond": {},
+                  "qAttributeExpressions": [],
+                  "qAttributeDimensions": [],
+                  "qCalcCondition": {
+                    "qCond": {},
+                    "qMsg": {}
+                  },
+                  "title": "Session Concurrency Minute",
+                  "othersLabel": "Others"
+                }
+              ],
+              "qMeasures": [
+                {
+                  "qDef": {
+                    "qLabel": "Concurrent Apps",
+                    "qTags": [],
+                    "qGrouping": "N",
+                    "qDef": "Count(DISTINCT AppID)",
+                    "qNumFormat": {
+                      "qType": "U",
+                      "qnDec": 10,
+                      "qUseThou": 0
+                    },
+                    "qAccumulate": 0,
+                    "qActiveExpression": 0,
+                    "qExpressions": [],
+                    "autoSort": true,
+                    "cId": "ySaJ",
+                    "numFormatFromTemplate": true,
+                    "series": {
+                      "type": "bar",
+                      "axis": 0
+                    },
+                    "color": {
+                      "on": false,
+                      "mode": "primary",
+                      "paletteColor": {
+                        "index": 6
+                      }
+                    },
+                    "styling": [
+                      {
+                        "style": {
+                          "dataPointSize": 6,
+                          "lineThickness": 1,
+                          "lineType": "solid",
+                          "lineCurve": "linear"
+                        },
+                        "cId": "uyLWPk"
+                      }
+                    ],
+                    "forecast": {
+                      "enabled": false,
+                      "method": "ssa_forecast",
+                      "paletteColor": {
+                        "index": 0,
+                        "color": "none"
+                      },
+                      "lineThickness": 1,
+                      "lineType": "dashed",
+                      "lineCurve": "linear",
+                      "showConfidence": true,
+                      "confidence": 0.95
+                    }
+                  },
+                  "qSortBy": {
+                    "qSortByNumeric": -1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  },
+                  "qAttributeExpressions": [],
+                  "qAttributeDimensions": [],
+                  "qCalcCond": {},
+                  "qCalcCondition": {
+                    "qCond": {},
+                    "qMsg": {}
+                  },
+                  "qTrendLines": [],
+                  "qMiniChartDef": {
+                    "qSortBy": {
+                      "qExpression": {}
+                    },
+                    "qOtherTotalSpec": {
+                      "qOtherMode": "OTHER_OFF",
+                      "qOtherCounted": {},
+                      "qOtherLimit": {},
+                      "qOtherLimitMode": "OTHER_GT_LIMIT",
+                      "qForceBadValueKeeping": true,
+                      "qApplyEvenWhenPossiblyWrongResult": true,
+                      "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                      "qTotalMode": "TOTAL_OFF",
+                      "qReferencedExpression": {}
+                    },
+                    "qMaxNumberPoints": -1,
+                    "qAttributeExpressions": []
+                  }
+                }
+              ],
+              "qInterColumnSortOrder": [
+                0,
+                1
+              ],
+              "qSuppressMissing": true,
+              "qInitialDataFetch": [
+                {
+                  "qLeft": 0,
+                  "qTop": 0,
+                  "qWidth": 17,
+                  "qHeight": 500
+                }
+              ],
+              "qReductionMode": "N",
+              "qMode": "S",
+              "qPseudoDimPos": -1,
+              "qNoOfLeftDims": -1,
+              "qAlwaysFullyExpanded": true,
+              "qMaxStackedCells": 5000,
+              "qCalcCond": {
+                "qv": "$(vSessions)=1"
+              },
+              "qTitle": {},
+              "qCalcCondition": {
+                "qCond": {
+                  "qv": "$(vSessions)=1"
+                },
+                "qMsg": {
+                  "qv": "No sessions available."
+                }
+              },
+              "qColumnOrder": [],
+              "qExpansionState": [],
+              "qDynamicScript": [],
+              "columnOrder": [],
+              "qLayoutExclude": {
+                "qHyperCubeDef": {
+                  "qDimensions": [],
+                  "qMeasures": [],
+                  "qInterColumnSortOrder": [],
+                  "qInitialDataFetch": [],
+                  "qReductionMode": "N",
+                  "qMode": "S",
+                  "qPseudoDimPos": -1,
+                  "qNoOfLeftDims": -1,
+                  "qMaxStackedCells": 5000,
+                  "qCalcCond": {},
+                  "qTitle": {},
+                  "qCalcCondition": {
+                    "qCond": {},
+                    "qMsg": {}
+                  },
+                  "qColumnOrder": [],
+                  "qExpansionState": [],
+                  "qDynamicScript": []
+                }
+              },
+              "customErrorMessage": {
+                "calcCond": "No sessions available."
+              }
+            },
+            "script": "",
+            "refLine": {
+              "refLines": [
+                {
+                  "show": {
+                    "qValueExpression": {
+                      "qExpr": "=$(vAnonymousConcurrentApps)\u003e0"
+                    }
+                  },
+                  "label": "Concurrent App Limit",
+                  "showLabel": true,
+                  "refLineExpr": {
+                    "value": {
+                      "qValueExpression": {
+                        "qExpr": "=$(vAnonymousConcurrentApps)"
+                      }
+                    },
+                    "label": {
+                      "qStringExpression": {
+                        "qExpr": "=$(vAnonymousConcurrentApps)"
+                      }
+                    }
+                  },
+                  "showValue": true,
+                  "paletteColor": {
+                    "index": -1,
+                    "color": "#767676"
+                  },
+                  "style": {
+                    "lineThickness": 2,
+                    "lineType": "8 4"
+                  },
+                  "coloredBackground": false,
+                  "cId": "psPtdA"
+                }
+              ],
+              "refLines2": [],
+              "dimRefLines": []
+            },
+            "showTitles": false,
+            "title": "Concurrent Apps Over Time",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": true,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "barGrouping": {
+              "grouping": "grouped"
+            },
+            "orientation": "vertical",
+            "scrollStartPos": 0,
+            "nullMode": "gap",
+            "dataPoint": {
+              "show": true,
+              "showLineLabels": false,
+              "showBarLabels": false,
+              "showBarSegmentLabels": false,
+              "showBarTotalLabels": true,
+              "showMarkerLabels": false,
+              "showLabels": false
+            },
+            "gridLine": {
+              "auto": true,
+              "axis": 0,
+              "spacing": 2
+            },
+            "color": {
+              "auto": true,
+              "mode": "primary",
+              "formatting": {
+                "numFormatFromTemplate": true
+              },
+              "useBaseColors": "off",
+              "paletteColor": {
+                "index": 6
+              },
+              "useDimColVal": true,
+              "useMeasureGradient": true,
+              "persistent": true,
+              "expressionIsColor": true,
+              "expressionLabel": "",
+              "measureScheme": "sg",
+              "reverseScheme": false,
+              "dimensionScheme": "12",
+              "autoMinMax": true,
+              "measureMin": 0,
+              "measureMax": 10
+            },
+            "legend": {
+              "show": true,
+              "dock": "auto",
+              "showTitle": true
+            },
+            "dimensionAxis": {
+              "continuousAuto": false,
+              "show": "labels",
+              "label": "auto",
+              "dock": "near",
+              "axisDisplayMode": "auto",
+              "maxVisibleItems": 10
+            },
+            "preferContinuousAxis": true,
+            "showMiniChartForContinuousAxis": false,
+            "measureAxes": [
+              {
+                "show": "labels",
+                "dock": "near",
+                "spacing": 1,
+                "autoMinMax": false,
+                "minMax": "minMax",
+                "min": 0,
+                "max": {
+                  "qValueExpression": {
+                    "qExpr": "=Ceil(\r\n    Max(\n        Aggr(\n            Count({\u003cConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT AppID),\n            ConsumptionConcurrencyMinute\n        )\n    ),10\n)"
+                  }
+                },
+                "logarithmic": false
+              },
+              {
+                "show": "all",
+                "dock": "far",
+                "spacing": 1,
+                "autoMinMax": true,
+                "minMax": "min",
+                "min": 0,
+                "max": 10
+              }
+            ],
+            "tooltip": {
+              "auto": true,
+              "hideBasic": false,
+              "chart": {
+                "style": {
+                  "size": "medium"
+                }
+              },
+              "title": "",
+              "description": ""
+            },
+            "visualization": "combochart",
+            "version": "1.31.5",
+            "components": [
+              {
+                "key": "general",
+                "borderWidth": "0px"
+              },
+              {
+                "key": "line",
+                "style": {
+                  "lineThickness": 2,
+                  "lineCurve": "monotone"
+                }
+              },
+              {
+                "key": "axis"
+              },
+              {
+                "key": "label"
+              },
+              {
+                "key": "legend"
+              },
+              {
+                "key": "bar",
+                "style": {
+                  "width": 1
+                }
+              }
+            ],
+            "measureAxis": {
+              "min": 0,
+              "max": {
+                "qValueExpression": {
+                  "qExpr": "=Max(\r\n\tAggr(\n    \tCount({\u003cConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute\n    )\n)"
+                }
+              }
+            },
+            "qLayoutExclude": {
+              "quarantine": {
+                "conditionalShowHide": {
+                  "measures": {
+                    "ySaJ": {
+                      "qCond": {
+                        "qv": ""
+                      },
+                      "qMsg": {
+                        "qv": ""
+                      }
+                    }
+                  },
+                  "dimensions": {
+                    "BFXmq": {
+                      "qCond": {
+                        "qv": ""
+                      },
+                      "qMsg": {
+                        "qv": ""
+                      }
+                    }
+                  }
+                }
+              },
+              "disabled": {
+                "qExtendsId": "",
+                "showDisclaimer": true,
+                "lineType": "line",
+                "stackedArea": false,
+                "separateStacking": true,
+                "scrollbar": "none",
+                "maxNumPoints": 2000,
+                "maxNumLines": 12,
+                "gridLine": {
+                  "auto": true,
+                  "spacing": 2
+                },
+                "measureAxis": {
+                  "show": "labels",
+                  "dock": "near",
+                  "spacing": 1,
+                  "autoMinMax": false,
+                  "minMax": "minMax",
+                  "min": 0,
+                  "max": {
+                    "qValueExpression": {
+                      "qExpr": "=Max(\r\n\tAggr(\n    \tCount({\u003cConsumptionConcurrencyMinute={\"*\"}\u003e}DISTINCT SessionUserID),\n        ConsumptionConcurrencyMinute\n    )\n)"
+                    }
+                  },
+                  "logarithmic": false
+                },
+                "hash": 0.9408113104083689,
+                "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+              }
+            },
+            "containerChildId": "PuLJjg",
+            "appId": "dfa8a155-6cc8-4f87-9661-90be02fd7716",
+            "childRefId": "pMAacXks"
           },
           "qChildren": []
         }
@@ -12524,7 +13170,7 @@
                   "qCalcCond": {},
                   "qCalcCondition": {
                     "qCond": {
-                      "qv": "Match('$(vSessionsTableColumnFilter)','All','Totals')"
+                      "qv": "Match('$(vSessionsTableColumnFilter)','All','Totals') AND $(vu_slim_version_for_anonymous)\u003c\u003e1"
                     },
                     "qMsg": {}
                   },
@@ -13457,7 +14103,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='27ca845c-0cce-4406-bacd-774a362b3485'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'27ca845c-0cce-4406-bacd-774a362b3485',Null())"
                 }
               },
               "chartId": "",
@@ -13493,7 +14139,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -13515,7 +14161,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -13582,7 +14228,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='95b87163-9d1b-4067-8083-1cf5ba496601'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'95b87163-9d1b-4067-8083-1cf5ba496601',Null())"
                 }
               },
               "chartId": "",
@@ -13618,7 +14264,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -13640,7 +14286,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -13707,7 +14353,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='08d57bbb-e093-440a-9c84-3c078804f593'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'08d57bbb-e093-440a-9c84-3c078804f593',Null())"
                 }
               },
               "chartId": "",
@@ -13743,7 +14389,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -13765,7 +14411,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -13832,7 +14478,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='15665f10-262e-47bf-aaaf-b1181e5c6018'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'15665f10-262e-47bf-aaaf-b1181e5c6018',Null())"
                 }
               },
               "chartId": "",
@@ -13868,7 +14514,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -13890,7 +14536,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",

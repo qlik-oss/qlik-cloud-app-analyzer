@@ -76,7 +76,7 @@ Set vu_track_app_meta_over_time			= 1;	// Store QVDs of high-level app metadata 
 Set vu_track_app_meta_retention			= 90;	// Days to retain the rolling app metadata.
 Set vu_months_in_reload_interval 		= 3;	// Width of app last reload date for grouping apps in this app.
 Set vu_initial_days_back 				= 90;	// The number of days back to fetch consumption data initially, before incrementally building. Max of 90.
-Set vu_session_rolling_range 			= 365; 	// Maximum days back to store session data in QVDs -- default 365
+Set vu_session_rolling_range 			= 365; 	// Maximum days back to store session data in QVDs -- default 365 -- note this can be overridden by the 'vu_slim_version_for_anonymous' variable
 Set vu_GMT_offset 						= 0;	// The timezone difference from GMT. Modifies the reload times and session times to the desired GMT offset.
 //	Example 1: -5
 //	Example 2: 5
@@ -99,6 +99,7 @@ Set vu_sessions_container_1_preset_filter = 'Sessions by App';	// Set the defaul
 //		Apps Viewed by User
 
 Set vu_sessions_container_2_preset_filter = 'Sessions Over Time';	// Set the default filter for the second sessions container on the Sessions Overview sheet. Defaults to Sessions Over Time.
+// This will be overwritten to 'Concurrent Sessions Over Time' if on an anonymous-enabled tenant
 // Can be one of: 
 //		Sessions Over Time
 //    	Users Over Time
@@ -119,6 +120,9 @@ Set vu_sessions_pivot_preset_filter = 'Users'; // Set the default filter for the
 //    	Concurrent Users CM
 //		Concurrent Users PMTD
 //		Concurrent Users PM
+
+Set vu_slim_version_for_anonymous = 0;	// Drops many tables/fields to decrease RAM, as all apps in anonymous access tenants contribute to purchased RAM. Set to 1 if desired, default 0.
+// This will be auto-applied for anonymous-enabled tenants
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -186,6 +190,10 @@ Sub variables
   Set CreateSearchIndexOnReload			= 1;	       // to assist search results in app
   Search Exclude '*ID','_*','*Time*','*Duration*','*Date*'; // Exclude these fields from the global search.
   Set HidePrefix='_';
+  
+  If $(vu_slim_version_for_anonymous)=1 Then
+      Set vu_session_rolling_range = 60; // Override this setting to ensure app remains slim while in slim version
+  End If
   
   Let vu_tenant_fqdn 	= GetSysAttr('tenantUrl');
   Let vu_tenant_alias 	= GetSysAttr('tenantUrlAlias');
@@ -331,7 +339,17 @@ Sub check_license
         (SELECT 
             "name",
             "__FK_allotments"
-        FROM "allotments" FK "__FK_allotments")
+        FROM "allotments" FK "__FK_allotments"),
+        (SELECT 
+            "name" AS "name_u0",
+            "__KEY_parameters",
+            "__FK_parameters",
+            (SELECT 
+                "quantity",
+                "title",
+                "__FK_values"
+            FROM "values" FK "__FK_values")
+        FROM "parameters" PK "__KEY_parameters" FK "__FK_parameters")
     FROM JSON (wrap on) "root" PK "__KEY_root"
     WITH CONNECTION (  
         URL "https://$(vu_tenant_fqdn)/api/v1/licenses/overview"
@@ -342,19 +360,51 @@ Sub check_license
         [name]
     Resident RestConnectorMasterTable
     Where [name]='fullUser';
+    
+    [AnonymousLicense]:
+    Load	
+        [__KEY_parameters] AS _AnonymousLicenseKey
+    Resident RestConnectorMasterTable
+    Where Match(name_u0,'anonymousConcurrentSessions','anonymousCapacity');
+    
+    Left Join (AnonymousLicense)
+    Load	
+    	[quantity] AS AnonymousLicenseQuantity,
+        [title] AS AnonymousLicenseType,
+        [__FK_values] AS _AnonymousLicenseKey
+    Resident RestConnectorMasterTable
+    Where Not IsNull([__FK_values]);
 
     Drop Table RestConnectorMasterTable;
-
+    Drop Field _AnonymousLicenseKey;
+    
+    // Instantiate vars
+    Set vAnonymousConcurrentSessions=-1;
+    Set vAnonymousAppCapacity=-1;
+    Set vAnonymousConcurrentApps=-1;
+    Set vIsAnonymousLicense=-1;
+    
+    If NoOfRows('AnonymousLicense')>0 Then
+    	Let vAnonymousConcurrentSessions = LookUp('AnonymousLicenseQuantity','AnonymousLicenseType','Anonymous Concurrent Sessions','AnonymousLicense');
+    	Let vAnonymousAppCapacity = LookUp('AnonymousLicenseQuantity','AnonymousLicenseType','Anonymous Capacity','AnonymousLicense');
+    
+    	Set vIsAnonymousLicense = 1;
+    	Set vu_slim_version_for_anonymous = 1;
+        Set vSessionsContainer2Tab = 'Concurrent Sessions Over Time';
+        Set vAnonymousConcurrentApps = 50;
+    End if
+    
 	Set vIsCapacityLicense = 0;
-    If NoOfRows('CheckLicense') > 0 THEN
-        Set vIsCapacityLicense = 1;
+    If NoOfRows('CheckLicense') > 0 And $(vIsAnonymousLicense)<>1 Then
+        Set vIsCapacityLicense = 1; // App RAM size quota for non-anonymous capacity license must be hardcoded at 10 GB
     End If
 
-    Drop Table CheckLicense;
-
+    Drop Tables 
+    	CheckLicense
+        ,AnonymousLicense
+    ;
+        
 End Sub
-
-
 ///$tab Check Version
 Sub check_version
 
@@ -2355,8 +2405,8 @@ Sub transform
 //         SessionIDProxy,
         AutoNumber(SessionID & '|' & AppID) AS SessionID, // SessionID is the proxy session which needs to combine with the AppID for a pseudo app session ID. The ID field is generated from mongo and can't be used
         SessionMinutesUsed,
-        ApplyMap('Map_UserID_AppOwnerName',SessionUserID,'[Deleted]') AS SessionUserName,
-        ApplyMap('Map_UserID_AppOwnerSubject',SessionUserID,'[Deleted]') AS SessionUserSubject,
+        If(WildMatch(SessionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',SessionUserID,'[Deleted]')) AS SessionUserName,
+        If(WildMatch(SessionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',SessionUserID,'[Deleted]')) AS SessionUserSubject,
         SessionUserID,
         SessionUserID AS SessionUserIDTemp,
         SessionLicenseUsage
@@ -2377,8 +2427,8 @@ Sub transform
         Timestamp(Timestamp(SheetConsumptionEventTime) + $(vReloadTimeDiffFromGMT)) AS SheetConsumptionEventTime,
         SheetConsumptionUserID,
         SheetConsumptionUserID AS SessionUserID,
-        ApplyMap('Map_UserID_AppOwnerName',SheetConsumptionUserID,'[Deleted]') AS SheetConsumptionUserName,
-        ApplyMap('Map_UserID_AppOwnerSubject',SheetConsumptionUserID,'[Deleted]') AS SheetConsumptionUserSubject
+        If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',SheetConsumptionUserID,'[Deleted]')) AS SheetConsumptionUserName,
+        If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',SheetConsumptionUserID,'[Deleted]')) AS SheetConsumptionUserSubject
     Resident TEMP
     Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vSheetUsageAddedDate)');
 
@@ -2701,6 +2751,75 @@ Sub autonumber
     Resident Tables;
     
 End Sub
+///$tab Slim
+Sub slim
+
+	If $(vu_slim_version_for_anonymous)=1 Then
+    
+    	Drop Tables 
+            ServerHardware
+            ,Last_SessionStartDate
+            ,FieldTags
+            ,FieldSourceTables
+            ,Fields
+            ,Tables
+            ,Users
+            ,AppLastReloadTime
+            ,Last_AppLastReloadTime
+            ,AppTags
+            ,app_analyzer_rolling
+        ;
+        
+        Drop Fields
+        	_KeyTags
+			,QuotaUsage
+            ,ExportFromAppSuccessful
+            ,ExportFromAppEndTime
+            ,ExportFromAppStartTime
+            ,AppType
+            ,SessionStartTimeDateHourFloored
+            ,SessionLicenseUsage
+            ,SpaceOwnerID
+            ,SpaceDescription
+            ,SpaceCreatedTime
+            ,SpaceCreatedBy
+            ,AppOwnerID
+            ,AppCreatedTime
+            ,AppUpdatedTime
+            ,AppCreatorID
+            ,AppUpdaterID
+            ,AppIsFavorited
+            ,AppDescription
+            ,AppIsDistributed
+            ,AppHasSectionAccess
+            ,AppLastReloadTimeLocalServerTime
+            ,AppOriginalID
+            ,AppPublishedTime
+            ,AppEncrypted
+            ,_AppOwnerSubjectForOEMDash
+            ,[App Reload CPU Time (ms)]
+            ,AppHasDirectQueryMode
+            ,AppLastReloadedBucket
+            ,AppPeakRAMOverThreshold
+            ,AppReloadCPUTimeOverThreshold
+            ,AppNoOfTables
+            ,AppContainsSyntheticKeys
+            ,[AppContainsDataIsland(s)]
+            ,AppNumberOfDistinctFields
+            ,AppTableNoOfRows
+            ,[AppContainsCircularReference(s)]
+            ,AppTableNoOfRowsOverThreshold
+            ,AppNumberOfDistinctFieldsOverThreshold
+            ,AppRAMOverThreshold
+            ,AppRAMPercentToQuota
+            ,_AppRAMPercentToQuotaColor
+            ,AppRAMPeakReloadPercentToQuota
+            ,_AppRAMPeakReloadPercentToQuotaColor
+        ;
+            
+    End if;
+
+End Sub
 ///$tab Helper Functions
 Sub execute_sub(sub_routine)
     Trace Working on $(sub_routine);
@@ -2721,7 +2840,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name		= 'App Analyzer';
-Set app_version		= '6.1.2';
+Set app_version		= '6.1.7';
 Let comp 			= ComputerName(); 
 Let engine_ver 		= PurgeChar(EngineVersion(),Chr(39)); 
 Let startMsg 		= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
@@ -2743,7 +2862,7 @@ End Sub
 
 Sub transform_data
     Trace Transforming data...;
-    For Each sub_routine in 'transform','calendar','autonumber'
+    For Each sub_routine in 'transform','calendar','autonumber','slim'
         Call execute_sub(sub_routine)
     Next sub_routine
 End Sub

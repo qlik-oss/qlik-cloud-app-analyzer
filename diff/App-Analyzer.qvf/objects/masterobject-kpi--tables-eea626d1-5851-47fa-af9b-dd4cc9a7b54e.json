@@ -98,11 +98,17 @@
     "qPseudoDimPos": -1,
     "qNoOfLeftDims": -1,
     "qMaxStackedCells": 5000,
-    "qCalcCond": {},
+    "qCalcCond": {
+      "qv": "$(vu_slim_version_for_anonymous)\u003c\u003e1"
+    },
     "qTitle": {},
     "qCalcCondition": {
-      "qCond": {},
-      "qMsg": {}
+      "qCond": {
+        "qv": "$(vu_slim_version_for_anonymous)\u003c\u003e1"
+      },
+      "qMsg": {
+        "qv": "This data is not available in the slimmed down version of this app."
+      }
     },
     "qColumnOrder": [],
     "qExpansionState": [],
@@ -128,6 +134,9 @@
         "qExpansionState": [],
         "qDynamicScript": []
       }
+    },
+    "customErrorMessage": {
+      "calcCond": "This data is not available in the slimmed down version of this app."
     }
   },
   "showTitles": false,

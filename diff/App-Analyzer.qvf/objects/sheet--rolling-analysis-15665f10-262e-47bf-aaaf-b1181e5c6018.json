@@ -229,7 +229,12 @@
       }
     },
     "gridMode": "edit",
-    "customRowBase": 24
+    "customRowBase": 24,
+    "showCondition": {
+      "qStringExpression": {
+        "qExpr": "$(vu_slim_version_for_anonymous)\u003c\u003e1"
+      }
+    }
   },
   "qChildren": [
     {

@@ -75,13 +75,13 @@
         }
       },
       "sheetHeader": {
-        "show": false,
         "components": {
           "sheetTitle": {
             "show": true,
             "placement": "left"
           }
-        }
+        },
+        "show": false
       }
     }
   ],

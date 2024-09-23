@@ -74,20 +74,6 @@
         }
       },
       {
-        "name": "JBsTpy",
-        "type": "sn-layout-container",
-        "col": 0,
-        "row": 0,
-        "colspan": 48,
-        "rowspan": 1,
-        "bounds": {
-          "y": 0,
-          "x": 0,
-          "width": 100,
-          "height": 4.166666666666666
-        }
-      },
-      {
         "name": "pfXExaU",
         "type": "sn-text",
         "col": 38,
@@ -99,6 +85,20 @@
           "x": 79.16666666666666,
           "width": 20.833333333333336,
           "height": 62.5
+        }
+      },
+      {
+        "name": "jSYDgvP",
+        "type": "sn-layout-container",
+        "col": 0,
+        "row": 0,
+        "colspan": 48,
+        "rowspan": 1,
+        "bounds": {
+          "y": 0,
+          "x": 0,
+          "width": 100,
+          "height": 4.166666666666666
         }
       }
     ],
@@ -126,8 +126,61 @@
         "qMetaDef": {},
         "qHyperCubeDef": {
           "qDimensions": [],
-          "qMeasures": [],
-          "qInterColumnSortOrder": [],
+          "qMeasures": [
+            {
+              "qDef": {
+                "qTags": [],
+                "qGrouping": "N",
+                "qDef": "If($(vu_slim_version_for_anonymous)=1,'This application is currently in the slimmed down mode for an anonymous-enabled tenant. This is to reduce the overall size of the application''s RAM footprint so that it has a marginal effect on the capacity quota of the tenant. Some sheets are not available while in this mode and are greyed out.',Null())",
+                "qNumFormat": {
+                  "qType": "U",
+                  "qnDec": 10,
+                  "qUseThou": 0
+                },
+                "qAggrFunc": "None",
+                "qAccumulate": 0,
+                "qActiveExpression": 0,
+                "qExpressions": [],
+                "autoSort": true,
+                "cId": "vBAQJ",
+                "numFormatFromTemplate": true
+              },
+              "qSortBy": {
+                "qSortByNumeric": -1,
+                "qSortByLoadOrder": 1,
+                "qExpression": {}
+              },
+              "qAttributeExpressions": [],
+              "qAttributeDimensions": [],
+              "qCalcCond": {},
+              "qCalcCondition": {
+                "qCond": {},
+                "qMsg": {}
+              },
+              "qTrendLines": [],
+              "qMiniChartDef": {
+                "qSortBy": {
+                  "qExpression": {}
+                },
+                "qOtherTotalSpec": {
+                  "qOtherMode": "OTHER_OFF",
+                  "qOtherCounted": {},
+                  "qOtherLimit": {},
+                  "qOtherLimitMode": "OTHER_GT_LIMIT",
+                  "qForceBadValueKeeping": true,
+                  "qApplyEvenWhenPossiblyWrongResult": true,
+                  "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                  "qTotalMode": "TOTAL_OFF",
+                  "qReferencedExpression": {}
+                },
+                "qMaxNumberPoints": -1,
+                "qAttributeExpressions": []
+              }
+            }
+          ],
+          "qInterColumnSortOrder": [
+            0
+          ],
           "qSuppressMissing": true,
           "qInitialDataFetch": [
             {
@@ -199,7 +252,7 @@
         ],
         "visualization": "sn-text",
         "version": "1.1.1",
-        "text": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 20px;\",\"text\":\"The App Analyzer is an application designed for Qlik Cloud to track and analyze application metadata and session usage within a tenant. \",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Some of the benefits of this application are as follows:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Track app, table, field, and reload memory footprints against tenant quotas.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Monitor number of fields, tables, synthetic keys, and data islands to help enforce best practices and identify candidates for optimization.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Compare current month vs prior month session usage\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Discover what users are using what applications and when\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Tie in Qlik Alerting to be notified of desired metrics\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    This application:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - pulls a max of 90 days of user session history, and will then continue to build from there incrementally using QVDs.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - should not be used as an audit application.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Endpoints:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/overview - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/consumption - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     tenants - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     quotas - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     spaces - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     users - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     oauth-clients - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     items - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     apps/{id}/data/metadata - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+        "text": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 20px;\",\"text\":\"The App Analyzer is an application designed for Qlik Cloud to track and analyze application metadata and session usage within a tenant. \",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"expressionId\":\"vBAQJ\",\"formatStyle\":{\"fontWeight\":\"\",\"fontStyle\":\"italic\",\"textDecoration\":\"\",\"color\":\"#ac4d58\",\"fontSize\":\"14px\",\"fontFamily\":\"\"},\"type\":\"qlik.expression.node\",\"version\":1},{\"detail\":0,\"format\":2,\"mode\":\"normal\",\"style\":\"font-size: 14px;color: #ac4d58;\",\"text\":\" \",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Some of the benefits of this application are as follows:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Track app, table, field, and reload memory footprints against tenant quotas.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Monitor number of fields, tables, synthetic keys, and data islands to help enforce best practices and identify candidates for optimization.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Compare current month vs prior month session usage\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Discover what users are using what applications and when\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Tie in Qlik Alerting to be notified of desired metrics\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    This application:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - pulls a max of 90 days of user session history, and will then continue to build from there incrementally using QVDs.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - should not be used as an audit application.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Endpoints:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/overview - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/consumption - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     tenants - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     quotas - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     spaces - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     users - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     oauth-clients - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     items - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     apps/{id}/data/metadata - public, stable\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
         "fontsUsed": [],
         "extensionMeta": {
           "translationKey": "",
@@ -1228,7 +1281,111 @@
     {
       "qProperty": {
         "qInfo": {
-          "qId": "JBsTpy",
+          "qId": "pfXExaU",
+          "qType": "sn-text"
+        },
+        "qMetaDef": {},
+        "qHyperCubeDef": {
+          "qDimensions": [],
+          "qMeasures": [],
+          "qInterColumnSortOrder": [],
+          "qSuppressMissing": true,
+          "qInitialDataFetch": [
+            {
+              "qLeft": 0,
+              "qTop": 0,
+              "qWidth": 500,
+              "qHeight": 10
+            }
+          ],
+          "qReductionMode": "N",
+          "qMode": "S",
+          "qPseudoDimPos": -1,
+          "qNoOfLeftDims": -1,
+          "qMaxStackedCells": 5000,
+          "qCalcCond": {},
+          "qTitle": {},
+          "qCalcCondition": {
+            "qCond": {},
+            "qMsg": {}
+          },
+          "qColumnOrder": [],
+          "qExpansionState": [],
+          "qDynamicScript": [],
+          "qLayoutExclude": {
+            "qHyperCubeDef": {
+              "qDimensions": [],
+              "qMeasures": [],
+              "qInterColumnSortOrder": [],
+              "qInitialDataFetch": [],
+              "qReductionMode": "N",
+              "qMode": "S",
+              "qPseudoDimPos": -1,
+              "qNoOfLeftDims": -1,
+              "qMaxStackedCells": 5000,
+              "qCalcCond": {},
+              "qTitle": {},
+              "qCalcCondition": {
+                "qCond": {},
+                "qMsg": {}
+              },
+              "qColumnOrder": [],
+              "qExpansionState": [],
+              "qDynamicScript": []
+            }
+          }
+        },
+        "script": "",
+        "showTitles": false,
+        "title": "",
+        "subtitle": "",
+        "footnote": "",
+        "disableNavMenu": true,
+        "showDetails": true,
+        "showDetailsExpression": false,
+        "components": [
+          {
+            "key": "general",
+            "shadow": {
+              "boxShadow": "0px 1px 2px 0px"
+            }
+          }
+        ],
+        "visualization": "sn-text",
+        "version": "1.1.6",
+        "text": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Acronyms:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"CM:\",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"       Current month\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"PMTD:\",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\" Prior month-to-date\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"PM: \",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"      Prior month\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+        "fontsUsed": [],
+        "extensionMeta": {
+          "translationKey": "",
+          "icon": "text-object",
+          "iconChar": "puzzle",
+          "isLibraryItem": true,
+          "visible": true,
+          "IconDefinition": {},
+          "name": "Text",
+          "description": "Display text, links, and measures. Add tables with rows and columns. Format and color the text. Add background image and color.",
+          "template": "sn-text",
+          "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
+          "isThirdParty": true,
+          "version": "1.1.6",
+          "author": "QlikTech International AB",
+          "type": "visualization",
+          "supernova": true,
+          "bundle": {
+            "id": "qlik-dashboard-bundle",
+            "name": "Qlik Dashboard bundle",
+            "description": "This is a set of supported objects that will facilitate dashboard creation in Qlik Sense. These can be used in addition to the objects found under \"Charts\".\n\nFor limitations and support conditions, see the documentation."
+          },
+          "installer": "QlikExtensionBundler",
+          "folder": "_dashboard-bundle"
+        }
+      },
+      "qChildren": []
+    },
+    {
+      "qProperty": {
+        "qInfo": {
+          "qId": "jSYDgvP",
           "qType": "sn-layout-container"
         },
         "qMetaDef": {},
@@ -1247,7 +1404,7 @@
             }
           },
           {
-            "childRefId": "pshEpqnv",
+            "childRefId": "ppEQuMu",
             "label": "Filter Pane",
             "bounds": {
               "height": 100,
@@ -1424,7 +1581,7 @@
           "template": "sn-layout-container",
           "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
           "isThirdParty": true,
-          "version": "3.7.1",
+          "version": "3.9.0",
           "author": "QlikTech International AB",
           "type": "visualization",
           "supernova": true,
@@ -1436,14 +1593,14 @@
           "installer": "QlikExtensionBundler",
           "folder": "_dashboard-bundle"
         },
-        "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb",
+        "appId": "dfa8a155-6cc8-4f87-9661-90be02fd7716",
         "masterVersion": 0.96
       },
       "qChildren": [
         {
           "qProperty": {
             "qInfo": {
-              "qId": "18f54294-acbb-4f13-93e1-5626911bf131",
+              "qId": "e4373790-a2b0-4caa-8d68-df3b2a397409",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -1570,7 +1727,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "6adca1ca-e631-486e-bb14-00929a3e7eb4",
+              "qId": "0c3d9e70-015f-42c3-96b1-dda7b2269ce8",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -1639,7 +1796,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('afe47c01-db27-4069-8c56-93c542aa8b07'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If(InObject('afe47c01-db27-4069-8c56-93c542aa8b07'),RGB(30,153,69),RGB(242,242,242))\r\n"
                   }
                 },
                 "mode": "none",
@@ -1695,7 +1852,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "687fb46d-2bf4-40e2-9613-1f6df805d279",
+              "qId": "30279768-13cc-4cd8-bd8e-46f15f702679",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -1820,7 +1977,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "735a4191-f73e-4a8f-ad29-d9ed34ce0305",
+              "qId": "eb773f22-4728-4fbe-99eb-264e4fd2c9df",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -1831,7 +1988,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='27ca845c-0cce-4406-bacd-774a362b3485'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'27ca845c-0cce-4406-bacd-774a362b3485',Null())"
                 }
               },
               "chartId": "",
@@ -1867,7 +2024,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -1889,7 +2046,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -1945,7 +2102,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "7042b9d7-6690-4082-9171-ef0a9b18c625",
+              "qId": "9e51f15c-b552-46a6-adce-962ee1fc0e94",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -1956,7 +2113,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='95b87163-9d1b-4067-8083-1cf5ba496601'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'95b87163-9d1b-4067-8083-1cf5ba496601',Null())"
                 }
               },
               "chartId": "",
@@ -1992,7 +2149,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -2014,7 +2171,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -2070,7 +2227,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "115719bc-8c28-484b-9057-5daf3d4dbe9f",
+              "qId": "07229e8f-d37e-433d-851c-bf05e4fe630b",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -2081,7 +2238,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='08d57bbb-e093-440a-9c84-3c078804f593'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'08d57bbb-e093-440a-9c84-3c078804f593',Null())"
                 }
               },
               "chartId": "",
@@ -2117,7 +2274,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -2139,7 +2296,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -2195,7 +2352,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "4855d4ae-6a78-488c-854a-c8c2a8d5065c",
+              "qId": "f980a167-275e-469e-8fa3-4b520e1d32c3",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -2206,7 +2363,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='15665f10-262e-47bf-aaaf-b1181e5c6018'"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'15665f10-262e-47bf-aaaf-b1181e5c6018',Null())"
                 }
               },
               "chartId": "",
@@ -2242,7 +2399,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -2264,7 +2421,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -2320,7 +2477,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "2ffbe25d-965e-45ab-8f2f-51b8790d2d9b",
+              "qId": "bf4d764a-7df4-4d62-8941-5b786c3a9c55",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -2446,7 +2603,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "0a178731-fed3-41f8-b473-6906eeb7179f",
+              "qId": "23a0b617-9b78-434c-8a9e-a835c94e3ade",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -2571,7 +2728,19 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "54fc7f6f-7ad3-464b-a1eb-593a69d215a1",
+              "qId": "a400af50-d338-4553-929e-4fba633002f6",
+              "qType": "childObject"
+            },
+            "qExtendsId": "3de4d8e4-940d-406c-8042-1bc821620999",
+            "qMetaDef": {},
+            "childRefId": "ppEQuMu"
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "e5c41967-f9ba-4f44-a25f-513df2c5bc7e",
               "qType": "sn-text"
             },
             "qMetaDef": {},
@@ -2681,1054 +2850,8 @@
             "childRefId": "pkjkYeUp"
           },
           "qChildren": []
-        },
-        {
-          "qProperty": {
-            "qInfo": {
-              "qId": "8006d3b1-ff0b-43ca-973f-e76d6efff65b",
-              "qType": "childObject"
-            },
-            "qExtendsId": "723d66de-20af-4493-bec9-97f8197a1e5f",
-            "qMetaDef": {},
-            "childRefId": "pshEpqnv"
-          },
-          "qChildren": [
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "d37f39e4-67f9-470c-a85f-19b10f2ddd19",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "xdLfma",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "EsnkFLr"
-                  },
-                  "qFrequencyMode": "N",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {}
-                },
-                "showTitles": true,
-                "title": {
-                  "qStringExpression": {
-                    "qExpr": "='App Name'"
-                  }
-                },
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                }
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "bd49c2e2-49c6-4f5f-8e48-08496158a769",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "RJHTvXD",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "jpNspv"
-                  },
-                  "qFrequencyMode": "N",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {}
-                },
-                "showTitles": true,
-                "title": "AppID",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                }
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "53a8d953-391a-4566-8222-49d2d507036e",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "naSQwe",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "ZPDPgPr"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "showTitles": true,
-                  "title": "",
-                  "subtitle": "",
-                  "footnote": "",
-                  "disableNavMenu": false,
-                  "showDetails": true,
-                  "showDetailsExpression": false,
-                  "qOtherTotalSpec": {}
-                },
-                "showTitles": true,
-                "title": "App Is Distributed",
-                "subtitle": "",
-                "footnote": "",
-                "disableNavMenu": false,
-                "showDetails": true,
-                "showDetailsExpression": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "bf07a2bc-ea34-4ace-bf5c-f14347d140a3",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "fe0d6c30-0942-4bb7-9217-9e83ffca5786",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "Chcm"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "App Owner",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "80cba1e0-cc07-47a4-9811-9419b294e56c",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "Jqnkt",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "bPTKBL"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Table Name",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "4278559d-9ecb-4e1e-a0f5-32bf2c78ec01",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "Yryypc",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "dCHZDu"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "showTitles": true,
-                  "title": "",
-                  "subtitle": "",
-                  "footnote": "",
-                  "disableNavMenu": false,
-                  "showDetails": true,
-                  "showDetailsExpression": false,
-                  "qOtherTotalSpec": {}
-                },
-                "showTitles": true,
-                "title": "App Type",
-                "subtitle": "",
-                "footnote": "",
-                "disableNavMenu": false,
-                "showDetails": true,
-                "showDetailsExpression": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "90eefec7-bcd6-453a-bf16-bc2ea8e582c6",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "30075aec-11f9-4443-9d4f-07c152c5ca22",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "pPQN"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Space Type",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "07568b57-46b7-4bab-94b7-e32f61b98945",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "jTp",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "LwncbPc"
-                  },
-                  "qFrequencyMode": "N",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {}
-                },
-                "showTitles": true,
-                "title": "Space Name",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                }
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "301e0665-4fe8-44a1-a44f-a2263377410c",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "SJYFL",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "WWHmrP"
-                  },
-                  "qFrequencyMode": "N",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {}
-                },
-                "showTitles": true,
-                "title": "Space ID",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                }
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "4fd654d9-8b6f-4af8-b576-4092e82eb4f8",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "KWRXFA",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "HMfNqp"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": {
-                  "qStringExpression": {
-                    "qExpr": "'Records Over Threshold'"
-                  }
-                },
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "44b1fcb4-cb1c-469c-9557-ddbf71f6d8f4",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "QZaRcgP",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "EpWPa"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Field Name",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "frequencyMax": "fetch",
-                "histogram": true,
-                "layoutOptions": {
-                  "dense": true
-                }
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "a9029780-313d-413a-8f7a-23f245c36c65",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "ZyZdFRJ",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "gBcxp"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Field Values Over Threshold",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "550aeb49-168d-40bb-8a28-f2f148dc64c2",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "51444e43-428e-4182-b4c7-ac1297c2b439",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "QtLkhjB"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": {
-                  "qStringExpression": {
-                    "qExpr": "'RAM Over Threshold'"
-                  }
-                },
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "a3b1ec9b-aa2f-43b9-bf5b-ad83b64792e2",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "LLBNL",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "mRyp"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Reload Time Over Threshold",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "e6ec379a-547e-47d7-8397-cca6cda929c9",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "Jqnkt",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "acypXKM"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Table Name",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "c27d4663-030e-4111-b3a6-f72018b74334",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "ZJjue",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "JUSjJL"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Field is Synthetic",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "3b7b3c95-4b9b-4b82-bb9e-d6b92dc77f02",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "38e85aea-6109-4979-9b51-5caea76a3fe2",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "MTmKJa"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Table is Island",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "frequencyMax": "fetch",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "87d88ae4-04e2-4c26-ac6c-f08634276971",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "PXPjVb",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "Pdmpgvm"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "Table Rows Over Threshold",
-                "subtitle": "",
-                "footnote": "",
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            },
-            {
-              "qProperty": {
-                "qInfo": {
-                  "qId": "408b0c38-7140-46ff-af42-a53cdb3fbf30",
-                  "qType": "listbox"
-                },
-                "qMetaDef": {},
-                "qListObjectDef": {
-                  "qLibraryId": "CbxZCa",
-                  "qDef": {
-                    "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
-                    "qSortCriterias": [
-                      {
-                        "qSortByState": 1,
-                        "qSortByNumeric": 1,
-                        "qSortByAscii": 1,
-                        "qSortByLoadOrder": 1,
-                        "qExpression": {}
-                      }
-                    ],
-                    "qNumberPresentations": [],
-                    "qActiveField": 0,
-                    "autoSort": true,
-                    "cId": "dumyjd"
-                  },
-                  "qFrequencyMode": "V",
-                  "qShowAlternatives": true,
-                  "qInitialDataFetch": [],
-                  "qExpressions": [],
-                  "qOtherTotalSpec": {},
-                  "frequencyEnabled": true
-                },
-                "showTitles": true,
-                "title": "App Contains Circular Reference(s)",
-                "subtitle": "",
-                "footnote": "",
-                "disableNavMenu": false,
-                "showDetails": false,
-                "visualization": "listbox",
-                "layoutOptions": {
-                  "dense": true
-                },
-                "histogram": true,
-                "frequencyMax": "fetch"
-              },
-              "qChildren": []
-            }
-          ]
         }
       ]
-    },
-    {
-      "qProperty": {
-        "qInfo": {
-          "qId": "pfXExaU",
-          "qType": "sn-text"
-        },
-        "qMetaDef": {},
-        "qHyperCubeDef": {
-          "qDimensions": [],
-          "qMeasures": [],
-          "qInterColumnSortOrder": [],
-          "qSuppressMissing": true,
-          "qInitialDataFetch": [
-            {
-              "qLeft": 0,
-              "qTop": 0,
-              "qWidth": 500,
-              "qHeight": 10
-            }
-          ],
-          "qReductionMode": "N",
-          "qMode": "S",
-          "qPseudoDimPos": -1,
-          "qNoOfLeftDims": -1,
-          "qMaxStackedCells": 5000,
-          "qCalcCond": {},
-          "qTitle": {},
-          "qCalcCondition": {
-            "qCond": {},
-            "qMsg": {}
-          },
-          "qColumnOrder": [],
-          "qExpansionState": [],
-          "qDynamicScript": [],
-          "qLayoutExclude": {
-            "qHyperCubeDef": {
-              "qDimensions": [],
-              "qMeasures": [],
-              "qInterColumnSortOrder": [],
-              "qInitialDataFetch": [],
-              "qReductionMode": "N",
-              "qMode": "S",
-              "qPseudoDimPos": -1,
-              "qNoOfLeftDims": -1,
-              "qMaxStackedCells": 5000,
-              "qCalcCond": {},
-              "qTitle": {},
-              "qCalcCondition": {
-                "qCond": {},
-                "qMsg": {}
-              },
-              "qColumnOrder": [],
-              "qExpansionState": [],
-              "qDynamicScript": []
-            }
-          }
-        },
-        "script": "",
-        "showTitles": false,
-        "title": "",
-        "subtitle": "",
-        "footnote": "",
-        "disableNavMenu": true,
-        "showDetails": true,
-        "showDetailsExpression": false,
-        "components": [
-          {
-            "key": "general",
-            "shadow": {
-              "boxShadow": "0px 1px 2px 0px"
-            }
-          }
-        ],
-        "visualization": "sn-text",
-        "version": "1.1.6",
-        "text": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Acronyms:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"CM:\",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"       Current month\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"PMTD:\",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\" Prior month-to-date\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"PM: \",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"      Prior month\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-        "fontsUsed": [],
-        "extensionMeta": {
-          "translationKey": "",
-          "icon": "text-object",
-          "iconChar": "puzzle",
-          "isLibraryItem": true,
-          "visible": true,
-          "IconDefinition": {},
-          "name": "Text",
-          "description": "Display text, links, and measures. Add tables with rows and columns. Format and color the text. Add background image and color.",
-          "template": "sn-text",
-          "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
-          "isThirdParty": true,
-          "version": "1.1.6",
-          "author": "QlikTech International AB",
-          "type": "visualization",
-          "supernova": true,
-          "bundle": {
-            "id": "qlik-dashboard-bundle",
-            "name": "Qlik Dashboard bundle",
-            "description": "This is a set of supported objects that will facilitate dashboard creation in Qlik Sense. These can be used in addition to the objects found under \"Charts\".\n\nFor limitations and support conditions, see the documentation."
-          },
-          "installer": "QlikExtensionBundler",
-          "folder": "_dashboard-bundle"
-        }
-      },
-      "qChildren": []
     }
   ]
 }
