@@ -266,7 +266,7 @@
     "customRowBase": 24,
     "showCondition": {
       "qStringExpression": {
-        "qExpr": "$(vu_slim_version_for_anonymous)\u003c\u003e1"
+        "qExpr": "=$(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1"
       }
     }
   },
