@@ -1283,31 +1283,17 @@
   },
   {
     "qInfo": {
-      "qId": "79649af7-6284-44b7-895e-c145f7bf9f4b",
+      "qId": "5a527d33-276d-49b9-a0c0-790d4a36ef8b",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "file_size",
+    "qName": "file_size_ExportFromApp",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "278355"
-  },
-  {
-    "qInfo": {
-      "qId": "75134541-61d4-4ac7-b515-01fbc947e548",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "loaded_app_ids",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "lib://:DataFiles/app_analyzer_AppRAM_6.3.6.qvd"
+    "qDefinition": "8117"
   },
   {
     "qInfo": {

@@ -315,7 +315,7 @@ Sub variables
   
   If $(vu_is_parent_app)=0 Then
 
-      If $(vIncrementalQVDsAvailable)=1 And $(vu_app_metadata_initial_days_back)=-1 Then // don't pull in session max date until app metadata batch fetch is complete
+      If $(vIncrementalQVDsAvailable)=1 Then
       
           TRACE Looking to load: $(vConsumptionQVD).;
           LET file_size = If(IsNull(FileSize('$(vConsumptionQVD)')),0,FileSize('$(vConsumptionQVD)'));
