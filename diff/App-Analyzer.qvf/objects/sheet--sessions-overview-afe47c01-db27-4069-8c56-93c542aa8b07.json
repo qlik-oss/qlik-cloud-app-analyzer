@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-10T18:09:54.794Z",
-    "rank": 0,
+    "rank": 3.000000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/1.png"
@@ -13978,7 +13978,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='27d084e4-5183-48c5-8cc8-6278d3cf113a'"
+                  "qExpr": "=If((vu_app_metadata_initial_days_back)=-1,'27d084e4-5183-48c5-8cc8-6278d3cf113a',Null())"
                 }
               },
               "chartId": "",
@@ -14014,7 +14014,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If((vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.85,
@@ -14036,7 +14036,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If((vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -14103,7 +14103,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'27ca845c-0cce-4406-bacd-774a362b3485',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'27ca845c-0cce-4406-bacd-774a362b3485',Null())"
                 }
               },
               "chartId": "",
@@ -14139,7 +14139,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -14161,7 +14161,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -14228,7 +14228,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'95b87163-9d1b-4067-8083-1cf5ba496601',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'95b87163-9d1b-4067-8083-1cf5ba496601',Null())"
                 }
               },
               "chartId": "",
@@ -14264,7 +14264,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -14286,7 +14286,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -14353,7 +14353,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'08d57bbb-e093-440a-9c84-3c078804f593',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'08d57bbb-e093-440a-9c84-3c078804f593',Null())"
                 }
               },
               "chartId": "",
@@ -14389,7 +14389,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -14411,7 +14411,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -14478,7 +14478,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'15665f10-262e-47bf-aaaf-b1181e5c6018',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'15665f10-262e-47bf-aaaf-b1181e5c6018',Null())"
                 }
               },
               "chartId": "",
@@ -14514,7 +14514,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -14536,7 +14536,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",

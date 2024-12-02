@@ -11,11 +11,14 @@
   "qHyperCubeDef": {
     "qDimensions": [
       {
-        "qLibraryId": "xdLfma",
         "qDef": {
           "qGrouping": "N",
-          "qFieldDefs": [],
-          "qFieldLabels": [],
+          "qFieldDefs": [
+            "AppNameUnique"
+          ],
+          "qFieldLabels": [
+            "App Name"
+          ],
           "qSortCriterias": [
             {
               "qSortByNumeric": 1,
@@ -26,6 +29,7 @@
           ],
           "qNumberPresentations": [],
           "qActiveField": 0,
+          "qLabelExpression": "='App Name'",
           "autoSort": true,
           "cId": "GVSvQdf",
           "othersLabel": "Others"

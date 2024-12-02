@@ -72,41 +72,87 @@ Set vu_qvd_storage_connection = 'lib://:DataFiles';
 ////////////////////////////////////////////////////////////////////////////////////////
 // Optional Configuration (No need to change these unless you desire) 
 
-Set vu_track_app_meta_over_time			= 1;	// Store QVDs of high-level app metadata on every reload to track growth over time.
-Set vu_track_app_meta_retention			= 90;	// Days to retain the rolling app metadata.
-Set vu_months_in_reload_interval 		= 3;	// Width of app last reload date for grouping apps in this app.
-Set vu_initial_days_back 				= 90;	// The number of days back to fetch consumption data initially, before incrementally building. Max of 90.
-Set vu_session_rolling_range 			= 365; 	// Maximum days back to store session data in QVDs -- default 365 -- note this can be overridden by the 'vu_slim_version_for_anonymous' variable
-Set vu_GMT_offset 						= 0;	// The timezone difference from GMT. Modifies the reload times and session times to the desired GMT offset.
+// The number of days to fetch app metadata initially, before incrementally building. 
+// Set this value to -1 to consume the full app metadata analysis in the application. 
+// However, when reloading for a tenant with over 10,000 apps, the reload may time out after 3 hours. 
+// In such cases, set this value to smaller increments (e.g., 7, 14, 30) and gradually increase it, 
+// eventually setting it back to -1. This allows the app to reload in batches without exceeding the time limit.
+
+// The complete batch process is as follows:
+//                        
+// 1. Set the "vu_app_metadata_initial_days_back" variable to 1.
+// 2. Reload the application.
+// 3. Repeat steps 1 and 2 while raising the number, e.g., 1 → 7, 7 → 30, 30 → 60, 60 → 90, 90 → 180.
+// 4. Set the "vu_app_metadata_initial_days_back" variable to -1 (this indicates all time).
+// 5. Reload the application to complete the batch process.
+Set vu_app_metadata_initial_days_back 	= -1;
+
+// CAUTION!
+//	This variable allows loading historical session data beyond the default limit of 90 days from v1/licenses/consumption,
+//	which includes high-level session information such as app ID, user ID, and session duration. By default, this data is
+//	limited to the last 90 days due to constraints in v1/audits, which captures detailed session metrics like sheet views
+//	and data exports. Enabling this variable and setting vu_sessions_initial_days_back to a value greater than 90 days results in
+//	complete data for the last 90 days, but incomplete data for earlier periods. This feature is useful when detailed
+//	session information is not required, allowing tracking of high-level user engagement with applications beyond 90 days.
+//
+// 	Use 1 to enable this feature and 0 to disable it. The default value is 0.
+Set vu_enable_extended_session_history	= 0;
+
+// The number of days back to fetch consumption data initially, before incrementally building. The default maximum is 90, 
+// however this can be extended beyond 90 below with the 'vu_enable_extended_session_history' variable. Note that once this
+// variable is set, it cannot be made larger. For example if it is first set to 30 and then set to 90, it will continue to
+// increment from 30 days back. It is generally not advised to change this variable.
+Set vu_sessions_initial_days_back 		= 90;
+
+// Maximum days to store session data in QVDs is 365 by default, but this will be overridden to 90 if
+// 'vu_slim_version_for_anonymous' is enabled. This value must always be greater than 'vu_sessions_initial_days_back', and if
+// 'vu_enable_extended_session_history' is enabled with 'vu_sessions_initial_days_back' set above 365, adjust accordingly.
+Set vu_session_rolling_range 			= 365;
+
+// The timezone difference from GMT. Modifies the reload times and session times to the desired GMT offset.
 //	Example 1: -5
 //	Example 2: 5
+Set vu_GMT_offset 						= 0;
 
-Set vu_personal_space_user_field = 'Name';		// The user field to best represent the user: 'Id', 'Name', 'Subject', 'Email'
+// Store QVDs of high-level app metadata on every reload to track growth over time.
+Set vu_track_app_meta_over_time			= 1;
 
-Set vu_sessions_table_preset_filter = 'Totals'; 	// Set the default filter for the Sessions table on the Sessions Overview sheet. Defaults to All.
+// Days to retain the rolling app metadata.
+Set vu_track_app_meta_retention			= 90;
+
+// Width of app last reload date for grouping apps in this app.
+Set vu_months_in_reload_interval 		= 3;
+
+// The user field to best represent the user: 'Id', 'Name', 'Subject', 'Email'
+Set vu_personal_space_user_field = 'Name';
+
+// Set the default filter for the Sessions table on the Sessions Overview sheet. Defaults to All.
 // Can be one of: 
 //		All
 //    	Totals
 //    	CMTD
 //    	PMTD
+Set vu_sessions_table_preset_filter = 'Totals';
 
-Set vu_sessions_container_1_preset_filter = 'Sessions by App';	// Set the default filter for the first sessions container on the Sessions Overview sheet. Defaults to Sessions by User.
+// Set the default filter for the first sessions container on the Sessions Overview sheet. Defaults to Sessions by User.
 // Can be one of: 
 //		Sessions by User
 //    	Users by App
 //    	Concurrent Users by App
 //    	Sessions by User
 //		Apps Viewed by User
+Set vu_sessions_container_1_preset_filter = 'Sessions by App';
 
-Set vu_sessions_container_2_preset_filter = 'Sessions Over Time';	// Set the default filter for the second sessions container on the Sessions Overview sheet. Defaults to Sessions Over Time.
+// Set the default filter for the second sessions container on the Sessions Overview sheet. Defaults to Sessions Over Time.
 // This will be overwritten to 'Concurrent Sessions Over Time' if on an anonymous-enabled tenant
 // Can be one of: 
 //		Sessions Over Time
 //    	Users Over Time
 //    	Concurrent Sessions Over Time
 //    	Concurrent Users Over Time
+Set vu_sessions_container_2_preset_filter = 'Sessions Over Time';
 
-Set vu_sessions_pivot_preset_filter = 'Users'; // Set the default filter for the Sessions by Hour pivot on the Session Time Analysis sheet. Defaults to Sessions.
+// Set the default filter for the Sessions by Hour pivot on the Session Time Analysis sheet. Defaults to Sessions.
 // Can be one of: 
 //		Sessions
 //		Sessions CM
@@ -120,9 +166,16 @@ Set vu_sessions_pivot_preset_filter = 'Users'; // Set the default filter for the
 //    	Concurrent Users CM
 //		Concurrent Users PMTD
 //		Concurrent Users PM
+Set vu_sessions_pivot_preset_filter = 'Users';
 
-Set vu_slim_version_for_anonymous = 0;	// Drops many tables/fields to decrease RAM, as all apps in anonymous access tenants contribute to purchased RAM. Set to 1 if desired, default 0.
-// This will be auto-applied for anonymous-enabled tenants
+// Drops many tables/fields to decrease RAM, as all apps in anonymous access tenants contribute to purchased RAM.
+// Set to 1 if desired, default 0.
+// This will be auto-applied for anonymous-enabled tenants.
+//
+// Note that if the 'vu_enable_extended_session_history' variable is used, the 'vu_session_rolling_range' variable
+// will not be auto-truncated to 90 days, as is would be otherwise for the "slim" version of the app.
+Set vu_slim_version_for_anonymous = 0;
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -135,9 +188,11 @@ Set vu_slim_version_for_anonymous = 0;	// Drops many tables/fields to decrease R
 // "QlikMetaCollection" directory resides) and does not directly harvest any data itself, meaning it depends on the existence 
 // of "child" apps. If designated as a child app, it writes out all of its final QVDs post harvest to a centralized location.
 
-Set vu_multi_tenant_enabled 			= 0;					// To enable Multitenant app support, regardless of "Parent" or "Child" (1 or 0)
+// To enable Multitenant app support, regardless of "Parent" or "Child" (1 or 0)
+Set vu_multi_tenant_enabled 			= 0;
 
-Set vu_is_parent_app 					= 0;					// If this application is to be the parent app across varying tenants (1 or 0)
+// To enable Multitenant app support, regardless of "Parent" or "Child" (1 or 0)
+Set vu_is_parent_app 					= 0;
 
 // The connection to the parent directory of the QlikMetaCollection directory, which houses all of the multitenant metadata.
 // This is the root location to read/write all QVDs to so that they can be loaded across tenants (S3, Azure Blob, or Google 
@@ -146,7 +201,8 @@ Set vu_is_parent_app 					= 0;					// If this application is to be the parent ap
 // folder does not exist, it will be automatically created.
 
 // **Azure Blob, AWS S3, and Google CLoud Storage have been tested and confirmed to work without any modifications**
-SET vu_qlik_meta_collection_parent_dir = 'lib://:';		// Parent directory of the "QlikMetaCollection" folder (trailing slash optional)
+// Parent directory of the "QlikMetaCollection" folder (trailing slash optional)
+SET vu_qlik_meta_collection_parent_dir = 'lib://:';
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -191,10 +247,6 @@ Sub variables
   Search Exclude '*ID','_*','*Time*','*Duration*','*Date*'; // Exclude these fields from the global search.
   Set HidePrefix='_';
   
-  If $(vu_slim_version_for_anonymous)=1 Then
-      Set vu_session_rolling_range = 60; // Override this setting to ensure app remains slim while in slim version
-  End If
-  
   Let vu_tenant_fqdn 	= GetSysAttr('tenantUrl');
   Let vu_tenant_alias 	= GetSysAttr('tenantUrlAlias');
   
@@ -210,16 +262,26 @@ Sub variables
   Let vAppQVDName					= Lower(Replace('$(app_name)',' ','_'));
   Set vOutputQVDName				= '$(vu_qvd_storage_connection)/$(vAppQVDName)_$1_$2.qvd';
   Set vRollingQVDName				= '$(vu_qvd_storage_connection)/app_analyzer_rolling.qvd';
-  Let vMaxSessionAge				= TimeStamp(Date(Today(1)) - $(vu_session_rolling_range));
   Let vReloadDiffFromGMTString	= If(vu_GMT_offset=0,'GMT-00:00',
       If(vu_GMT_offset<0,'GMT-' & Right('0' & Replace(vu_GMT_offset,'-',''),2) & ':00',
       If(vu_GMT_offset>0,'GMT+' & Right('0' & vu_GMT_offset,2) & ':00'))); 
   Let vReloadTimeDiffFromGMT		= ConvertToLocalTime('$(vStartTime)','$(vReloadDiffFromGMTString)') - GMT();
   Set vu_personal_space_user_list  	= 'id','name','subject','email';
   Let v90BackGMT				 	= Date(Today(1) - 90);
-  Let vSheetUsageAddedDate			= MakeDate(2024,6,1);
-  Let vInitialDaysBack			 	= If($(vu_initial_days_back)>0 AND $(vu_initial_days_back)<=90,Date(Today(1) - $(vu_initial_days_back)),$(v90BackGMT));
-  Let vInitialDaysBack				= If(Date('$(vInitialDaysBack)')<=Date('$(vSheetUsageAddedDate)'),Date('$(vSheetUsageAddedDate)'),Date('$(vInitialDaysBack)')); // reset to June 1st 2024 if less than setting to account for when sheet usage data was added
+  
+  If $(vu_sessions_initial_days_back)>0 Then
+      If $(vu_enable_extended_session_history)=1 Then
+          Let vInitialDaysBack = Date(Today(1) - $(vu_sessions_initial_days_back));
+      Else
+      	  Let vInitialDaysBack = If($(vu_sessions_initial_days_back)<=90,Date(Today(1) - $(vu_sessions_initial_days_back)),$(v90BackGMT));
+      End if
+  Else
+  	  Let vInitialDaysBack = Date('$(v90BackGMT)');
+  End if
+  
+  Let vu_app_metadata_initial_days_back = If(IsNum(vu_app_metadata_initial_days_back),vu_app_metadata_initial_days_back,-1);
+  Set vMaxAppsPerReloadLimit		= 10000;
+
   Let vConsumptionQVD			 	= '$(vOutputQVDName(Consumption,$(app_version)))';
   Let vConsumptionMinutes			= 1;
   Set vSessions						= 1;
@@ -251,9 +313,9 @@ Sub variables
  
 //// Incremental Date Logic
   
-  If $(vu_is_parent_app)=0 THEN
+  If $(vu_is_parent_app)=0 Then
 
-      If $(vIncrementalQVDsAvailable)=1 THEN
+      If $(vIncrementalQVDsAvailable)=1 Then
       
           TRACE Looking to load: $(vConsumptionQVD).;
           LET file_size = If(IsNull(FileSize('$(vConsumptionQVD)')),0,FileSize('$(vConsumptionQVD)'));
@@ -403,6 +465,12 @@ Sub check_license
     	CheckLicense
         ,AnonymousLicense
     ;
+    
+    If $(vu_slim_version_for_anonymous)=1 And $(vu_enable_extended_session_history)<>1 Then
+        Set vu_session_rolling_range = 90; // Override this setting to ensure app remains slim while in slim version unless set to extended sessions
+    End If
+    
+    Let vMaxSessionAge = TimeStamp(Date(Today(1)) - $(vu_session_rolling_range));
         
 End Sub
 ///$tab Check Version
@@ -1024,7 +1092,7 @@ Sub get_apps
           [hasSectionAccess] as AppHasSectionAccess,
           [id] as AppID,
           Timestamp(Timestamp([lastReloadTime]) + $(vReloadTimeDiffFromGMT)) as AppLastReloadTime,
-          Timestamp(Timestamp([lastReloadTime]) + $(vReloadTimeDiffFromGMT)) as AppLastReloadTimeLocalServerTime,
+          Timestamp([lastReloadTime]) as AppLastReloadTimeLocalServerTime,
           // [modifiedDate],
           // [name],
           [originAppId] as AppOriginalID,
@@ -1067,6 +1135,8 @@ Sub get_apps
       Drop Table NextURL;
 
     Loop while $(vNextURLRows)>0;
+    
+	Call app_num_check; // Halt the app if too many apps and not in batch mode, as reload will exceed 3 hours
     
     Concatenate(Spaces)
     Load Distinct
@@ -1120,6 +1190,24 @@ Sub get_apps
 
     Drop Table AppDetails;
 
+End Sub
+///$tab App Num Check
+Sub app_num_check
+
+    Let vTotalApps = NoOfRows('Apps');
+    
+    If $(vIncrementalQVDsAvailable) <> 1 And vu_app_metadata_initial_days_back = -1 And $(vTotalApps) > $(vMaxAppsPerReloadLimit) Then
+    	// Error text is not tabbed so it logs to the output left aligned.
+    	Call ThrowError('This tenant contains greater than $(vMaxAppsPerReloadLimit) apps which requires the App Analyzer to be reloaded in batch. The process is as follows:
+                        
+1. On the "* Optional Configuration *" tab, set the "vu_app_metadata_initial_days_back" variable to 1.
+2. Reload the application.
+3. Repeat steps 1 and 2 while raising the number, e.g., 1 → 7, 7 → 30, 30 → 60, 60 → 90, 90 → 180.
+4. Set the "vu_app_metadata_initial_days_back" variable to -1 (this indicates all time).
+5. Reload the application to complete the batch process.');    
+
+    End If
+    
 End Sub
 ///$tab App Consumption
 Sub get_consumption
@@ -1203,9 +1291,9 @@ Sub get_consumption
         Drop Table NextURL;
 
     Loop While $(vNextURLRows)>0;
-    
+       
     If $(vIncrementalQVDsAvailable)=1 And NoOfRows('Consumption')>0 Then 
-        
+
         IncrementalConsumptionMap:
         Mapping Load Distinct
             SessionID as _IncrementalConsumptionGUID,
@@ -1216,16 +1304,16 @@ Sub get_consumption
         Call load_qvd('Consumption')
         Trace Calling store_qvd on Consumption;
         Call store_qvd('Consumption');
-        
+
     ElseIf NoOfRows('Consumption')>0 Then
-    
+
         Trace Calling store_qvd on Consumption;
         Call store_qvd('Consumption');
 
-	Else
-    
-    	Set vSessions = 0;
-      
+    Else
+
+        Set vSessions = 0;
+
     End If
     
 End Sub
@@ -1593,7 +1681,7 @@ Sub app_metadata
 	AppIDs:
     LOAD * INLINE [AppID,AppType];
 
-    If vIncrementalQVDsAvailable=1 then   // If incremental QVDs are available -- this is set in the "configuration" section of script
+    If vIncrementalQVDsAvailable = 1 then   // If incremental QVDs are available -- this is set in the "configuration" section of script
         Let loaded_app_ids = '$(vOutputQVDName(AppRAM,$(app_version)))';
 
         LoadedAppIDs:
@@ -1601,13 +1689,29 @@ Sub app_metadata
             AppID,
             1
         From '$(loaded_app_ids)'(qvd);
+        
+        If vu_app_metadata_initial_days_back = -1 Then	// All apps are set to be scanned
+        
+            Concatenate(AppIDs)
+            Load Distinct
+                AppID,
+                AppType
+            Resident Apps
+            Where (AppLastReloadTimeLocalServerTime>=TimeStamp('$(vLastReloadTime)') or ApplyMap('LoadedAppIDs',AppID,'Not in QVD')='Not in QVD') ;
 
-        CONCATENATE(AppIDs)
-        Load Distinct
-            AppID,
-            AppType
-        Resident Apps
-        Where (AppLastReloadTimeLocalServerTime>=TimeStamp('$(vLastReloadTime)') or ApplyMap('LoadedAppIDs',AppID,'Not in QVD')='Not in QVD') ;
+		Else	// Otherwise only load app metadata for apps that have been reloaded beyond 'vu_app_metadata_initial_days_back'
+        
+            Concatenate(AppIDs)
+            Load Distinct
+                AppID,
+                AppType
+            Resident Apps
+            Where 
+            	(AppLastReloadTimeLocalServerTime>=TimeStamp('$(vLastReloadTime)') or ApplyMap('LoadedAppIDs',AppID,'Not in QVD')='Not in QVD')
+                And AppLastReloadTimeLocalServerTime>=Date(Today(1) - $(vu_app_metadata_initial_days_back))
+            ;
+                        
+        End If
 
         IncrementalAppMap:
         Mapping Load Distinct
@@ -1615,47 +1719,52 @@ Sub app_metadata
             1
         Resident AppIDs;
     Else
-        Concatenate(AppIDs)
-        Load Distinct
-            AppID,
-            AppType
-        Resident Apps;
+    	If vu_app_metadata_initial_days_back = -1  Then	// All apps are set to be scanned
+        
+            Concatenate(AppIDs)
+            Load Distinct
+                AppID,
+                AppType
+            Resident Apps;
+            
+        Else	// Otherwise only load app metadata for apps that have been reloaded beyond 'vu_app_metadata_initial_days_back'
+        
+            Concatenate(AppIDs)
+            Load Distinct
+                AppID,
+                AppType
+            Resident Apps
+            Where AppLastReloadTimeLocalServerTime>=Date(Today(1) - $(vu_app_metadata_initial_days_back));
+   
+        End If
+        
     End If
+    
+    Set ErrorMode 	= 0;
+    Let vLoopTotal 	= NoOfRows('AppIDs');
+    Set vLoopBatch 	= 100;
+    Let vNumLoops 	= Ceil($(vLoopTotal) / $(vLoopBatch));
+    Let vLoopStart 	= 0;
 
-    For i=0 to NoOfRows('AppIDs')-1
-      	// Loop through each of the apps in our list (from api/v1/items)
-        Let vAppGUID = Peek('AppID',i,'AppIDs');
-        Let vAppType = Peek('AppType',i,'AppIDs');
-        Let vResourceType = Pick(Match('$(vAppType)','QS','QV'),'app','qvapp');
+    Trace Batch processing $(vLoopTotal) apps in chunks of $(vLoopBatch);
 
+    For metadataLoop = 0 to $(vNumLoops) - 1
+        Let vLoopEnd = RangeMin($(vLoopStart) + $(vLoopBatch) - 1, $(vLoopTotal) - 1);
+
+        Trace Metadata Loop $(metadataLoop) Start: $(vLoopStart) End: $(vLoopEnd);
+        
+        // Connect once per batch
         LIB Connect To '$(vu_rest_connection)';
 
-        RestConnectorMasterTable:
-        SQL SELECT 
-            "__KEY_root",
-            (SELECT 
-                "resourceId",
-                "__KEY_data",
-                "__FK_data"
-            FROM "data" PK "__KEY_data" FK "__FK_data")
-        FROM JSON (wrap on) "root" PK "__KEY_root"
-        WITH CONNECTION (  
-            URL "https://$(vu_tenant_fqdn)/api/v1/items?resourceType=$(vResourceType)&resourceId=$(vAppGUID)"
-        );
-
-        [CheckAppExists]:
-        Load	
-            [resourceId]
-        Resident RestConnectorMasterTable
-        Where Not IsNull([__FK_data]);
-
-        Drop Table RestConnectorMasterTable;
-
-        IF NoOfRows('CheckAppExists') > 0 THEN
+        For i = $(vLoopStart) to $(vLoopEnd)
+        
+            Let vAppGUID = Peek('AppID',i,'AppIDs');
+            Let vAppType = Peek('AppType',i,'AppIDs');
+            Let vResourceType = Pick(Match('$(vAppType)','QS','QV'),'app','qvapp');
 
             For a=1 to 3	//  loop logic.
                 Trace Working on App $(vAppGUID).;
-                LIB Connect To '$(vu_rest_connection)';
+
                 RestConnectorMasterTable:
                 SQL SELECT 
                     "static_byte_size",
@@ -1824,7 +1933,7 @@ Sub app_metadata
                     Drop Table RestConnectorMasterTable;
                     Trace Script Error = 12: File $(vAppGUID) has wrong format;
                     If a<3 then	//  loop logic.
-                    	Trace 'Trying again...';
+                        Trace 'Trying again...';
                     ElseIf a=3 then
                         AppEndpointsNotFound:
                         Load
@@ -1835,12 +1944,14 @@ Sub app_metadata
                 End If
             Next a // loop for error handling
 
-        End If;
+        Next i
 
-        Drop Table CheckAppExists;
-
-    Next i
-
+        Let vLoopStart = $(vLoopEnd) + 1;
+        
+    Next metadataLoop
+    
+    Set ErrorMode = 1;
+    
     // LOAD (Concatenate) & Store each table into QVD (for incremental loading)
     For Each table in 'AppRAM','AppReloadCPUMetadata','ServerHardware','FieldTags','Fields','FieldSourceTables','Tables'
         Trace Calling load_qvd on '$(table)';
@@ -2384,7 +2495,7 @@ Sub transform
         If(Date(Floor(SessionStartTime))<$(vLast90Days),'True','False') AS AppNotAccessedInOver90Days,
         If(Date(Floor(SessionStartTime))<$(vLast60Days),'True','False') AS AppNotAccessedInOver60Days,
         If(Date(Floor(SessionStartTime))<$(vLast30Days),'True','False') AS AppNotAccessedInOver30Days
-    WHERE SessionStartTime>=Date('$(vSheetUsageAddedDate)') 
+    WHERE SessionStartTime>=Date('$(vInitialDaysBack)') 
     ;
     Load
         *,
@@ -2430,7 +2541,7 @@ Sub transform
         If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',SheetConsumptionUserID,'[Deleted]')) AS SheetConsumptionUserName,
         If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',SheetConsumptionUserID,'[Deleted]')) AS SheetConsumptionUserSubject
     Resident TEMP
-    Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vSheetUsageAddedDate)');
+    Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vInitialDaysBack)');
 
 	Drop Table TEMP;
     
@@ -2840,7 +2951,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name		= 'App Analyzer';
-Set app_version		= '6.1.8';
+Set app_version		= '6.3.7';
 Let comp 			= ComputerName(); 
 Let engine_ver 		= PurgeChar(EngineVersion(),Chr(39)); 
 Let startMsg 		= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
@@ -2907,3 +3018,7 @@ LET reload_end = Now(1);
 LET reload_duration = Num(Ceil((reload_end-reload_start)*86400),'#,##0');
 LET reload_message = 'At $(reload_end), $(app_name) v$(app_version) finished reloading on $(comp) (QIX Engine $(engine_ver)) after $(reload_duration) seconds.';
 Trace $(reload_message);
+
+If vu_app_metadata_initial_days_back <> -1 Then
+	Trace ***WARNING*** This app contains only partially loaded app metadata. The "vu_app_metadata_initial_days_back" variable will need to be set to '-1' for certain sheets to be viewed. Ensure this is set back after batch reloading.;
+End If

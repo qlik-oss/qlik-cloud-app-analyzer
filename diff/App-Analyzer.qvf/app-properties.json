@@ -1,9 +1,9 @@
 {
-  "qTitle": "App Analyzer v6.1.8",
+  "qTitle": "App Analyzer v6.3.7",
   "qThumbnail": {
     "qUrl": "/api/v1/apps/<appId>/media/files/Dash_icon.png"
   },
-  "description": "The App Analyzer provides a comprehensive dashboard to analyze application metadata across a Qlik Sense tenant(s).\n\nCreated by Daniel Pilla, Master Principal Analytics Platform Architect, Qlik\n\n{v6.1.8}",
+  "description": "The App Analyzer provides a comprehensive dashboard to analyze application metadata across a Qlik Sense tenant(s).\n\nCreated by Daniel Pilla, Master Principal Analytics Platform Architect, Qlik\n\n{v6.3.7}",
   "qUsage": "ANALYTICS",
   "published": false,
   "hassectionaccess": false

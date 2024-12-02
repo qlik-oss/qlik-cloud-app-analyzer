@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-14T13:52:25.499Z",
-    "rank": 2,
+    "rank": 3.750000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/3.png"
@@ -103,7 +103,7 @@
         }
       },
       {
-        "name": "RuCpYEL",
+        "name": "xsjUWu",
         "type": "sn-layout-container",
         "col": 0,
         "row": 0,
@@ -14477,7 +14477,7 @@
     {
       "qProperty": {
         "qInfo": {
-          "qId": "RuCpYEL",
+          "qId": "xsjUWu",
           "qType": "sn-layout-container"
         },
         "qMetaDef": {},
@@ -14673,7 +14673,7 @@
           "template": "sn-layout-container",
           "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
           "isThirdParty": true,
-          "version": "3.9.0",
+          "version": "3.11.2",
           "author": "QlikTech International AB",
           "type": "visualization",
           "supernova": true,
@@ -14685,14 +14685,13 @@
           "installer": "QlikExtensionBundler",
           "folder": "_dashboard-bundle"
         },
-        "appId": "dfa8a155-6cc8-4f87-9661-90be02fd7716",
         "masterVersion": 0.96
       },
       "qChildren": [
         {
           "qProperty": {
             "qInfo": {
-              "qId": "7ac2c3e7-1abb-499f-8399-32f09f309177",
+              "qId": "bf57b390-d530-4ac2-b087-a4efdf033469",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -14819,7 +14818,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "f55814f0-3c1f-43ed-b20c-3ed6593a0142",
+              "qId": "1ec95ce8-8df5-46d6-b342-af55ceda09b0",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -14944,7 +14943,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "e84c25fa-75dd-41d5-aef8-014e294c4956",
+              "qId": "02627f27-7f15-4678-9ffe-3cb8d34b151a",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -14955,7 +14954,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "='27d084e4-5183-48c5-8cc8-6278d3cf113a'"
+                  "qExpr": "=If((vu_app_metadata_initial_days_back)=-1,'27d084e4-5183-48c5-8cc8-6278d3cf113a',Null())"
                 }
               },
               "chartId": "",
@@ -14991,7 +14990,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(255,255,255),RGB(89,89,89))"
+                    "qExpr": "If((vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.85,
@@ -15013,7 +15012,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(30,153,69),RGB(242,242,242))"
+                    "qExpr": "If((vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -15069,7 +15068,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "b5562066-6d26-445c-a846-26433a96c470",
+              "qId": "c9682c7d-7d0e-440f-9a3c-9a0ee82d7031",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -15080,7 +15079,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'27ca845c-0cce-4406-bacd-774a362b3485',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'27ca845c-0cce-4406-bacd-774a362b3485',Null())"
                 }
               },
               "chartId": "",
@@ -15116,7 +15115,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -15138,7 +15137,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -15194,7 +15193,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "b4ffcf66-3696-4804-bd70-a880c860dd30",
+              "qId": "c427146f-3fcc-42d1-a126-47b6821be543",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -15205,7 +15204,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'95b87163-9d1b-4067-8083-1cf5ba496601',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'95b87163-9d1b-4067-8083-1cf5ba496601',Null())"
                 }
               },
               "chartId": "",
@@ -15241,7 +15240,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -15263,7 +15262,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -15319,7 +15318,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "dba76c03-5dc2-43ef-9f23-a103e95df097",
+              "qId": "9054891c-b5cb-496c-9659-2b929ba06d44",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -15330,7 +15329,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'08d57bbb-e093-440a-9c84-3c078804f593',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'08d57bbb-e093-440a-9c84-3c078804f593',Null())"
                 }
               },
               "chartId": "",
@@ -15366,7 +15365,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -15388,7 +15387,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -15444,7 +15443,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "317dd356-f812-43cf-9c65-acdc0a04e008",
+              "qId": "95333d0b-6bf2-4d14-8192-d2c423770437",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -15455,7 +15454,7 @@
               "appId": "",
               "sheet": {
                 "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1,'15665f10-262e-47bf-aaaf-b1181e5c6018',Null())"
+                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'15665f10-262e-47bf-aaaf-b1181e5c6018',Null())"
                 }
               },
               "chartId": "",
@@ -15491,7 +15490,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
                   }
                 },
                 "size": 0.7,
@@ -15513,7 +15512,7 @@
                 },
                 "colorExpression": {
                   "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
+                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
                   }
                 },
                 "mode": "none",
@@ -15569,7 +15568,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "beec1436-0f7e-4fed-861d-020b5f862613",
+              "qId": "8b4b8002-b311-4c07-96e9-11fdbda98495",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -15695,7 +15694,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "67311e37-c6bc-4eaa-954d-a61bc3ec0f1a",
+              "qId": "dcb14cb8-169a-4e34-b1da-3bf2f2f18988",
               "qType": "action-button"
             },
             "qMetaDef": {},
@@ -15820,7 +15819,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "d7dbbc67-d4f8-44fa-a130-ae99f82ed591",
+              "qId": "220efd42-0b5f-4c8d-8c49-562c3c12f415",
               "qType": "childObject"
             },
             "qExtendsId": "3de4d8e4-940d-406c-8042-1bc821620999",
@@ -15832,7 +15831,7 @@
         {
           "qProperty": {
             "qInfo": {
-              "qId": "15fd1951-586c-42ae-8629-178dca93960b",
+              "qId": "f160e20a-898d-4542-aac5-0a9db7c43b51",
               "qType": "sn-text"
             },
             "qMetaDef": {},

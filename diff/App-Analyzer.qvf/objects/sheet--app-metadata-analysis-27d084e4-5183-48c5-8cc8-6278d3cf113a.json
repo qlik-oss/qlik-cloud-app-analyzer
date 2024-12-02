@@ -8,7 +8,7 @@
       "title": "App Metadata Analysis",
       "description": ""
     },
-    "rank": 3,
+    "rank": 3.875000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/4.png"
@@ -277,7 +277,12 @@
     },
     "gridResolution": "customrows",
     "gridMode": "edit",
-    "customRowBase": 24
+    "customRowBase": 24,
+    "showCondition": {
+      "qStringExpression": {
+        "qExpr": "(vu_app_metadata_initial_days_back)=-1"
+      }
+    }
   },
   "qChildren": [
     {

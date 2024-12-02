@@ -116,20 +116,6 @@
   },
   {
     "qInfo": {
-      "qId": "f31f5972-4858-4bd8-aabb-36ff142fa6a9",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "app_reload_metadata_qvd",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "lib://:DataFiles/app_analyzer_AppReloadCPUMetadata_5.1.3.qvd"
-  },
-  {
-    "qInfo": {
       "qId": "440b748c-8cf5-44c0-9fe3-b13b9efba210",
       "qType": "variable"
     },
@@ -1294,5 +1280,33 @@
     },
     "qDefinition": "=Max(Aggr([Exports],SessionID))",
     "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "5a527d33-276d-49b9-a0c0-790d4a36ef8b",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "file_size_ExportFromApp",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "8117"
+  },
+  {
+    "qInfo": {
+      "qId": "3a4f24d3-01b2-4dfc-beed-daafa9bd0a43",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vu_app_metadata_batch_days_back",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "1"
   }
 ]
