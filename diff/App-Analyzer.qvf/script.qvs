@@ -282,13 +282,13 @@ Sub variables
   Let vu_app_metadata_initial_days_back = If(IsNum(vu_app_metadata_initial_days_back),vu_app_metadata_initial_days_back,-1);
   Set vMaxAppsPerReloadLimit		= 10000;
 
-  Let vConsumptionQVD			 	= '$(vOutputQVDName(Consumption,$(app_version)))';
+  Let vConsumptionQVD			 	= '$(vOutputQVDName(Consumption,$(app_schema_version)))';
   Let vConsumptionMinutes			= 1;
   Set vSessions						= 1;
   Set vSheetConsumptionNoNewRecords = 0; // Instantiate as zero
   Set vAppExportNoNewRecords 		= 0; // Instantiate as zero
-  Let vAppReloadMetadataQVD 		= '$(vOutputQVDName(AppReloadCPUMetadata,$(app_version)))';
-  Let vAppExportQVD 		= '$(vOutputQVDName(ExportFromApp,$(app_version)))';
+  Let vAppReloadMetadataQVD 		= '$(vOutputQVDName(AppReloadCPUMetadata,$(app_schema_version)))';
+  Let vAppExportQVD 		= '$(vOutputQVDName(ExportFromApp,$(app_schema_version)))';
   Let vIncrementalQVDsAvailable		= If(Len(FileTime('$(vAppReloadMetadataQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
   Let vIncrementalExportQVDsAvailable = If(Len(FileTime('$(vAppExportQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
   Let vRollingQVDsAvailable	 		= If(Len(FileTime('$(vRollingQVDName)'))>0,1,0);  // Check to see that rolling QVD is available
@@ -1682,7 +1682,7 @@ Sub app_metadata
     LOAD * INLINE [AppID,AppType];
 
     If vIncrementalQVDsAvailable = 1 then   // If incremental QVDs are available -- this is set in the "configuration" section of script
-        Let loaded_app_ids = '$(vOutputQVDName(AppRAM,$(app_version)))';
+        Let loaded_app_ids = '$(vOutputQVDName(AppRAM,$(app_schema_version)))';
 
         LoadedAppIDs:
         Mapping Load Distinct
@@ -2215,7 +2215,7 @@ End Sub
 // For loading a table from QVD ///////////////////
 Sub load_qvd (table)
 
-    Let qvd_name = '$(vOutputQVDName($(table),$(app_version)))';
+    Let qvd_name = '$(vOutputQVDName($(table),$(app_schema_version)))';
     If $(vIncrementalQVDsAvailable)=1 then
 
       Trace Looking to load: $(qvd_name).;
@@ -2299,7 +2299,7 @@ End Sub
 
 // For storing a table to QVD ///////////////////
 Sub store_qvd (table)
-    Let qvd_name = '$(vOutputQVDName($(table),$(app_version)))';
+    Let qvd_name = '$(vOutputQVDName($(table),$(app_schema_version)))';
     Trace Storing $(qvd_name).;
     Store $(table) into '$(qvd_name)' (qvd);
     Let file_size_$(table) = FileSize('$(qvd_name)');
@@ -2950,11 +2950,12 @@ Set startMsg=;
 Set comp=;
 Let vTenants = 0;
 
-Set app_name		= 'App Analyzer';
-Set app_version		= '6.3.7';
-Let comp 			= ComputerName(); 
-Let engine_ver 		= PurgeChar(EngineVersion(),Chr(39)); 
-Let startMsg 		= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
+Set app_name			= 'App Analyzer';
+Set app_version			= '6.4.0';
+Set app_schema_version	= 'sv_1.0.0';
+Let comp 				= ComputerName(); 
+Let engine_ver 			= PurgeChar(EngineVersion(),Chr(39)); 
+Let startMsg 			= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
 
 Trace $(startMsg);
 
