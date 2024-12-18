@@ -1,6 +1,58 @@
 [
   {
     "qInfo": {
+      "qId": "wVwJz",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionTitleHistorical"
+      ],
+      "qFieldLabels": [
+        "Sheet Title Historical"
+      ],
+      "qAlias": "Sheet Title Historical",
+      "title": "Sheet Title Historical",
+      "coloring": {
+        "changeHash": "0.03427602861489043",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Title Historical",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "zSHXASj",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionTitle"
+      ],
+      "qFieldLabels": [
+        "Sheet Title"
+      ],
+      "qAlias": "Sheet Title",
+      "title": "Sheet Title",
+      "coloring": {
+        "changeHash": "0.9093851131814039",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Title",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "QdDYzE",
       "qType": "dimension"
     },

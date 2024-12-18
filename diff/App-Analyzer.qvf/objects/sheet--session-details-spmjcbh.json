@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-14T13:52:25.499Z",
-    "rank": 3.750000,
+    "rank": 3.687500,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/3.png"
@@ -1004,6 +1004,68 @@
                   }
                 },
                 {
+                  "qLibraryId": "zSHXASj",
+                  "qDef": {
+                    "qGrouping": "N",
+                    "qFieldDefs": [],
+                    "qFieldLabels": [],
+                    "qSortCriterias": [
+                      {
+                        "qSortByNumeric": 1,
+                        "qSortByAscii": 1,
+                        "qSortByLoadOrder": 1,
+                        "qExpression": {}
+                      }
+                    ],
+                    "qNumberPresentations": [],
+                    "qActiveField": 0,
+                    "autoSort": true,
+                    "cId": "djpU",
+                    "othersLabel": "Others",
+                    "textAlign": {
+                      "auto": true,
+                      "align": "left"
+                    },
+                    "representation": {
+                      "type": "text",
+                      "urlPosition": "dimension",
+                      "urlLabel": "",
+                      "linkUrl": "",
+                      "imageSetting": "label",
+                      "imageLabel": "",
+                      "imageUrl": "",
+                      "imageSize": "fitHeight",
+                      "imagePosition": "topCenter"
+                    }
+                  },
+                  "qOtherTotalSpec": {
+                    "qOtherMode": "OTHER_OFF",
+                    "qOtherCounted": {
+                      "qv": "10"
+                    },
+                    "qOtherLimit": {
+                      "qv": "0"
+                    },
+                    "qOtherLimitMode": "OTHER_GE_LIMIT",
+                    "qForceBadValueKeeping": true,
+                    "qApplyEvenWhenPossiblyWrongResult": true,
+                    "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                    "qTotalMode": "TOTAL_OFF",
+                    "qReferencedExpression": {}
+                  },
+                  "qOtherLabel": {
+                    "qv": "Others"
+                  },
+                  "qTotalLabel": {},
+                  "qCalcCond": {},
+                  "qAttributeExpressions": [],
+                  "qAttributeDimensions": [],
+                  "qCalcCondition": {
+                    "qCond": {},
+                    "qMsg": {}
+                  }
+                },
+                {
                   "qDef": {
                     "qGrouping": "N",
                     "qFieldDefs": [
@@ -1722,21 +1784,22 @@
               ],
               "qMeasures": [],
               "qInterColumnSortOrder": [
-                4,
-                6,
+                5,
+                7,
                 0,
                 2,
                 1,
                 3,
-                9,
                 10,
-                12,
+                11,
                 13,
                 14,
-                7,
-                11,
-                5,
-                8
+                15,
+                8,
+                12,
+                6,
+                9,
+                4
               ],
               "qSuppressMissing": true,
               "qInitialDataFetch": [],
@@ -1772,7 +1835,8 @@
                 11,
                 12,
                 13,
-                14
+                14,
+                15
               ],
               "qExpansionState": [],
               "qDynamicScript": [],
@@ -1791,13 +1855,15 @@
                 11,
                 12,
                 13,
-                14
+                14,
+                15
               ],
               "columnWidths": [
                 -1,
                 -1,
                 59,
                 206,
+                -1,
                 93,
                 -1,
                 51,
@@ -2969,11 +3035,14 @@
                   }
                 },
                 {
-                  "qLibraryId": "45ed1475-47f8-4959-977c-2eaafa435ea0",
                   "qDef": {
                     "qGrouping": "N",
-                    "qFieldDefs": [],
-                    "qFieldLabels": [],
+                    "qFieldDefs": [
+                      "=SheetConsumptionTitle \u0026 ' (' \u0026 SheetConsumptionSheetID \u0026 ')'"
+                    ],
+                    "qFieldLabels": [
+                      "Sheet Consumption Sheet ID"
+                    ],
                     "qSortCriterias": [
                       {
                         "qSortByNumeric": 1,
@@ -2984,6 +3053,7 @@
                     ],
                     "qNumberPresentations": [],
                     "qActiveField": 0,
+                    "qAlias": "Sheet Consumption Sheet ID",
                     "autoSort": true,
                     "cId": "Mke",
                     "othersLabel": "Others",
@@ -3386,10 +3456,12 @@
                   "qPos": {
                     "qDimName": "AppNameUnique",
                     "qElemNo": [
+                      244,
                       334
                     ],
                     "qElemValues": [
-                      "AgAAAABgIupA"
+                      "AgAAAAAAwJBA",
+                      "AgAAAAAAKJJA"
                     ]
                   }
                 },
@@ -3397,10 +3469,16 @@
                   "qPos": {
                     "qDimName": "SessionUserName",
                     "qElemNo": [
-                      0
+                      0,
+                      1,
+                      9,
+                      10
                     ],
                     "qElemValues": [
-                      "BERhbmllbCBQaWxsYQA="
+                      "BERhbmllbCBQaWxsYQA=",
+                      "BExldmkgVHVuZXIA",
+                      "BExldmkgcWxpay1jbGkA",
+                      "BEVtaWx5IFRpZXJuZW4A"
                     ]
                   }
                 },
