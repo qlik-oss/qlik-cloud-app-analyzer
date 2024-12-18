@@ -1,17 +1,76 @@
 [
   {
     "qInfo": {
-      "qId": "ef7c3c82-c30e-43aa-b80d-062d3f88ac5a",
+      "qId": "729014ab-f062-4b39-8f47-778f47a4c8b0",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "incremental_qvds_available",
+    "qName": "vSheetsContainerTab",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "0"
+    "qDefinition": "Session Sheet View Analysis",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "d96eb327-730c-48ee-b81b-7b6d8964363e",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSessionDurationCMPMTDByDay",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Session Duration PMTD and CM],SessionDay))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "14d43829-f2e5-4e85-a7d1-3651bc349db6",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vTableName",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "Tables"
+  },
+  {
+    "qInfo": {
+      "qId": "7a9cf796-3b76-4363-93ff-64fb1ce70330",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "a",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "1"
+  },
+  {
+    "qInfo": {
+      "qId": "8e475d4b-171f-48f6-9c5b-4dfc35d7b171",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSessionDurationCM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)Avg$(vCMEval){\u003cSessionInCurrentMTD={1}\u003e}SessionDurationMS),AppID))",
+    "tags": []
   },
   {
     "qInfo": {
@@ -44,31 +103,31 @@
   },
   {
     "qInfo": {
-      "qId": "14d43829-f2e5-4e85-a7d1-3651bc349db6",
+      "qId": "ef7c3c82-c30e-43aa-b80d-062d3f88ac5a",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "vTableName",
+    "qName": "incremental_qvds_available",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "Tables"
+    "qDefinition": "0"
   },
   {
     "qInfo": {
-      "qId": "8e475d4b-171f-48f6-9c5b-4dfc35d7b171",
+      "qId": "3b8ad70b-1e70-4767-8433-455e7263a87b",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "vMaxAvgSessionDurationCM",
+    "qName": "vMaxUsersPM",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)Avg$(vCMEval){\u003cSessionInCurrentMTD={1}\u003e}SessionDurationMS),AppID))",
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Users PM],AppID))",
     "tags": []
   },
   {
@@ -87,31 +146,17 @@
   },
   {
     "qInfo": {
-      "qId": "7a9cf796-3b76-4363-93ff-64fb1ce70330",
+      "qId": "da747793-40df-401e-bdfe-625315d3d914",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "a",
+    "qName": "vTotalsEvalBracket",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "1"
-  },
-  {
-    "qInfo": {
-      "qId": "18215e5f-dcac-40f1-9d92-d2b849b398bc",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetViewDuration",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr(Avg(SheetConsumptionOrderDuration),AppID))",
+    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','Totals','All'),'[')",
     "tags": []
   },
   {
@@ -130,208 +175,32 @@
   },
   {
     "qInfo": {
-      "qId": "d96eb327-730c-48ee-b81b-7b6d8964363e",
+      "qId": "0bb87d7c-8832-44eb-ba3a-7162a4ac078f",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "vMaxAvgSessionDurationCMPMTDByDay",
+    "qName": "vMaxAvgSheetsViewedBySessionCM",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "=Max(Aggr([Session Duration PMTD and CM],SessionDay))",
+    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Avg Sheets Viewed by Session CM],AppID))",
     "tags": []
   },
   {
     "qInfo": {
-      "qId": "e4f364cb-eaa4-4c89-906e-82e0f6236b12",
+      "qId": "50b1e754-ed56-43be-ae61-9cb2af4647be",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "vMaxUsersLast30Days",
+    "qName": "vMaxSheetsViewedPMTD",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 30 Days],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "c88f8416-0298-4b8b-8557-d00b689f0877",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetViewDurationCM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vCMEval)\r\n\tAggr$(vCMEval)\n    \t$(vCMEvalBracket)Avg Sheet View Duration CM],\n        AppID\n    )\n)",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "6ef62143-d0bc-4490-a21a-eec084d67ee9",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "mesa",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "Tables"
-  },
-  {
-    "qInfo": {
-      "qId": "99e7bdf7-380a-41db-b19a-fec96760938c",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vIncremental",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "1"
-  },
-  {
-    "qInfo": {
-      "qId": "ff2a3346-d0ab-4acd-804d-8881f5c4cd28",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "0",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "0"
-  },
-  {
-    "qInfo": {
-      "qId": "19ee4c31-30a9-4ca6-b864-c3f43974a0f4",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "output_qvd_name",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "lib://:DataFiles/app_analyzer_$1_$2.qvd"
-  },
-  {
-    "qInfo": {
-      "qId": "1c2cfe32-0f7a-4dde-9a32-bd28cae038ad",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentSessionsByAppPM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=$(vPMEvalBracket)Concurrent Sessions by App PM]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "0ad20159-1822-497e-b868-6c163e427956",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxSessionsCMByDay",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Sessions CM],SessionDay))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "adaa643a-3bb1-4711-8a46-0d2ebd2aa425",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vPMEvalBracket",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','PMTD','All'),'[')",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "8832f0cc-e7b3-428d-a6f3-0b821316878e",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAppLastUsed",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Last Used Ago (Day Hour:Min)],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "769b2140-27e8-4655-9d80-1ade6bda800d",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentSessionsByAppPMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=$(vPMEvalBracket)Concurrent Sessions by App PMTD]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "3b19ec89-fd54-4efd-bf66-cfdcd76c9640",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxUsersLast90Days",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 90 Days],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "0a5d7246-737f-41d2-9c47-248f9428b404",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetsViewedBySessionPM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Avg Sheets Viewed by Session PM],AppID))",
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Sheets Viewed PMTD],AppID))",
     "tags": []
   },
   {
@@ -364,210 +233,6 @@
   },
   {
     "qInfo": {
-      "qId": "3b8ad70b-1e70-4767-8433-455e7263a87b",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxUsersPM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Users PM],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "b28fb56b-51e2-47b8-ae2c-a407f9af69ac",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentUsersByAppPM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=$(vPMEvalBracket)Concurrent Users by App PM]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "da747793-40df-401e-bdfe-625315d3d914",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vTotalsEvalBracket",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','Totals','All'),'[')",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "f764b98a-cba3-407a-ba3c-9de21701414c",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "rolling_qvds_available",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "0"
-  },
-  {
-    "qInfo": {
-      "qId": "0a81cc25-c382-478d-a4d2-9b9fa9af115d",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentSessionsCMPMTDByDay",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Concurrent Sessions PMTD and CM],SessionDay))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "59a45c56-a8a7-4855-b184-2c0d1fd64d48",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetViewDurationPM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)\r\n\tAggr$(vPMEval)\n    \t$(vPMEvalBracket)Avg Sheet View Duration PM],\n        AppID\n    )\n)",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "33465336-9162-4ef1-839e-c80b15a94983",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "rolling_qvd_name",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "lib://:DataFiles/app_analyzer_rolling.qvd"
-  },
-  {
-    "qInfo": {
-      "qId": "de6350b4-9e02-4d0e-a036-d0f841a3f0b1",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vSessionsPivotDimensionModifier",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "SpaceType",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "aa1d740f-7c88-4c27-8082-edfd627c83e5",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vCount",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "14"
-  },
-  {
-    "qInfo": {
-      "qId": "50f378c5-8c5a-401d-aeb1-eb244da9b08c",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vu_token",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "9016b199-366a-460d-9bf5-98759e82dd56",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetsViewedBySessionPMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Avg Sheets Viewed by Session PMTD],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "0789fc78-a214-48ab-944a-c7afc95ccfce",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vTenantFileFound",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "1"
-  },
-  {
-    "qInfo": {
-      "qId": "729014ab-f062-4b39-8f47-778f47a4c8b0",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vSheetsContainerTab",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "Session Sheet View Analysis",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "47d666dd-796b-4a82-adc7-1ac0aaf566b1",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxUsersCMPMTDByDay",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Users PMTD and CM],SessionDay))",
-    "tags": []
-  },
-  {
-    "qInfo": {
       "qId": "ee4c1e4d-03ac-4979-b078-05da93909a0f",
       "qType": "variable"
     },
@@ -579,21 +244,6 @@
       "qUseThou": 0
     },
     "qDefinition": "=Max(Aggr([Concurrent Sessions CM],SessionDay))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "93973521-66e1-492d-aa94-b7d413b0b50d",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetsViewedBySession",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Avg Sheets Viewed by Session],AppID))",
     "tags": []
   },
   {
@@ -613,77 +263,46 @@
   },
   {
     "qInfo": {
-      "qId": "ca2ec1b5-c24e-47f2-bfd0-58ca4bf23af5",
+      "qId": "1ed16a74-1495-4566-9c88-75e28ef64175",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "vMaxUsersLast60Days",
+    "qName": "vMaxExportsImagePDF",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 60 Days],AppID))",
+    "qDefinition": "=Max(Aggr([Exports Image/PDF],AppID))",
     "tags": []
   },
   {
     "qInfo": {
-      "qId": "7eaa2d85-74db-47e1-83dd-837dec6aab4d",
+      "qId": "5a527d33-276d-49b9-a0c0-790d4a36ef8b",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "vCMEvalBracket",
+    "qName": "file_size_ExportFromApp",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','CMTD','All'),'[')",
-    "tags": []
+    "qDefinition": "8329"
   },
   {
     "qInfo": {
-      "qId": "b58e1c57-9349-4d53-a6dc-e5b1de786a3e",
+      "qId": "b28fb56b-51e2-47b8-ae2c-a407f9af69ac",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "vMaxUsersCMTD",
+    "qName": "vMaxConcurrentUsersByAppPM",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Users CM],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "46408142-a19d-4006-9d00-ee961c8ca730",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vRollingLineMeasureLineChart",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "If('$(vRollingLineSelect)'='App RAM (MB)',Round(Avg({\u003c[AppRAM_MB - Rolling]-={0}\u003e}[AppRAM_MB - Rolling]),1),\r\nIf('$(vRollingLineSelect)'='App Peak Reload RAM (MB)',Round(Avg({\u003c[AppRAMPeakReload_MB - Rolling]-={0}\u003e}[AppRAMPeakReload_MB - Rolling]),1),\nIf('$(vRollingLineSelect)'='Total Rows',Round(Avg({\u003c[AppTableNoOfRows - Rolling]-={0}\u003e}[AppTableNoOfRows - Rolling]),1),\nIf('$(vRollingLineSelect)'='Total Fields',Round(Avg({\u003c[AppNumberOfDistinctFields - Rolling]-={0}\u003e}[AppNumberOfDistinctFields - Rolling]),1),\nIf('$(vRollingLineSelect)'='Total Tables',Round(Avg({\u003c[AppNoOfTables - Rolling]-={0}\u003e}[AppNoOfTables - Rolling]),1),\nIf('$(vRollingLineSelect)'='Reload Time (hh:mm:ss)',Interval(Round(Avg({\u003c[App Reload CPU Time (ms) - Rolling]-={0}\u003e}[App Reload CPU Time (ms) - Rolling])/1000)/(60*60*24),'hh:mm:ss')))))))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "b7e7e816-2bba-48e2-90ca-842f9bede608",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxUsersPMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Users PMTD],AppID))",
+    "qDefinition": "=$(vPMEvalBracket)Concurrent Users by App PM]",
     "tags": []
   },
   {
@@ -703,96 +322,6 @@
   },
   {
     "qInfo": {
-      "qId": "cf4e14df-bafd-4649-a7c2-54274a0df80c",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxSheetsViewed",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Sheets Viewed],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "fc094ef6-7ae3-4619-8a3e-5dace5d5e378",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxSessions",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Sessions],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "51f243ae-4bc7-44fd-9f3d-b5211f42595c",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxDaysSinceLastReload",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr(Num(Date('$(vStartTimeGMTOffset)')-Only(Date),'#,##0'),AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "0bb87d7c-8832-44eb-ba3a-7162a4ac078f",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetsViewedBySessionCM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Avg Sheets Viewed by Session CM],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "acf5aac9-4d06-4cd9-bb44-b5de99e913af",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetViewEventsCMPMTDBySessionAndDay",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=[Max Avg Sheet Navigation Events by Session and Day CM and PMTD]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "bb04efa9-c68a-4494-a887-aac5c159b32d",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxSheetUsers",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Sheet Users],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
       "qId": "78097e24-a33b-4fec-b8ac-7cf86109d9d6",
       "qType": "variable"
     },
@@ -804,65 +333,6 @@
       "qUseThou": 0
     },
     "qDefinition": "=Max(Aggr([Avg Sheet View Duration PMTD and CM],SessionDay))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "50b1e754-ed56-43be-ae61-9cb2af4647be",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxSheetsViewedPMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Sheets Viewed PMTD],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "75735216-83bd-4f98-a3e3-5683890c05cf",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vSessionsFound",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "1"
-  },
-  {
-    "qInfo": {
-      "qId": "a53e3661-757b-4312-b632-0af54ff921ee",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSessionDuration",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr(Avg(SessionDurationMS),AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "cb51c1d3-dc33-415b-9519-d1c9dc49f5b8",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSessionDurationPMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)Avg$(vPMEval){\u003cSessionInPriorMTD={1}\u003e}SessionDurationMS),AppID))",
     "tags": []
   },
   {
@@ -882,81 +352,6 @@
   },
   {
     "qInfo": {
-      "qId": "1f961861-ff60-4ef5-8de9-d2dfee51f847",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentSessionsbyApp",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=$(vTotalsEvalBracket)Concurrent Sessions by App]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "18cef914-ec85-473d-8e75-b2dcb286d688",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentUsersbyAppCM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=$(vCMEvalBracket)Concurrent Users by App CM]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "26925ffc-0e05-40d6-af45-70ef39df2122",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentUsersByAppPMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=$(vPMEvalBracket)Concurrent Users by App PMTD]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "3d6eab22-8a46-4ad5-b8ab-9867e1a8d493",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vPMEval",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','PMTD','All'),'(')",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "6e00180f-9218-49ac-b925-644817a10d3b",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxSheetsViewedCM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Sheets Viewed CM],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
       "qId": "5070bb0d-dc83-46fe-8ada-2758eacb64cf",
       "qType": "variable"
     },
@@ -972,212 +367,6 @@
   },
   {
     "qInfo": {
-      "qId": "087234d4-615d-4462-805b-a601dcccae0d",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vTotalsEval",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','Totals','All'),'(')",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "95d9d214-9649-43ca-9903-7e8a4c3bc74b",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxSessionsCMPMTDByDay",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Sessions PMTD and CM],SessionDay))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "202e8676-cd66-43cd-a82c-51f8aeeec478",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vLast24Hours",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "45453.330868056"
-  },
-  {
-    "qInfo": {
-      "qId": "dfaa085d-cdad-4f6a-ba6b-a2bc4061339a",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vAnyFileFound",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "1"
-  },
-  {
-    "qInfo": {
-      "qId": "00a28da9-e930-412a-a771-06b19299b0a6",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxConcurrentSessionsByAppCM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=$(vCMEvalBracket)Concurrent Sessions by App CM]",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "00970fae-ebe4-4dfe-8eff-505d69cfc50c",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vLast72Hours",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "45451.330868056"
-  },
-  {
-    "qInfo": {
-      "qId": "17ddf942-d348-43f5-9b72-ace4872d9521",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxUsers",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Users],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "0ace0aaf-d6a4-451d-8cfa-8ed7c8a830d0",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vSessionsPivotColorBy",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([$(vSessionsPivotMeasureModifier)],$(vSessionsPivotDimensionModifier),$(vSessionsPivotColumnModifier)))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "0a84c2b6-1683-4a03-b37c-8bcd6e580c56",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSessionDurationPM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)Avg$(vPMEval){\u003cSessionInPriorMonth={1}\u003e}SessionDurationMS),AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "89bfca06-5b22-471f-97ae-b3b28667435c",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxUsersLast7Days",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 7 Days],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "b6ea2f66-73ec-4d26-8c37-6972ef310907",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vNumTables",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "8"
-  },
-  {
-    "qInfo": {
-      "qId": "ca4258db-7f53-4e26-93e8-6b88ad543ad6",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxAvgSheetViewDurationPMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)\r\n\tAggr$(vPMEval)\n    \t$(vPMEvalBracket)Avg Sheet View Duration PMTD],\n        AppID\n    )\n)",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "0b171d9c-c6c7-4a6c-b8ea-a6d46b5da7cd",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxExports",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Exports],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "3b244612-22be-45d6-b7d2-5a7fa04c2fb6",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxExportsCMTD",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Exports CM],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
       "qId": "ee6c4ac9-cd8e-4aea-9c1b-7c765d5eb7c5",
       "qType": "variable"
     },
@@ -1189,51 +378,6 @@
       "qUseThou": 0
     },
     "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Exports PMTD],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "2d3bf419-5f5c-4153-8c9f-e3e780615474",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxExportsPM",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Exports PM],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "1ed16a74-1495-4566-9c88-75e28ef64175",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxExportsImagePDF",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Exports Image/PDF],AppID))",
-    "tags": []
-  },
-  {
-    "qInfo": {
-      "qId": "d8aa6c6c-80f3-4a75-8ac2-96295fccac2b",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vMaxExportsData",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "=Max(Aggr([Exports Data],AppID))",
     "tags": []
   },
   {
@@ -1268,6 +412,890 @@
   },
   {
     "qInfo": {
+      "qId": "ca2ec1b5-c24e-47f2-bfd0-58ca4bf23af5",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsersLast60Days",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 60 Days],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "18cef914-ec85-473d-8e75-b2dcb286d688",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxConcurrentUsersbyAppCM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=$(vCMEvalBracket)Concurrent Users by App CM]",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "3b244612-22be-45d6-b7d2-5a7fa04c2fb6",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxExportsCMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Exports CM],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "c88f8416-0298-4b8b-8557-d00b689f0877",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetViewDurationCM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vCMEval)\r\n\tAggr$(vCMEval)\n    \t$(vCMEvalBracket)Avg Sheet View Duration CM],\n        AppID\n    )\n)",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "0a5d7246-737f-41d2-9c47-248f9428b404",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetsViewedBySessionPM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Avg Sheets Viewed by Session PM],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "aa1d740f-7c88-4c27-8082-edfd627c83e5",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vCount",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "14"
+  },
+  {
+    "qInfo": {
+      "qId": "93973521-66e1-492d-aa94-b7d413b0b50d",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetsViewedBySession",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Avg Sheets Viewed by Session],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "00a28da9-e930-412a-a771-06b19299b0a6",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxConcurrentSessionsByAppCM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=$(vCMEvalBracket)Concurrent Sessions by App CM]",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "b6ea2f66-73ec-4d26-8c37-6972ef310907",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vNumTables",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "8"
+  },
+  {
+    "qInfo": {
+      "qId": "18215e5f-dcac-40f1-9d92-d2b849b398bc",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetViewDuration",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr(Avg(SheetConsumptionOrderDuration),AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "19ee4c31-30a9-4ca6-b864-c3f43974a0f4",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "output_qvd_name",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "lib://:DataFiles/app_analyzer_$1_$2.qvd"
+  },
+  {
+    "qInfo": {
+      "qId": "769b2140-27e8-4655-9d80-1ade6bda800d",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxConcurrentSessionsByAppPMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=$(vPMEvalBracket)Concurrent Sessions by App PMTD]",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "3b19ec89-fd54-4efd-bf66-cfdcd76c9640",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsersLast90Days",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 90 Days],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "50f378c5-8c5a-401d-aeb1-eb244da9b08c",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vu_token",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "0789fc78-a214-48ab-944a-c7afc95ccfce",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vTenantFileFound",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "1"
+  },
+  {
+    "qInfo": {
+      "qId": "17ddf942-d348-43f5-9b72-ace4872d9521",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsers",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Users],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "0ad20159-1822-497e-b868-6c163e427956",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxSessionsCMByDay",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Sessions CM],SessionDay))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "33465336-9162-4ef1-839e-c80b15a94983",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "rolling_qvd_name",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "lib://:DataFiles/app_analyzer_rolling.qvd"
+  },
+  {
+    "qInfo": {
+      "qId": "51f243ae-4bc7-44fd-9f3d-b5211f42595c",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxDaysSinceLastReload",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr(Num(Date('$(vStartTimeGMTOffset)')-Only(Date),'#,##0'),AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "75735216-83bd-4f98-a3e3-5683890c05cf",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vSessionsFound",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "1"
+  },
+  {
+    "qInfo": {
+      "qId": "2d3bf419-5f5c-4153-8c9f-e3e780615474",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxExportsPM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Exports PM],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "3a4f24d3-01b2-4dfc-beed-daafa9bd0a43",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vu_app_metadata_batch_days_back",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "1"
+  },
+  {
+    "qInfo": {
+      "qId": "99e7bdf7-380a-41db-b19a-fec96760938c",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vIncremental",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "1"
+  },
+  {
+    "qInfo": {
+      "qId": "59a45c56-a8a7-4855-b184-2c0d1fd64d48",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetViewDurationPM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)\r\n\tAggr$(vPMEval)\n    \t$(vPMEvalBracket)Avg Sheet View Duration PM],\n        AppID\n    )\n)",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "de6350b4-9e02-4d0e-a036-d0f841a3f0b1",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vSessionsPivotDimensionModifier",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "SpaceType",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "47d666dd-796b-4a82-adc7-1ac0aaf566b1",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsersCMPMTDByDay",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Users PMTD and CM],SessionDay))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "7eaa2d85-74db-47e1-83dd-837dec6aab4d",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vCMEvalBracket",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','CMTD','All'),'[')",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "6e00180f-9218-49ac-b925-644817a10d3b",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxSheetsViewedCM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Sheets Viewed CM],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "46408142-a19d-4006-9d00-ee961c8ca730",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vRollingLineMeasureLineChart",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "If('$(vRollingLineSelect)'='App RAM (MB)',Round(Avg({\u003c[AppRAM_MB - Rolling]-={0}\u003e}[AppRAM_MB - Rolling]),1),\r\nIf('$(vRollingLineSelect)'='App Peak Reload RAM (MB)',Round(Avg({\u003c[AppRAMPeakReload_MB - Rolling]-={0}\u003e}[AppRAMPeakReload_MB - Rolling]),1),\nIf('$(vRollingLineSelect)'='Total Rows',Round(Avg({\u003c[AppTableNoOfRows - Rolling]-={0}\u003e}[AppTableNoOfRows - Rolling]),1),\nIf('$(vRollingLineSelect)'='Total Fields',Round(Avg({\u003c[AppNumberOfDistinctFields - Rolling]-={0}\u003e}[AppNumberOfDistinctFields - Rolling]),1),\nIf('$(vRollingLineSelect)'='Total Tables',Round(Avg({\u003c[AppNoOfTables - Rolling]-={0}\u003e}[AppNoOfTables - Rolling]),1),\nIf('$(vRollingLineSelect)'='Reload Time (hh:mm:ss)',Interval(Round(Avg({\u003c[App Reload CPU Time (ms) - Rolling]-={0}\u003e}[App Reload CPU Time (ms) - Rolling])/1000)/(60*60*24),'hh:mm:ss')))))))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "a53e3661-757b-4312-b632-0af54ff921ee",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSessionDuration",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr(Avg(SessionDurationMS),AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "b7e7e816-2bba-48e2-90ca-842f9bede608",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsersPMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Users PMTD],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "bb04efa9-c68a-4494-a887-aac5c159b32d",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxSheetUsers",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Sheet Users],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "95d9d214-9649-43ca-9903-7e8a4c3bc74b",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxSessionsCMPMTDByDay",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Sessions PMTD and CM],SessionDay))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "ca4258db-7f53-4e26-93e8-6b88ad543ad6",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetViewDurationPMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)\r\n\tAggr$(vPMEval)\n    \t$(vPMEvalBracket)Avg Sheet View Duration PMTD],\n        AppID\n    )\n)",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "d8aa6c6c-80f3-4a75-8ac2-96295fccac2b",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxExportsData",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Exports Data],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "0a81cc25-c382-478d-a4d2-9b9fa9af115d",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxConcurrentSessionsCMPMTDByDay",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Concurrent Sessions PMTD and CM],SessionDay))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "087234d4-615d-4462-805b-a601dcccae0d",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vTotalsEval",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','Totals','All'),'(')",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "89bfca06-5b22-471f-97ae-b3b28667435c",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsersLast7Days",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 7 Days],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "6ef62143-d0bc-4490-a21a-eec084d67ee9",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "mesa",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "Tables"
+  },
+  {
+    "qInfo": {
+      "qId": "1c2cfe32-0f7a-4dde-9a32-bd28cae038ad",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxConcurrentSessionsByAppPM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=$(vPMEvalBracket)Concurrent Sessions by App PM]",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "adaa643a-3bb1-4711-8a46-0d2ebd2aa425",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vPMEvalBracket",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','PMTD','All'),'[')",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "8832f0cc-e7b3-428d-a6f3-0b821316878e",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAppLastUsed",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Last Used Ago (Day Hour:Min)],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "b58e1c57-9349-4d53-a6dc-e5b1de786a3e",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsersCMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vCMEval)Aggr$(vCMEval)$(vCMEvalBracket)Users CM],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "acf5aac9-4d06-4cd9-bb44-b5de99e913af",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetViewEventsCMPMTDBySessionAndDay",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=[Max Avg Sheet Navigation Events by Session and Day CM and PMTD]",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "1f961861-ff60-4ef5-8de9-d2dfee51f847",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxConcurrentSessionsbyApp",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=$(vTotalsEvalBracket)Concurrent Sessions by App]",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "3d6eab22-8a46-4ad5-b8ab-9867e1a8d493",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vPMEval",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=If(Match('$(vSessionsTableColumnFilter)','PMTD','All'),'(')",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "dfaa085d-cdad-4f6a-ba6b-a2bc4061339a",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vAnyFileFound",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "1"
+  },
+  {
+    "qInfo": {
+      "qId": "0a84c2b6-1683-4a03-b37c-8bcd6e580c56",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSessionDurationPM",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)Avg$(vPMEval){\u003cSessionInPriorMonth={1}\u003e}SessionDurationMS),AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "0b171d9c-c6c7-4a6c-b8ea-a6d46b5da7cd",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxExports",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Exports],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "9016b199-366a-460d-9bf5-98759e82dd56",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSheetsViewedBySessionPMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)$(vPMEvalBracket)Avg Sheets Viewed by Session PMTD],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "00970fae-ebe4-4dfe-8eff-505d69cfc50c",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vLast72Hours",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "45451.330868056"
+  },
+  {
+    "qInfo": {
+      "qId": "cb51c1d3-dc33-415b-9519-d1c9dc49f5b8",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxAvgSessionDurationPMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vPMEval)Aggr$(vPMEval)Avg$(vPMEval){\u003cSessionInPriorMTD={1}\u003e}SessionDurationMS),AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "0ace0aaf-d6a4-451d-8cfa-8ed7c8a830d0",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vSessionsPivotColorBy",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([$(vSessionsPivotMeasureModifier)],$(vSessionsPivotDimensionModifier),$(vSessionsPivotColumnModifier)))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "e4f364cb-eaa4-4c89-906e-82e0f6236b12",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxUsersLast30Days",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max$(vTotalsEval)Aggr$(vTotalsEval)$(vTotalsEvalBracket)Users Last 30 Days],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "ff2a3346-d0ab-4acd-804d-8881f5c4cd28",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "0",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "0"
+  },
+  {
+    "qInfo": {
+      "qId": "f764b98a-cba3-407a-ba3c-9de21701414c",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "rolling_qvds_available",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "0"
+  },
+  {
+    "qInfo": {
+      "qId": "cf4e14df-bafd-4649-a7c2-54274a0df80c",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxSheetsViewed",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Sheets Viewed],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "fc094ef6-7ae3-4619-8a3e-5dace5d5e378",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxSessions",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=Max(Aggr([Sessions],AppID))",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "26925ffc-0e05-40d6-af45-70ef39df2122",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vMaxConcurrentUsersByAppPMTD",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "=$(vPMEvalBracket)Concurrent Users by App PMTD]",
+    "tags": []
+  },
+  {
+    "qInfo": {
+      "qId": "202e8676-cd66-43cd-a82c-51f8aeeec478",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "vLast24Hours",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "45453.330868056"
+  },
+  {
+    "qInfo": {
       "qId": "7a590a11-06a6-44e2-ada3-09410ae3fed6",
       "qType": "variable"
     },
@@ -1283,30 +1311,16 @@
   },
   {
     "qInfo": {
-      "qId": "5a527d33-276d-49b9-a0c0-790d4a36ef8b",
+      "qId": "2bf859d6-c0da-4960-942d-676cac02c81e",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "file_size_ExportFromApp",
+    "qName": "file_size_SheetConsumption",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "8117"
-  },
-  {
-    "qInfo": {
-      "qId": "3a4f24d3-01b2-4dfc-beed-daafa9bd0a43",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vu_app_metadata_batch_days_back",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "1"
+    "qDefinition": "53172"
   }
 ]

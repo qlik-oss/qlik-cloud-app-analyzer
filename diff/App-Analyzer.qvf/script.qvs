@@ -268,6 +268,7 @@ Sub variables
   Let vReloadTimeDiffFromGMT		= ConvertToLocalTime('$(vStartTime)','$(vReloadDiffFromGMTString)') - GMT();
   Set vu_personal_space_user_list  	= 'id','name','subject','email';
   Let v90BackGMT				 	= Date(Today(1) - 90);
+  Let vSheetTitleAddedDate			= MakeDate(2024,12,13);
   
   If $(vu_sessions_initial_days_back)>0 Then
       If $(vu_enable_extended_session_history)=1 Then
@@ -1354,6 +1355,7 @@ SUB get_audit_sheet_consumption
                     "appId",
                     "sheetId",
                     "sheetState",
+                    "sheetTitle",
                     "__FK_data_u0"
                 FROM "data" FK "__FK_data_u0"),
                 (SELECT 
@@ -1394,12 +1396,13 @@ SUB get_audit_sheet_consumption
         WITH CONNECTION (  
             URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=com.qlik/analytics&eventType=com.qlik.v1.analytics.analytics-app-client.sheet-view.opened$(vISO_8601_Date_Range)$(vNextURL)"
         );
-        
+                
         CONCATENATE(SheetConsumption)
         LOAD	
         	[appId] AS AppID,
             [sheetId] AS SheetConsumptionSheetID,
             [sheetState] AS SheetConsumptionState,
+            [sheetTitle] AS SheetConsumptionTitle,
             [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_SheetConsumptionTempKey]
         RESIDENT RestConnectorMasterTable
         WHERE NOT IsNull([__FK_data_u0]);
@@ -2529,11 +2532,29 @@ Sub transform
     
     Rename Table SheetConsumption To TEMP;
     
+    Max_SheetAccessDate:
+    Mapping Load
+        SheetConsumptionSheetID & '|' & AppID AS _Key_Max_SheetAccessDate,
+        Max(SheetConsumptionEventTime) AS SheetConsumptionSheetIDMaxTime
+    Resident TEMP
+    Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vInitialDaysBack)')
+    Group By SheetConsumptionSheetID, AppID;
+    
+    Map_SheetTitle:
+    Mapping Load
+        SheetConsumptionSheetID & '|' & AppID AS _Key_Max_SheetAccessDate,
+        If(Len(Trim(SheetConsumptionTitle))>0,SheetConsumptionTitle,If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),'<Empty>','<Not Available>')) AS SheetConsumptionTitle
+    Resident TEMP
+    Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vInitialDaysBack)')
+    AND ApplyMap('Max_SheetAccessDate',SheetConsumptionSheetID & '|' & AppID)=SheetConsumptionEventTime;
+    
     SheetConsumption:
     Load
         AppID,
         SheetConsumptionSheetID,
         SheetConsumptionState,
+        If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),ApplyMap('Map_SheetTitle',SheetConsumptionSheetID & '|' & AppID),'<Not Available>') AS SheetConsumptionTitle,
+        If(Len(Trim(SheetConsumptionTitle))>0,SheetConsumptionTitle,If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),'<Empty>','<Not Available>')) AS SheetConsumptionTitleHistorical,
         SheetConsumptionEventID,
         Timestamp(Timestamp(SheetConsumptionEventTime) + $(vReloadTimeDiffFromGMT)) AS SheetConsumptionEventTime,
         SheetConsumptionUserID,
@@ -2617,6 +2638,8 @@ Sub transform
             SessionID,
             SheetConsumptionSheetID,
             SheetConsumptionState,
+            SheetConsumptionTitle,
+            SheetConsumptionTitleHistorical,
             SheetConsumptionEventID,
             TimeStamp(SheetConsumptionEventTime,'YYYY-MM-DD hh:mm:ss') AS SheetConsumptionEventTime,
             SheetConsumptionUserID,
