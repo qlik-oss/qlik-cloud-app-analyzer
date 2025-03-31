@@ -1,6 +1,59 @@
 [
   {
     "qInfo": {
+      "qId": "264eed3d-54a5-4b1e-8672-b16571683f59",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "LargeAppConsume"
+      ],
+      "qFieldLabels": [
+        "Large App Consume"
+      ],
+      "qAlias": "Large App Consume",
+      "title": "Large App Consume",
+      "coloring": {
+        "colorMapRef": "mCJtwpq",
+        "changeHash": "0.9291972769622698",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Large App Consume",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mCJtwpq",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "LargeAppConsumeIsDenied"
+      ],
+      "qFieldLabels": [
+        "Large App Consume Is Denied"
+      ],
+      "qAlias": "Large App Consume Is Denied",
+      "title": "Large App Consume Is Denied",
+      "coloring": {
+        "changeHash": "0.07229716072827608",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Large App Consume Is Denied",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "wVwJz",
       "qType": "dimension"
     },

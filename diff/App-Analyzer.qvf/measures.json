@@ -1,6 +1,64 @@
 [
   {
     "qInfo": {
+      "qId": "mhAmPzr",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Large App Sessions",
+      "qDef": "Count({\u003cLargeAppConsume={'True'}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Large App Sessions",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "vvwLMv",
+      "qType": "measure"
+    },
+    "qMeasure": {
+      "qLabel": "Large App Denials",
+      "qDef": "Count({\u003cLargeAppConsumeIsDenied={'True'}\u003e}DISTINCT SessionID)",
+      "qGrouping": "N",
+      "qExpressions": [],
+      "qActiveExpression": 0,
+      "qNumFormat": {
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0",
+        "qDec": ".",
+        "qThou": ","
+      },
+      "numFormatFromTemplate": true,
+      "coloring": {},
+      "isCustomFormatted": false
+    },
+    "qMetaDef": {
+      "title": "Large App Denials",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "AqEUPDA",
       "qType": "measure"
     },

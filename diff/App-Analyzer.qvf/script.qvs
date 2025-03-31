@@ -9,8 +9,8 @@
            /_/     /_/                                     /____/                      
         
     
-    Copyright 2024 QlikTech International
-    Created by Daniel Pilla, Master Principal Analytics Platform Architect, Qlik
+    Copyright 2025 QlikTech International
+    Created by Daniel Pilla, Distinguished Principal Presales Architect, Qlik
 
 	About the "App Analyzer" app:
     
@@ -188,11 +188,9 @@ Set vu_slim_version_for_anonymous = 0;
 // "QlikMetaCollection" directory resides) and does not directly harvest any data itself, meaning it depends on the existence 
 // of "child" apps. If designated as a child app, it writes out all of its final QVDs post harvest to a centralized location.
 
-// To enable Multitenant app support, regardless of "Parent" or "Child" (1 or 0)
-Set vu_multi_tenant_enabled 			= 0;
+Set vu_multi_tenant_enabled 			= 0;	// To enable Multi-Tenant app support, regardless of "Parent" or "Child" (1 or 0)
 
-// To enable Multitenant app support, regardless of "Parent" or "Child" (1 or 0)
-Set vu_is_parent_app 					= 0;
+Set vu_is_parent_app 					= 0;	// If this application is to be the parent app across varying tenants (1 or 0)
 
 // The connection to the parent directory of the QlikMetaCollection directory, which houses all of the multitenant metadata.
 // This is the root location to read/write all QVDs to so that they can be loaded across tenants (S3, Azure Blob, or Google 
@@ -202,7 +200,7 @@ Set vu_is_parent_app 					= 0;
 
 // **Azure Blob, AWS S3, and Google CLoud Storage have been tested and confirmed to work without any modifications**
 // Parent directory of the "QlikMetaCollection" folder (trailing slash optional)
-SET vu_qlik_meta_collection_parent_dir = 'lib://:';
+Set vu_qlik_meta_collection_parent_dir = 'lib://:';
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -224,255 +222,174 @@ Set vReloadCPUTimeThreshold 					= 1800000; 		// CPU Time spent on last reload (
 ///$tab Variables
 Sub variables
   
-//// General System  & Date Time Variables
-  Set ThousandSep		=',';
-  Set DecimalSep		='.';
-  Set TimeFormat		= 'hh:mm:ss';
-  Set DateFormat		= 'YYYY-MM-DD';
-  Set TimestampFormat	= 'YYYY-MM-DD hh:mm:ss';
-  Set FirstWeekDay=6;
-  Set BrokenWeeks=1;
-  Set ReferenceDay=0;
-  Set FirstMonthOfYear=1;
-  Set CollationLocale='en-US';
-  Set MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
-  Set LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
-  Set DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
-  Set LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
-  Set NumericalAbbreviation='3:k;6:M;9:B;12:T;15:P;18:E;21:Z;24:Y;-3:m;-6:μ;-9:n;-12:p;-15:f;-18:a;-21:z;-24:y';
-  
-  Set vCapacityLicenseStandardTierQuota = 10737418240; // 10 GB for the standard tier app base RAM quota under the capacity license
-  Set vAppRAMPeakReloadSizeQuota 		= 42949672960; // 40 GB for reload peak RAM  
-  Set CreateSearchIndexOnReload			= 1;	       // to assist search results in app
-  Search Exclude '*ID','_*','*Time*','*Duration*','*Date*'; // Exclude these fields from the global search.
-  Set HidePrefix='_';
-  
-  Let vu_tenant_fqdn 	= GetSysAttr('tenantUrl');
-  Let vu_tenant_alias 	= GetSysAttr('tenantUrlAlias');
-  
-//// Run-time variables
-  Let vStartTime 					= Now(1);
-  Let vSessionsTableColumnFilter	= '$(vu_sessions_table_preset_filter)';
-  Let vSessionsPivotMeasureModifier	= '$(vu_sessions_pivot_preset_filter)';
-  Let vSessionsContainer1Tab		= '$(vu_sessions_container_1_preset_filter)';
-  Let vSessionsContainer2Tab		= '$(vu_sessions_container_2_preset_filter)';
-  Set vSessionsPivotDimensionsModifier = 'SessionUserName';
-  Set vSessionsPivotMeasureModifier = 'Sessions';
-  Set vSessionsPivotColumnModifier  = 'SessionHourAMPM';
-  Let vAppQVDName					= Lower(Replace('$(app_name)',' ','_'));
-  Set vOutputQVDName				= '$(vu_qvd_storage_connection)/$(vAppQVDName)_$1_$2.qvd';
-  Set vRollingQVDName				= '$(vu_qvd_storage_connection)/app_analyzer_rolling.qvd';
-  Let vReloadDiffFromGMTString	= If(vu_GMT_offset=0,'GMT-00:00',
-      If(vu_GMT_offset<0,'GMT-' & Right('0' & Replace(vu_GMT_offset,'-',''),2) & ':00',
-      If(vu_GMT_offset>0,'GMT+' & Right('0' & vu_GMT_offset,2) & ':00'))); 
-  Let vReloadTimeDiffFromGMT		= ConvertToLocalTime('$(vStartTime)','$(vReloadDiffFromGMTString)') - GMT();
-  Set vu_personal_space_user_list  	= 'id','name','subject','email';
-  Let v90BackGMT				 	= Date(Today(1) - 90);
-  Let vSheetTitleAddedDate			= MakeDate(2024,12,13);
-  
-  If $(vu_sessions_initial_days_back)>0 Then
-      If $(vu_enable_extended_session_history)=1 Then
-          Let vInitialDaysBack = Date(Today(1) - $(vu_sessions_initial_days_back));
-      Else
-      	  Let vInitialDaysBack = If($(vu_sessions_initial_days_back)<=90,Date(Today(1) - $(vu_sessions_initial_days_back)),$(v90BackGMT));
-      End if
-  Else
-  	  Let vInitialDaysBack = Date('$(v90BackGMT)');
-  End if
-  
-  Let vu_app_metadata_initial_days_back = If(IsNum(vu_app_metadata_initial_days_back),vu_app_metadata_initial_days_back,-1);
-  Set vMaxAppsPerReloadLimit		= 10000;
+  	//// General System  & Date Time Variables
+    Set ThousandSep		=',';
+    Set DecimalSep		='.';
+    Set TimeFormat		= 'hh:mm:ss';
+    Set DateFormat		= 'YYYY-MM-DD';
+    Set TimestampFormat	= 'YYYY-MM-DD hh:mm:ss';
+    Set FirstWeekDay=6;
+    Set BrokenWeeks=1;
+    Set ReferenceDay=0;
+    Set FirstMonthOfYear=1;
+    Set CollationLocale='en-US';
+    Set MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+    Set LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+    Set DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+    Set LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+    Set NumericalAbbreviation='3:k;6:M;9:B;12:T;15:P;18:E;21:Z;24:Y;-3:m;-6:μ;-9:n;-12:p;-15:f;-18:a;-21:z;-24:y';
 
-  Let vConsumptionQVD			 	= '$(vOutputQVDName(Consumption,$(app_schema_version)))';
-  Let vConsumptionMinutes			= 1;
-  Set vSessions						= 1;
-  Set vSheetConsumptionNoNewRecords = 0; // Instantiate as zero
-  Set vAppExportNoNewRecords 		= 0; // Instantiate as zero
-  Let vAppReloadMetadataQVD 		= '$(vOutputQVDName(AppReloadCPUMetadata,$(app_schema_version)))';
-  Let vAppExportQVD 		= '$(vOutputQVDName(ExportFromApp,$(app_schema_version)))';
-  Let vIncrementalQVDsAvailable		= If(Len(FileTime('$(vAppReloadMetadataQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
-  Let vIncrementalExportQVDsAvailable = If(Len(FileTime('$(vAppExportQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
-  Let vRollingQVDsAvailable	 		= If(Len(FileTime('$(vRollingQVDName)'))>0,1,0);  // Check to see that rolling QVD is available
-  Let vIncrementalMessage 			= If($(vIncrementalQVDsAvailable)=1,'Incremental QVDs found','No Incremental QVDs found. Do not panic. I can fix that.');
-  If $(vu_is_parent_app) = 0 then
-    Trace $(vIncrementalMessage);
-  End if
-  
-  Let vLastReloadTime 				= TimeStamp(ReloadTime());
+    Set vCapacityLicenseStandardTierQuota = 10737418240; // 10 GB for the standard tier app base RAM quota under the capacity license
+    Set vAppRAMPeakReloadSizeQuota 		= 42949672960; // 40 GB for reload peak RAM  
+    Set CreateSearchIndexOnReload			= 1;	       // to assist search results in app
+    Search Exclude '*ID','_*','*Time*','*Duration*','*Date*'; // Exclude these fields from the global search.
+    Set HidePrefix='_';
 
-  Set vRollingLineSelect = 'App RAM (MB)'; // Set default view for the Rolling data visualizations.
-  
-//// Calendar Variables
+    Let vu_tenant_fqdn 	= GetSysAttr('tenantUrl');
+    Let vu_tenant_alias = GetSysAttr('tenantUrlAlias');
 
-  Let vLast7Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-7) + $(vReloadTimeDiffFromGMT)));
-  Let vLast30Days	 	=	Num(Floor(TimeStamp('$(vStartTime)'-30) + $(vReloadTimeDiffFromGMT)));
-  Let vLast60Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-60) + $(vReloadTimeDiffFromGMT)));
-  Let vLast90Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-90) + $(vReloadTimeDiffFromGMT)));
-  
-//// Indicators
-  SET i_up_down 		= 'Pick($1+2,'' 📉'','' '' &Repeat('' '',9),'' 📈'')';
- 
-//// Incremental Date Logic
-  
-  If $(vu_is_parent_app)=0 Then
+  	//// Run-time variables
+    Let vStartTime 						= Now(1);
+    Let vSessionsTableColumnFilter		= '$(vu_sessions_table_preset_filter)';
+    Let vSessionsPivotMeasureModifier	= '$(vu_sessions_pivot_preset_filter)';
+    Let vSessionsContainer1Tab			= '$(vu_sessions_container_1_preset_filter)';
+    Let vSessionsContainer2Tab			= '$(vu_sessions_container_2_preset_filter)';
+    Set vSessionsPivotDimensionsModifier= 'SessionUserName';
+    Set vSessionsPivotMeasureModifier	= 'Sessions';
+    Set vSessionsPivotColumnModifier  	= 'SessionHourAMPM';
+    Let vAppQVDName						= Lower(Replace('$(app_name)',' ','_'));
+    Set vOutputQVDName					= '$(vu_qvd_storage_connection)/$(vAppQVDName)_$1_$2.qvd';
+    Set vRollingQVDName					= '$(vu_qvd_storage_connection)/app_analyzer_rolling.qvd';
+    Let vReloadDiffFromGMTString		= If(vu_GMT_offset=0,'GMT-00:00',
+        If(vu_GMT_offset<0,'GMT-' & Right('0' & Replace(vu_GMT_offset,'-',''),2) & ':00',
+        If(vu_GMT_offset>0,'GMT+' & Right('0' & vu_GMT_offset,2) & ':00'))); 
+    Let vReloadTimeDiffFromGMT			= ConvertToLocalTime('$(vStartTime)','$(vReloadDiffFromGMTString)') - GMT();
+    Set vu_personal_space_user_list  	= 'id','name','subject','email';
+    Let v90BackGMT				 		= Date(Today(1) - 90);
+    Let vSheetTitleAddedDate			= MakeDate(2024,12,13);
 
-      If $(vIncrementalQVDsAvailable)=1 Then
-      
-          TRACE Looking to load: $(vConsumptionQVD).;
-          LET file_size = If(IsNull(FileSize('$(vConsumptionQVD)')),0,FileSize('$(vConsumptionQVD)'));
+    If $(vu_sessions_initial_days_back)>0 Then
+        If $(vu_enable_extended_session_history)=1 Then
+            Let vInitialDaysBack = Date(Today(1) - $(vu_sessions_initial_days_back));
+        Else
+            Let vInitialDaysBack = If($(vu_sessions_initial_days_back)<=90,Date(Today(1) - $(vu_sessions_initial_days_back)),$(v90BackGMT));
+        End if
+    Else
+        Let vInitialDaysBack = Date('$(v90BackGMT)');
+    End if
 
-          IF file_size > 0 then // this handles for when there were zero sessions on the first load, i.e., new tenant with programmatic deployment
-              Trace File size is $(file_size) bytes;
-              Trace Fetching data from: $(qvd_name);
-              Trace $(table);
-      
-              ConsumptionMaxEndTimeTemp:
-              Load
-                  SessionEndTime
-              From '$(vConsumptionQVD)'(qvd)
-              Where Not Exists(SessionEndTime);
+    Let vu_app_metadata_initial_days_back 	= If(IsNum(vu_app_metadata_initial_days_back),vu_app_metadata_initial_days_back,-1);
+    Set vMaxAppsPerReloadLimit				= 10000;
 
-              ConsumptionMaxEndTime:
-              Load 
-                  Max(SessionEndTime) AS ConsumptionMaxEndTime
-              Resident ConsumptionMaxEndTimeTemp;
+    Let vConsumptionQVD			 			= '$(vOutputQVDName(Consumption,$(app_schema_version)))';
+    Let vConsumptionMinutes					= 1;
+    Set vSessions							= 1;
+    Set vSheetConsumptionNoNewRecords 		= 0; // Instantiate as zero
+    Set vAppExportNoNewRecords 				= 0; // Instantiate as zero
+    Set vAppContainsLargeAppConsumption 	= 0; // Instantiate as zero
+    Set vAppLargeAppConsumeNoNewRecords 	= 0; // Instantiate as zero
+    Let vAppMetadataQVD 					= '$(vOutputQVDName(AppReloadCPUMetadata,$(app_schema_version)))';
+    Let vAppExportQVD 						= '$(vOutputQVDName(ExportFromApp,$(app_schema_version)))';
+    Let vAppLargeAppsQVD 					= '$(vOutputQVDName(LargeAppConsumption,$(app_schema_version)))';
+    Let vIncrementalQVDsAvailable			= If(Len(FileTime('$(vAppMetadataQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
+    Let vIncrementalExportQVDsAvailable 	= If(Len(FileTime('$(vAppExportQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
+    Let vIncrementalLargeAppsQVDsAvailable= If(Len(FileTime('$(vAppLargeAppsQVD)'))>0,1,0);  // Check to see that incremental QVDs are available
+    Let vRollingQVDsAvailable	 			= If(Len(FileTime('$(vRollingQVDName)'))>0,1,0);  // Check to see that rolling QVD is available
+    Let vIncrementalMessage 				= If($(vIncrementalQVDsAvailable)=1,'Incremental QVDs found','No Incremental QVDs found. Do not panic. I can fix that.');
+    If $(vu_is_parent_app) = 0 then
+      Trace $(vIncrementalMessage);
+    End if
 
-              LET vIncrementalStartTime = Peek('ConsumptionMaxEndTime',0,'ConsumptionMaxEndTime') - (1 / 24 / 60);
+    Let vLastReloadTime 				= TimeStamp(ReloadTime());
 
-              DROP TABLES ConsumptionMaxEndTimeTemp,ConsumptionMaxEndTime;
+    Set vRollingLineSelect = 'App RAM (MB)'; // Set default view for the Rolling data visualizations.
 
-              LET vIncrementalStartTimeDisplay = TimeStamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss.fff');
+  	//// Calendar Variables
+    Let vLast7Days 			=	Num(Floor(TimeStamp('$(vStartTime)'-7) + $(vReloadTimeDiffFromGMT)));
+    Let vLast30Days	 		=	Num(Floor(TimeStamp('$(vStartTime)'-30) + $(vReloadTimeDiffFromGMT)));
+    Let vLast60Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-60) + $(vReloadTimeDiffFromGMT)));
+    Let vLast90Days 		=	Num(Floor(TimeStamp('$(vStartTime)'-90) + $(vReloadTimeDiffFromGMT)));
 
-              TRACE Incremental will resume from: $(vIncrementalStartTimeDisplay);
-
-              SET vIncrementalStartTimeDisplay =;
-              
-          ELSE
-          
-          	  LET vIncrementalStartTime = '$(vInitialDaysBack)';
-              
-          END IF
-
-      ELSE
-
-          TRACE $(vIncrementalMessage);
-
-          LET vIncrementalStartTime = '$(vInitialDaysBack)';
-
-      END IF
-
-  END IF
-
-
-//// Colors
-  Set c_light_gray			= 'RGB(240,240,240)';
-  Set c_threshold_red		= 'RGB(165,67,67)';
-  Set c_red					= 'RGB(204,102,119)';
-  Set c_orange 				= 'RGB(233,141,54)'; 
-  Set c_yellow				= 'RGB(221,204,119)';
-  Set c_blue				= 'RGB(68,119,170)';
-  Set c_green				= 'RGB(17,119,51)';
-  Set c_gray 				= 'RGB(150,150,150)';
-  Set c_lightred 			= 'RGB(240,209,214)';
-  Set c_lightblue 			= 'RGB(188,181,201)'; 
-  //// ARGB colors -- requires input value to set the intensity (alpha) value of the color. Example using field [dual90]:  $(c_red_alpha(dual90)) 
-  Set c_red_alpha			= 'ARGB($1,192,57,43)';
-  Set c_orange_alpha		= 'ARGB($1,233,141,54)'; 
-  Set c_yellow_alpha		= 'ARGB($1,221,204,119)';
-  Set c_blue_alpha			= 'ARGB($1,16,101,128)';
-  Set c_green_alpha			= 'ARGB($1,17,119,51)';
-  Set c_gray_alpha			= 'ARGB($1,150,150,150)';
-  Set c_red_breeze_alpha	= 'ARGB($1,155,58,59)';
-  Set c_orange_breeze_alpha	= 'ARGB($1,233,141,54)';
-  Set c_teal_breeze_alpha	= 'ARGB($1,19,118,122)';
-  Set c_green_breeze_alpha	= 'ARGB($1,101,177,99)';
-  Set c_red_0_green_alpha	= 'IF($1=0,c_red,ARGB($1,101,177,99))';
+  	//// Indicators
+    Set i_up_down 			= 'Pick($1+2,'' 📉'','' '' &Repeat('' '',9),'' 📈'')';
+    
+  	//// Colors
+    Set c_light_gray		= 'RGB(240,240,240)';
+    Set c_threshold_red		= 'RGB(165,67,67)';
+    Set c_red				= 'RGB(204,102,119)';
+    Set c_orange 			= 'RGB(233,141,54)'; 
+    Set c_yellow			= 'RGB(221,204,119)';
+    Set c_blue				= 'RGB(68,119,170)';
+    Set c_green				= 'RGB(17,119,51)';
+    Set c_gray 				= 'RGB(150,150,150)';
+    Set c_lightred 			= 'RGB(240,209,214)';
+    Set c_lightblue 		= 'RGB(188,181,201)'; 
+    //// ARGB colors -- requires input value to set the intensity (alpha) value of the color. Example using field [dual90]:  $(c_red_alpha(dual90)) 
+    Set c_red_alpha			= 'ARGB($1,192,57,43)';
+    Set c_orange_alpha		= 'ARGB($1,233,141,54)'; 
+    Set c_yellow_alpha		= 'ARGB($1,221,204,119)';
+    Set c_blue_alpha		= 'ARGB($1,16,101,128)';
+    Set c_green_alpha		= 'ARGB($1,17,119,51)';
+    Set c_gray_alpha		= 'ARGB($1,150,150,150)';
+    Set c_red_breeze_alpha	= 'ARGB($1,155,58,59)';
+    Set c_orange_breeze_alpha= 'ARGB($1,233,141,54)';
+    Set c_teal_breeze_alpha	= 'ARGB($1,19,118,122)';
+    Set c_green_breeze_alpha= 'ARGB($1,101,177,99)';
+    Set c_red_0_green_alpha	= 'IF($1=0,c_red,ARGB($1,101,177,99))';
 
 End Sub
-///$tab Check License
-Sub check_license
+///$tab Set Incremental
+Sub set_incremental
 
-    // check to see whether the tenant is on a capacity license
+    If $(vu_is_parent_app)=0 Then
 
-    LIB Connect To '$(vu_rest_connection)';
+        If $(vIncrementalQVDsAvailable)=1 Then
 
-    RestConnectorMasterTable:
-    SQL SELECT 
-        "__KEY_root",
-        (SELECT 
-            "name",
-            "__FK_allotments"
-        FROM "allotments" FK "__FK_allotments"),
-        (SELECT 
-            "name" AS "name_u0",
-            "__KEY_parameters",
-            "__FK_parameters",
-            (SELECT 
-                "quantity",
-                "title",
-                "__FK_values"
-            FROM "values" FK "__FK_values")
-        FROM "parameters" PK "__KEY_parameters" FK "__FK_parameters")
-    FROM JSON (wrap on) "root" PK "__KEY_root"
-    WITH CONNECTION (  
-        URL "https://$(vu_tenant_fqdn)/api/v1/licenses/overview"
-    );
+            Trace Looking to load: $(vConsumptionQVD).;
+            Let file_size = If(IsNull(FileSize('$(vConsumptionQVD)')),0,FileSize('$(vConsumptionQVD)'));
 
-    [CheckLicense]:
-    Load	
-        [name]
-    Resident RestConnectorMasterTable
-    Where [name]='fullUser';
-    
-    [AnonymousLicense]:
-    Load	
-        [__KEY_parameters] AS _AnonymousLicenseKey
-    Resident RestConnectorMasterTable
-    Where Match(name_u0,'anonymousConcurrentSessions','anonymousCapacity');
-    
-    Left Join (AnonymousLicense)
-    Load	
-    	[quantity] AS AnonymousLicenseQuantity,
-        [title] AS AnonymousLicenseType,
-        [__FK_values] AS _AnonymousLicenseKey
-    Resident RestConnectorMasterTable
-    Where Not IsNull([__FK_values]);
+            If file_size > 0 Then // this handles for when there were zero sessions on the first load, i.e., new tenant with programmatic deployment
+                Trace File size is $(file_size) bytes;
+                Trace Fetching data from: $(qvd_name);
+                Trace $(table);
 
-    Drop Table RestConnectorMasterTable;
-    Drop Field _AnonymousLicenseKey;
-    
-    // Instantiate vars
-    Set vAnonymousConcurrentSessions=-1;
-    Set vAnonymousAppCapacity=-1;
-    Set vAnonymousConcurrentApps=-1;
-    Set vIsAnonymousLicense=-1;
-    
-    If NoOfRows('AnonymousLicense')>0 Then
-    	Let vAnonymousConcurrentSessions = LookUp('AnonymousLicenseQuantity','AnonymousLicenseType','Anonymous Concurrent Sessions','AnonymousLicense');
-    	Let vAnonymousAppCapacity = LookUp('AnonymousLicenseQuantity','AnonymousLicenseType','Anonymous Capacity','AnonymousLicense');
-    
-    	Set vIsAnonymousLicense = 1;
-    	Set vu_slim_version_for_anonymous = 1;
-        Set vSessionsContainer2Tab = 'Concurrent Sessions Over Time';
-        Set vAnonymousConcurrentApps = 50;
-    End if
-    
-	Set vIsCapacityLicense = 0;
-    If NoOfRows('CheckLicense') > 0 And $(vIsAnonymousLicense)<>1 Then
-        Set vIsCapacityLicense = 1; // App RAM size quota for non-anonymous capacity license must be hardcoded at 10 GB
-    End If
+                ConsumptionMaxEndTimeTemp:
+                Load
+                    SessionEndTime
+                From '$(vConsumptionQVD)'(qvd)
+                Where Not Exists(SessionEndTime);
 
-    Drop Tables 
-    	CheckLicense
-        ,AnonymousLicense
-    ;
-    
-    If $(vu_slim_version_for_anonymous)=1 And $(vu_enable_extended_session_history)<>1 Then
-        Set vu_session_rolling_range = 90; // Override this setting to ensure app remains slim while in slim version unless set to extended sessions
+                ConsumptionMaxEndTime:
+                Load 
+                    Max(SessionEndTime) AS ConsumptionMaxEndTime
+                Resident ConsumptionMaxEndTimeTemp;
+
+                Let vIncrementalStartTime = Peek('ConsumptionMaxEndTime',0,'ConsumptionMaxEndTime') - (1 / 24 / 60);
+
+                Drop Tables ConsumptionMaxEndTimeTemp,ConsumptionMaxEndTime;
+
+                Let vIncrementalStartTimeDisplay = TimeStamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss.fff');
+
+                Trace Incremental will resume from: $(vIncrementalStartTimeDisplay);
+
+                Set vIncrementalStartTimeDisplay =;
+
+            Else
+
+                Let vIncrementalStartTime = '$(vInitialDaysBack)';
+
+            End If
+
+        Else
+
+            Trace $(vIncrementalMessage);
+
+            Let vIncrementalStartTime = '$(vInitialDaysBack)';
+
+        End If
+
     End If
     
-    Let vMaxSessionAge = TimeStamp(Date(Today(1)) - $(vu_session_rolling_range));
-        
 End Sub
 ///$tab Check Version
 Sub check_version
@@ -560,6 +477,121 @@ Sub get_tenant_metadata
     Let vTenantID = Peek('TenantID',0,'TenantMetadata');
 
 End Sub
+///$tab Check License
+Sub check_license
+
+    // check to see whether the tenant is on a capacity license
+
+    LIB Connect To '$(vu_rest_connection)';
+
+    RestConnectorMasterTable:
+    SQL SELECT 
+        "__KEY_root",
+        (SELECT 
+            "name",
+            "__FK_allotments"
+        FROM "allotments" FK "__FK_allotments"),
+        (SELECT 
+            "name" AS "name_u0",
+            "__KEY_parameters",
+            "__FK_parameters",
+            (SELECT 
+            	"resourceType",
+                "quantity",
+                "title",
+                "__FK_values"
+            FROM "values" FK "__FK_values")
+        FROM "parameters" PK "__KEY_parameters" FK "__FK_parameters")
+    FROM JSON (wrap on) "root" PK "__KEY_root"
+    WITH CONNECTION (  
+        URL "https://$(vu_tenant_fqdn)/api/v1/licenses/overview"
+    );
+
+    [CheckLicense]:
+    Load	
+        [name]
+    Resident RestConnectorMasterTable
+    Where [name]='fullUser';
+    
+    [AnonymousLicense]:
+    Load	
+        [__KEY_parameters] AS _AnonymousLicenseKey
+    Resident RestConnectorMasterTable
+    Where Match(name_u0,'anonymousConcurrentSessions','anonymousCapacity');
+    
+    Left Join (AnonymousLicense)
+    Load	
+    	[quantity] AS AnonymousLicenseQuantity,
+        [title] AS AnonymousLicenseType,
+        [__FK_values] AS _AnonymousLicenseKey
+    Resident RestConnectorMasterTable
+    Where Not IsNull([__FK_values]);
+    
+    [LargeAppsConsumeLicense]:
+    Load	
+        [__KEY_parameters] AS _LargeAppsLicenseKey
+    Resident RestConnectorMasterTable
+    Where Match(name_u0,'appSizeTotalDefault');
+    
+    Left Join (LargeAppsConsumeLicense)
+    Load	
+    	[quantity] AS LargeAppsConsumeQuantity,
+        [__FK_values] AS _LargeAppsLicenseKey
+    Resident RestConnectorMasterTable
+    Where Not IsNull([__FK_values])
+    And resourceType='app-usage.quota.appSizeTotalDefault';
+    
+    Drop Table RestConnectorMasterTable;
+    Drop Fields _AnonymousLicenseKey,_LargeAppsLicenseKey;
+    
+    Left Join (TenantMetadata)
+    Load
+    	*
+    Resident LargeAppsConsumeLicense;
+    
+    // Instantiate vars
+    Set vHasLargeApps=-1;
+    Set vAnonymousConcurrentSessions=-1;
+    Set vAnonymousAppCapacity=-1;
+    Set vAnonymousConcurrentApps=-1;
+    Set vIsAnonymousLicense=-1;
+    
+    If NoOfRows('LargeAppsConsumeLicense')>0 Then
+    	Let vHasLargeApps = 1;
+    End if
+    
+    Drop Table LargeAppsConsumeLicense;
+    
+    If NoOfRows('AnonymousLicense')>0 Then
+    	Let vAnonymousConcurrentSessions = LookUp('AnonymousLicenseQuantity','AnonymousLicenseType','Anonymous Concurrent Sessions','AnonymousLicense');
+    	Let vAnonymousAppCapacity = LookUp('AnonymousLicenseQuantity','AnonymousLicenseType','Anonymous Capacity','AnonymousLicense');
+    
+    	Set vIsAnonymousLicense = 1;
+    	Set vu_slim_version_for_anonymous = 1;
+        Set vSessionsContainer2Tab = 'Concurrent Sessions Over Time';
+        Set vAnonymousConcurrentApps = 50;
+    End if
+    
+	Set vIsCapacityLicense = 0;
+    If NoOfRows('CheckLicense') > 0 And $(vIsAnonymousLicense)<>1 Then
+        Set vIsCapacityLicense = 1; // App RAM size quota for non-anonymous capacity license must be hardcoded at 10 GB
+    End If
+
+    Drop Tables 
+    	CheckLicense
+        ,AnonymousLicense
+    ;
+    
+    If $(vu_slim_version_for_anonymous)=1 And $(vu_enable_extended_session_history)<>1 Then
+        Set vu_session_rolling_range = 90; // Override this setting to ensure app remains slim while in slim version unless set to extended sessions
+    End If
+    
+    Let vMaxSessionAge = TimeStamp(Date(Today(1)) - $(vu_session_rolling_range));
+        
+End Sub
+
+
+
 ///$tab Tenant Quotas
 Sub get_quota
 
@@ -726,158 +758,158 @@ End Sub
 ///$tab Users
 Sub get_users
 
-  Set vParams = 'limit=100';
+    Set vParams = 'limit=100';
 
-  Do
-    
-    LIB Connect To '$(vu_rest_connection)';
+    Do
 
-    RestConnectorMasterTable:
-    SQL SELECT 
-        "__KEY_root",
-        (SELECT 
-            "__KEY_links",
-            "__FK_links",
-            (SELECT 
-                "href",
-                "__FK_self"
-            FROM "self" FK "__FK_self"),
-            (SELECT 
-                "href" AS "href_u0",
-                "__FK_next"
-            FROM "next" FK "__FK_next")
-        FROM "links" PK "__KEY_links" FK "__FK_links"),
-        (SELECT 
-            "id",
-            "tenantId",
-            "created",
-            "lastUpdated",
-            "status",
-            "name",
-            "subject",
-            "email",
-            "__KEY_data",
-            "__FK_data",
-            (SELECT 
-                "@Value",
-                "__FK_roles"
-            FROM "roles" FK "__FK_roles" ArrayValueAlias "@Value"),
-            (SELECT 
-                "__KEY_links_u0",
-                "__FK_links_u0",
-                (SELECT 
-                    "href" AS "href_u1",
-                    "__FK_self_u0"
-                FROM "self" FK "__FK_self_u0")
-            FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
-        FROM "data" PK "__KEY_data" FK "__FK_data")
-    FROM JSON (wrap on) "root" PK "__KEY_root"
-    WITH CONNECTION (  
-      URL "https://$(vu_tenant_fqdn)/api/v1/users?$(vParams)"
-    );
+      LIB Connect To '$(vu_rest_connection)';
+
+      RestConnectorMasterTable:
+      SQL SELECT 
+          "__KEY_root",
+          (SELECT 
+              "__KEY_links",
+              "__FK_links",
+              (SELECT 
+                  "href",
+                  "__FK_self"
+              FROM "self" FK "__FK_self"),
+              (SELECT 
+                  "href" AS "href_u0",
+                  "__FK_next"
+              FROM "next" FK "__FK_next")
+          FROM "links" PK "__KEY_links" FK "__FK_links"),
+          (SELECT 
+              "id",
+              "tenantId",
+              "created",
+              "lastUpdated",
+              "status",
+              "name",
+              "subject",
+              "email",
+              "__KEY_data",
+              "__FK_data",
+              (SELECT 
+                  "@Value",
+                  "__FK_roles"
+              FROM "roles" FK "__FK_roles" ArrayValueAlias "@Value"),
+              (SELECT 
+                  "__KEY_links_u0",
+                  "__FK_links_u0",
+                  (SELECT 
+                      "href" AS "href_u1",
+                      "__FK_self_u0"
+                  FROM "self" FK "__FK_self_u0")
+              FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+          FROM "data" PK "__KEY_data" FK "__FK_data")
+      FROM JSON (wrap on) "root" PK "__KEY_root"
+      WITH CONNECTION (  
+        URL "https://$(vu_tenant_fqdn)/api/v1/users?$(vParams)"
+      );
 
 
-    Users:
-    Load	
-    	[id] as AppOwnerID,
-//         [id] AS UserID,
-//         [tenantId],
-//         Date([created]) AS AppOwnerCreatedDate,
-//         Date([lastUpdated]) AS AppOwnerLastUpdatedDate,
-        [status] as AppOwnerStatus,
-        [name] as AppOwnerName,
-        [subject] as AppOwnerSubject,
-        If(Len([email])>0,[email],'[None]') as AppOwnerEmail
-    Resident RestConnectorMasterTable
-    Where Not IsNull([__FK_data])
-    And Match(status,'disabled','active');
+      Users:
+      Load	
+          [id] as AppOwnerID,
+  //         [id] AS UserID,
+  //         [tenantId],
+  //         Date([created]) AS AppOwnerCreatedDate,
+  //         Date([lastUpdated]) AS AppOwnerLastUpdatedDate,
+          [status] as AppOwnerStatus,
+          [name] as AppOwnerName,
+          [subject] as AppOwnerSubject,
+          If(Len([email])>0,[email],'[None]') as AppOwnerEmail
+      Resident RestConnectorMasterTable
+      Where Not IsNull([__FK_data])
+      And Match(status,'disabled','active');
 
-    NextURL:
-    Load	
-    	[href_u0] AS NextURL
-    Resident RestConnectorMasterTable
-    Where Not IsNull([__FK_next]);
+      NextURL:
+      Load	
+          [href_u0] AS NextURL
+      Resident RestConnectorMasterTable
+      Where Not IsNull([__FK_next]);
 
-    Drop Table RestConnectorMasterTable;
-    
-    Let vParams = SubField(Peek('NextURL',0,'NextURL'),'?',-1);
-    Let vNextURLRows = NoOfRows('NextURL');
+      Drop Table RestConnectorMasterTable;
 
-    Drop Table NextURL;
-    
-  Loop While $(vNextURLRows)>0;
-  
-  Concatenate(Users)
-  Load
-  	  '[Unknown]' 	as AppOwnerID,
-      '[Unknown]' 	as AppOwnerStatus,
-      '[Unknown]'  	as AppOwnerName,
-      '[Unknown]' 	as AppOwnerSubject,
-      '[Unknown]'	as AppOwnerEmail
-  AutoGenerate(1);
-  
-  Concatenate(Users)
-  Load
-  	  '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerID,
-      '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerStatus,
-      '[Qlik Sense Enterprise Client-Managed]'  	as AppOwnerName,
-      '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerSubject,
-      '[Unknown]'								as AppOwnerEmail
-  AutoGenerate(1);
-  
-  Concatenate(Users)
-  Load
-  	  '[QlikView Publisher]' 	as AppOwnerID,
-      '[QlikView Publisher]' 	as AppOwnerStatus,
-      '[QlikView Publisher]'  as AppOwnerName,
-      '[QlikView Publisher]' 	as AppOwnerSubject,
-      '[Unknown]'			as AppOwnerEmail
-  AutoGenerate(1);
-  
-  Map_AppOwner_Exists:
-  Mapping Load Distinct
-  	  AppOwnerID,
-      1
-  Resident Users;
-  
-  Map_UserID_AppOwnerName: // No map yet to support OEM Dash
-  Load Distinct
-  	  AppOwnerID,
-      AppOwnerName
-  Resident Users;
-  
-  Map_UserID_AppOwnerID:
-  Mapping Load Distinct
-  	  AppOwnerID,
-      AppOwnerID
-  Resident Users;
-  
-  Map_UserID_AppOwnerSubject: // No map yet to support OEM Dash
-  Load Distinct
-  	  AppOwnerID,
-      AppOwnerSubject
-  Resident Users;
-  
-  Map_UserID_AppOwnerSubject_OEM: // Need as mapping is done in "Apps" section for OEM field
-  Mapping Load Distinct
-  	  AppOwnerID,
-      AppOwnerSubject
-  Resident Users;
-  
-  Map_UserID_AppOwnerEmail:
-  Mapping Load Distinct
-  	  AppOwnerID,
-      AppOwnerEmail
-  Resident Users;
-  
-  Call get_user_field
-  
-  Map_UserID_$(vPersonalUserField):
-  Mapping Load Distinct
-      AppOwnerID,
-      $(vPersonalUserField)
-  Resident Users;
-      
+      Let vParams = SubField(Peek('NextURL',0,'NextURL'),'?',-1);
+      Let vNextURLRows = NoOfRows('NextURL');
+
+      Drop Table NextURL;
+
+    Loop While $(vNextURLRows)>0;
+
+    Concatenate(Users)
+    Load
+        '[Unknown]' 	as AppOwnerID,
+        '[Unknown]' 	as AppOwnerStatus,
+        '[Unknown]'  	as AppOwnerName,
+        '[Unknown]' 	as AppOwnerSubject,
+        '[Unknown]'	as AppOwnerEmail
+    AutoGenerate(1);
+
+    Concatenate(Users)
+    Load
+        '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerID,
+        '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerStatus,
+        '[Qlik Sense Enterprise Client-Managed]'  	as AppOwnerName,
+        '[Qlik Sense Enterprise Client-Managed]' 	as AppOwnerSubject,
+        '[Unknown]'								as AppOwnerEmail
+    AutoGenerate(1);
+
+    Concatenate(Users)
+    Load
+        '[QlikView Publisher]' 	as AppOwnerID,
+        '[QlikView Publisher]' 	as AppOwnerStatus,
+        '[QlikView Publisher]'  as AppOwnerName,
+        '[QlikView Publisher]' 	as AppOwnerSubject,
+        '[Unknown]'			as AppOwnerEmail
+    AutoGenerate(1);
+
+    Map_AppOwner_Exists:
+    Mapping Load Distinct
+        AppOwnerID,
+        1
+    Resident Users;
+
+    Map_UserID_AppOwnerName: // No map yet to support OEM Dash
+    Load Distinct
+        AppOwnerID,
+        AppOwnerName
+    Resident Users;
+
+    Map_UserID_AppOwnerID:
+    Mapping Load Distinct
+        AppOwnerID,
+        AppOwnerID
+    Resident Users;
+
+    Map_UserID_AppOwnerSubject: // No map yet to support OEM Dash
+    Load Distinct
+        AppOwnerID,
+        AppOwnerSubject
+    Resident Users;
+
+    Map_UserID_AppOwnerSubject_OEM: // Need as mapping is done in "Apps" section for OEM field
+    Mapping Load Distinct
+        AppOwnerID,
+        AppOwnerSubject
+    Resident Users;
+
+    Map_UserID_AppOwnerEmail:
+    Mapping Load Distinct
+        AppOwnerID,
+        AppOwnerEmail
+    Resident Users;
+
+    Call get_user_field
+
+    Map_UserID_$(vPersonalUserField):
+    Mapping Load Distinct
+        AppOwnerID,
+        $(vPersonalUserField)
+    Resident Users;
+
 End Sub
 ///$tab Spaces
 Sub get_spaces
@@ -1222,7 +1254,7 @@ Sub get_consumption
     Set vParams = 'filter=(endTime ge %22$(vMaxEndTime)%22)&limit=100';
     
     Consumption: 
-    LOAD * INLINE [SessionID];
+    Load * Inline [SessionID];
     
     Do
 
@@ -1319,24 +1351,24 @@ Sub get_consumption
     
 End Sub
 ///$tab Audit Sheet Consumption
-SUB get_audit_sheet_consumption
+Sub get_audit_sheet_consumption
 
-    LET vCounter = 0;
-    LET vNextURL = '';
-    LET vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
+    Let vCounter = 0;
+    Let vNextURL = '';
+    Let vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
     
-    IF $(vIncrementalQVDsAvailable)=1 THEN
-    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
-    ELSE
-    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
-    END IF
+    If $(vIncrementalQVDsAvailable)=1 Then
+    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    Else
+    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    End If
     
     SheetConsumption: 
-    LOAD * INLINE [AppID];
+    Load * Inline [AppID];
                 
     DO
     
-        LIB CONNECT TO '$(vu_rest_connection)';
+        LIB Connect To '$(vu_rest_connection)';
 
         RestConnectorMasterTable:
         SQL SELECT 
@@ -1397,18 +1429,18 @@ SUB get_audit_sheet_consumption
             URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=com.qlik/analytics&eventType=com.qlik.v1.analytics.analytics-app-client.sheet-view.opened$(vISO_8601_Date_Range)$(vNextURL)"
         );
                 
-        CONCATENATE(SheetConsumption)
-        LOAD	
+        Concatenate(SheetConsumption)
+        Load	
         	[appId] AS AppID,
             [sheetId] AS SheetConsumptionSheetID,
             [sheetState] AS SheetConsumptionState,
             [sheetTitle] AS SheetConsumptionTitle,
             [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_SheetConsumptionTempKey]
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_data_u0]);
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data_u0]);
 
         [SheetConsumptionTemp]:
-        LOAD	
+        Load	
         	[id] AS [_IncrementalSheetConsumptionID],
             [eventId] AS [SheetConsumptionEventID],
             Date([eventTime]) AS [SheetConsumptionEventTime],
@@ -1417,32 +1449,32 @@ SUB get_audit_sheet_consumption
 //             [tenantId],
             [userId] AS [SheetConsumptionUserID],
             [__KEY_data] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_SheetConsumptionTempKey]
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_data]);
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data]);
         
         [NextURL]:
-        LOAD	
+        Load	
             [href_u1] AS NextURL
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_next]);
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_next]);
 
-        DROP TABLE RestConnectorMasterTable;
+        Drop Table RestConnectorMasterTable;
 
-        LET vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
+        Let vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
         
-        IF SubStringCount('$(vNextURL)','&') >= 1 THEN
-            LET vNextURL = TextBetween('$(vNextURL)',Null(),'&');
+        IF SubStringCount('$(vNextURL)','&') >= 1 Then
+            Let vNextURL = TextBetween('$(vNextURL)',Null(),'&');
         END IF
 
-        LET vNextURL = '&next=' & '$(vNextURL)';
+        Let vNextURL = '&next=' & '$(vNextURL)';
 
-        LET vNextURLRows = NoOfRows('NextURL');
+        Let vNextURLRows = NoOfRows('NextURL');
 
-        DROP TABLE NextURL;
+        Drop Table NextURL;
         
-        LET vCounter = $(vCounter) + 1;
+        Let vCounter = $(vCounter) + 1;
         
-    LOOP WHILE $(vNextURLRows)>0;
+    Loop While $(vNextURLRows)>0;
     
     Left Join (SheetConsumption)
     Load * Resident SheetConsumptionTemp;
@@ -1476,23 +1508,23 @@ SUB get_audit_sheet_consumption
         
     End if;
         
-END SUB
+End Sub
 ///$tab Audit Export
-SUB get_audit_export_from_app
+Sub get_audit_export_from_app
 
-    LET vCounter = 0;
-    LET vNextURL = '';
-    LET vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
+    Let vCounter = 0;
+    Let vNextURL = '';
+    Let vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
     
-    IF $(vIncrementalQVDsAvailable)=1 THEN
-    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
-    ELSE
-    	LET vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
-    END IF
+    If $(vIncrementalQVDsAvailable)=1 Then
+    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    Else
+    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    End If
                 
-    DO
+    Do
     
-        LIB CONNECT TO '$(vu_rest_connection)';
+        LIB Connect To '$(vu_rest_connection)';
 
         RestConnectorMasterTable:
         SQL SELECT 
@@ -1569,22 +1601,22 @@ SUB get_audit_export_from_app
 		);
 
         [ExportFromAppID]:
-        LOAD	
+        Load	
         	[@Value] AS AppID,
             [__FK_appIds] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp]
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_appIds]);
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_appIds]);
 
         [ExportFromAppType]:
-        LOAD	
+        Load	
         	[@Value_u0] AS [ExportFromAppType],
             [__FK_tags] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp]
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_tags])
-        AND [@Value_u0] = 'sense-dialog.download';
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_tags])
+        And [@Value_u0] = 'sense-dialog.download';
 
         [ExportFromApp]:
-        LOAD	
+        Load	
         	Date([endTime]) AS ExportFromAppEndTime,
             [reportId] AS ExportFromAppReportID,
             [requestId] AS ExportFromAppRequestID,
@@ -1595,11 +1627,11 @@ SUB get_audit_export_from_app
             //[version] AS ExportFromAppTemplateVersion,
             [__KEY_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp],
             [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp2]
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_data_u0]);
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data_u0]);
         
         [ExportFromAppMeta]:
-        LOAD	
+        Load	
         	[id] AS ExportFromAppTransactionID,
             [id] AS _IncrementalExportFromAppTransactionID,
 //             [contentType],
@@ -1611,32 +1643,32 @@ SUB get_audit_export_from_app
 //             [tenantId],
             [userId] AS ExportFromAppUserID,
             [__KEY_data] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_KeyExportFromApp2]
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_data]);
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data]);
         
         [NextURL]:
-        LOAD	
+        Load	
             [href_u1] AS NextURL
-        RESIDENT RestConnectorMasterTable
-        WHERE NOT IsNull([__FK_next]);
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_next]);
 
-        DROP TABLE RestConnectorMasterTable;
+        Drop Table RestConnectorMasterTable;
 
-        LET vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
+        Let vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
         
-        IF SubStringCount('$(vNextURL)','&') >= 1 THEN
-            LET vNextURL = TextBetween('$(vNextURL)',Null(),'&');
-        END IF
+        If SubStringCount('$(vNextURL)','&') >= 1 THEN
+            Let vNextURL = TextBetween('$(vNextURL)',Null(),'&');
+        End If
 
-        LET vNextURL = '&next=' & '$(vNextURL)';
+        Let vNextURL = '&next=' & '$(vNextURL)';
 
-        LET vNextURLRows = NoOfRows('NextURL');
+        Let vNextURLRows = NoOfRows('NextURL');
 
-        DROP TABLE NextURL;
+        Drop Table NextURL;
         
-        LET vCounter = $(vCounter) + 1;
+        Let vCounter = $(vCounter) + 1;
         
-    LOOP WHILE $(vNextURLRows)>0;
+    Loop While $(vNextURLRows)>0;
     
     Inner Join (ExportFromApp)
     Load * Resident ExportFromAppID;
@@ -1676,13 +1708,177 @@ SUB get_audit_export_from_app
         
     End if;
         
-END SUB
+End Sub
+
+///$tab Audit Large App Consumption
+Sub get_audit_large_app_consumption
+
+    Let vCounter = 0;
+    Let vNextURL = '';
+    Let vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
+    
+    If $(vIncrementalQVDsAvailable)=1 Then
+    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    Else
+    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    End If
+                
+    Do
+    
+        LIB Connect To '$(vu_rest_connection)';
+
+        RestConnectorMasterTable:
+        SQL SELECT 
+            "__KEY_root",
+            (SELECT 
+                "id",
+                "contentType",
+                "eventId",
+                "eventTime",
+                "eventType",
+                "eventTypeVersion",
+                "source",
+                "tenantId",
+                "userId",
+                "__KEY_data",
+                "__FK_data",
+                (SELECT 
+                    "appId",
+                    "appSizeQuotaGroup",
+                    "quota",
+                    "released",
+                    "limit",
+                    "requested",
+                    "spaceId",
+                    "unit",
+                    "consumed",
+                    "__FK_data_u0"
+                FROM "data" FK "__FK_data_u0"),
+                (SELECT 
+                    "Self",
+                    "__KEY_links",
+                    "__FK_links",
+                    (SELECT 
+                        "href",
+                        "__FK_self"
+                    FROM "self" FK "__FK_self")
+                FROM "links" PK "__KEY_links" FK "__FK_links")
+            FROM "data" PK "__KEY_data" FK "__FK_data"),
+            (SELECT 
+                "__KEY_links_u0",
+                "__FK_links_u0",
+                (SELECT 
+                    "href" AS "href_u0",
+                    "__FK_self_u0"
+                FROM "self" FK "__FK_self_u0"),
+                (SELECT 
+                    "href" AS "href_u1",
+                    "__FK_next"
+                FROM "next" FK "__FK_next")
+            FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+        FROM JSON (wrap on) "root" PK "__KEY_root"
+        WITH CONNECTION (
+        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=qlik.com/qix-sessions$(vISO_8601_Date_Range)$(vNextURL)"
+		);
+        
+        [LargeAppConsumptionDetail]:
+        Load	
+            [appId] AS AppID,
+            [appSizeQuotaGroup] AS LargeAppConsumeQuotaGroup,
+            [limit] AS LargeAppConsumeLimit,
+            [requested] AS LargeAppConsumeRequested,
+            [quota] AS LargeAppConsumeQuota,
+            [released] AS LargeAppConsumeReleased,
+            //[spaceId],
+            //[unit],
+            [consumed] AS LargeAppConsumeConsumed,
+            [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_LargeAppConsumeKey]
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data_u0])
+        And appSizeQuotaGroup = 'interactive';
+
+        [LargeAppConsumption]:
+        Load	
+            //[id],
+            //[contentType],
+            [eventId] AS LargeAppConsumeID,
+            [eventId] AS  _IncrementalLargeAppConsumeID,
+            Date([eventTime]) AS LargeAppConsumeTime,
+            [eventType] AS LargeAppConsumeQuotaType,
+            //[eventTypeVersion],
+            //[source],
+            //[tenantId],
+            [userId] AS LargeAppConsumeUserID,
+            [__KEY_data] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_LargeAppConsumeKey]
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data])
+        And (eventType = 'com.qlik.v1.quota.released'
+        Or eventType = 'com.qlik.v1.quota.consumed'
+        Or eventType = 'com.qlik.v1.quota.allocation-failed');
+
+        [NextURL]:
+        Load	
+        	[href_u1] AS NextURL
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_next]);
+
+        Drop Table RestConnectorMasterTable;
+
+        Let vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
+        
+        If SubStringCount('$(vNextURL)','&') >= 1 THEN
+            Let vNextURL = TextBetween('$(vNextURL)',Null(),'&');
+        End If
+
+        Let vNextURL = '&next=' & '$(vNextURL)';
+
+        Let vNextURLRows = NoOfRows('NextURL');
+
+        Drop Table NextURL;
+        
+        Let vCounter = $(vCounter) + 1;
+        
+    Loop While $(vNextURLRows)>0;
+    
+    Inner Join (LargeAppConsumption)
+    Load * Resident LargeAppConsumptionDetail;
+    
+    Drop Table LargeAppConsumptionDetail;
+    Drop Field _LargeAppConsumeKey;
+        
+    If $(vIncrementalLargeAppsQVDsAvailable)=1 And NoOfRows('LargeAppConsumption')>0 Then 
+    
+        IncrementalLargeAppConsumeIDMap:
+        Mapping Load Distinct
+            _IncrementalLargeAppConsumeID,
+            1
+        Resident LargeAppConsumption;
+
+        Trace Calling load_qvd on LargeAppConsumption;
+        Call load_qvd('LargeAppConsumption')
+        Trace Calling store_qvd on LargeAppConsumption;
+        Call store_qvd('LargeAppConsumption');
+                        
+    ElseIf NoOfRows('LargeAppConsumption')>0 Then
+    
+        Trace Calling store_qvd on LargeAppConsumption;
+        Call store_qvd('LargeAppConsumption');
+                
+    Else
+    
+        Trace Calling load_qvd on LargeAppConsumption;
+        Set vAppLargeAppConsumeNoNewRecords = 1;
+        Call load_qvd('LargeAppConsumption');
+                
+    End if;
+        
+End Sub
 
 ///$tab Metadata
 Sub app_metadata
 
 	AppIDs:
-    LOAD * INLINE [AppID,AppType];
+    Load * Inline [AppID,AppType];
 
     If vIncrementalQVDsAvailable = 1 then   // If incremental QVDs are available -- this is set in the "configuration" section of script
         Let loaded_app_ids = '$(vOutputQVDName(AppRAM,$(app_schema_version)))';
@@ -2279,6 +2475,27 @@ Sub load_qvd (table)
                   Where ExportFromAppStartTime >= Date('$(vMaxSessionAge)');
                   
               End If
+              
+          Elseif '$(table)' = 'LargeAppConsumption' Then
+          
+              If $(vAppLargeAppConsumeNoNewRecords)<>1 Then
+          
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where ApplyMap('IncrementalLargeAppConsumeIDMap',_IncrementalLargeAppConsumeID)<>1
+                  And LargeAppConsumeTime >= Date('$(vMaxSessionAge)');
+                  
+              Else
+              
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where LargeAppConsumeTime >= Date('$(vMaxSessionAge)');
+                  
+              End If
           
           Else
           
@@ -2475,52 +2692,52 @@ Sub transform
     ExportFromApp:
     LOAD
     	*,
-        ExportFromAppUserID AS SessionUserIDTemp, // for intervalmatch of exports,
-        Date(Timestamp(ExportFromAppEndTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS ExportFromAppEndTime,
-        Date(Timestamp(ExportFromAppStartTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS ExportFromAppStartTime
+        ExportFromAppUserID as SessionUserIDTemp, // for intervalmatch of exports,
+        Date(Timestamp(ExportFromAppEndTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') as ExportFromAppEndTime,
+        Date(Timestamp(ExportFromAppStartTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') as ExportFromAppStartTime
     Resident TEMP;
     
     Drop Table TEMP;
     Drop Fields ExportFromAppEndTimeTemp, ExportFromAppStartTimeTemp;
     
-    Rename Table Consumption To TEMP;
+    Rename Table Consumption to TEMP;
     Rename Field SessionEndTime to SessionEndTimeTemp; // changes casting to new field
     
     [Consumption]:
     Load
     	*,
-        AutoNumber(SessionStartTime & '|' & SessionEndTime) AS _ConsumptionExecutionConcurrencyKey,
-        Date(Floor(SessionStartTime)) AS SessionStartTimeDate,
-        Date(Floor(SessionStartTime,1/24)) AS SessionStartTimeDateHourFloored,
-        Hour(SessionStartTime) AS SessionHour,
-        Minute(SessionStartTime) AS SessionMinute,
-        Dual(Text(Time(SessionStartTime,'h TT')),Hour(SessionStartTime)) AS SessionHourAMPM,
-        If(Date(Floor(SessionStartTime))<$(vLast90Days),'True','False') AS AppNotAccessedInOver90Days,
-        If(Date(Floor(SessionStartTime))<$(vLast60Days),'True','False') AS AppNotAccessedInOver60Days,
-        If(Date(Floor(SessionStartTime))<$(vLast30Days),'True','False') AS AppNotAccessedInOver30Days
+        AutoNumber(SessionStartTime & '|' & SessionEndTime,'ConsumptionConcurrency') as _ConsumptionExecutionConcurrencyKey,
+        Date(Floor(SessionStartTime)) as SessionStartTimeDate,
+        Date(Floor(SessionStartTime,1/24)) as SessionStartTimeDateHourFloored,
+        Hour(SessionStartTime) as SessionHour,
+        Minute(SessionStartTime) as SessionMinute,
+        Dual(Text(Time(SessionStartTime,'h TT')),Hour(SessionStartTime)) as SessionHourAMPM,
+        If(Date(Floor(SessionStartTime))<$(vLast90Days),'True','False') as AppNotAccessedInOver90Days,
+        If(Date(Floor(SessionStartTime))<$(vLast60Days),'True','False') as AppNotAccessedInOver60Days,
+        If(Date(Floor(SessionStartTime))<$(vLast30Days),'True','False') as AppNotAccessedInOver30Days
     WHERE SessionStartTime>=Date('$(vInitialDaysBack)') 
     ;
     Load
         *,
         If(ApplyMap('Map_OAuthClientName',SessionUserName & '|' & ApplyMap('Map_AppID_TenantID',AppID,Null()))=1,'True','False') as SessionUserIsOAuthClient,
-        Timestamp(SessionEndTime-SessionDurationInterval) AS SessionStartTime
+        Timestamp(SessionEndTime-SessionDurationInterval) as SessionStartTime
     ;
     Load
 //         SessionAllotmentID,
         AppID,
         SessionCapacityUsed,
-        SessionDuration AS SessionDurationMS,
+        SessionDuration as SessionDurationMS,
         Interval(Round(SessionDuration/1000)/(60*60*24),'hh:mm:ss') as SessionDurationInterval,
         //Interval(SessionDurationMinutes/60/24) AS SessionDurationInterval,
         SessionDurationMinutes,
-        Date(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS SessionEndTime,
-        Date(Floor(Timestamp(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT)))) AS SessionEndTimeDate,
+        Date(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') as SessionEndTime,
+        Date(Floor(Timestamp(Timestamp(SessionEndTimeTemp) + $(vReloadTimeDiffFromGMT)))) as SessionEndTimeDate,
 //         SessionID,
 //         SessionIDProxy,
-        AutoNumber(SessionID & '|' & AppID) AS SessionID, // SessionID is the proxy session which needs to combine with the AppID for a pseudo app session ID. The ID field is generated from mongo and can't be used
+        AutoNumber(SessionID & '|' & AppID,'Session') AS SessionID, // SessionID is the proxy session which needs to combine with the AppID for a pseudo app session ID. The ID field is generated from mongo and can't be used
         SessionMinutesUsed,
-        If(WildMatch(SessionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',SessionUserID,'[Deleted]')) AS SessionUserName,
-        If(WildMatch(SessionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',SessionUserID,'[Deleted]')) AS SessionUserSubject,
+        If(WildMatch(SessionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',SessionUserID,'[Deleted]')) as SessionUserName,
+        If(WildMatch(SessionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',SessionUserID,'[Deleted]')) as SessionUserSubject,
         SessionUserID,
         SessionUserID AS SessionUserIDTemp,
         SessionLicenseUsage
@@ -2534,15 +2751,15 @@ Sub transform
     
     Max_SheetAccessDate:
     Mapping Load
-        SheetConsumptionSheetID & '|' & AppID AS _Key_Max_SheetAccessDate,
-        Max(SheetConsumptionEventTime) AS SheetConsumptionSheetIDMaxTime
+        SheetConsumptionSheetID & '|' & AppID as _Key_Max_SheetAccessDate,
+        Max(SheetConsumptionEventTime) as SheetConsumptionSheetIDMaxTime
     Resident TEMP
     Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vInitialDaysBack)')
     Group By SheetConsumptionSheetID, AppID;
     
     Map_SheetTitle:
     Mapping Load
-        SheetConsumptionSheetID & '|' & AppID AS _Key_Max_SheetAccessDate,
+        SheetConsumptionSheetID & '|' & AppID as _Key_Max_SheetAccessDate,
         If(Len(Trim(SheetConsumptionTitle))>0,SheetConsumptionTitle,If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),'<Empty>','<Not Available>')) AS SheetConsumptionTitle
     Resident TEMP
     Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vInitialDaysBack)')
@@ -2553,14 +2770,14 @@ Sub transform
         AppID,
         SheetConsumptionSheetID,
         SheetConsumptionState,
-        If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),ApplyMap('Map_SheetTitle',SheetConsumptionSheetID & '|' & AppID),'<Not Available>') AS SheetConsumptionTitle,
-        If(Len(Trim(SheetConsumptionTitle))>0,SheetConsumptionTitle,If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),'<Empty>','<Not Available>')) AS SheetConsumptionTitleHistorical,
+        If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),ApplyMap('Map_SheetTitle',SheetConsumptionSheetID & '|' & AppID),'<Not Available>') as SheetConsumptionTitle,
+        If(Len(Trim(SheetConsumptionTitle))>0,SheetConsumptionTitle,If(Date(SheetConsumptionEventTime)>=Date('$(vSheetTitleAddedDate)'),'<Empty>','<Not Available>')) as SheetConsumptionTitleHistorical,
         SheetConsumptionEventID,
-        Timestamp(Timestamp(SheetConsumptionEventTime) + $(vReloadTimeDiffFromGMT)) AS SheetConsumptionEventTime,
+        Timestamp(Timestamp(SheetConsumptionEventTime) + $(vReloadTimeDiffFromGMT)) as SheetConsumptionEventTime,
         SheetConsumptionUserID,
-        SheetConsumptionUserID AS SessionUserID,
-        If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',SheetConsumptionUserID,'[Deleted]')) AS SheetConsumptionUserName,
-        If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',SheetConsumptionUserID,'[Deleted]')) AS SheetConsumptionUserSubject
+        SheetConsumptionUserID as SessionUserID,
+        If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',SheetConsumptionUserID,'[Deleted]')) as SheetConsumptionUserName,
+        If(WildMatch(SheetConsumptionUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',SheetConsumptionUserID,'[Deleted]')) as SheetConsumptionUserSubject
     Resident TEMP
     Where Date(SheetConsumptionEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vInitialDaysBack)');
 
@@ -2578,8 +2795,8 @@ Sub transform
             Ceil(Max("SessionEndTime"),1/24/60) AS "Session End Time Max"
         RESIDENT Consumption;
 
-        LET vConsumptionMinDate = Peek('Session Start Time Min',0,'SessionMinMaxDates');
-        LET vConsumptionMaxDate = Peek('Session End Time Max',0,'SessionMinMaxDates');
+        Let vConsumptionMinDate = Peek('Session Start Time Min',0,'SessionMinMaxDates');
+        Let vConsumptionMaxDate = Peek('Session End Time Max',0,'SessionMinMaxDates');
         
         DROP TABLE SessionMinMaxDates;
 
@@ -2587,7 +2804,7 @@ Sub transform
         
         ConsumptionMinutesTemp:
         Load Distinct
-            TimeStamp(Round(Date($(vConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) AS ConsumptionConcurrencyMinute
+            TimeStamp(Floor(Date($(vConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) as ConsumptionConcurrencyMinute
         Autogenerate $(vMinutes);
                         
         Left Join
@@ -2600,14 +2817,12 @@ Sub transform
         ConumptionConcurrencyMinutes:
         Left Keep (Consumption)
         Load
-            Timestamp(ConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') AS ConsumptionConcurrencyMinute,
-        	AutoNumber(SessionStartTime&'|'&SessionEndTime) AS _ConsumptionExecutionConcurrencyKey
+            Timestamp(ConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') as ConsumptionConcurrencyMinute,
+        	AutoNumber(SessionStartTime&'|'&SessionEndTime,'ConsumptionConcurrency') as _ConsumptionExecutionConcurrencyKey
         Resident ConsumptionMinutesTemp;
 
         Drop Table ConsumptionMinutesTemp;
-        
-        Autonumber _ConsumptionExecutionConcurrencyKey;
-        
+                
         ////////////////////////////////
     	// Merging sheet usage to sessions by AppID, UserID, and Timestamp into single table
         ////////////////////////////////
@@ -2622,17 +2837,17 @@ Sub transform
         Resident Consumption;
         
         Left Join (Consumption)
-        LOAD *
+        Load *
         Resident SheetConsumption;
 
-        DROP Table SheetConsumption;
+        Drop Table SheetConsumption;
 
 		// Split off into two tables linking on SessionID
         
         SheetConsumptionTemp:
         Load Distinct
             *,
-            If(Peek(SessionID)<>SessionID,1,Peek(SheetConsumptionOrder)+1) AS SheetConsumptionOrder
+            If(Peek(SessionID)<>SessionID,1,Peek(SheetConsumptionOrder)+1) as SheetConsumptionOrder
             ;
         Load Distinct
             SessionID,
@@ -2641,18 +2856,18 @@ Sub transform
             SheetConsumptionTitle,
             SheetConsumptionTitleHistorical,
             SheetConsumptionEventID,
-            TimeStamp(SheetConsumptionEventTime,'YYYY-MM-DD hh:mm:ss') AS SheetConsumptionEventTime,
+            TimeStamp(SheetConsumptionEventTime,'YYYY-MM-DD hh:mm:ss') as SheetConsumptionEventTime,
             SheetConsumptionUserID,
             SheetConsumptionUserName,
             SheetConsumptionUserSubject,
-            If(Date(Floor(SheetConsumptionEventTime))<$(vLast90Days),'True','False') AS SheetNotAccessedInOver90Days,
-            If(Date(Floor(SheetConsumptionEventTime))<$(vLast60Days),'True','False') AS SheetNotAccessedInOver60Days,
-            If(Date(Floor(SheetConsumptionEventTime))<$(vLast30Days),'True','False') AS SheetNotAccessedInOver30Days,
+            If(Date(Floor(SheetConsumptionEventTime))<$(vLast90Days),'True','False') as SheetNotAccessedInOver90Days,
+            If(Date(Floor(SheetConsumptionEventTime))<$(vLast60Days),'True','False') as SheetNotAccessedInOver60Days,
+            If(Date(Floor(SheetConsumptionEventTime))<$(vLast30Days),'True','False') as SheetNotAccessedInOver30Days,
             SessionEndTime AS SessionEndTimeTemp,
             'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/' & AppID & '/sheet/' & SheetConsumptionSheetID AS SheetConsumptionLink
         Resident Consumption
         Where Len(SheetConsumptionSheetID)>0
-        ORDER BY SessionID ASC, SheetConsumptionEventTime ASC;
+        Order By SessionID Asc, SheetConsumptionEventTime Asc;
 
         SheetConsumption:
         NoConcatenate
@@ -2670,7 +2885,7 @@ Sub transform
         Load 
         	*
         Resident SheetConsumptionTemp
-        ORDER BY SessionID DESC, SheetConsumptionEventTime DESC;
+        Order By SessionID Desc, SheetConsumptionEventTime Desc;
         
         Drop Table SheetConsumptionTemp;
         
@@ -2744,7 +2959,380 @@ Sub transform
         Resident TEMP;
 
         Drop Table TEMP;
- 	
+        
+    	////////////////////////////////
+    	// Transforming large app consumption data
+        ////////////////////////////////
+        
+        If NoOfRows('LargeAppConsumption')>0 Then
+        	Set vAppContainsLargeAppConsumption = 1;
+            
+            ///// Peel off denial events into a separate table
+            LargeAppConsumptionDenials:
+            Load
+                AppID,
+                LargeAppConsumeQuotaGroup AS LargeAppConsumeDenialQuotaGroup,
+                LargeAppConsumeRequested AS LargeAppConsumeDenialRequested,
+                LargeAppConsumeRequested AS LargeAppConsumeDenialAmount,
+                LargeAppConsumeLimit AS LargeAppConsumeDenialLimit,
+                LargeAppConsumeUserID AS LargeAppConsumeDenialUserID,
+                Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS LargeAppConsumeDenialTime,
+                TimeStamp(Ceil(Date(Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss')),1/24/60)) AS LargeAppConsumeDenialTimeMinute // using ceil it is one event with no duration so it provides the illusion of a short (sub 1 min) duration
+            Resident LargeAppConsumption
+            Where LargeAppConsumeQuotaType='com.qlik.v1.quota.allocation-failed'
+            AND Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss')>=Date('$(vInitialDaysBack)');
+
+            ///// Sort table by app id and timestamp asc
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            Noconcatenate
+            Load
+                *
+            Resident TEMP
+            Where Match(LargeAppConsumeQuotaType,'com.qlik.v1.quota.consumed','com.qlik.v1.quota.released')
+            AND Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss')>=Date('$(vInitialDaysBack)')
+            Order By AppID, LargeAppConsumeTime ASC;
+
+            Drop Table TEMP;
+
+            ///// If a release event is the first for an app id, remove it
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            NoConcatenate
+            Load
+                *
+            Resident TEMP
+            WHERE NOT (Peek('AppID')<>AppID AND LargeAppConsumeQuotaType='com.qlik.v1.quota.released');
+
+            Drop Table TEMP;
+
+            ///// Sort descending now
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            Noconcatenate
+            Load
+                *
+            Resident TEMP
+            Order By AppID, LargeAppConsumeTime DESC;
+
+            Drop Table TEMP;
+
+            ///// If a consumed event is the last for an app id, remove it
+
+            Rename Table LargeAppConsumption To TEMP;
+            Rename Field LargeAppConsumeRemove To LargeAppConsumeRemoveTEMP;
+
+            LargeAppConsumption:
+            NoConcatenate
+            Load
+                *
+            Resident TEMP
+            Where Not (Peek('AppID')<>AppID AND LargeAppConsumeQuotaType='com.qlik.v1.quota.consumed');
+
+            Drop Table TEMP;
+
+
+            ///// Remove consumption events that don't have a release following them per app -- this is a suspected 
+            ///// bug where a closure during app open won't log a release
+
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            NoConcatenate
+            Load
+                *
+            Resident TEMP
+            Where Not (Peek('AppID')=AppID AND LargeAppConsumeQuotaType='com.qlik.v1.quota.consumed' AND Peek('LargeAppConsumeQuotaType')='com.qlik.v1.quota.consumed');
+
+            DROP TABLE TEMP;
+
+            ///// Remove duplicate consecutive release events and retain only the latest per app (this hasn't been observed but logic
+            ///// is there in case.
+
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            NoConcatenate
+            Load
+                *
+            Resident TEMP
+            Where Not (Peek('AppID')=AppID AND LargeAppConsumeQuotaType='com.qlik.v1.quota.released' AND Peek('LargeAppConsumeQuotaType')='com.qlik.v1.quota.released');
+
+            DROP TABLE TEMP;
+
+            ///// Sort ascending now
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            Noconcatenate
+            Load
+                *
+            Resident TEMP
+            Order By AppID, LargeAppConsumeTime ASC;
+
+            Drop Table TEMP;
+
+            ///// Merge start and ends into a single record now that we've confirmed there are no dupes/standalone entries
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            Load
+                AppID,
+                Timestamp(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS LargeAppConsumeStartTime,
+                RowNo() AS LargeAppConsumeID,
+                'interactive' AS LargeAppConsumeQuotaGroup,
+                Alt(LargeAppConsumeConsumed,LargeAppConsumeReleased) AS LargeAppConsumeAmount
+            Resident TEMP
+            Where LargeAppConsumeQuotaType = 'com.qlik.v1.quota.consumed';
+
+            Left Join(LargeAppConsumption)
+            Load
+                AppID,
+                Timestamp(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS LargeAppConsumeEndTime,
+                RowNo() AS LargeAppConsumeID,
+                'interactive' AS LargeAppConsumeQuotaGroup
+            Resident TEMP
+            Where LargeAppConsumeQuotaType = 'com.qlik.v1.quota.released';
+
+            Drop Table TEMP;
+
+            ///// Create concurrency key for large apps
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            Load
+                *,
+                AutoNumber(LargeAppConsumeStartTime&'|'&LargeAppConsumeEndTime,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey
+            Resident TEMP;
+
+            Drop Table TEMP;
+
+            ////////////////////////////////
+            // Creating composite key of session and app data so that large app consumption data can be tied in
+            ////////////////////////////////
+
+            ConcurrencyLink:
+            Load Distinct
+                _ConsumptionExecutionConcurrencyKey,
+                AppID,
+                AutoNumber(_ConsumptionExecutionConcurrencyKey & '|' & AppID,'TimeAppConcurrency') AS _TimeAppConcurrencyKey
+            Resident Consumption;
+
+            Rename Table ConumptionConcurrencyMinutes To TEMP;
+
+            Join(ConcurrencyLink)
+            Load
+                _ConsumptionExecutionConcurrencyKey,
+                ConsumptionConcurrencyMinute
+            Resident TEMP;
+
+            Drop Table TEMP;
+
+            Rename Table ConcurrencyLink To TEMP;
+
+            ConcurrencyLink:
+            Load
+                AutoNumber(AppID & '|' & ConsumptionConcurrencyMinute,'LargeAppConsumeConcurrencyKey') AS _LargeAppConsumeConcurrencyKey,
+                AppID & '|' & ConsumptionConcurrencyMinute AS RemoveForDupes,
+                *
+            Resident TEMP;
+
+            Drop Table TEMP;
+
+            Rename Table Consumption To TEMP;
+
+            Consumption:
+            Load
+                SessionStartTimeDate,
+                AutoNumber(_ConsumptionExecutionConcurrencyKey & '|' & AppID,'TimeAppConcurrency') AS _TimeAppConcurrencyKey,
+                SessionID,
+                SessionUserID,
+                SessionDurationMinutes,
+                SessionCapacityUsed,
+                SessionMinutesUsed,
+                SessionLicenseUsage,
+                SessionDurationMS,
+                SessionDurationInterval,
+                SessionEndTime,
+                SessionEndTimeDate,
+                SessionUserName,
+                SessionUserSubject,
+                SessionUserIsOAuthClient,
+                SessionStartTime,
+                SessionStartTimeDateHourFloored,
+                SessionHour,
+                SessionMinute,
+                SessionHourAMPM,
+                AppNotAccessedInOver90Days,
+                AppNotAccessedInOver60Days,
+                AppNotAccessedInOver30Days
+            Resident TEMP;
+
+            Drop Table TEMP;
+
+            ////////////////////////////////
+            // Generate minute by minute data for large app concurrency
+            ////////////////////////////////
+
+            LargeAppSessionMinMaxDates:
+            Load
+                Floor(Min("LargeAppConsumeStartTime"),1/24/60) AS "Large App Session Start Time Min",
+                Ceil(Max("LargeAppConsumeEndTime"),1/24/60) AS "Large App Session End Time Max"
+            Resident LargeAppConsumption;
+
+            Let vLargeAppConsumptionMinDate = Peek('Large App Session Start Time Min',0,'LargeAppSessionMinMaxDates');
+            Let vLargeAppConsumptionMaxDate = Peek('Large App Session End Time Max',0,'LargeAppSessionMinMaxDates');
+
+            Drop Table LargeAppSessionMinMaxDates;
+
+            Let vLargeAppMinutes = Ceil(($(vLargeAppConsumptionMaxDate)-$(vLargeAppConsumptionMinDate))*24*(60/$(vConsumptionMinutes)));
+
+            LargeAppConsumptionMinutesTemp:
+            Load Distinct
+                TimeStamp(Floor(Date($(vLargeAppConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) as LargeAppConsumptionConcurrencyMinute
+            Autogenerate $(vLargeAppMinutes);
+
+            Left Join
+            IntervalMatch (LargeAppConsumptionConcurrencyMinute) 
+            Load 
+                LargeAppConsumeStartTime,
+                LargeAppConsumeEndTime
+            Resident LargeAppConsumption;
+
+            LargeAppConsumptionConcurrencyMinutes:
+            Left Keep (LargeAppConsumption)
+            Load
+                Timestamp(LargeAppConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') as LargeAppConsumptionConcurrencyMinute,
+                AutoNumber(LargeAppConsumeStartTime&'|'&LargeAppConsumeEndTime,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey
+            Resident LargeAppConsumptionMinutesTemp;
+
+            Drop Table LargeAppConsumptionMinutesTemp;
+
+            // Join app id onto large app consume
+            Left Join (LargeAppConsumptionConcurrencyMinutes)
+            Load
+                _LargeAppConsumptionExecutionConcurrencyKey,
+                AppID
+            Resident LargeAppConsumption;
+
+            // Remove AppID from LargeAppConsumption
+            Rename Table LargeAppConsumption To TEMP;
+
+            LargeAppConsumption:
+            Load
+                _LargeAppConsumptionExecutionConcurrencyKey,
+                LargeAppConsumeQuotaGroup,
+                LargeAppConsumeStartTime,
+                LargeAppConsumeID,
+                LargeAppConsumeAmount,
+                LargeAppConsumeEndTime
+            Resident TEMP;
+
+            // Stack large app consume minutes onto link that do not have matching sessions to preserve link to app id
+            Concatenate(ConcurrencyLink)
+            Load
+                AutoNumber(AppID & '|' & LargeAppConsumptionConcurrencyMinute,'LargeAppConsumeConcurrencyKey') AS _LargeAppConsumeConcurrencyKey,
+                AppID
+            Resident LargeAppConsumptionConcurrencyMinutes
+            Where Not Exists(RemoveForDupes,AppID & '|' & LargeAppConsumptionConcurrencyMinute);
+
+            Drop Table TEMP;
+            Drop Field RemoveForDupes;
+
+            // Create composite of app id and time to link to session concurrency
+            Rename Table LargeAppConsumptionConcurrencyMinutes To TEMP;
+
+            LargeAppConsumptionConcurrencyMinutes:
+            Load
+                _LargeAppConsumptionExecutionConcurrencyKey,
+                AutoNumber(AppID & '|' & LargeAppConsumptionConcurrencyMinute,'LargeAppConsumeConcurrencyKey') AS _LargeAppConsumeConcurrencyKey,
+                LargeAppConsumptionConcurrencyMinute,
+                'True' AS LargeAppConsume,
+                'False' AS LargeAppConsumeIsDenied,
+                Date(Floor(LargeAppConsumptionConcurrencyMinute,1/24)) AS LargeAppConsumptionConcurrencyHour
+            Resident TEMP;
+
+            // Stack on denial events
+            Concatenate(LargeAppConsumptionConcurrencyMinutes)
+            Load
+                AutoNumber(AppID & '|' & LargeAppConsumeDenialTimeMinute,'LargeAppConsumeConcurrencyKey') AS _LargeAppConsumeConcurrencyKey,
+                AutoNumber(LargeAppConsumeDenialTimeMinute&'|'&LargeAppConsumeDenialTimeMinute,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey,
+                LargeAppConsumeDenialTimeMinute AS LargeAppConsumptionConcurrencyMinute,
+                Date(Floor(LargeAppConsumeDenialTimeMinute,1/24)) AS LargeAppConsumptionConcurrencyHour,
+                'True' AS LargeAppConsume,
+                'True' AS LargeAppConsumeIsDenied
+            Resident LargeAppConsumptionDenials;
+
+            // Stack on denial details
+            Concatenate(LargeAppConsumption)
+            Load
+                AutoNumber(LargeAppConsumeDenialTimeMinute&'|'&LargeAppConsumeDenialTimeMinute,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey,
+                LargeAppConsumeDenialQuotaGroup AS LargeAppConsumeQuotaGroup,
+                LargeAppConsumeDenialRequested AS LargeAppConsumeRequested,
+                LargeAppConsumeDenialLimit AS LargeAppConsumeLimit,
+                LargeAppConsumeDenialTime AS LargeAppConsumeStartTime,
+                LargeAppConsumeDenialTime AS LargeAppConsumeEndTime,
+                LargeAppConsumeDenialAmount AS LargeAppConsumeAmount,
+                RowNo() AS LargeAppConsumeID
+            Resident LargeAppConsumptionDenials;
+
+            // There are no sessions associated with denial events, so we need to fabricate them and stack them on
+            Concatenate(ConcurrencyLink)
+            Load
+                AutoNumber(AppID & '|' & LargeAppConsumeDenialTimeMinute,'LargeAppConsumeConcurrencyKey') AS _LargeAppConsumeConcurrencyKey,
+                AutoNumber(AutoNumber(LargeAppConsumeDenialTimeMinute & '|' & LargeAppConsumeDenialTimeMinute,'ConsumptionConcurrency') & '|' & AppID,'TimeAppConcurrency') AS _TimeAppConcurrencyKey,
+                AppID,
+                LargeAppConsumeDenialTimeMinute AS ConsumptionConcurrencyMinute
+            Resident LargeAppConsumptionDenials;
+
+            Concatenate(Consumption)
+            Load
+                Date(Floor(LargeAppConsumeDenialTimeMinute)) AS SessionStartTimeDate,
+                AutoNumber(AutoNumber(LargeAppConsumeDenialTimeMinute & '|' & LargeAppConsumeDenialTimeMinute,'ConsumptionConcurrency') & '|' & AppID,'TimeAppConcurrency') AS _TimeAppConcurrencyKey,
+                AutoNumber(RowNo() & '|' & AppID,'Session') AS SessionID,
+                LargeAppConsumeDenialUserID AS SessionUserID,
+                If(WildMatch(LargeAppConsumeDenialUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',LargeAppConsumeDenialUserID,'[Deleted]')) as SessionUserName,
+                If(WildMatch(LargeAppConsumeDenialUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',LargeAppConsumeDenialUserID,'[Deleted]')) as SessionUserSubject,
+                If(ApplyMap('Map_OAuthClientName',If(WildMatch(LargeAppConsumeDenialUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',LargeAppConsumeDenialUserID,'[Deleted]')) & '|' & ApplyMap('Map_AppID_TenantID',AppID,Null()))=1,'True','False') as SessionUserIsOAuthClient,
+                0 AS SessionDurationMinutes,
+                1 AS SessionCapacityUsed,
+                0 AS SessionMinutesUsed,
+                'ASSIGNED_LICENSE' AS SessionLicenseUsage,
+                0 as SessionDurationMS,
+                Interval(0) AS SessionDurationInterval,
+                LargeAppConsumeDenialTime AS SessionEndTime,
+                Date(Floor(LargeAppConsumeDenialTime)) AS SessionEndTimeDate,
+                LargeAppConsumeDenialTime AS SessionStartTime,
+                Date(Floor(LargeAppConsumeDenialTime,1/24)) AS SessionStartTimeDateHourFloored,
+                Hour(LargeAppConsumeDenialTime) AS SessionHour,
+                Minute(LargeAppConsumeDenialTime) AS SessionMinute,
+                Dual(Text(Time(LargeAppConsumeDenialTime,'h TT')),Hour(LargeAppConsumeDenialTime)) AS SessionHourAMPM,
+                If(Date(Floor(LargeAppConsumeDenialTime))<$(vLast90Days),'True','False') as AppNotAccessedInOver90Days,
+                If(Date(Floor(LargeAppConsumeDenialTime))<$(vLast60Days),'True','False') as AppNotAccessedInOver60Days,
+                If(Date(Floor(LargeAppConsumeDenialTime))<$(vLast30Days),'True','False') as AppNotAccessedInOver30Days
+            Resident LargeAppConsumptionDenials;
+
+            Drop Table LargeAppConsumptionDenials;
+
+            Drop Table TEMP;
+            Drop Field _ConsumptionExecutionConcurrencyKey;
+
+            // Remove dupes
+            RENAME TABLE ConcurrencyLink To TEMP;
+
+            ConcurrencyLink:
+            Noconcatenate
+            Load Distinct
+                *
+            Resident TEMP;
+
+            Drop Table TEMP;
+            
+        End If
+
     Else
     
     	Drop Field _ConsumptionExecutionConcurrencyKey;
@@ -2974,8 +3562,8 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name			= 'App Analyzer';
-Set app_version			= '6.4.0';
-Set app_schema_version	= 'sv_1.0.0';
+Set app_version			= '6.5.0';
+Set app_schema_version	= 'sv_1.0.1';
 Let comp 				= ComputerName(); 
 Let engine_ver 			= PurgeChar(EngineVersion(),Chr(39)); 
 Let startMsg 			= 'Reloading $(app_name) v$(app_version) from $(comp) running QIX Engine version $(engine_ver)';
@@ -2984,7 +3572,7 @@ Trace $(startMsg);
 
 Sub load_core_data
     Trace Loading data...;
-    For Each sub_routine in 'check_license','check_version','get_tenant_metadata','get_quota','get_oauth_clients','get_users','get_spaces','get_apps','get_consumption','get_audit_sheet_consumption','get_audit_export_from_app','app_metadata'
+    For Each sub_routine in 'get_tenant_metadata','check_license','check_version','get_quota','get_oauth_clients','get_users','get_spaces','get_apps','get_consumption','get_audit_sheet_consumption','get_audit_export_from_app','get_audit_large_app_consumption','app_metadata'
         Call execute_sub(sub_routine)
     Next sub_routine
     
@@ -3011,6 +3599,7 @@ If $(vu_multi_tenant_enabled)=1 then
         Trace This application will then store all resulting QVDs to a "CompiledTenants" directory.;
         
         Call execute_sub('variables')
+        Call execute_sub('set_incremental')
         Call execute_sub('load_multi_tenant_qvds(''$(vu_qlik_meta_collection_parent_dir)'',''Monitoring'',''$(app_name)'')')
 
         If $(vTenants)>0 then
@@ -3026,21 +3615,23 @@ If $(vu_multi_tenant_enabled)=1 then
         Trace This application will attempt to store all of the tables from this model to the "QlikMetaCollection" folder found within "$(vu_qlik_meta_collection_parent_dir)";
 		
         Call execute_sub('variables')
+        Call execute_sub('set_incremental')
         Call load_core_data
         Call execute_sub('write_tenant_qvds(''$(vu_qlik_meta_collection_parent_dir)'',''Monitoring'',''$(app_name)'',0)')
         Call transform_data
     End If
 Else
     Call execute_sub('variables')
+    Call execute_sub('set_incremental')
     Call load_core_data
     Call transform_data
 
     Trace Data fetched from $(vu_tenant_fqdn);
 End If
 
-LET reload_end = Now(1);
-LET reload_duration = Num(Ceil((reload_end-reload_start)*86400),'#,##0');
-LET reload_message = 'At $(reload_end), $(app_name) v$(app_version) finished reloading on $(comp) (QIX Engine $(engine_ver)) after $(reload_duration) seconds.';
+Let reload_end = Now(1);
+Let reload_duration = Num(Ceil((reload_end-reload_start)*86400),'#,##0');
+Let reload_message = 'At $(reload_end), $(app_name) v$(app_version) finished reloading on $(comp) (QIX Engine $(engine_ver)) after $(reload_duration) seconds.';
 Trace $(reload_message);
 
 If vu_app_metadata_initial_days_back <> -1 Then

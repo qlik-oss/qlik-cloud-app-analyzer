@@ -459,60 +459,6 @@
     {
       "qProperty": {
         "qInfo": {
-          "qId": "bd1d6014-f97c-4e35-8e46-8b02034ca61a",
-          "qType": "listbox"
-        },
-        "qMetaDef": {},
-        "qListObjectDef": {
-          "qLibraryId": "5875f585-b248-4a2b-8ac7-056a5dfcd168",
-          "qDef": {
-            "qGrouping": "N",
-            "qFieldDefs": [],
-            "qFieldLabels": [],
-            "qSortCriterias": [
-              {
-                "qSortByState": 1,
-                "qSortByNumeric": 1,
-                "qSortByAscii": 1,
-                "qSortByLoadOrder": 1,
-                "qExpression": {}
-              }
-            ],
-            "qNumberPresentations": [],
-            "qActiveField": 0,
-            "autoSort": false,
-            "cId": "xNSyma"
-          },
-          "qFrequencyMode": "N",
-          "qShowAlternatives": true,
-          "qInitialDataFetch": [],
-          "qExpressions": [],
-          "showTitles": true,
-          "title": "",
-          "subtitle": "",
-          "footnote": "",
-          "disableNavMenu": false,
-          "showDetails": true,
-          "showDetailsExpression": false,
-          "qOtherTotalSpec": {}
-        },
-        "showTitles": true,
-        "title": "Session Week Beginning",
-        "subtitle": "",
-        "footnote": "",
-        "disableNavMenu": false,
-        "showDetails": true,
-        "showDetailsExpression": false,
-        "visualization": "listbox",
-        "layoutOptions": {
-          "dense": true
-        }
-      },
-      "qChildren": []
-    },
-    {
-      "qProperty": {
-        "qInfo": {
           "qId": "268f749d-2d8f-4fd5-af2e-020fe682c2a7",
           "qType": "listbox"
         },
@@ -726,6 +672,114 @@
     {
       "qProperty": {
         "qInfo": {
+          "qId": "79d0b898-0571-4d93-a870-5d94e60eb0ae",
+          "qType": "listbox"
+        },
+        "qMetaDef": {},
+        "qListObjectDef": {
+          "qLibraryId": "264eed3d-54a5-4b1e-8672-b16571683f59",
+          "qDef": {
+            "qGrouping": "N",
+            "qFieldDefs": [],
+            "qFieldLabels": [],
+            "qSortCriterias": [
+              {
+                "qSortByState": 1,
+                "qSortByNumeric": 1,
+                "qSortByAscii": 1,
+                "qSortByLoadOrder": 1,
+                "qExpression": {}
+              }
+            ],
+            "qNumberPresentations": [],
+            "qActiveField": 0,
+            "autoSort": true,
+            "cId": "LHLUS"
+          },
+          "qFrequencyMode": "N",
+          "qShowAlternatives": true,
+          "qInitialDataFetch": [],
+          "qExpressions": [],
+          "showTitles": true,
+          "title": "",
+          "subtitle": "",
+          "footnote": "",
+          "disableNavMenu": false,
+          "showDetails": true,
+          "showDetailsExpression": false,
+          "qOtherTotalSpec": {}
+        },
+        "showTitles": true,
+        "title": "Large App Consume",
+        "subtitle": "",
+        "footnote": "",
+        "disableNavMenu": false,
+        "showDetails": true,
+        "showDetailsExpression": false,
+        "visualization": "listbox",
+        "layoutOptions": {
+          "dense": true
+        }
+      },
+      "qChildren": []
+    },
+    {
+      "qProperty": {
+        "qInfo": {
+          "qId": "17a430bf-9756-4a88-ab07-21fad4ef33a7",
+          "qType": "listbox"
+        },
+        "qMetaDef": {},
+        "qListObjectDef": {
+          "qLibraryId": "mCJtwpq",
+          "qDef": {
+            "qGrouping": "N",
+            "qFieldDefs": [],
+            "qFieldLabels": [],
+            "qSortCriterias": [
+              {
+                "qSortByState": 1,
+                "qSortByNumeric": 1,
+                "qSortByAscii": 1,
+                "qSortByLoadOrder": 1,
+                "qExpression": {}
+              }
+            ],
+            "qNumberPresentations": [],
+            "qActiveField": 0,
+            "autoSort": true,
+            "cId": "uqmqqa"
+          },
+          "qFrequencyMode": "N",
+          "qShowAlternatives": true,
+          "qInitialDataFetch": [],
+          "qExpressions": [],
+          "showTitles": true,
+          "title": "",
+          "subtitle": "",
+          "footnote": "",
+          "disableNavMenu": false,
+          "showDetails": true,
+          "showDetailsExpression": false,
+          "qOtherTotalSpec": {}
+        },
+        "showTitles": true,
+        "title": "Large App Consume Is Denied",
+        "subtitle": "",
+        "footnote": "",
+        "disableNavMenu": false,
+        "showDetails": true,
+        "showDetailsExpression": false,
+        "visualization": "listbox",
+        "layoutOptions": {
+          "dense": true
+        }
+      },
+      "qChildren": []
+    },
+    {
+      "qProperty": {
+        "qInfo": {
           "qId": "85cd2797-2eb9-4390-a526-3bbee7d932f9",
           "qType": "listbox"
         },
@@ -875,60 +929,6 @@
         },
         "showTitles": true,
         "title": "App Not Accessed In Over 90 Days",
-        "subtitle": "",
-        "footnote": "",
-        "disableNavMenu": false,
-        "showDetails": true,
-        "showDetailsExpression": false,
-        "visualization": "listbox",
-        "layoutOptions": {
-          "dense": true
-        }
-      },
-      "qChildren": []
-    },
-    {
-      "qProperty": {
-        "qInfo": {
-          "qId": "9a0a3a76-257a-46ef-bc87-07d4803ada6c",
-          "qType": "listbox"
-        },
-        "qMetaDef": {},
-        "qListObjectDef": {
-          "qLibraryId": "pfPzY",
-          "qDef": {
-            "qGrouping": "N",
-            "qFieldDefs": [],
-            "qFieldLabels": [],
-            "qSortCriterias": [
-              {
-                "qSortByState": 1,
-                "qSortByNumeric": 1,
-                "qSortByAscii": 1,
-                "qSortByLoadOrder": 1,
-                "qExpression": {}
-              }
-            ],
-            "qNumberPresentations": [],
-            "qActiveField": 0,
-            "autoSort": true,
-            "cId": "RWMXa"
-          },
-          "qFrequencyMode": "N",
-          "qShowAlternatives": true,
-          "qInitialDataFetch": [],
-          "qExpressions": [],
-          "showTitles": true,
-          "title": "",
-          "subtitle": "",
-          "footnote": "",
-          "disableNavMenu": false,
-          "showDetails": true,
-          "showDetailsExpression": false,
-          "qOtherTotalSpec": {}
-        },
-        "showTitles": true,
-        "title": "Session User Is OAuth Client",
         "subtitle": "",
         "footnote": "",
         "disableNavMenu": false,
