@@ -27,7 +27,7 @@ It provides information such as:
 
 ## Installing / Updating
 
-These applications can be installed via an interactive Qlik Application Automation [installer](https://community.qlik.com/t5/Official-Support-Articles/Qlik-Cloud-Monitoring-Apps-Workflow-Guide/ta-p/2134140) or [manually](/../../releases) using the PDF guide.
+These applications can be installed via an interactive Qlik Automate [installer](https://community.qlik.com/t5/Official-Support-Articles/Qlik-Cloud-Monitoring-Apps-Workflow-Guide/ta-p/2134140) or [manually](/../../releases) using the PDF guide.
 
 ## Subscription Compatibility
 
