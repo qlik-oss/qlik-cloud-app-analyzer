@@ -1,9 +1,9 @@
 {
-  "qTitle": "App Analyzer v6.5.0",
+  "qTitle": "App Analyzer",
   "qThumbnail": {
     "qUrl": "/api/v1/apps/<appId>/media/files/Dash_icon.png"
   },
-  "description": "The App Analyzer provides a comprehensive dashboard to analyze application metadata across a Qlik Sense tenant(s).\n\nCreated by Daniel Pilla, Distinguished Principal Presales, Qlik\n\n{v6.5.0}",
+  "description": "The App Analyzer provides comprehensive analysis of Qlik Sense application metadata on Qlik Cloud.\n\nAvailable at https://github.com/qlik-oss/qlik-cloud-app-analyzer.\n\n{v6.5.1}",
   "qUsage": "ANALYTICS",
   "published": false,
   "hassectionaccess": false
