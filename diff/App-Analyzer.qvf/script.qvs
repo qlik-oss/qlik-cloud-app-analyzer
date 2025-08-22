@@ -11,6 +11,7 @@
     
     Copyright 2025 QlikTech International
     Created by Daniel Pilla, Distinguished Principal Presales Architect, Qlik
+    Available at https://github.com/qlik-oss/qlik-cloud-app-analyzer
 
 	About the "App Analyzer" app:
     
@@ -1597,7 +1598,7 @@ Sub get_audit_export_from_app
             FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
         FROM JSON (wrap on) "root" PK "__KEY_root"
         WITH CONNECTION (
-        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=com.qlik/reporting-service&eventType=com.qlik.v1.reporting-service.audit$(vISO_8601_Date_Range)$(vNextURL)"
+        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=com.qlik/reporting-service&eventType=com.qlik.v1.report.finished$(vISO_8601_Date_Range)$(vNextURL)"
 		);
 
         [ExportFromAppID]:
@@ -2605,10 +2606,22 @@ Sub load_multi_tenant_qvds(location, sub_dir, name)
                 Let vTenantFileFound = 1;
 
                 Let vTableName = TextBetween(Subfield('$(file)','/',-1),Null(),'.qvd');
-                "$(vTableName)":
-                Load Distinct
-                    *
-                From [$(file)](qvd);
+                
+                // Check if the table already exists
+                Set vExists = '';
+                For i = 0 to NoOfTables()-1
+                    If TableName($(i)) = '$(vTableName)' THEN
+                        Set vExists = '1';
+                    EndIf
+                Next i
+
+                If '$(vExists)' = '1' THEN
+                    Concatenate ($(vTableName))
+                    LOAD Distinct * FROM [$(file)] (qvd);
+                Else
+                    '$(vTableName)':
+                    LOAD Distinct * FROM [$(file)] (qvd);
+                EndIf
             End If
         Next file
 
@@ -3562,7 +3575,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name			= 'App Analyzer';
-Set app_version			= '6.5.0';
+Set app_version			= '6.5.1';
 Set app_schema_version	= 'sv_1.0.1';
 Let comp 				= ComputerName(); 
 Let engine_ver 			= PurgeChar(EngineVersion(),Chr(39)); 

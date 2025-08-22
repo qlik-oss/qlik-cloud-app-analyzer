@@ -1,6 +1,33 @@
 [
   {
     "qInfo": {
+      "qId": "AexXWy",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppDescription"
+      ],
+      "qFieldLabels": [
+        "App Description"
+      ],
+      "qAlias": "App Description",
+      "title": "App Description",
+      "coloring": {
+        "changeHash": "0.05519685162238541",
+        "hasValueColors": false,
+        "colorMapRef": "AexXWy"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Description",
+      "description": "App Description\n\nThe description of the app, as set by the app developer in app properties.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "264eed3d-54a5-4b1e-8672-b16571683f59",
       "qType": "dimension"
     },
