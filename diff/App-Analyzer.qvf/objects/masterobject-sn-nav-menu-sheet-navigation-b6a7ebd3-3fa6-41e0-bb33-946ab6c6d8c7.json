@@ -1,0 +1,60 @@
+{
+  "qInfo": {
+    "qId": "b6a7ebd3-3fa6-41e0-bb33-946ab6c6d8c7",
+    "qType": "masterobject"
+  },
+  "qMetaDef": {
+    "title": "Sheet navigation",
+    "description": "",
+    "tags": []
+  },
+  "showTitles": false,
+  "title": "",
+  "subtitle": "",
+  "footnote": "",
+  "disableNavMenu": true,
+  "showDetails": false,
+  "showDetailsExpression": false,
+  "layoutOptions": {
+    "drawerMode": false,
+    "showDrawerIcon": true,
+    "drawerPanelPosition": "left",
+    "orientation": "horizontal",
+    "layout": "fill",
+    "alignment": "center-center",
+    "sameItemWidth": false,
+    "separateItems": true,
+    "useDivider": false,
+    "dividerColor": {
+      "color": "#404040",
+      "index": -1
+    },
+    "largeItems": false,
+    "showItemIcons": false
+  },
+  "visualization": "sn-nav-menu",
+  "version": "\"0.14.0\"",
+  "components": [
+    {
+      "key": "general"
+    },
+    {
+      "key": "theme",
+      "content": {
+        "borderWidth": "1px",
+        "borderRadius": "6px",
+        "highlightColor": {
+          "index": -1,
+          "color": "#00893e",
+          "alpha": 1
+        },
+        "highlightFontColor": {
+          "index": 1,
+          "color": "#ffffff",
+          "alpha": 1
+        }
+      }
+    }
+  ],
+  "masterVersion": 0.96
+}

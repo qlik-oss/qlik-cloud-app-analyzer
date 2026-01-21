@@ -1,515 +1,6 @@
 [
   {
     "qInfo": {
-      "qId": "AexXWy",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppDescription"
-      ],
-      "qFieldLabels": [
-        "App Description"
-      ],
-      "qAlias": "App Description",
-      "title": "App Description",
-      "coloring": {
-        "changeHash": "0.05519685162238541",
-        "hasValueColors": false,
-        "colorMapRef": "AexXWy"
-      }
-    },
-    "qMetaDef": {
-      "title": "App Description",
-      "description": "App Description\n\nThe description of the app, as set by the app developer in app properties.",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "264eed3d-54a5-4b1e-8672-b16571683f59",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "LargeAppConsume"
-      ],
-      "qFieldLabels": [
-        "Large App Consume"
-      ],
-      "qAlias": "Large App Consume",
-      "title": "Large App Consume",
-      "coloring": {
-        "colorMapRef": "mCJtwpq",
-        "changeHash": "0.9291972769622698",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Large App Consume",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "mCJtwpq",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "LargeAppConsumeIsDenied"
-      ],
-      "qFieldLabels": [
-        "Large App Consume Is Denied"
-      ],
-      "qAlias": "Large App Consume Is Denied",
-      "title": "Large App Consume Is Denied",
-      "coloring": {
-        "changeHash": "0.07229716072827608",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Large App Consume Is Denied",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "wVwJz",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionTitleHistorical"
-      ],
-      "qFieldLabels": [
-        "Sheet Title Historical"
-      ],
-      "qAlias": "Sheet Title Historical",
-      "title": "Sheet Title Historical",
-      "coloring": {
-        "changeHash": "0.03427602861489043",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Title Historical",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "zSHXASj",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionTitle"
-      ],
-      "qFieldLabels": [
-        "Sheet Title"
-      ],
-      "qAlias": "Sheet Title",
-      "title": "Sheet Title",
-      "coloring": {
-        "changeHash": "0.9093851131814039",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Title",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "QdDYzE",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppID"
-      ],
-      "qFieldLabels": [
-        "App ID"
-      ],
-      "qAlias": "App ID",
-      "title": "App ID",
-      "coloring": {
-        "changeHash": "0.6490108795319958",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "App ID",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "ntCpRT",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionHadExport"
-      ],
-      "qFieldLabels": [
-        "Session Had Export"
-      ],
-      "qAlias": "Session Had Export",
-      "title": "Session Had Export",
-      "coloring": {
-        "changeHash": "0.17899990140657662",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Had Export",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "49555767-c950-49da-a619-bd2e5277fbf7",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "ExportFromAppTransactionID"
-      ],
-      "qFieldLabels": [
-        "Export From App Transaction ID"
-      ],
-      "qAlias": "Export From App Transaction ID",
-      "title": "Export From App Transaction ID",
-      "coloring": {
-        "colorMapRef": "HGdfB",
-        "changeHash": "0.3644045585670863",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Export From App Transaction ID",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "5ec0555a-ebfc-40de-9d83-b1e8dd155c9f",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "ExportFromAppTemplateType"
-      ],
-      "qFieldLabels": [
-        "Export From App Template Type"
-      ],
-      "qAlias": "Export From App Template Type",
-      "title": "Export From App Template Type",
-      "coloring": {
-        "colorMapRef": "HGdfB",
-        "changeHash": "0.8808048438340144",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Export From App Template Type",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "367ea56a-a30e-4ec7-86d5-9671fa7b6207",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "ExportFromAppEndTime"
-      ],
-      "qFieldLabels": [
-        "Export From App End Time"
-      ],
-      "qAlias": "Export From App End Time",
-      "title": "Export From App End Time",
-      "coloring": {
-        "colorMapRef": "HGdfB",
-        "changeHash": "0.2615076823844895",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Export From App End Time",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "HGdfB",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "ExportFromAppStartTime"
-      ],
-      "qFieldLabels": [
-        "Export From App Start Time"
-      ],
-      "qAlias": "Export From App Start Time",
-      "title": "Export From App Start Time",
-      "coloring": {
-        "changeHash": "0.38317029797219737",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Export From App Start Time",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "gepLVn",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "H",
-      "qFieldDefs": [
-        "SessionStartTimeDate",
-        "SessionStartTimeDateHourFloored",
-        "SessionMinute"
-      ],
-      "qFieldLabels": [
-        "Session Date",
-        "Session Hour",
-        "Session Minute"
-      ],
-      "qAlias": "Session Time Drill",
-      "title": "Session Time Drill",
-      "coloring": {
-        "changeHash": "0.10493989075402443",
-        "hasValueColors": false,
-        "colorMapRef": "gepLVn"
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Time Drill",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "TPDBUmw",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionLink"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption Link"
-      ],
-      "qAlias": "Sheet Consumption Link",
-      "title": "Sheet Consumption Link",
-      "coloring": {
-        "changeHash": "0.8931134528115181",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption Link",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "ERVkNV",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionOrderDuration"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption Order Duration"
-      ],
-      "qAlias": "Sheet Consumption Order Duration",
-      "title": "Sheet Consumption Order Duration",
-      "coloring": {
-        "changeHash": "0.5462255832567104",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption Order Duration",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "9cb8d426-910e-46d4-b9e3-6d85845561cd",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetNotAccessedInOver90Days"
-      ],
-      "qFieldLabels": [
-        "Sheet Not Accessed In Over 90 Days"
-      ],
-      "qAlias": "Sheet Not Accessed In Over 90 Days",
-      "title": "Sheet Not Accessed In Over 90 Days",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.231717574181175",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Not Accessed In Over 90 Days",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "f1d2f737-0cb4-420a-88e8-5f47a6478af5",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetNotAccessedInOver60Days"
-      ],
-      "qFieldLabels": [
-        "Sheet Not Accessed In Over 60 Days"
-      ],
-      "qAlias": "Sheet Not Accessed In Over 60 Days",
-      "title": "Sheet Not Accessed In Over 60 Days",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.007952464571853612",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Not Accessed In Over 60 Days",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "203f65a2-6298-4ba3-a98c-e1718a067f34",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetNotAccessedInOver30Days"
-      ],
-      "qFieldLabels": [
-        "Sheet Not Accessed In Over 30 Days"
-      ],
-      "qAlias": "Sheet Not Accessed In Over 30 Days",
-      "title": "Sheet Not Accessed In Over 30 Days",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.31643458301914507",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Not Accessed In Over 30 Days",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "dd3e5074-1217-4909-a77f-e4bd364723f0",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionUserSubject"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption User Subject"
-      ],
-      "qAlias": "Sheet Consumption User Subject",
-      "title": "Sheet Consumption User Subject",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.22291888778677826",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption User Subject",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "4dd12f8b-af0e-486b-a5aa-9963fc2c5c21",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionUserName"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption User Name"
-      ],
-      "qAlias": "Sheet Consumption User Name",
-      "title": "Sheet Consumption User Name",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.15432183544332023",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption User Name",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
       "qId": "0a453c66-ee47-4529-b632-8510e6ece7d3",
       "qType": "dimension"
     },
@@ -531,483 +22,6 @@
     },
     "qMetaDef": {
       "title": "Sheet Consumption User ID",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "5fc8ee74-2f14-4f5d-8530-f23201c9a534",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionState"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption State"
-      ],
-      "qAlias": "Sheet Consumption State",
-      "title": "Sheet Consumption State",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.6380771183012812",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption State",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "45ed1475-47f8-4959-977c-2eaafa435ea0",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionSheetID"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption Sheet ID"
-      ],
-      "qAlias": "Sheet Consumption Sheet ID",
-      "title": "Sheet Consumption Sheet ID",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.20815020082156388",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption Sheet ID",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "bbb57477-2c74-4bc3-830c-b27b3f7855e4",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionOrder"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption Order"
-      ],
-      "qAlias": "Sheet Consumption Order",
-      "title": "Sheet Consumption Order",
-      "coloring": {
-        "colorMapRef": "vuys",
-        "changeHash": "0.5018607768820647",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption Order",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "vuys",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SheetConsumptionEventTime"
-      ],
-      "qFieldLabels": [
-        "Sheet Consumption Event Time"
-      ],
-      "qAlias": "Sheet Consumption Event Time",
-      "title": "Sheet Consumption Event Time",
-      "coloring": {
-        "changeHash": "0.6631569806797164",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Sheet Consumption Event Time",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "NpjPU",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "=SessionDurationInterval"
-      ],
-      "qFieldLabels": [
-        "Session Duration"
-      ],
-      "qAlias": "Session Duration",
-      "title": "Session Duration",
-      "coloring": {
-        "changeHash": "0.08403642768928687",
-        "hasValueColors": false,
-        "colorMapRef": "NpjPU"
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Duration",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "pfPzY",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionUserIsOAuthClient"
-      ],
-      "qFieldLabels": [
-        "Session User Is OAuth Client"
-      ],
-      "qAlias": "Session User Is OAuth Client",
-      "title": "Session User Is OAuth Client",
-      "coloring": {
-        "changeHash": "0.9194262235131749",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session User Is OAuth Client",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "f7de35bb-4c6f-4c9c-8e75-80720646c4f8",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppNotAccessedInOver90Days"
-      ],
-      "qFieldLabels": [
-        "App Not Accessed In Over 90 Days"
-      ],
-      "qAlias": "App Not Accessed In Over 90 Days",
-      "title": "App Not Accessed In Over 90 Days",
-      "coloring": {
-        "colorMapRef": "zppEW",
-        "changeHash": "0.33554390682967195",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "App Not Accessed In Over 90 Days",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "458248be-2be2-46ae-83dd-1114997a1c4c",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppNotAccessedInOver60Days"
-      ],
-      "qFieldLabels": [
-        "App Not Accessed In Over 60 Days"
-      ],
-      "qAlias": "App Not Accessed In Over 60 Days",
-      "title": "App Not Accessed In Over 60 Days",
-      "coloring": {
-        "colorMapRef": "zppEW",
-        "changeHash": "0.4979327187347673",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "App Not Accessed In Over 60 Days",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "zppEW",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppNotAccessedInOver30Days"
-      ],
-      "qFieldLabels": [
-        "App Not Accessed In Over 30 Days"
-      ],
-      "qAlias": "App Not Accessed In Over 30 Days",
-      "title": "App Not Accessed In Over 30 Days",
-      "coloring": {
-        "changeHash": "0.050399330459625524",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "App Not Accessed In Over 30 Days",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "fDmJdG",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionMonthYear"
-      ],
-      "qFieldLabels": [
-        "Session Month/Year"
-      ],
-      "qAlias": "Session Month/Year",
-      "title": "Session Month/Year",
-      "coloring": {
-        "changeHash": "0.7595221363510813",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Month/Year",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "mPXPk",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionHourAMPM"
-      ],
-      "qFieldLabels": [
-        "Session Hour AM/PM"
-      ],
-      "qAlias": "Session Hour AM/PM",
-      "title": "Session Hour AM/PM",
-      "coloring": {
-        "changeHash": "0.18353119612891078",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Hour AM/PM",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "mNDra",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionYear"
-      ],
-      "qFieldLabels": [
-        "Session Year"
-      ],
-      "qAlias": "Session Year",
-      "title": "Session Year",
-      "coloring": {
-        "changeHash": "0.09218944886025571",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Year",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "94a77138-5887-41ce-8774-69abed2dfb88",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionStartTimeDate"
-      ],
-      "qFieldLabels": [
-        "Session Date"
-      ],
-      "qAlias": "Session Date",
-      "title": "Session Date",
-      "coloring": {
-        "colorMapRef": "94a77138-5887-41ce-8774-69abed2dfb88",
-        "changeHash": "0.905275286070182",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Date",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "pJfpVD",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "ConsumptionConcurrencyMinute"
-      ],
-      "qFieldLabels": [
-        "Session Concurrency Minute"
-      ],
-      "qAlias": "Session Concurrency Minute",
-      "title": "Session Concurrency Minute",
-      "coloring": {
-        "changeHash": "0.9909567913386697",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Concurrency Minute",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "KWDTPy",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionDay"
-      ],
-      "qFieldLabels": [
-        "Session Day"
-      ],
-      "qAlias": "Session Day",
-      "title": "Session Day",
-      "coloring": {
-        "changeHash": "0.942572528591781",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Day",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "5875f585-b248-4a2b-8ac7-056a5dfcd168",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionWeekBeginning"
-      ],
-      "qFieldLabels": [
-        "Session Week Beginning"
-      ],
-      "qAlias": "Session Week Beginning",
-      "title": "Session Week Beginning",
-      "coloring": {
-        "colorMapRef": "fKStPS",
-        "changeHash": "0.14425428486365477",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Week Beginning",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "9423292c-8c7d-47ac-a409-1105c71d3e01",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionTimeframe"
-      ],
-      "qFieldLabels": [
-        "Session Timeframe"
-      ],
-      "qAlias": "Session Timeframe",
-      "title": "Session Timeframe",
-      "coloring": {
-        "colorMapRef": "fKStPS",
-        "changeHash": "0.2836369849815592",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Timeframe",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "fKStPS",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionMonth"
-      ],
-      "qFieldLabels": [
-        "Session Month"
-      ],
-      "qAlias": "Session Month",
-      "title": "Session Month",
-      "coloring": {
-        "changeHash": "0.7748731024214093",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session Month",
       "description": "",
       "tags": []
     }
@@ -1041,60 +55,6 @@
   },
   {
     "qInfo": {
-      "qId": "79f9610e-9ecf-4f4f-b580-6150e085d209",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionUserName"
-      ],
-      "qFieldLabels": [
-        "Session User Name"
-      ],
-      "qAlias": "Session User Name",
-      "title": "Session User Name",
-      "coloring": {
-        "colorMapRef": "NpjPU",
-        "changeHash": "0.6655798243262854",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session User Name",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "a144c88f-45e4-439e-877b-e39a7c1d5ad5",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionUserID"
-      ],
-      "qFieldLabels": [
-        "Session User ID"
-      ],
-      "qAlias": "Session User ID",
-      "title": "Session User ID",
-      "coloring": {
-        "colorMapRef": "NpjPU",
-        "changeHash": "0.9439838395226499",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session User ID",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
       "qId": "0e845749-dc32-44ca-9c62-706dec49f170",
       "qType": "dimension"
     },
@@ -1116,60 +76,6 @@
     },
     "qMetaDef": {
       "title": "Session Start Time",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "837a5f12-b656-4a39-a373-4475b9cf431d",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionID"
-      ],
-      "qFieldLabels": [
-        "Session ID"
-      ],
-      "qAlias": "Session ID",
-      "title": "Session ID",
-      "coloring": {
-        "colorMapRef": "NpjPU",
-        "changeHash": "0.19448843713619568",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session ID",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "ffbe4b07-02ca-4d56-919e-c7ca22990015",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "SessionEndTimeDate"
-      ],
-      "qFieldLabels": [
-        "Session End Time Date"
-      ],
-      "qAlias": "Session End Time Date",
-      "title": "Session End Time Date",
-      "coloring": {
-        "colorMapRef": "NpjPU",
-        "changeHash": "0.7239143401338564",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "Session End Time Date",
       "description": "",
       "tags": []
     }
@@ -1203,374 +109,54 @@
   },
   {
     "qInfo": {
-      "qId": "40154fd0-94c3-4bc6-bb49-0d40b83a0a81",
+      "qId": "203f65a2-6298-4ba3-a98c-e1718a067f34",
       "qType": "dimension"
     },
     "qDim": {
       "qGrouping": "N",
       "qFieldDefs": [
-        "SessionDurationMinutes"
+        "SheetNotAccessedInOver30Days"
       ],
       "qFieldLabels": [
-        "Session Duration Minutes"
+        "Sheet Not Accessed In Over 30 Days"
       ],
-      "qAlias": "Session Duration Minutes",
-      "title": "Session Duration Minutes",
+      "qAlias": "Sheet Not Accessed In Over 30 Days",
+      "title": "Sheet Not Accessed In Over 30 Days",
       "coloring": {
-        "colorMapRef": "NpjPU",
-        "changeHash": "0.11864647267690209",
+        "colorMapRef": "vuys",
+        "changeHash": "0.31643458301914507",
         "hasValueColors": false
       }
     },
     "qMetaDef": {
-      "title": "Session Duration Minutes",
+      "title": "Sheet Not Accessed In Over 30 Days",
       "description": "",
       "tags": []
     }
   },
   {
     "qInfo": {
-      "qId": "b1bda33e-3b45-43ac-b887-228fba76c313",
+      "qId": "264eed3d-54a5-4b1e-8672-b16571683f59",
       "qType": "dimension"
     },
     "qDim": {
       "qGrouping": "N",
       "qFieldDefs": [
-        "SessionDurationInterval"
+        "LargeAppConsume"
       ],
       "qFieldLabels": [
-        "Session Duration Interval"
+        "Large App Consume"
       ],
-      "qAlias": "Session Duration Interval",
-      "title": "Session Duration Interval",
+      "qAlias": "Large App Consume",
+      "title": "Large App Consume",
       "coloring": {
-        "colorMapRef": "NpjPU",
-        "changeHash": "0.0015795553735220569",
+        "colorMapRef": "mCJtwpq",
+        "changeHash": "0.9291972769622698",
         "hasValueColors": false
       }
     },
     "qMetaDef": {
-      "title": "Session Duration Interval",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "naSQwe",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppIsDistributed"
-      ],
-      "qFieldLabels": [
-        "App Is Distributed"
-      ],
-      "title": "App Is Distributed",
-      "coloring": {
-        "changeHash": "0.7895209643916978",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "App Is Distributed",
-      "description": "Whether the application has been distributed to Qlik Cloud from either Qlik Sense Enterprise Client-Managed or QlikView Publisher.",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "Yryypc",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppType"
-      ],
-      "qFieldLabels": [
-        "App Type"
-      ],
-      "title": "App Type",
-      "coloring": {
-        "changeHash": "0.7374040589314534",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "App Type",
-      "description": "Whether the app is a Qlik Sense app 'QS' or QlikView app 'QV'.",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "UzSkZx",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppName"
-      ],
-      "qFieldLabels": [
-        "App Name"
-      ],
-      "title": "App Name",
-      "coloring": {
-        "changeHash": "0.4047392446283158",
-        "hasValueColors": false
-      }
-    },
-    "qMetaDef": {
-      "title": "App Name",
-      "description": "The text representation of the AppName field (not unique).",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "ZVnSHD",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "H",
-      "qFieldDefs": [
-        "SpaceName",
-        "AppNameUnique"
-      ],
-      "qFieldLabels": [],
-      "title": "Space / App Drill",
-      "coloring": {
-        "changeHash": "0.48802918054617495"
-      }
-    },
-    "qMetaDef": {
-      "title": "Space / App Drill",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "wGAQkj",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "H",
-      "qFieldDefs": [
-        "SpaceType",
-        "AppNameUnique"
-      ],
-      "qFieldLabels": [],
-      "title": "Space Type / App Drill",
-      "coloring": {
-        "changeHash": "0.30076452731396386"
-      }
-    },
-    "qMetaDef": {
-      "title": "Space Type / App Drill",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "xdLfma",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppNameUnique"
-      ],
-      "qFieldLabels": [
-        "App Name"
-      ],
-      "qLabelExpression": "='App Name'",
-      "title": "App Name",
-      "coloring": {
-        "changeHash": "0.5579733322611093",
-        "colorMapRef": "xdLfma"
-      }
-    },
-    "qMetaDef": {
-      "title": "App Name",
-      "description": "Unique to each AppId (to distinguish apps with same name)",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "LLBNL",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppReloadCPUTimeOverThreshold"
-      ],
-      "qFieldLabels": [
-        "App Reload CPU Time Over Threshold"
-      ],
-      "title": "App Reload CPU Time Over Threshold",
-      "coloring": {
-        "changeHash": "0.6833195424484029",
-        "colorMapRef": "LLBNL",
-        "hasValueColors": false
-      },
-      "descriptionExpression": {
-        "qStringExpression": {
-          "qExpr": "'Apps which exceeded the specified CPU reload time threshold of ' \u0026 If(GetPossibleCount(ReloadCPUTimeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(ReloadCPUTimeThreshold,'#,##0')) \u0026 ' milliseconds.'\r\n"
-        }
-      }
-    },
-    "qMetaDef": {
-      "title": "App Reload CPU Time Over Threshold",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "ZyZdFRJ",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "FieldValueCountOverThreshold"
-      ],
-      "qFieldLabels": [
-        "Field Value Count Over Threshold"
-      ],
-      "title": "Field Value Count Over Threshold",
-      "coloring": {
-        "changeHash": "0.7131246903418667",
-        "colorMapRef": "ZyZdFRJ",
-        "hasValueColors": false
-      },
-      "descriptionExpression": {
-        "qStringExpression": {
-          "qExpr": "'Indicates if the number of records within a given field (in a given table within an app) exceeds the threshold of ' \u0026 If(GetPossibleCount(FieldValueCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(FieldValueCountThreshold,'#,##0'))"
-        }
-      }
-    },
-    "qMetaDef": {
-      "title": "Field Value Count Over Threshold",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "PXPjVb",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "TableNoOfRowsOverThreshold"
-      ],
-      "qFieldLabels": [
-        "Table Rows Over Threshold"
-      ],
-      "title": "Table Rows Over Threshold",
-      "coloring": {
-        "changeHash": "0.42966356192171795",
-        "colorMapRef": "PXPjVb",
-        "hasValueColors": false
-      },
-      "descriptionExpression": {
-        "qStringExpression": {
-          "qExpr": "'Table has row count which exceeds the threshold of ' \u0026 If(GetPossibleCount(TableRecordCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',num(TableRecordCountThreshold ,'#,##0'))"
-        }
-      }
-    },
-    "qMetaDef": {
-      "title": "Table Rows Over Threshold",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "51444e43-428e-4182-b4c7-ac1297c2b439",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "AppRAMOverThreshold"
-      ],
-      "qFieldLabels": [
-        "App RAM Over Threshold"
-      ],
-      "qLabelExpression": "='Over Threshold'",
-      "title": "App RAM Over Threshold",
-      "coloring": {
-        "colorMapRef": "51444e43-428e-4182-b4c7-ac1297c2b439",
-        "changeHash": "0.6945628311156382"
-      },
-      "descriptionExpression": {
-        "qStringExpression": {
-          "qExpr": "'Indicates if an app fills a larger initial memory footprint (in RAM) than the threshold of ' \u0026 \r\nIf(GetPossibleCount(AppRAMSizeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',num(AppRAMSizeThreshold/1024/1024, '#,##0 MB'))"
-        }
-      }
-    },
-    "qMetaDef": {
-      "title": "App RAM Over Threshold",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "VqbusF",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "TenantID"
-      ],
-      "qFieldLabels": [
-        "Tenant ID"
-      ],
-      "title": "Tenant ID",
-      "coloring": {
-        "changeHash": "0.0000655078187519198"
-      }
-    },
-    "qMetaDef": {
-      "title": "Tenant ID",
-      "description": "",
-      "tags": []
-    }
-  },
-  {
-    "qInfo": {
-      "qId": "c414ce69-9dc0-43db-9c19-03aa9c723826",
-      "qType": "dimension"
-    },
-    "qDim": {
-      "qGrouping": "N",
-      "qFieldDefs": [
-        "TenantName"
-      ],
-      "qFieldLabels": [
-        "Tenant Name"
-      ],
-      "title": "Tenant Name",
-      "coloring": {
-        "colorMapRef": "VqbusF",
-        "changeHash": "0.5055398365080799"
-      }
-    },
-    "qMetaDef": {
-      "title": "Tenant Name",
+      "title": "Large App Consume",
       "description": "",
       "tags": []
     }
@@ -1628,6 +214,33 @@
   },
   {
     "qInfo": {
+      "qId": "367ea56a-a30e-4ec7-86d5-9671fa7b6207",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppEndTime"
+      ],
+      "qFieldLabels": [
+        "Export From App End Time"
+      ],
+      "qAlias": "Export From App End Time",
+      "title": "Export From App End Time",
+      "coloring": {
+        "colorMapRef": "HGdfB",
+        "changeHash": "0.2615076823844895",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App End Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "38e85aea-6109-4979-9b51-5caea76a3fe2",
       "qType": "dimension"
     },
@@ -1648,6 +261,415 @@
     "qMetaDef": {
       "title": "Table is Island",
       "description": "Indicates if a table is associated with any other table within app data model.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "40154fd0-94c3-4bc6-bb49-0d40b83a0a81",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionDurationMinutes"
+      ],
+      "qFieldLabels": [
+        "Session Duration Minutes"
+      ],
+      "qAlias": "Session Duration Minutes",
+      "title": "Session Duration Minutes",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.11864647267690209",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Duration Minutes",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "458248be-2be2-46ae-83dd-1114997a1c4c",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNotAccessedInOver60Days"
+      ],
+      "qFieldLabels": [
+        "App Not Accessed In Over 60 Days"
+      ],
+      "qAlias": "App Not Accessed In Over 60 Days",
+      "title": "App Not Accessed In Over 60 Days",
+      "coloring": {
+        "colorMapRef": "zppEW",
+        "changeHash": "0.4979327187347673",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Not Accessed In Over 60 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "45ed1475-47f8-4959-977c-2eaafa435ea0",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionSheetID"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Sheet ID"
+      ],
+      "qAlias": "Sheet Consumption Sheet ID",
+      "title": "Sheet Consumption Sheet ID",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.20815020082156388",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Sheet ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "49555767-c950-49da-a619-bd2e5277fbf7",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppTransactionID"
+      ],
+      "qFieldLabels": [
+        "Export From App Transaction ID"
+      ],
+      "qAlias": "Export From App Transaction ID",
+      "title": "Export From App Transaction ID",
+      "coloring": {
+        "colorMapRef": "HGdfB",
+        "changeHash": "0.3644045585670863",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App Transaction ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "4dd12f8b-af0e-486b-a5aa-9963fc2c5c21",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionUserName"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption User Name"
+      ],
+      "qAlias": "Sheet Consumption User Name",
+      "title": "Sheet Consumption User Name",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.15432183544332023",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption User Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "51444e43-428e-4182-b4c7-ac1297c2b439",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppRAMOverThreshold"
+      ],
+      "qFieldLabels": [
+        "App RAM Over Threshold"
+      ],
+      "qLabelExpression": "='Over Threshold'",
+      "title": "App RAM Over Threshold",
+      "coloring": {
+        "colorMapRef": "51444e43-428e-4182-b4c7-ac1297c2b439",
+        "changeHash": "0.6945628311156382"
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Indicates if an app fills a larger initial memory footprint (in RAM) than the threshold of ' \u0026 \r\nIf(GetPossibleCount(AppRAMSizeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',num(AppRAMSizeThreshold/1024/1024, '#,##0 MB'))"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App RAM Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5875f585-b248-4a2b-8ac7-056a5dfcd168",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionWeekBeginning"
+      ],
+      "qFieldLabels": [
+        "Session Week Beginning"
+      ],
+      "qAlias": "Session Week Beginning",
+      "title": "Session Week Beginning",
+      "coloring": {
+        "colorMapRef": "fKStPS",
+        "changeHash": "0.14425428486365477",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Week Beginning",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5ec0555a-ebfc-40de-9d83-b1e8dd155c9f",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppTemplateType"
+      ],
+      "qFieldLabels": [
+        "Export From App Template Type"
+      ],
+      "qAlias": "Export From App Template Type",
+      "title": "Export From App Template Type",
+      "coloring": {
+        "colorMapRef": "HGdfB",
+        "changeHash": "0.8808048438340144",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App Template Type",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "5fc8ee74-2f14-4f5d-8530-f23201c9a534",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionState"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption State"
+      ],
+      "qAlias": "Sheet Consumption State",
+      "title": "Sheet Consumption State",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.6380771183012812",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption State",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "79f9610e-9ecf-4f4f-b580-6150e085d209",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionUserName"
+      ],
+      "qFieldLabels": [
+        "Session User Name"
+      ],
+      "qAlias": "Session User Name",
+      "title": "Session User Name",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.6655798243262854",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session User Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "837a5f12-b656-4a39-a373-4475b9cf431d",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionID"
+      ],
+      "qFieldLabels": [
+        "Session ID"
+      ],
+      "qAlias": "Session ID",
+      "title": "Session ID",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.19448843713619568",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "9423292c-8c7d-47ac-a409-1105c71d3e01",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionTimeframe"
+      ],
+      "qFieldLabels": [
+        "Session Timeframe"
+      ],
+      "qAlias": "Session Timeframe",
+      "title": "Session Timeframe",
+      "coloring": {
+        "colorMapRef": "fKStPS",
+        "changeHash": "0.2836369849815592",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Timeframe",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "94a77138-5887-41ce-8774-69abed2dfb88",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionStartTimeDate"
+      ],
+      "qFieldLabels": [
+        "Session Date"
+      ],
+      "qAlias": "Session Date",
+      "title": "Session Date",
+      "coloring": {
+        "colorMapRef": "94a77138-5887-41ce-8774-69abed2dfb88",
+        "changeHash": "0.905275286070182",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Date",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "9cb8d426-910e-46d4-b9e3-6d85845561cd",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetNotAccessedInOver90Days"
+      ],
+      "qFieldLabels": [
+        "Sheet Not Accessed In Over 90 Days"
+      ],
+      "qAlias": "Sheet Not Accessed In Over 90 Days",
+      "title": "Sheet Not Accessed In Over 90 Days",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.231717574181175",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Not Accessed In Over 90 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "AexXWy",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppDescription"
+      ],
+      "qFieldLabels": [
+        "App Description"
+      ],
+      "qAlias": "App Description",
+      "title": "App Description",
+      "coloring": {
+        "changeHash": "0.05519685162238541",
+        "hasValueColors": false,
+        "colorMapRef": "AexXWy"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Description",
+      "description": "App Description\n\nThe description of the app, as set by the app developer in app properties.",
       "tags": []
     }
   },
@@ -1727,6 +749,58 @@
   },
   {
     "qInfo": {
+      "qId": "ERVkNV",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionOrderDuration"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Order Duration"
+      ],
+      "qAlias": "Sheet Consumption Order Duration",
+      "title": "Sheet Consumption Order Duration",
+      "coloring": {
+        "changeHash": "0.5462255832567104",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Order Duration",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "HGdfB",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ExportFromAppStartTime"
+      ],
+      "qFieldLabels": [
+        "Export From App Start Time"
+      ],
+      "qAlias": "Export From App Start Time",
+      "title": "Export From App Start Time",
+      "coloring": {
+        "changeHash": "0.38317029797219737",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Export From App Start Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "Jqnkt",
       "qType": "dimension"
     },
@@ -1775,6 +849,32 @@
   },
   {
     "qInfo": {
+      "qId": "KWDTPy",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionDay"
+      ],
+      "qFieldLabels": [
+        "Session Day"
+      ],
+      "qAlias": "Session Day",
+      "title": "Session Day",
+      "coloring": {
+        "changeHash": "0.942572528591781",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Day",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "KWRXFA",
       "qType": "dimension"
     },
@@ -1795,6 +895,37 @@
     },
     "qMetaDef": {
       "title": "App Record Count Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "LLBNL",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppReloadCPUTimeOverThreshold"
+      ],
+      "qFieldLabels": [
+        "App Reload CPU Time Over Threshold"
+      ],
+      "title": "App Reload CPU Time Over Threshold",
+      "coloring": {
+        "changeHash": "0.6833195424484029",
+        "colorMapRef": "LLBNL",
+        "hasValueColors": false
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Apps which exceeded the specified CPU reload time threshold of ' \u0026 If(GetPossibleCount(ReloadCPUTimeThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(ReloadCPUTimeThreshold,'#,##0')) \u0026 ' milliseconds.'\r\n"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "App Reload CPU Time Over Threshold",
       "description": "",
       "tags": []
     }
@@ -1897,6 +1028,64 @@
   },
   {
     "qInfo": {
+      "qId": "NpjPU",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "=SessionDurationInterval"
+      ],
+      "qFieldLabels": [
+        "Session Duration"
+      ],
+      "qAlias": "Session Duration",
+      "title": "Session Duration",
+      "coloring": {
+        "changeHash": "0.08403642768928687",
+        "hasValueColors": false,
+        "colorMapRef": "NpjPU"
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Duration",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "PXPjVb",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TableNoOfRowsOverThreshold"
+      ],
+      "qFieldLabels": [
+        "Table Rows Over Threshold"
+      ],
+      "title": "Table Rows Over Threshold",
+      "coloring": {
+        "changeHash": "0.42966356192171795",
+        "colorMapRef": "PXPjVb",
+        "hasValueColors": false
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Table has row count which exceeds the threshold of ' \u0026 If(GetPossibleCount(TableRecordCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',num(TableRecordCountThreshold ,'#,##0'))"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Table Rows Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "QZaRcgP",
       "qType": "dimension"
     },
@@ -1915,6 +1104,32 @@
     },
     "qMetaDef": {
       "title": "Field Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "QdDYzE",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppID"
+      ],
+      "qFieldLabels": [
+        "App ID"
+      ],
+      "qAlias": "App ID",
+      "title": "App ID",
+      "coloring": {
+        "changeHash": "0.6490108795319958",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App ID",
       "description": "",
       "tags": []
     }
@@ -1996,6 +1211,32 @@
   },
   {
     "qInfo": {
+      "qId": "TPDBUmw",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionLink"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Link"
+      ],
+      "qAlias": "Sheet Consumption Link",
+      "title": "Sheet Consumption Link",
+      "coloring": {
+        "changeHash": "0.8931134528115181",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Link",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "TgtUBPj",
       "qType": "dimension"
     },
@@ -2045,6 +1286,55 @@
   },
   {
     "qInfo": {
+      "qId": "UzSkZx",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppName"
+      ],
+      "qFieldLabels": [
+        "App Name"
+      ],
+      "title": "App Name",
+      "coloring": {
+        "changeHash": "0.4047392446283158",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Name",
+      "description": "The text representation of the AppName field (not unique).",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "VqbusF",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TenantID"
+      ],
+      "qFieldLabels": [
+        "Tenant ID"
+      ],
+      "title": "Tenant ID",
+      "coloring": {
+        "changeHash": "0.0000655078187519198"
+      }
+    },
+    "qMetaDef": {
+      "title": "Tenant ID",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "XjSDQjq",
       "qType": "dimension"
     },
@@ -2070,6 +1360,31 @@
   },
   {
     "qInfo": {
+      "qId": "Yryypc",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppType"
+      ],
+      "qFieldLabels": [
+        "App Type"
+      ],
+      "title": "App Type",
+      "coloring": {
+        "changeHash": "0.7374040589314534",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Type",
+      "description": "Whether the app is a Qlik Sense app 'QS' or QlikView app 'QV'.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "ZJjue",
       "qType": "dimension"
     },
@@ -2090,6 +1405,87 @@
     "qMetaDef": {
       "title": "Field is Synthetic",
       "description": "Indicates if a field is part of a synthetic key.\nA synthetic key is created when two or more fields are found in two or more tables within an app data model.\nNote that Synthetic Fields will be listed as having 0 field records. Please rely on the field cardinality to understand the volume of records for these synthetic fields.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ZVnSHD",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "SpaceName",
+        "AppNameUnique"
+      ],
+      "qFieldLabels": [],
+      "title": "Space / App Drill",
+      "coloring": {
+        "changeHash": "0.48802918054617495"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space / App Drill",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ZyZdFRJ",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "FieldValueCountOverThreshold"
+      ],
+      "qFieldLabels": [
+        "Field Value Count Over Threshold"
+      ],
+      "title": "Field Value Count Over Threshold",
+      "coloring": {
+        "changeHash": "0.7131246903418667",
+        "colorMapRef": "ZyZdFRJ",
+        "hasValueColors": false
+      },
+      "descriptionExpression": {
+        "qStringExpression": {
+          "qExpr": "'Indicates if the number of records within a given field (in a given table within an app) exceeds the threshold of ' \u0026 If(GetPossibleCount(FieldValueCountThreshold)\u003c\u003e1,'\u003cVaries Across Tenants\u003e',Num(FieldValueCountThreshold,'#,##0'))"
+        }
+      }
+    },
+    "qMetaDef": {
+      "title": "Field Value Count Over Threshold",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "a144c88f-45e4-439e-877b-e39a7c1d5ad5",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionUserID"
+      ],
+      "qFieldLabels": [
+        "Session User ID"
+      ],
+      "qAlias": "Session User ID",
+      "title": "Session User ID",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.9439838395226499",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session User ID",
+      "description": "",
       "tags": []
     }
   },
@@ -2121,6 +1517,218 @@
   },
   {
     "qInfo": {
+      "qId": "b1bda33e-3b45-43ac-b887-228fba76c313",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionDurationInterval"
+      ],
+      "qFieldLabels": [
+        "Session Duration Interval"
+      ],
+      "qAlias": "Session Duration Interval",
+      "title": "Session Duration Interval",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.0015795553735220569",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Duration Interval",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "bbb57477-2c74-4bc3-830c-b27b3f7855e4",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionOrder"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Order"
+      ],
+      "qAlias": "Sheet Consumption Order",
+      "title": "Sheet Consumption Order",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.5018607768820647",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Order",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "c414ce69-9dc0-43db-9c19-03aa9c723826",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "TenantName"
+      ],
+      "qFieldLabels": [
+        "Tenant Name"
+      ],
+      "title": "Tenant Name",
+      "coloring": {
+        "colorMapRef": "VqbusF",
+        "changeHash": "0.5055398365080799"
+      }
+    },
+    "qMetaDef": {
+      "title": "Tenant Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "dd3e5074-1217-4909-a77f-e4bd364723f0",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionUserSubject"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption User Subject"
+      ],
+      "qAlias": "Sheet Consumption User Subject",
+      "title": "Sheet Consumption User Subject",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.22291888778677826",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption User Subject",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "f1d2f737-0cb4-420a-88e8-5f47a6478af5",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetNotAccessedInOver60Days"
+      ],
+      "qFieldLabels": [
+        "Sheet Not Accessed In Over 60 Days"
+      ],
+      "qAlias": "Sheet Not Accessed In Over 60 Days",
+      "title": "Sheet Not Accessed In Over 60 Days",
+      "coloring": {
+        "colorMapRef": "vuys",
+        "changeHash": "0.007952464571853612",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Not Accessed In Over 60 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "f7de35bb-4c6f-4c9c-8e75-80720646c4f8",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNotAccessedInOver90Days"
+      ],
+      "qFieldLabels": [
+        "App Not Accessed In Over 90 Days"
+      ],
+      "qAlias": "App Not Accessed In Over 90 Days",
+      "title": "App Not Accessed In Over 90 Days",
+      "coloring": {
+        "colorMapRef": "zppEW",
+        "changeHash": "0.33554390682967195",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Not Accessed In Over 90 Days",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "fDmJdG",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionMonthYear"
+      ],
+      "qFieldLabels": [
+        "Session Month/Year"
+      ],
+      "qAlias": "Session Month/Year",
+      "title": "Session Month/Year",
+      "coloring": {
+        "changeHash": "0.7595221363510813",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Month/Year",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "fKStPS",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionMonth"
+      ],
+      "qFieldLabels": [
+        "Session Month"
+      ],
+      "qAlias": "Session Month",
+      "title": "Session Month",
+      "coloring": {
+        "changeHash": "0.7748731024214093",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Month",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "fe0d6c30-0942-4bb7-9217-9e83ffca5786",
       "qType": "dimension"
     },
@@ -2146,6 +1754,64 @@
   },
   {
     "qInfo": {
+      "qId": "ffbe4b07-02ca-4d56-919e-c7ca22990015",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionEndTimeDate"
+      ],
+      "qFieldLabels": [
+        "Session End Time Date"
+      ],
+      "qAlias": "Session End Time Date",
+      "title": "Session End Time Date",
+      "coloring": {
+        "colorMapRef": "NpjPU",
+        "changeHash": "0.7239143401338564",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session End Time Date",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "gepLVn",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "SessionStartTimeDate",
+        "SessionStartTimeDateHourFloored",
+        "SessionMinute"
+      ],
+      "qFieldLabels": [
+        "Session Date",
+        "Session Hour",
+        "Session Minute"
+      ],
+      "qAlias": "Session Time Drill",
+      "title": "Session Time Drill",
+      "coloring": {
+        "changeHash": "0.10493989075402443",
+        "hasValueColors": false,
+        "colorMapRef": "gepLVn"
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Time Drill",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "jTp",
       "qType": "dimension"
     },
@@ -2164,6 +1830,161 @@
     },
     "qMetaDef": {
       "title": "Space Name",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mCJtwpq",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "LargeAppConsumeIsDenied"
+      ],
+      "qFieldLabels": [
+        "Large App Consume Is Denied"
+      ],
+      "qAlias": "Large App Consume Is Denied",
+      "title": "Large App Consume Is Denied",
+      "coloring": {
+        "changeHash": "0.07229716072827608",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Large App Consume Is Denied",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mNDra",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionYear"
+      ],
+      "qFieldLabels": [
+        "Session Year"
+      ],
+      "qAlias": "Session Year",
+      "title": "Session Year",
+      "coloring": {
+        "changeHash": "0.09218944886025571",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Year",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "mPXPk",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionHourAMPM"
+      ],
+      "qFieldLabels": [
+        "Session Hour AM/PM"
+      ],
+      "qAlias": "Session Hour AM/PM",
+      "title": "Session Hour AM/PM",
+      "coloring": {
+        "changeHash": "0.18353119612891078",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Hour AM/PM",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "naSQwe",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppIsDistributed"
+      ],
+      "qFieldLabels": [
+        "App Is Distributed"
+      ],
+      "title": "App Is Distributed",
+      "coloring": {
+        "changeHash": "0.7895209643916978",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Is Distributed",
+      "description": "Whether the application has been distributed to Qlik Cloud from either Qlik Sense Enterprise Client-Managed or QlikView Publisher.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "ntCpRT",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionHadExport"
+      ],
+      "qFieldLabels": [
+        "Session Had Export"
+      ],
+      "qAlias": "Session Had Export",
+      "title": "Session Had Export",
+      "coloring": {
+        "changeHash": "0.17899990140657662",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Had Export",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "pJfpVD",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "ConsumptionConcurrencyMinute"
+      ],
+      "qFieldLabels": [
+        "Session Concurrency Minute"
+      ],
+      "qAlias": "Session Concurrency Minute",
+      "title": "Session Concurrency Minute",
+      "coloring": {
+        "changeHash": "0.9909567913386697",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session Concurrency Minute",
       "description": "",
       "tags": []
     }
@@ -2196,6 +2017,107 @@
   },
   {
     "qInfo": {
+      "qId": "pfPzY",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SessionUserIsOAuthClient"
+      ],
+      "qFieldLabels": [
+        "Session User Is OAuth Client"
+      ],
+      "qAlias": "Session User Is OAuth Client",
+      "title": "Session User Is OAuth Client",
+      "coloring": {
+        "changeHash": "0.9194262235131749",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Session User Is OAuth Client",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "vuys",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionEventTime"
+      ],
+      "qFieldLabels": [
+        "Sheet Consumption Event Time"
+      ],
+      "qAlias": "Sheet Consumption Event Time",
+      "title": "Sheet Consumption Event Time",
+      "coloring": {
+        "changeHash": "0.6631569806797164",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Consumption Event Time",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "wGAQkj",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "H",
+      "qFieldDefs": [
+        "SpaceType",
+        "AppNameUnique"
+      ],
+      "qFieldLabels": [],
+      "title": "Space Type / App Drill",
+      "coloring": {
+        "changeHash": "0.30076452731396386"
+      }
+    },
+    "qMetaDef": {
+      "title": "Space Type / App Drill",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "wVwJz",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionTitleHistorical"
+      ],
+      "qFieldLabels": [
+        "Sheet Title Historical"
+      ],
+      "qAlias": "Sheet Title Historical",
+      "title": "Sheet Title Historical",
+      "coloring": {
+        "changeHash": "0.03427602861489043",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Title Historical",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
       "qId": "xJhu",
       "qType": "dimension"
     },
@@ -2215,6 +2137,32 @@
     "qMetaDef": {
       "title": "App Rolling Timestamp",
       "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "xdLfma",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNameUnique"
+      ],
+      "qFieldLabels": [
+        "App Name"
+      ],
+      "qLabelExpression": "='App Name'",
+      "title": "App Name",
+      "coloring": {
+        "changeHash": "0.5579733322611093",
+        "colorMapRef": "xdLfma"
+      }
+    },
+    "qMetaDef": {
+      "title": "App Name",
+      "description": "Unique to each AppId (to distinguish apps with same name)",
       "tags": []
     }
   },
@@ -2240,6 +2188,58 @@
     "qMetaDef": {
       "title": "Table Contains Synthetic Keys",
       "description": "Indicates if a table within an app data model contains one or more synthetic keys.\nA synthetic key is created when two or more fields are found in two or more tables within an app data model.",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "zSHXASj",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "SheetConsumptionTitle"
+      ],
+      "qFieldLabels": [
+        "Sheet Title"
+      ],
+      "qAlias": "Sheet Title",
+      "title": "Sheet Title",
+      "coloring": {
+        "changeHash": "0.9093851131814039",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "Sheet Title",
+      "description": "",
+      "tags": []
+    }
+  },
+  {
+    "qInfo": {
+      "qId": "zppEW",
+      "qType": "dimension"
+    },
+    "qDim": {
+      "qGrouping": "N",
+      "qFieldDefs": [
+        "AppNotAccessedInOver30Days"
+      ],
+      "qFieldLabels": [
+        "App Not Accessed In Over 30 Days"
+      ],
+      "qAlias": "App Not Accessed In Over 30 Days",
+      "title": "App Not Accessed In Over 30 Days",
+      "coloring": {
+        "changeHash": "0.050399330459625524",
+        "hasValueColors": false
+      }
+    },
+    "qMetaDef": {
+      "title": "App Not Accessed In Over 30 Days",
+      "description": "",
       "tags": []
     }
   }

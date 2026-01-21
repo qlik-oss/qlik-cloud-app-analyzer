@@ -7,16 +7,12 @@
     _  ___ |_  /_/ /_  /_/ /     _  ___ |  / / / /_/ /_  / _  /_/ /__  /_/  __/  /    
     /_/  |_|  .___/_  .___/      /_/  |_/_/ /_/\__,_/ /_/  _\__, / _____/\___//_/     
            /_/     /_/                                     /____/                      
-        
-    
-    Copyright 2025 QlikTech International
-    Created by Daniel Pilla, Distinguished Principal Presales Architect, Qlik
-    Available at https://github.com/qlik-oss/qlik-cloud-app-analyzer
 
-	About the "App Analyzer" app:
-    
-    The App Analyzer provides a comprehensive dashboard to analyze application metadata across a Qlik Sense tenant(s),
-    providing developers and administrators a holistic view of the makeup of all of their applications. 
+
+    For updates and support, please visit https://github.com/qlik-oss/qlik-cloud-app-analyzer
+   
+    The App Analyzer provides comprehensive analysis of Qlik Cloud Analytics application metadata on Qlik Cloud,
+    providing developers and administrators a holistic view of the makeup and usage of their applications. 
 
     This application iterates over application metadata API endpoints and uses additional calls to the quotas, items, 
     and spaces API endpoints.
@@ -34,6 +30,9 @@
     to use this application to track applications against tenant quota limits. The application exposes the data points to
     optimize the applications to keep them under those limits, as well as use trending analysis to anticipate when
     an application might hit a limit.
+    
+    Originally created by:
+    	Daniel Pilla, Qlik
 
     Enjoy!
 
@@ -289,6 +288,7 @@ Sub variables
     Set vAppExportNoNewRecords 				= 0; // Instantiate as zero
     Set vAppContainsLargeAppConsumption 	= 0; // Instantiate as zero
     Set vAppLargeAppConsumeNoNewRecords 	= 0; // Instantiate as zero
+    Set vDeprecatedChartsNoNewRecords 		= 0; // Instantiate as zero
     Let vAppMetadataQVD 					= '$(vOutputQVDName(AppReloadCPUMetadata,$(app_schema_version)))';
     Let vAppExportQVD 						= '$(vOutputQVDName(ExportFromApp,$(app_schema_version)))';
     Let vAppLargeAppsQVD 					= '$(vOutputQVDName(LargeAppConsumption,$(app_schema_version)))';
@@ -1510,6 +1510,195 @@ Sub get_audit_sheet_consumption
     End if;
         
 End Sub
+///$tab Audit Deprecated Charts
+Sub get_audit_deprecated_charts_opened
+
+    Let vCounter = 0;
+    Let vNextURL = '';
+    Let vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
+
+    // Check if DeprecatedChartsOpened QVD exists specifically
+    // This ensures we get full history on first run even if other QVDs exist
+    Let vDeprecatedChartsQVD = '$(vOutputQVDName(DeprecatedChartsOpened,$(app_schema_version)))';
+    Let vDeprecatedChartsQVDExists = If(Len(FileTime('$(vDeprecatedChartsQVD)'))>0,1,0);
+
+    // If this specific QVD doesn't exist, use initial days back to get full history
+    // Otherwise, use incremental logic if other QVDs are available
+    If $(vIncrementalQVDsAvailable)=1 And $(vDeprecatedChartsQVDExists)=1 Then
+        Let vISO_8601_Date_Range =
+            '&eventTime=' &
+            Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) &
+            'T' &
+            Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) &
+            'Z/9999-01-01T00:00:00Z';
+    Else
+    	// First run or QVD doesn't exist - get full history based on initial days back
+        Let vISO_8601_Date_Range =
+            '&eventTime=' &
+            Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) &
+            'T' &
+            Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) &
+            'Z/9999-01-01T00:00:00Z';
+    End If
+
+    // Prepare tables
+    DeprecatedChartsOpened:
+    Load * Inline [DeprecatedChartsAppID];
+
+    DO
+
+        LIB Connect To '$(vu_rest_connection)';
+
+        RestConnectorMasterTable:
+        SQL SELECT
+            "__KEY_root",
+            (SELECT
+                "id",
+                "contentType",
+                "eventId",
+                "eventTime",
+                "eventType",
+                "source",
+                "tenantId",
+                "userId",
+                "sessionId",
+                "__KEY_data",
+                "__FK_data",
+                (SELECT
+                    "appId",
+                    "clientTimeStamp",
+                    "ownerId",
+                    "sheetApproved",
+                    "sheetId",
+                    "sheetPublished",
+                    "sheetTitle",
+                    "timestamp",
+                    "__KEY_data_u0",
+                    "__FK_data_u0",
+                    (SELECT
+                        "chartId",
+                        "chartTitle",
+                        "chartType",
+                        "inContainer",
+                        "__FK_charts"
+                     FROM "charts" FK "__FK_charts")
+                 FROM "data" PK "__KEY_data_u0" FK "__FK_data_u0")
+            FROM "data" PK "__KEY_data" FK "__FK_data"),
+            (SELECT
+                "__KEY_links_u0",
+                "__FK_links_u0",
+                (SELECT
+                    "href" AS "href_u1",
+                    "__FK_next"
+                 FROM "next" FK "__FK_next")
+             FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
+        FROM JSON (wrap on) "root" PK "__KEY_root"
+        WITH CONNECTION (
+            URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=com.qlik/analytics&eventType=com.qlik.v1.analytics.analytics-app-client.deprecated-charts.opened$(vISO_8601_Date_Range)$(vNextURL)"
+        );
+
+        Concatenate(DeprecatedChartsOpened)
+        Load
+            [appId]           AS DeprecatedChartsAppID,
+            [sheetId]         AS DeprecatedChartsSheetID,
+            [sheetTitle]      AS DeprecatedChartsSheetTitle,
+            [sheetApproved]   AS DeprecatedChartsSheetApproved,
+            [sheetPublished]  AS DeprecatedChartsSheetPublished,
+            [ownerId]         AS DeprecatedChartsOwnerID,
+            Timestamp([clientTimeStamp]) AS DeprecatedChartsClientTimeStamp,
+            Timestamp([timestamp])       AS DeprecatedChartsPayloadTimeStamp,
+            [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_DeprecatedChartsTempKey]
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data_u0]);
+
+        [DeprecatedChartsOpenedTemp]:
+        Load
+            [id]       					AS [_IncrementalDeprecatedChartsOpenedID],
+            [eventId]  					AS [DeprecatedChartsEventID],
+            Timestamp([eventTime]) 		AS [DeprecatedChartsEventTime],
+            [userId]   					AS [DeprecatedChartsUserID],
+            [sessionId] 				AS [DeprecatedChartsSessionID],
+            [__KEY_data] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_DeprecatedChartsTempKey]
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_data]);
+
+        [DeprecatedChartsTemp]:
+        Load
+            [chartId]     AS DeprecatedChartID,
+            [chartTitle]  AS DeprecatedChartTitle,
+            [chartType]   AS DeprecatedChartType,
+            [inContainer] AS DeprecatedChartInContainer,
+            [__FK_charts] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_DeprecatedChartsTempKey]
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_charts]);
+
+        [NextURL]:
+        Load
+            [href_u1] AS NextURL
+        Resident RestConnectorMasterTable
+        Where Not IsNull([__FK_next]);
+
+        Drop Table RestConnectorMasterTable;
+
+        Let vNextURL = TextBetween(Peek('NextURL',0,'NextURL'),'&next=',Null());
+
+        IF SubStringCount('$(vNextURL)','&') >= 1 Then
+            Let vNextURL = TextBetween('$(vNextURL)',Null(),'&');
+        END IF
+
+        Let vNextURL = '&next=' & '$(vNextURL)';
+        Let vNextURLRows = NoOfRows('NextURL');
+
+        Drop Table NextURL;
+
+        Let vCounter = $(vCounter) + 1;
+
+    Loop While $(vNextURLRows) > 0;
+    
+    // Join event-level fields onto the parent
+    Left Join (DeprecatedChartsOpened)
+    Load * Resident DeprecatedChartsOpenedTemp;
+
+    Drop Table DeprecatedChartsOpenedTemp;
+
+    // Create denormalized table: one row per chart        
+    Inner Join (DeprecatedChartsOpened)
+    Load * Resident DeprecatedChartsTemp;
+
+    Drop Table DeprecatedChartsTemp;
+        
+    // Incremental QVD handling
+    If $(vIncrementalQVDsAvailable)=1 And NoOfRows('DeprecatedChartsOpened') > 0 Then
+
+        IncrementalDeprecatedChartsOpenedMap:
+        Mapping Load Distinct
+            _IncrementalDeprecatedChartsOpenedID,
+            1
+        Resident DeprecatedChartsOpened;
+
+        Trace Calling load_qvd on DeprecatedChartsOpened;
+        Call load_qvd('DeprecatedChartsOpened');
+
+        Trace Calling store_qvd on DeprecatedChartsOpened;
+        Call store_qvd('DeprecatedChartsOpened');
+
+    ElseIf NoOfRows('DeprecatedChartsOpened') > 0 Then
+
+        // First run or QVD doesn't exist - store all retrieved data
+        Trace Calling store_qvd on DeprecatedChartsOpened;
+        Call store_qvd('DeprecatedChartsOpened');
+
+    Else
+
+        // No new rows: load existing QVD so the model still exists downstream
+        Set vDeprecatedChartsNoNewRecords = 1;
+
+        Trace Calling load_qvd on DeprecatedChartsOpened;
+        Call load_qvd('DeprecatedChartsOpened');
+
+    End If;
+
+End Sub
 ///$tab Audit Export
 Sub get_audit_export_from_app
 
@@ -2497,6 +2686,27 @@ Sub load_qvd (table)
                   Where LargeAppConsumeTime >= Date('$(vMaxSessionAge)');
                   
               End If
+              
+          Elseif '$(table)' = 'DeprecatedChartsOpened' Then
+          
+              If $(vDeprecatedChartsNoNewRecords)<>1 Then
+          
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where ApplyMap('IncrementalDeprecatedChartsOpenedMap',_IncrementalDeprecatedChartsOpenedID)<>1
+                  And DeprecatedChartsEventTime >= Date('$(vMaxSessionAge)');
+                  
+              Else
+              
+                  $(table):
+                  Load Distinct 
+                      * 
+                  From '$(qvd_name)'(qvd)
+                  Where DeprecatedChartsEventTime >= Date('$(vMaxSessionAge)');
+                  
+              End If
           
           Else
           
@@ -2694,7 +2904,10 @@ Sub transform
 
     Spaces:
     Left Keep (Apps)
-    Load * Resident TEMP;
+    Load
+    	*,
+        'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/analytics/catalog?space_filter=' & SpaceID AS SpaceLink
+    Resident TEMP;
 
     Drop Table TEMP;
     
@@ -2854,7 +3067,78 @@ Sub transform
         Resident SheetConsumption;
 
         Drop Table SheetConsumption;
-
+        
+        ////////////////////////////////
+    	// Transform DeprecatedChartsOpened tables before joining
+        // Keep as separate item for easy removal later
+        ////////////////////////////////
+        
+        // Check DeprecatedChartsOpened after QVD loading
+        // The table exists even if empty, so we check row count
+        LET vDeprecatedChartRecords = Alt(NoOfRows('DeprecatedChartsOpened'),0);
+        Trace Processing DeprecatedCharts - DeprecatedChartsOpened has $(vDeprecatedChartRecords) rows;
+        
+        // Transform DeprecatedChartsOpened if table has rows
+        If NoOfRows('DeprecatedChartsOpened') > 0 Then
+        
+            Rename Table DeprecatedChartsOpened To TEMP;
+            
+            DeprecatedChartsOpened:
+            NoConcatenate Load
+                DeprecatedChartsAppID AS AppID,
+                DeprecatedChartsSheetID,
+                DeprecatedChartsSheetTitle,
+                DeprecatedChartsSheetApproved,
+                DeprecatedChartsSheetPublished,
+                DeprecatedChartsOwnerID,
+                If(WildMatch(DeprecatedChartsOwnerID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',DeprecatedChartsOwnerID,'[Unknown]')) 	as DeprecatedChartsOwnerName,
+                If(WildMatch(DeprecatedChartsOwnerID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',DeprecatedChartsOwnerID,'[Unknown]')) 	as DeprecatedChartsOwnerSubject,
+                DeprecatedChartsClientTimeStamp,
+                DeprecatedChartsPayloadTimeStamp,
+                DeprecatedChartsEventID,
+                Timestamp(Timestamp(DeprecatedChartsEventTime) + $(vReloadTimeDiffFromGMT)) as DeprecatedChartsEventTime,
+                IF(DeprecatedChartsEventTime>=$(vLast7Days),1,0)							AS DeprecatedChartsLast7Days,
+                DeprecatedChartsUserID,
+                DeprecatedChartsUserID 														AS SessionUserID,
+                If(WildMatch(DeprecatedChartsUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerName',DeprecatedChartsUserID,'[Deleted]')) 	as DeprecatedChartsUserName,
+                If(WildMatch(DeprecatedChartsUserID,'qau-*'),'[Anonymous User]',ApplyMap('Map_UserID_AppOwnerSubject',DeprecatedChartsUserID,'[Deleted]')) 	as DeprecatedChartsUserSubject,
+                DeprecatedChartsSessionID,
+                DeprecatedChartID,
+                DeprecatedChartTitle,
+                DeprecatedChartType,
+                DeprecatedChartInContainer,
+                _IncrementalDeprecatedChartsOpenedID
+            Resident TEMP
+            Where Date(DeprecatedChartsEventTime + $(vReloadTimeDiffFromGMT))>=Date('$(vInitialDaysBack)');
+            
+            Drop Table TEMP;
+            
+            ////////////////////////////////
+        	// Merging deprecated charts usage to sessions by AppID, UserID, and Timestamp into single table
+            ////////////////////////////////
+            
+            Trace Joining DeprecatedChartsOpened to Consumption;
+            
+            // Join DeprecatedChartsOpened to Consumption using IntervalMatch like SheetConsumption
+            // Match on event time, AppID, and UserID to link to the correct session
+            Left Join(Consumption)
+            IntervalMatch(DeprecatedChartsEventTime, AppID, SessionUserID)
+            LOAD         
+                SessionStartTime,
+                SessionEndTime,
+                AppID,
+                SessionUserID
+            Resident Consumption;
+            
+            Left Join (Consumption)
+            Load *
+            Resident DeprecatedChartsOpened;
+            
+            // Drop DeprecatedChartsOpened immediately after join to prevent synthetic table
+            Drop Table DeprecatedChartsOpened;
+        
+        End If;
+        
 		// Split off into two tables linking on SessionID
         
         SheetConsumptionTemp:
@@ -2901,6 +3185,45 @@ Sub transform
         Order By SessionID Desc, SheetConsumptionEventTime Desc;
         
         Drop Table SheetConsumptionTemp;
+        
+        ////////////////////////////////
+        // Split off DeprecatedChartsOpened into separate table linking on SessionID
+        ////////////////////////////////
+        
+        DeprecatedChartsOpened:
+        Load Distinct
+            SessionID,
+            AppID														AS DeprecatedChartsAppID,
+            AppID & '.' & DeprecatedChartID								AS DeprecatedChartsAppChartID,
+            AppID & '.' & DeprecatedChartsSheetID						AS DeprecatedChartsAppSheetID,
+            'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/'
+            	& AppID & '/sheet/' & DeprecatedChartsSheetID 										AS DeprecatedChartsSheetLink,
+            'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/'
+            	& AppID & '/sheet/' & DeprecatedChartsSheetID & '/chartId/' & DeprecatedChartID 	AS DeprecatedChartsChartLink,
+            DeprecatedChartsSheetID,
+            DeprecatedChartsSheetTitle,
+            DeprecatedChartsSheetApproved,
+            DeprecatedChartsSheetPublished,
+            DeprecatedChartsOwnerID,
+            DeprecatedChartsOwnerName,
+            DeprecatedChartsOwnerSubject,
+            DeprecatedChartsClientTimeStamp,
+            DeprecatedChartsPayloadTimeStamp,
+            DeprecatedChartsLast7Days,
+            DeprecatedChartsEventID,
+            TimeStamp(DeprecatedChartsEventTime,'YYYY-MM-DD hh:mm:ss') 	AS DeprecatedChartsEventTime,
+            DeprecatedChartsUserID,
+            DeprecatedChartsUserName,
+            DeprecatedChartsUserSubject,
+            DeprecatedChartsSessionID,
+            DeprecatedChartID,
+            DeprecatedChartTitle,
+            DeprecatedChartType,
+            DeprecatedChartInContainer,
+            //_IncrementalDeprecatedChartsOpenedID,
+            SessionEndTime 												AS SessionEndTimeTemp
+        Resident Consumption
+        Where Len(DeprecatedChartsEventID)>0;
         
         ////////////////////////////////
     	// Merging app exports to sheet consumption by AppID, UserID, and Timestamp into single table
@@ -3355,7 +3678,6 @@ Sub transform
     End If
      
 End Sub;
-
 ///$tab Calendar
 Sub calendar
 
@@ -3575,7 +3897,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name			= 'App Analyzer';
-Set app_version			= '6.5.1';
+Set app_version			= '6.6.0';
 Set app_schema_version	= 'sv_1.0.1';
 Let comp 				= ComputerName(); 
 Let engine_ver 			= PurgeChar(EngineVersion(),Chr(39)); 
@@ -3585,7 +3907,7 @@ Trace $(startMsg);
 
 Sub load_core_data
     Trace Loading data...;
-    For Each sub_routine in 'get_tenant_metadata','check_license','check_version','get_quota','get_oauth_clients','get_users','get_spaces','get_apps','get_consumption','get_audit_sheet_consumption','get_audit_export_from_app','get_audit_large_app_consumption','app_metadata'
+    For Each sub_routine in 'get_tenant_metadata','check_license','check_version','get_quota','get_oauth_clients','get_users','get_spaces','get_apps','get_consumption','get_audit_sheet_consumption','get_audit_deprecated_charts_opened','get_audit_export_from_app','get_audit_large_app_consumption','app_metadata'
         Call execute_sub(sub_routine)
     Next sub_routine
     
