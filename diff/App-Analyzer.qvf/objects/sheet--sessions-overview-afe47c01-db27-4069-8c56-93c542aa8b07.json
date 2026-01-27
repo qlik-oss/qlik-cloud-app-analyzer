@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-10T18:09:54.794Z",
-    "rank": 2.000000,
+    "rank": 0.000000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/1.png"
@@ -4605,19 +4605,6 @@
         },
         "qMetaDef": {},
         "objects": [
-          {
-            "childRefId": "pWaptPGq",
-            "label": "multi-kpi-css",
-            "bounds": {
-              "height": 7.33842,
-              "width": 50,
-              "x": 25.59347,
-              "y": 5.66158
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
           {
             "childRefId": "pezpcFca",
             "label": "Sessions Table Filter",
@@ -10861,18 +10848,6 @@
             "qExtendsId": "374fb74e-ba95-46c7-9f16-c5d51bb86fa1",
             "qMetaDef": {},
             "childRefId": "pezpcFca"
-          },
-          "qChildren": []
-        },
-        {
-          "qProperty": {
-            "qInfo": {
-              "qId": "ad26a8c8-1155-4bb7-80ef-04678c7a1419",
-              "qType": "childObject"
-            },
-            "qExtendsId": "f0c13afb-6c4b-4a63-9742-83dae0a9441a",
-            "qMetaDef": {},
-            "childRefId": "pWaptPGq"
           },
           "qChildren": []
         }

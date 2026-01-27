@@ -1328,20 +1328,6 @@
   },
   {
     "qInfo": {
-      "qId": "68c8828d-5efe-4f51-bfc1-b5daad74b33d",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "file_size_LargeAppConsumption",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "17208"
-  },
-  {
-    "qInfo": {
       "qId": "50f378c5-8c5a-401d-aeb1-eb244da9b08c",
       "qType": "variable"
     },

@@ -6,13 +6,13 @@
     },
     "qMetaDef": {
       "title": "Deprecated charts",
-      "description": "Occasionally, Qlik needs to deprecate old charts. This sheet tracks events generated when users access sheets containing these charts to make migrating off of these charts easier."
+      "description": "Occasionally, Qlik needs to deprecate old charts. This sheet tracks events generated when users access sheets containing these charts."
     },
     "creationDate": "2026-01-20T15:52:38.076Z",
     "rank": 10.250000,
     "thumbnail": {
       "qStaticContentUrlDef": {
-        "qUrl": "/api/v1/apps/<appId>/media/files/3.png"
+        "qUrl": "/api/v1/apps/<appId>/media/files/sheet_deprecated_charts.png"
       }
     },
     "columns": 50,
@@ -49,13 +49,13 @@
       {
         "name": "CgyJW",
         "type": "kpi",
-        "col": 14,
+        "col": 7,
         "row": 1,
         "colspan": 7,
         "rowspan": 4,
         "bounds": {
+          "x": 14.000000000000002,
           "y": 4,
-          "x": 28.000000000000004,
           "width": 14.000000000000002,
           "height": 16
         }
@@ -77,13 +77,13 @@
       {
         "name": "pkdCJ",
         "type": "kpi",
-        "col": 7,
+        "col": 14,
         "row": 1,
         "colspan": 7,
         "rowspan": 4,
         "bounds": {
+          "x": 28.000000000000004,
           "y": 4,
-          "x": 14.000000000000002,
           "width": 14.000000000000002,
           "height": 16
         }
@@ -315,6 +315,7 @@
                 "cId": "xhNsD",
                 "qScriptGenerated": false
               },
+              "qNullSuppression": true,
               "qOtherTotalSpec": {
                 "qOtherMode": "OTHER_OFF",
                 "qOtherCounted": {
@@ -1105,7 +1106,7 @@
         "showTitles": true,
         "title": {
           "qStringExpression": {
-            "qExpr": "='Deprecated chart events (' \u0026 COUNT(DISTINCT DeprecatedChartsEventID) \u0026 ' events)'"
+            "qExpr": "='Deprecated chart events (' \u0026 COUNT(DISTINCT {\u003cSpaceName={*}\u003e} DeprecatedChartsEventID) \u0026 ' events)'"
           }
         },
         "subtitle": "",
@@ -2728,6 +2729,7 @@
                 "qScriptGenerated": false,
                 "cId": "wRRemT"
               },
+              "qNullSuppression": true,
               "qOtherTotalSpec": {
                 "qOtherMode": "OTHER_OFF",
                 "qOtherCounted": {
@@ -2951,7 +2953,11 @@
           }
         },
         "showTitles": true,
-        "title": "Apps opened with impacted charts",
+        "title": {
+          "qStringExpression": {
+            "qExpr": "='Apps opened with deprecated charts (' \u0026 COUNT(DISTINCT {\u003cSpaceName={*}\u003e} DeprecatedChartsAppID) \u0026 ' apps)'"
+          }
+        },
         "subtitle": {
           "qStringExpression": {
             "qExpr": "'Deprecated charts are logged when a sheet is opened. Removing a chart from an app will not remove events relating to that object, so use the last impacted session date to determine event freshness. Deleted apps are excluded.'"

@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-11T14:16:08.054Z",
-    "rank": 3.000000,
+    "rank": 4.000000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/2.png"
@@ -71,7 +71,18 @@
     "layoutOptions": {
       "mobileLayout": "LIST"
     },
-    "gridMode": "edit"
+    "gridMode": "edit",
+    "components": [
+      {
+        "key": "general",
+        "customCssEnabled": true,
+        "customCss": ".cell .null-value .value {\n    color: #ffffff !important;\n    background: #ffffff !important;\n}\n\n.qv-pt .cell.null-value {\n    background-color: #ffffff;\n}\n\n.qv-st-data-cell-null-value {\n    background-color: #ffffff !important;\n    left: -99999px !important;\n    position: relative !important;\n}\n\n.qv-object-qlik-variable-input {\n    border: none !important;\n}\n\n.qv-object-qlik-variable-input .qv-inner-object {\n\tbackground-color: transparent !important;\n}",
+        "errors": {
+          "parsingErrors": [],
+          "sanitizationErrors": []
+        }
+      }
+    ]
   },
   "qChildren": [
     {
@@ -180,19 +191,6 @@
               "width": 100,
               "x": 0,
               "y": 0
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "pUUNqpPf",
-            "label": "multi-kpi-css",
-            "bounds": {
-              "height": 50,
-              "width": 50,
-              "x": 25,
-              "y": 25
             },
             "condition": {
               "qValueExpression": {}
@@ -1019,18 +1017,6 @@
             },
             "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb",
             "childRefId": "pmGbwHKs"
-          },
-          "qChildren": []
-        },
-        {
-          "qProperty": {
-            "qInfo": {
-              "qId": "a8ba1773-0244-47c5-b8a4-404854f89581",
-              "qType": "childObject"
-            },
-            "qExtendsId": "f0c13afb-6c4b-4a63-9742-83dae0a9441a",
-            "qMetaDef": {},
-            "childRefId": "pUUNqpPf"
           },
           "qChildren": []
         },

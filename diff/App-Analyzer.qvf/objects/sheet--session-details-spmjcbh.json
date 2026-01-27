@@ -9,7 +9,7 @@
       "description": ""
     },
     "creationDate": "2024-06-14T13:52:25.499Z",
-    "rank": 3.5,
+    "rank": 4.250000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/3.png"
@@ -141,7 +141,18 @@
     "layoutOptions": {
       "mobileLayout": "LIST"
     },
-    "gridMode": "edit"
+    "gridMode": "edit",
+    "components": [
+      {
+        "key": "general",
+        "customCssEnabled": false,
+        "customCss": "",
+        "errors": {
+          "parsingErrors": [],
+          "sanitizationErrors": []
+        }
+      }
+    ]
   },
   "qChildren": [
     {
