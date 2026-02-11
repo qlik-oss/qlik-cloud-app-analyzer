@@ -3188,42 +3188,52 @@ Sub transform
         
         ////////////////////////////////
         // Split off DeprecatedChartsOpened into separate table linking on SessionID
+        // Only if DeprecatedChartsEventID exists in Consumption (i.e., deprecated charts data was joined)
         ////////////////////////////////
         
-        DeprecatedChartsOpened:
-        Load Distinct
-            SessionID,
-            AppID														AS DeprecatedChartsAppID,
-            AppID & '.' & DeprecatedChartID								AS DeprecatedChartsAppChartID,
-            AppID & '.' & DeprecatedChartsSheetID						AS DeprecatedChartsAppSheetID,
-            'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/'
-            	& AppID & '/sheet/' & DeprecatedChartsSheetID 										AS DeprecatedChartsSheetLink,
-            'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/'
-            	& AppID & '/sheet/' & DeprecatedChartsSheetID & '/chartId/' & DeprecatedChartID 	AS DeprecatedChartsChartLink,
-            DeprecatedChartsSheetID,
-            DeprecatedChartsSheetTitle,
-            DeprecatedChartsSheetApproved,
-            DeprecatedChartsSheetPublished,
-            DeprecatedChartsOwnerID,
-            DeprecatedChartsOwnerName,
-            DeprecatedChartsOwnerSubject,
-            DeprecatedChartsClientTimeStamp,
-            DeprecatedChartsPayloadTimeStamp,
-            DeprecatedChartsLast7Days,
-            DeprecatedChartsEventID,
-            TimeStamp(DeprecatedChartsEventTime,'YYYY-MM-DD hh:mm:ss') 	AS DeprecatedChartsEventTime,
-            DeprecatedChartsUserID,
-            DeprecatedChartsUserName,
-            DeprecatedChartsUserSubject,
-            DeprecatedChartsSessionID,
-            DeprecatedChartID,
-            DeprecatedChartTitle,
-            DeprecatedChartType,
-            DeprecatedChartInContainer,
-            //_IncrementalDeprecatedChartsOpenedID,
-            SessionEndTime 												AS SessionEndTimeTemp
-        Resident Consumption
-        Where Len(DeprecatedChartsEventID)>0;
+        If FieldNumber('DeprecatedChartsEventID','Consumption') > 0 Then
+        
+          DeprecatedChartsOpened:
+          Load Distinct
+              SessionID,
+              AppID														AS DeprecatedChartsAppID,
+              AppID & '.' & DeprecatedChartID								AS DeprecatedChartsAppChartID,
+              AppID & '.' & DeprecatedChartsSheetID						AS DeprecatedChartsAppSheetID,
+              'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/'
+                  & AppID & '/sheet/' & DeprecatedChartsSheetID 										AS DeprecatedChartsSheetLink,
+              'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/'
+                  & AppID & '/sheet/' & DeprecatedChartsSheetID & '/chartId/' & DeprecatedChartID 	AS DeprecatedChartsChartLink,
+              DeprecatedChartsSheetID,
+              DeprecatedChartsSheetTitle,
+              DeprecatedChartsSheetApproved,
+              DeprecatedChartsSheetPublished,
+              DeprecatedChartsOwnerID,
+              DeprecatedChartsOwnerName,
+              DeprecatedChartsOwnerSubject,
+              DeprecatedChartsClientTimeStamp,
+              DeprecatedChartsPayloadTimeStamp,
+              DeprecatedChartsLast7Days,
+              DeprecatedChartsEventID,
+              TimeStamp(DeprecatedChartsEventTime,'YYYY-MM-DD hh:mm:ss') 	AS DeprecatedChartsEventTime,
+              DeprecatedChartsUserID,
+              DeprecatedChartsUserName,
+              DeprecatedChartsUserSubject,
+              DeprecatedChartsSessionID,
+              DeprecatedChartID,
+              DeprecatedChartTitle,
+              DeprecatedChartType,
+              DeprecatedChartInContainer,
+              //_IncrementalDeprecatedChartsOpenedID,
+              SessionEndTime 												AS SessionEndTimeTemp
+          Resident Consumption
+          Where Len(DeprecatedChartsEventID)>0;
+          
+        Else
+        
+            // No deprecated charts data available — drop the empty placeholder table
+            Drop Table DeprecatedChartsOpened;
+        
+        End If;
         
         ////////////////////////////////
     	// Merging app exports to sheet consumption by AppID, UserID, and Timestamp into single table

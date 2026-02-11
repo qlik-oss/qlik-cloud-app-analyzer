@@ -237,11 +237,7 @@
     "layoutOptions": {
       "mobileLayout": "LIST"
     },
-    "labelExpression": {
-      "qStringExpression": {
-        "qExpr": "If($(vu_track_app_meta_over_time),'Rolling Analysis','Rolling analysis has not been enabled.')"
-      }
-    },
+    "labelExpression": "",
     "gridMode": "edit",
     "customRowBase": 24,
     "showCondition": {

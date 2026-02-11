@@ -1455,5 +1455,33 @@
       "qUseThou": 0
     },
     "qDefinition": "0"
+  },
+  {
+    "qInfo": {
+      "qId": "6ce9f6ae-e9ab-4aa4-9bde-156cd59efdd6",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "file_size",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "12171"
+  },
+  {
+    "qInfo": {
+      "qId": "f954abe1-2b66-4f28-aae6-65a8fd042bcc",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "loaded_app_ids",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "lib://:DataFiles/app_analyzer_AppRAM_sv_1.0.1.qvd"
   }
 ]
