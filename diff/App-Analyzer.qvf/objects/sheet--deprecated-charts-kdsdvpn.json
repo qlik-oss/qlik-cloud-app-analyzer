@@ -6,10 +6,10 @@
     },
     "qMetaDef": {
       "title": "Deprecated charts",
-      "description": "Occasionally, Qlik needs to deprecate old charts. This sheet tracks events generated when users access sheets containing these charts."
+      "description": "Find deprecated chart objects using events generated when users open sheets."
     },
     "creationDate": "2026-02-11T17:28:58.792Z",
-    "rank": 10.25,
+    "rank": 10.250000,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/sheet_dep_charts.png"
@@ -188,7 +188,7 @@
                 "qLabel": "Impacted apps",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT(DISTINCT DeprecatedChartsAppID)",
+                "qDef": "COUNT({\u003cSpaceName={*}\u003e}DISTINCT DeprecatedChartsAppID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -253,7 +253,7 @@
                 "qLabel": "Last 7 days",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1}\u003e}DISTINCT DeprecatedChartsAppID)",
+                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1},SpaceName={*}\u003e}DISTINCT DeprecatedChartsAppID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -411,7 +411,7 @@
                 "qLabel": "Impacted sheets",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT(DISTINCT DeprecatedChartsAppSheetID)",
+                "qDef": "COUNT({\u003cSpaceName={*}\u003e}DISTINCT DeprecatedChartsAppSheetID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -476,7 +476,7 @@
                 "qLabel": "Last 7 days",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1}\u003e}DISTINCT DeprecatedChartsAppSheetID)",
+                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1},SpaceName={*}\u003e}DISTINCT DeprecatedChartsAppSheetID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -634,7 +634,7 @@
                 "qLabel": "Impacted users",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT(DISTINCT DeprecatedChartsUserID)",
+                "qDef": "COUNT({\u003cSpaceName={*}\u003e}DISTINCT DeprecatedChartsUserID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -699,7 +699,7 @@
                 "qLabel": "Last 7 days",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1}\u003e}DISTINCT DeprecatedChartsUserID)",
+                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1},SpaceName={*}\u003e}DISTINCT DeprecatedChartsUserID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -857,7 +857,7 @@
                 "qLabel": "Impacted charts",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT(DISTINCT DeprecatedChartsAppChartID)",
+                "qDef": "COUNT({\u003cSpaceName={*}\u003e}DISTINCT DeprecatedChartsAppChartID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -922,7 +922,7 @@
                 "qLabel": "Last 7 days",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1}\u003e}DISTINCT DeprecatedChartsAppChartID)",
+                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1},SpaceName={*}\u003e}DISTINCT DeprecatedChartsAppChartID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -1080,7 +1080,7 @@
                 "qLabel": "Impacted sessions",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT(DISTINCT DeprecatedChartsSessionID)",
+                "qDef": "COUNT({\u003cSpaceName={*}\u003e}DISTINCT DeprecatedChartsSessionID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -1145,7 +1145,7 @@
                 "qLabel": "Last 7 days",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1}\u003e}DISTINCT DeprecatedChartsSessionID)",
+                "qDef": "COUNT({\u003cDeprecatedChartsLast7Days={1},SpaceName={*}\u003e}DISTINCT DeprecatedChartsSessionID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -1361,7 +1361,7 @@
                 "qLabel": "Impacted apps",
                 "qTags": [],
                 "qGrouping": "N",
-                "qDef": "Count(DISTINCT DeprecatedChartsAppID)",
+                "qDef": "Count({\u003cSpaceName={*}\u003e}DISTINCT DeprecatedChartsAppID)",
                 "qNumFormat": {
                   "qType": "U",
                   "qnDec": 10,
@@ -3256,7 +3256,7 @@
             "showTitles": true,
             "title": {
               "qStringExpression": {
-                "qExpr": "='Deprecated charts (' \u0026 count(distinct DeprecatedChartID) \u0026 ' instances)' "
+                "qExpr": "='Deprecated charts (' \u0026 count({\u003cSpaceName={*}\u003e}distinct DeprecatedChartID) \u0026 ' instances)' "
               }
             },
             "subtitle": {
