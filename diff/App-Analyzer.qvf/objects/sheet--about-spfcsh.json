@@ -8,7 +8,7 @@
       "title": "About",
       "description": ""
     },
-    "rank": 12,
+    "rank": 11,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/9.png"
@@ -88,16 +88,30 @@
         }
       },
       {
-        "name": "ERptU",
-        "type": "sn-layout-container",
+        "name": "SwnBr",
+        "type": "filterpane",
         "col": 0,
         "row": 0,
-        "colspan": 48,
+        "colspan": 3,
         "rowspan": 1,
         "bounds": {
           "y": 0,
           "x": 0,
-          "width": 100,
+          "width": 6.25,
+          "height": 4.166666666666666
+        }
+      },
+      {
+        "name": "vkZbNxS",
+        "type": "sn-nav-menu",
+        "col": 3,
+        "row": 0,
+        "colspan": 45,
+        "rowspan": 1,
+        "bounds": {
+          "y": 0,
+          "x": 6.25,
+          "width": 93.75,
           "height": 4.166666666666666
         }
       }
@@ -252,7 +266,7 @@
         ],
         "visualization": "sn-text",
         "version": "1.1.1",
-        "text": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 20px;\",\"text\":\"The App Analyzer is an application designed for Qlik Cloud to track and analyze application metadata and session usage within a tenant. \",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"expressionId\":\"vBAQJ\",\"formatStyle\":{\"fontWeight\":\"\",\"fontStyle\":\"italic\",\"textDecoration\":\"\",\"color\":\"#ac4d58\",\"fontSize\":\"14px\",\"fontFamily\":\"\"},\"type\":\"qlik.expression.node\",\"version\":1},{\"detail\":0,\"format\":2,\"mode\":\"normal\",\"style\":\"font-size: 14px;color: #ac4d58;\",\"text\":\" \",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Some of the benefits of this application are as follows:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Track app, table, field, and reload memory footprints against tenant quotas.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Monitor number of fields, tables, synthetic keys, and data islands to help enforce best practices and identify candidates for optimization.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Compare current month vs prior month session usage\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Discover what users are using what applications and when\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Tie in Qlik Alerting to be notified of desired metrics\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    This application:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - pulls a max of 90 days of user session history, and will then continue to build from there incrementally using QVDs.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - should not be used as an audit application.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Endpoints:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/overview - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/consumption - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     audits - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     tenants - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     quotas - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     spaces - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     users - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     oauth-clients - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     items - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     apps/{id}/data/metadata - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+        "text": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"font-size: 20px;\",\"text\":\"The App Analyzer is an application designed for Qlik Cloud to track and analyze application metadata and session usage within a tenant. \",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"expressionId\":\"vBAQJ\",\"formatStyle\":{\"fontWeight\":\"\",\"fontStyle\":\"italic\",\"textDecoration\":\"\",\"color\":\"#ac4d58\",\"fontSize\":\"14px\",\"fontFamily\":\"\"},\"type\":\"qlik.expression.node\",\"version\":1},{\"detail\":0,\"format\":2,\"mode\":\"normal\",\"style\":\"font-size: 14px;color: #ac4d58;\",\"text\":\" \",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Some of the benefits of this application are as follows:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Track app, table, field, and reload memory footprints against tenant quotas.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Monitor number of fields, tables, synthetic keys, and data islands to help enforce best practices and identify candidates for optimization.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Compare current month vs prior month session usage\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Discover what users are using what applications and when\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Understand which in-use applications contain charts which have been deprecated by Qlik\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - Tie in Qlik Alerting to be notified of desired metrics\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    This application:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - pulls a max of 90 days of user session history, and will then continue to build from there incrementally using QVDs.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     - should not be used as an audit application.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"    Endpoints:\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/overview - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     licenses/consumption - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     audits - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     tenants - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     quotas - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     spaces - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     users - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     oauth-clients - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     items - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"font-size: 14px;\",\"text\":\"     apps/{id}/data/metadata - public\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
         "fontsUsed": [],
         "extensionMeta": {
           "translationKey": "",
@@ -1385,1472 +1399,942 @@
     {
       "qProperty": {
         "qInfo": {
-          "qId": "ERptU",
-          "qType": "sn-layout-container"
+          "qId": "SwnBr",
+          "qType": "filterpane"
         },
+        "qExtendsId": "3de4d8e4-940d-406c-8042-1bc821620999",
         "qMetaDef": {},
-        "objects": [
-          {
-            "childRefId": "pkjkYeUp",
-            "label": "Filter",
-            "bounds": {
-              "height": 65,
-              "width": 2,
-              "x": 4,
-              "y": 16
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "ppEQuMu",
-            "label": "Filter Pane",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 0.5,
-              "y": 5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "YuvcpET",
-            "label": "Sessions Overview",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 10.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "pnPqcqCG",
-            "label": "Session Time Analysis",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 20.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "pFTjTTbf",
-            "label": "Session Details",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 30.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "PRkqMsa",
-            "label": "App Metadata Analysis",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 40.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "pDACYrvv",
-            "label": "Threshold Analysis",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 50.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "HdpJSNx",
-            "label": "App Analysis",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 60.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "pCsnPqZp",
-            "label": "App RAM to Quota",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 70.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "pwPyGNmL",
-            "label": "Rolling Analysis",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 80.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          },
-          {
-            "childRefId": "BrrMHLk",
-            "label": "About",
-            "bounds": {
-              "height": 100,
-              "width": 9,
-              "x": 90.5,
-              "y": -0.5
-            },
-            "condition": {
-              "qValueExpression": {}
-            }
-          }
-        ],
-        "showTitles": false,
-        "title": "",
-        "subtitle": "",
-        "footnote": "",
-        "disableNavMenu": true,
-        "showDetails": false,
-        "showDetailsExpression": false,
-        "components": [
-          {
-            "key": "general",
-            "bgColor": {
-              "color": {
-                "index": -1,
-                "color": "#f2f2f2",
-                "alpha": 1
-              }
-            },
-            "borderWidth": "0px"
-          }
-        ],
-        "constrainToContainer": false,
-        "showGridLines": false,
-        "gridRowCount": 24,
-        "gridColumnCount": 36,
-        "snapToGrid": false,
-        "visualization": "sn-layout-container",
-        "qChildListDef": {
-          "qData": {
-            "visualization": "/visualization",
-            "qExtendsId": "/qExtendsId",
-            "title": "/title",
-            "childRefId": "/childRefId"
-          }
-        },
-        "version": "3.6.1",
-        "extensionMeta": {
-          "translationKey": "",
-          "icon": "layout-container",
-          "iconChar": "puzzle",
-          "isLibraryItem": true,
-          "visible": true,
-          "IconDefinition": {},
-          "name": "Layout container",
-          "description": "The layout container object has a canvas that can hold multiple objects. In this container you can freely move objects around, as well as position the objects on top of each other or overlapping.",
-          "template": "sn-layout-container",
-          "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
-          "isThirdParty": true,
-          "version": "3.11.2",
-          "author": "QlikTech International AB",
-          "type": "visualization",
-          "supernova": true,
-          "bundle": {
-            "id": "qlik-dashboard-bundle",
-            "name": "Qlik Dashboard bundle",
-            "description": "This is a set of supported objects that will facilitate dashboard creation in Qlik Sense. These can be used in addition to the objects found under \"Charts\".\n\nFor limitations and support conditions, see the documentation."
-          },
-          "installer": "QlikExtensionBundler",
-          "folder": "_dashboard-bundle"
-        },
-        "masterVersion": 0.96
+        "childRefId": "ppEQuMu"
       },
       "qChildren": [
         {
           "qProperty": {
             "qInfo": {
-              "qId": "189ba1b7-2fb7-4a73-81c3-8a0f4d946f21",
-              "qType": "action-button"
+              "qId": "f3e2c08c-ab32-40f1-847e-58366b8920a5",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "='2431c922-8614-4f8a-a456-9bc151ad17db'"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "30075aec-11f9-4443-9d4f-07c152c5ca22",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "DmMdwpe"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Space Type",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "Session Time Analysis",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('2431c922-8614-4f8a-a456-9bc151ad17db'),RGB(255,255,255),RGB(89,89,89))"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "#a9b3b6",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('2431c922-8614-4f8a-a456-9bc151ad17db'),RGB(30,153,69),RGB(242,242,242))"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px",
-                "shadow": {
-                  "boxShadow": "none"
-                }
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "pnPqcqCG"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "afb51f78-f522-45d6-8754-fc831adb485f",
-              "qType": "action-button"
+              "qId": "1c2b1bb1-363f-45f4-a19f-028400a15b66",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "='afe47c01-db27-4069-8c56-93c542aa8b07'"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "jTp",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "fbaZpHp"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Space Name",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "Sessions Overview",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('afe47c01-db27-4069-8c56-93c542aa8b07'),RGB(255,255,255),RGB(89,89,89))"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 0,
-                  "color": "none",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('afe47c01-db27-4069-8c56-93c542aa8b07'),RGB(30,153,69),RGB(242,242,242))\r\n"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderWidth": "0px",
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                }
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "YuvcpET",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "eb927353-dbd9-45e8-9d01-4607bd1656f1",
-              "qType": "action-button"
+              "qId": "199bbc86-a46d-4c28-8666-8de7c14243e7",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "=If((vu_app_metadata_initial_days_back)=-1,'27d084e4-5183-48c5-8cc8-6278d3cf113a',Null())"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "QdDYzE",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "KvPaDy"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "App ID",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "App Metadata Analysis",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If((vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
-                  }
-                },
-                "size": 0.85,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 9,
-                  "color": "#a16090",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If((vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27d084e4-5183-48c5-8cc8-6278d3cf113a'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px"
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "PRkqMsa",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "0d3fab30-aa7a-43dc-982c-b788eb6dde5f",
-              "qType": "action-button"
+              "qId": "99bd3128-9e53-4ee0-a40a-2e801667359b",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'27ca845c-0cce-4406-bacd-774a362b3485',Null())"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "ntCpRT",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "KdQZPpS"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Session Had Export",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "Threshold Analysis",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 9,
-                  "color": "#a16090",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('27ca845c-0cce-4406-bacd-774a362b3485'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px"
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "pDACYrvv",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "11addcb3-1d9f-4431-a859-98c54e9917e8",
-              "qType": "action-button"
+              "qId": "27130491-f3ae-48ca-9202-05352a47c9a7",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'95b87163-9d1b-4067-8083-1cf5ba496601',Null())"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "UzSkZx",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "CPDLMp"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "App Name",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "App Analysis",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 9,
-                  "color": "#a16090",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('95b87163-9d1b-4067-8083-1cf5ba496601'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px"
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "HdpJSNx",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "e0de57c4-7981-45a1-b3bb-3a2f5659d526",
-              "qType": "action-button"
+              "qId": "15a61cd0-0c84-4d8b-83ed-fd720a345336",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'08d57bbb-e093-440a-9c84-3c078804f593',Null())"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "94a77138-5887-41ce-8774-69abed2dfb88",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": -1,
+                    "qSortByAscii": -1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": false,
+                "cId": "DGPW"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Session Date",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "App RAM to Quota",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 9,
-                  "color": "#a16090",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('08d57bbb-e093-440a-9c84-3c078804f593'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px"
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "pCsnPqZp",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "73071a50-e8de-4a92-a634-290527e6b3a4",
-              "qType": "action-button"
+              "qId": "91f4b471-7eac-4ccf-a5be-95ddcd47d3f1",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "=If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,'15665f10-262e-47bf-aaaf-b1181e5c6018',Null())"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "fKStPS",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": false,
+                "cId": "ALQnrLj"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Session Month",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "Rolling Analysis",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(255,255,255),RGB(89,89,89)),\n    RGB(230,230,230)\n)"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 9,
-                  "color": "#a16090",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If($(vu_slim_version_for_anonymous)\u003c\u003e1 AND (vu_app_metadata_initial_days_back)=-1,\r\n\tIf(InObject('15665f10-262e-47bf-aaaf-b1181e5c6018'),RGB(30,153,69),RGB(242,242,242)),\n    RGB(121,121,121)\n)"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px"
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "pwPyGNmL",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "36440afe-4c7f-4ec0-9e0a-8c64a4cec35d",
-              "qType": "action-button"
+              "qId": "63339306-4c83-45ed-b812-1e8057bef171",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "='SpMjcBH'"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "mNDra",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": -1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": false,
+                "cId": "KwJeppJ"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Session Year",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "Session Details",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('SpMjcBH'),RGB(255,255,255),RGB(89,89,89))"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 9,
-                  "color": "#a16090",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('SpMjcBH'),RGB(30,153,69),RGB(242,242,242))"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px"
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb",
-            "masterVersion": 0.96,
-            "childRefId": "pFTjTTbf"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "6d1d6b8f-c07c-42a3-a3f1-cdb826145c45",
-              "qType": "action-button"
+              "qId": "e0dc5ba3-8459-460c-9333-445016d19433",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "runtimeExpressionEvaluation": false,
-            "actions": [],
-            "navigation": {
-              "action": "goToSheet",
-              "appId": "",
-              "sheet": {
-                "qStringExpression": {
-                  "qExpr": "='SpfcSh'"
-                }
+            "qListObjectDef": {
+              "qLibraryId": "9423292c-8c7d-47ac-a409-1105c71d3e01",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": false,
+                "cId": "Asjyr"
               },
-              "chartId": "",
-              "story": "",
-              "websiteUrl": "",
-              "sameWindow": false,
-              "odagLink": ""
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "useEnabledCondition": false,
-            "enabledCondition": 1,
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Session Timeframe",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "style": {
-              "label": "About",
-              "showLabel": true,
-              "icon": {
-                "useIcon": false,
-                "iconType": "",
-                "position": "left"
-              },
-              "font": {
-                "fontFamily": "Source Sans Pro",
-                "useColorExpression": true,
-                "color": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('SpfcSh'),RGB(255,255,255),RGB(89,89,89))"
-                  }
-                },
-                "size": 0.7,
-                "sizeFixed": "12",
-                "sizeBehavior": "fixed",
-                "style": {
-                  "bold": true,
-                  "italic": false,
-                  "underline": false
-                },
-                "align": "center"
-              },
-              "background": {
-                "useColorExpression": true,
-                "color": {
-                  "index": 9,
-                  "color": "#a16090",
-                  "alpha": 1
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "If(InObject('SpfcSh'),RGB(30,153,69),RGB(242,242,242))"
-                  }
-                },
-                "mode": "none",
-                "useImage": false,
-                "url": {
-                  "qStaticContentUrlDef": {}
-                },
-                "size": "auto",
-                "position": "centerCenter"
-              },
-              "border": {
-                "useColorExpression": true,
-                "color": {
-                  "index": -1,
-                  "color": "none"
-                },
-                "colorExpression": {
-                  "qStringExpression": {
-                    "qExpr": "RGB(89,89,89)"
-                  }
-                },
-                "useBorder": true,
-                "radius": 1,
-                "width": 0.11
-              }
-            },
-            "components": [
-              {
-                "key": "general",
-                "borderRadius": "0px",
-                "bgColor": {
-                  "color": {
-                    "index": 0,
-                    "color": "none",
-                    "alpha": 1
-                  }
-                },
-                "borderColor": {
-                  "index": 1,
-                  "color": "#ffffff",
-                  "alpha": 1
-                },
-                "borderWidth": "0px"
-              }
-            ],
-            "visualization": "action-button",
-            "version": "1.42.1",
-            "childRefId": "BrrMHLk",
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "07635f30-56a2-44a9-92fa-b348b812fb19",
-              "qType": "childObject"
+              "qId": "9248fe0b-0aaa-414e-b344-030cc4e84f6e",
+              "qType": "listbox"
             },
-            "qExtendsId": "3de4d8e4-940d-406c-8042-1bc821620999",
             "qMetaDef": {},
-            "childRefId": "ppEQuMu"
+            "qListObjectDef": {
+              "qLibraryId": "79f9610e-9ecf-4f4f-b580-6150e085d209",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "aTbNSS"
+              },
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
+            },
+            "showTitles": true,
+            "title": "Session User Name",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": false,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         },
         {
           "qProperty": {
             "qInfo": {
-              "qId": "a22c8b44-ea6b-41fe-aab3-c5853970b384",
-              "qType": "sn-text"
+              "qId": "0f429d1a-8835-4df6-9a8c-733c3d5b79df",
+              "qType": "listbox"
             },
             "qMetaDef": {},
-            "qHyperCubeDef": {
-              "qDimensions": [],
-              "qMeasures": [],
-              "qInterColumnSortOrder": [],
-              "qSuppressMissing": true,
-              "qInitialDataFetch": [
-                {
-                  "qLeft": 0,
-                  "qTop": 0,
-                  "qWidth": 500,
-                  "qHeight": 10
-                }
-              ],
-              "qReductionMode": "N",
-              "qMode": "S",
-              "qPseudoDimPos": -1,
-              "qNoOfLeftDims": -1,
-              "qMaxStackedCells": 5000,
-              "qCalcCond": {},
-              "qTitle": {},
-              "qCalcCondition": {
-                "qCond": {},
-                "qMsg": {}
+            "qListObjectDef": {
+              "qLibraryId": "0d423085-715e-4e84-9b5e-66effe13c4b8",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "egNEBL"
               },
-              "qColumnOrder": [],
-              "qExpansionState": [],
-              "qDynamicScript": [],
-              "qLayoutExclude": {
-                "qHyperCubeDef": {
-                  "qDimensions": [],
-                  "qMeasures": [],
-                  "qInterColumnSortOrder": [],
-                  "qInitialDataFetch": [],
-                  "qReductionMode": "N",
-                  "qMode": "S",
-                  "qPseudoDimPos": -1,
-                  "qNoOfLeftDims": -1,
-                  "qMaxStackedCells": 5000,
-                  "qCalcCond": {},
-                  "qTitle": {},
-                  "qCalcCondition": {
-                    "qCond": {},
-                    "qMsg": {}
-                  },
-                  "qColumnOrder": [],
-                  "qExpansionState": [],
-                  "qDynamicScript": []
-                }
-              }
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
             },
-            "script": "",
-            "showTitles": false,
-            "title": "",
+            "showTitles": true,
+            "title": "Session User Subject",
             "subtitle": "",
             "footnote": "",
-            "disableNavMenu": true,
-            "showDetails": false,
+            "disableNavMenu": false,
+            "showDetails": true,
             "showDetailsExpression": false,
-            "components": [
-              {
-                "key": "general",
-                "borderWidth": "0px",
-                "borderRadius": "0px",
-                "bgImage": {
-                  "mode": "media",
-                  "mediaUrl": {
-                    "qStaticContentUrlDef": {
-                      "qUrl": "/api/v1/apps/<appId>/media/files/filter-44.png"
-                    }
-                  },
-                  "sizing": "fitHeight"
-                }
-              }
-            ],
-            "visualization": "sn-text",
-            "version": "1.1.4",
-            "text": "{\"root\":{\"children\":[{\"children\":[],\"direction\":null,\"format\":\"center\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-            "fontsUsed": [],
-            "extensionMeta": {
-              "translationKey": "",
-              "icon": "text-object",
-              "iconChar": "puzzle",
-              "isLibraryItem": true,
-              "visible": true,
-              "IconDefinition": {},
-              "name": "Text",
-              "description": "Display text, links, and measures. Add tables with rows and columns. Format and color the text. Add background image and color.",
-              "template": "sn-text",
-              "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
-              "isThirdParty": true,
-              "version": "1.1.4",
-              "author": "QlikTech International AB",
-              "type": "visualization",
-              "supernova": true,
-              "bundle": {
-                "id": "qlik-dashboard-bundle",
-                "name": "Qlik Dashboard bundle",
-                "description": "This is a set of supported objects that will facilitate dashboard creation in Qlik Sense. These can be used in addition to the objects found under \"Charts\".\n\nFor limitations and support conditions, see the documentation."
-              },
-              "installer": "QlikExtensionBundler",
-              "folder": "_dashboard-bundle"
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "402d403e-bb0a-47d1-a8a4-a5aa0ef5b0fc",
+              "qType": "listbox"
             },
-            "appId": "3fe95563-364b-406a-8f6e-de72cf747cfb",
-            "childRefId": "pkjkYeUp"
+            "qMetaDef": {},
+            "qListObjectDef": {
+              "qLibraryId": "a144c88f-45e4-439e-877b-e39a7c1d5ad5",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "jQPrBK"
+              },
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
+            },
+            "showTitles": true,
+            "title": "Session User ID",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": false,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "06de5e45-3aeb-40c2-97fe-d90f043f4abd",
+              "qType": "listbox"
+            },
+            "qMetaDef": {},
+            "qListObjectDef": {
+              "qLibraryId": "264eed3d-54a5-4b1e-8672-b16571683f59",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "LHLUS"
+              },
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
+            },
+            "showTitles": true,
+            "title": "Large App Consume",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": false,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "39df7a43-ce06-4228-9603-f6545af1086a",
+              "qType": "listbox"
+            },
+            "qMetaDef": {},
+            "qListObjectDef": {
+              "qLibraryId": "mCJtwpq",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "uqmqqa"
+              },
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
+            },
+            "showTitles": true,
+            "title": "Large App Consume Is Denied",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": false,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "7a78f1c8-df27-4c91-98ec-bc6bd937d522",
+              "qType": "listbox"
+            },
+            "qMetaDef": {},
+            "qListObjectDef": {
+              "qLibraryId": "zppEW",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "FeTUyJb"
+              },
+              "qFrequencyMode": "V",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
+            },
+            "showTitles": true,
+            "title": "App Not Accessed In Over 30 Days",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": false,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            },
+            "histogram": false,
+            "frequencyMax": null
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "2a399b5b-95d9-4964-bc33-9642072effc3",
+              "qType": "listbox"
+            },
+            "qMetaDef": {},
+            "qListObjectDef": {
+              "qLibraryId": "458248be-2be2-46ae-83dd-1114997a1c4c",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "mAhyms"
+              },
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
+            },
+            "showTitles": true,
+            "title": "App Not Accessed In Over 60 Days",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": false,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
+          },
+          "qChildren": []
+        },
+        {
+          "qProperty": {
+            "qInfo": {
+              "qId": "f434fd06-fb63-44d6-9530-0006815c0dbf",
+              "qType": "listbox"
+            },
+            "qMetaDef": {},
+            "qListObjectDef": {
+              "qLibraryId": "f7de35bb-4c6f-4c9c-8e75-80720646c4f8",
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [],
+                "qFieldLabels": [],
+                "qSortCriterias": [
+                  {
+                    "qSortByState": 1,
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "BGPXZ"
+              },
+              "qFrequencyMode": "N",
+              "qShowAlternatives": true,
+              "qInitialDataFetch": [],
+              "qExpressions": [],
+              "showTitles": true,
+              "title": "",
+              "subtitle": "",
+              "footnote": "",
+              "disableNavMenu": false,
+              "showDetails": true,
+              "showDetailsExpression": false,
+              "qOtherTotalSpec": {}
+            },
+            "showTitles": true,
+            "title": "App Not Accessed In Over 90 Days",
+            "subtitle": "",
+            "footnote": "",
+            "disableNavMenu": false,
+            "showDetails": true,
+            "showDetailsExpression": false,
+            "visualization": "listbox",
+            "layoutOptions": {
+              "dense": true
+            }
           },
           "qChildren": []
         }
       ]
+    },
+    {
+      "qProperty": {
+        "qInfo": {
+          "qId": "vkZbNxS",
+          "qType": "sn-nav-menu"
+        },
+        "qExtendsId": "b6a7ebd3-3fa6-41e0-bb33-946ab6c6d8c7",
+        "qMetaDef": {}
+      },
+      "qChildren": []
     }
   ]
 }
