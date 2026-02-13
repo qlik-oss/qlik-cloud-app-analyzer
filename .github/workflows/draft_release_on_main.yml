@@ -1,10 +1,12 @@
 name: Build a draft release
 
 on:
-  push:
-    branches: [ "main" ]
-
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0)'
+        required: true
+        type: string
   
 jobs:
   create-release:
@@ -14,7 +16,7 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }} && ${{ github.actor != 'renovate[bot]' }}  
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Retrieve app name & assets from config
         run: |
@@ -32,7 +34,8 @@ jobs:
       - name: Draft a release
         uses: softprops/action-gh-release@v2
         with:
-          name: ${{ env.RELVER }}
+          tag_name: ${{ inputs.tag }}
+          name: ${{ env.APPNAME }} ${{ inputs.tag }}
           body: |
             **!Important - review then remove this top section**
 
