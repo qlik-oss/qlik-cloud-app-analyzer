@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0). If provided, creates a draft release. If omitted, runs PR comment and unbuild jobs.'
+        required: false
+        type: string
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_dispatch' || !inputs.tag }}
+    uses: qlik-oss/qlik-cloud-monitoring-app-workflows/.github/workflows/comment_checklist_pr.yml@v0.1.0
+    permissions:
+      contents: write
+      pull-requests: write
+    secrets: inherit
+
+  unbuild:
+    if: ${{ github.event_name != 'workflow_dispatch' || !inputs.tag }}
+    uses: qlik-oss/qlik-cloud-monitoring-app-workflows/.github/workflows/unbuild_app.yml@v0.1.0
+    permissions:
+      contents: write
+    secrets: inherit
+
+  create-release:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.tag }}
+    uses: qlik-oss/qlik-cloud-monitoring-app-workflows/.github/workflows/draft_release_on_main.yml@v0.1.0
+    with:
+      tag: ${{ inputs.tag }}
+    permissions:
+      contents: write
+    secrets: inherit
