@@ -1250,7 +1250,7 @@
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "8009"
+    "qDefinition": "7396"
   },
   {
     "qInfo": {
@@ -1455,5 +1455,19 @@
       "qUseThou": 0
     },
     "qDefinition": "0"
+  },
+  {
+    "qInfo": {
+      "qId": "07950c7f-44d4-4f7d-bb43-8ddfd693b9b9",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "file_size_LargeAppConsumption",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "9053"
   }
 ]
