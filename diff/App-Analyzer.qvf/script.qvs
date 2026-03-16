@@ -3050,23 +3050,32 @@ Sub transform
         Drop Table ConsumptionMinutesTemp;
                 
         ////////////////////////////////
+    	// Narrow session lookup for IntervalMatch operations
+        // Avoids inflating the wide Consumption table with event data
+        ////////////////////////////////
+        
+        _SessionLookup:
+        NoConcatenate Load Distinct
+            SessionID,
+            SessionStartTime,
+            SessionEndTime,
+            AppID,
+            SessionUserID,
+            SessionUserIDTemp
+        Resident Consumption;
+                
+        ////////////////////////////////
     	// Merging sheet usage to sessions by AppID, UserID, and Timestamp into single table
         ////////////////////////////////
         
-        Left Join(Consumption)
+        Left Join(SheetConsumption)
         IntervalMatch(SheetConsumptionEventTime, AppID, SessionUserID)
-        LOAD         	
-        	SessionStartTime,
-            SessionEndTime,
-            AppID,
-            SessionUserID
-        Resident Consumption;
+        Load SessionStartTime, SessionEndTime, AppID, SessionUserID
+        Resident _SessionLookup;
         
-        Left Join (Consumption)
-        Load *
-        Resident SheetConsumption;
-
-        Drop Table SheetConsumption;
+        Left Join(SheetConsumption)
+        Load SessionID, SessionStartTime, SessionEndTime, AppID, SessionUserID
+        Resident _SessionLookup;
         
         ////////////////////////////////
     	// Transform DeprecatedChartsOpened tables before joining
@@ -3117,29 +3126,22 @@ Sub transform
         	// Merging deprecated charts usage to sessions by AppID, UserID, and Timestamp into single table
             ////////////////////////////////
             
-            Trace Joining DeprecatedChartsOpened to Consumption;
+            Trace Matching DeprecatedChartsOpened to Sessions;
             
-            // Join DeprecatedChartsOpened to Consumption using IntervalMatch like SheetConsumption
-            // Match on event time, AppID, and UserID to link to the correct session
-            Left Join(Consumption)
+            Left Join(DeprecatedChartsOpened)
             IntervalMatch(DeprecatedChartsEventTime, AppID, SessionUserID)
-            LOAD         
-                SessionStartTime,
-                SessionEndTime,
-                AppID,
-                SessionUserID
-            Resident Consumption;
+            Load SessionStartTime, SessionEndTime, AppID, SessionUserID
+            Resident _SessionLookup;
             
-            Left Join (Consumption)
-            Load *
-            Resident DeprecatedChartsOpened;
-            
-            // Drop DeprecatedChartsOpened immediately after join to prevent synthetic table
-            Drop Table DeprecatedChartsOpened;
+            Left Join(DeprecatedChartsOpened)
+            Load SessionID, SessionStartTime, SessionEndTime, AppID, SessionUserID
+            Resident _SessionLookup;
         
         End If;
         
 		// Split off into two tables linking on SessionID
+        
+        Rename Table SheetConsumption to _SheetConsumptionRaw;
         
         SheetConsumptionTemp:
         Load Distinct
@@ -3162,9 +3164,10 @@ Sub transform
             If(Date(Floor(SheetConsumptionEventTime))<$(vLast30Days),'True','False') as SheetNotAccessedInOver30Days,
             SessionEndTime AS SessionEndTimeTemp,
             'https://' & If(Len('$(vu_tenant_alias)')>0,'$(vu_tenant_alias)','$(vu_tenant_fqdn)') & '/sense/app/' & AppID & '/sheet/' & SheetConsumptionSheetID AS SheetConsumptionLink
-        Resident Consumption
-        Where Len(SheetConsumptionSheetID)>0
+        Resident _SheetConsumptionRaw
         Order By SessionID Asc, SheetConsumptionEventTime Asc;
+        
+        Drop Table _SheetConsumptionRaw;
 
         SheetConsumption:
         NoConcatenate
@@ -3188,10 +3191,11 @@ Sub transform
         
         ////////////////////////////////
         // Split off DeprecatedChartsOpened into separate table linking on SessionID
-        // Only if DeprecatedChartsEventID exists in Consumption (i.e., deprecated charts data was joined)
         ////////////////////////////////
         
-        If FieldNumber('DeprecatedChartsEventID','Consumption') > 0 Then
+        If NoOfRows('DeprecatedChartsOpened') > 0 Then
+        
+          Rename Table DeprecatedChartsOpened to _DeprecatedChartsRaw;
         
           DeprecatedChartsOpened:
           Load Distinct
@@ -3225,12 +3229,12 @@ Sub transform
               DeprecatedChartInContainer,
               //_IncrementalDeprecatedChartsOpenedID,
               SessionEndTime 												AS SessionEndTimeTemp
-          Resident Consumption
-          Where Len(DeprecatedChartsEventID)>0;
+          Resident _DeprecatedChartsRaw;
+          
+          Drop Table _DeprecatedChartsRaw;
           
         Else
         
-            // No deprecated charts data available — drop the empty placeholder table
             Drop Table DeprecatedChartsOpened;
         
         End If;
@@ -3239,22 +3243,19 @@ Sub transform
     	// Merging app exports to sheet consumption by AppID, UserID, and Timestamp into single table
         ////////////////////////////////
         
-        Left Join(Consumption)
+        Left Join(ExportFromApp)
         IntervalMatch(ExportFromAppStartTime, AppID, SessionUserIDTemp)
-        Load         	
-        	SessionStartTime,
-            SessionEndTime,
-            AppID,
-            SessionUserIDTemp
-        Resident Consumption;
+        Load SessionStartTime, SessionEndTime, AppID, SessionUserIDTemp
+        Resident _SessionLookup;
         
-        Left Join (Consumption)
-        Load *
-        Resident ExportFromApp;
-
-        Drop Table ExportFromApp;
+        Left Join(ExportFromApp)
+        Load SessionID, SessionStartTime, SessionEndTime, AppID, SessionUserIDTemp
+        Resident _SessionLookup;
+        
+        Rename Table ExportFromApp to _ExportFromAppRaw;
         
         ExportFromApp:
+        NoConcatenate
         Load Distinct
         	SessionID,
         	'True' AS SessionHadExport,
@@ -3266,8 +3267,11 @@ Sub transform
             ExportFromAppTemplateType,
             ExportFromAppTransactionID
             //ExportFromAppUserID
-        Resident Consumption
-        Where Len(ExportFromAppStartTime)>0;
+        Resident _ExportFromAppRaw;
+        
+        Drop Table _ExportFromAppRaw;
+        
+        Drop Table _SessionLookup;
         
         ////////////////////////////////
     	// Strip back consumption after removing sheet usage and exports
@@ -3907,7 +3911,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name			= 'App Analyzer';
-Set app_version			= '6.6.0';
+Set app_version			= '6.6.1';
 Set app_schema_version	= 'sv_1.0.1';
 Let comp 				= ComputerName(); 
 Let engine_ver 			= PurgeChar(EngineVersion(),Chr(39)); 
