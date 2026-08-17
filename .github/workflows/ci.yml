@@ -14,7 +14,7 @@ on:
 jobs:
   verify:
     if: ${{ github.event_name != 'workflow_dispatch' || !inputs.tag }}
-    uses: qlik-oss/qlik-cloud-monitoring-app-workflows/.github/workflows/comment_checklist_pr.yml@v0.1.0
+    uses: qlik-oss/qlik-cloud-monitoring-app-workflows/.github/workflows/comment_checklist_pr.yml@v1.0.0
     permissions:
       contents: write
       pull-requests: write
