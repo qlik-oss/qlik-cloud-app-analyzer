@@ -25,6 +25,7 @@ jobs:
     uses: qlik-oss/qlik-cloud-monitoring-app-workflows/.github/workflows/unbuild_app.yml@v1.0.0
     permissions:
       contents: write
+      pull-requests: read
     secrets: inherit
 
   create-release:
