@@ -2707,7 +2707,8 @@ Sub load_qvd (table)
           
               If $(vAppLargeAppConsumeNoNewRecords)<>1 Then
           
-                  $(table):
+                  // Concatenate explicitly, as QVDs stored by earlier versions do not have the LargeAppConsumeUnit field
+                  Concatenate ($(table))
                   Load Distinct 
                       * 
                   From '$(qvd_name)'(qvd)
