@@ -1925,11 +1925,11 @@ Sub get_audit_large_app_consumption
 
             LargeAppMaxTime:
             Load
-                Max(LargeAppConsumeTime) AS LargeAppMaxTime
+                Max(Alt(Num(LargeAppConsumeTime),Num(Timestamp#(LargeAppConsumeTime,'YYYY-MM-DDThh:mm:ssZ')))) AS LargeAppMaxTime
             Resident LargeAppMaxTimeTemp;
 
-            // Max ignores a null, so this falls back to the initial days back if there are no events in the QVD
-            Let vLargeAppIncrementalStartTime = Max(Peek('LargeAppMaxTime',0,'LargeAppMaxTime') - (1 / 24 / 60), Num(Date('$(vInitialDaysBack)')));
+            // RangeMax ignores a null, so this falls back to the initial days back if there are no events in the QVD
+            Let vLargeAppIncrementalStartTime = RangeMax(Peek('LargeAppMaxTime',0,'LargeAppMaxTime') - (1 / 24 / 60), Num(Date#('$(vInitialDaysBack)','$(DateFormat)')));
 
             Drop Tables LargeAppMaxTimeTemp,LargeAppMaxTime;
 
