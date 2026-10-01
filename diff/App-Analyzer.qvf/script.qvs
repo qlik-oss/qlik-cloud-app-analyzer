@@ -1907,12 +1907,40 @@ Sub get_audit_large_app_consumption
     Let vNextURL = '';
     Let vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
     
-    If $(vIncrementalQVDsAvailable)=1 Then
-    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
-    Else
-    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    // Resume from the latest event in the large app QVD rather than the sessions QVD, so that a gap in the large app
+    // events (e.g., audit source change) is back-filled. Overlap is removed using the event IDs.
+    Let vLargeAppIncrementalStartTime = '$(vInitialDaysBack)';
+
+    If $(vIncrementalLargeAppsQVDsAvailable)=1 Then
+
+        Let vLargeAppFileSize = If(IsNull(FileSize('$(vAppLargeAppsQVD)')),0,FileSize('$(vAppLargeAppsQVD)'));
+
+        If $(vLargeAppFileSize) > 0 Then
+
+            LargeAppMaxTimeTemp:
+            Load
+                LargeAppConsumeTime
+            From '$(vAppLargeAppsQVD)'(qvd)
+            Where Not Exists(LargeAppConsumeTime);
+
+            LargeAppMaxTime:
+            Load
+                Max(LargeAppConsumeTime) AS LargeAppMaxTime
+            Resident LargeAppMaxTimeTemp;
+
+            // Max ignores a null, so this falls back to the initial days back if there are no events in the QVD
+            Let vLargeAppIncrementalStartTime = Max(Peek('LargeAppMaxTime',0,'LargeAppMaxTime') - (1 / 24 / 60), Num(Date('$(vInitialDaysBack)')));
+
+            Drop Tables LargeAppMaxTimeTemp,LargeAppMaxTime;
+
+        End If
+
+        Set vLargeAppFileSize =;
+
     End If
-                
+
+    Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vLargeAppIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vLargeAppIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+
     // The qix-sessions audit events moved from 'qlik.com/qix-sessions' to 'com.qlik/qix-sessions'.
     // Query both sources so that the app works on tenants regardless of where the events are stored.
     For Each vQixSessionsSource in 'com.qlik/qix-sessions','qlik.com/qix-sessions'
@@ -1986,7 +2014,7 @@ Sub get_audit_large_app_consumption
             [quota] AS LargeAppConsumeQuota,
             [released] AS LargeAppConsumeReleased,
             //[spaceId],
-            //[unit],
+            [unit] AS LargeAppConsumeUnit,
             [consumed] AS LargeAppConsumeConsumed,
             [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_LargeAppConsumeKey]
         Resident RestConnectorMasterTable
@@ -3325,15 +3353,35 @@ Sub transform
         
         If NoOfRows('LargeAppConsumption')>0 Then
         	Set vAppContainsLargeAppConsumption = 1;
+
+            ///// Normalise quota values to bytes. The events report values in different units, e.g., consumed and released
+            ///// events are in bytes whereas allocation-failed events are in MiB. QVDs stored before the unit was captured
+            ///// have no unit, in which case the unit is assumed from the event type.
+            If FieldNumber('LargeAppConsumeUnit','LargeAppConsumption')=0 Then
+                Left Join (LargeAppConsumption)
+                Load Null() AS LargeAppConsumeUnit AutoGenerate 1;
+            End If
+
+            Map_LargeAppConsumeUnitToBytes:
+            Mapping Load * Inline [
+                Unit, Bytes
+                byte, 1
+                b, 1
+                kib, 1024
+                mib, 1048576
+                gib, 1073741824
+            ];
+
+            Set vLargeAppUnitToBytes = Alt(ApplyMap('Map_LargeAppConsumeUnitToBytes',Lower(Trim(LargeAppConsumeUnit)),Null()),If(LargeAppConsumeQuotaType='com.qlik.v1.quota.allocation-failed',1048576,1));
             
             ///// Peel off denial events into a separate table
             LargeAppConsumptionDenials:
             Load
                 AppID,
                 LargeAppConsumeQuotaGroup AS LargeAppConsumeDenialQuotaGroup,
-                LargeAppConsumeRequested AS LargeAppConsumeDenialRequested,
-                LargeAppConsumeRequested AS LargeAppConsumeDenialAmount,
-                LargeAppConsumeLimit AS LargeAppConsumeDenialLimit,
+                LargeAppConsumeRequested * $(vLargeAppUnitToBytes) AS LargeAppConsumeDenialRequested,
+                LargeAppConsumeRequested * $(vLargeAppUnitToBytes) AS LargeAppConsumeDenialAmount,
+                LargeAppConsumeLimit * $(vLargeAppUnitToBytes) AS LargeAppConsumeDenialLimit,
                 LargeAppConsumeUserID AS LargeAppConsumeDenialUserID,
                 Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS LargeAppConsumeDenialTime,
                 TimeStamp(Ceil(Date(Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss')),1/24/60)) AS LargeAppConsumeDenialTimeMinute // using ceil it is one event with no duration so it provides the illusion of a short (sub 1 min) duration
@@ -3443,7 +3491,7 @@ Sub transform
                 Timestamp(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS LargeAppConsumeStartTime,
                 RowNo() AS LargeAppConsumeID,
                 'interactive' AS LargeAppConsumeQuotaGroup,
-                Alt(LargeAppConsumeConsumed,LargeAppConsumeReleased) AS LargeAppConsumeAmount
+                Alt(LargeAppConsumeConsumed,LargeAppConsumeReleased) * $(vLargeAppUnitToBytes) AS LargeAppConsumeAmount
             Resident TEMP
             Where LargeAppConsumeQuotaType = 'com.qlik.v1.quota.consumed';
 
