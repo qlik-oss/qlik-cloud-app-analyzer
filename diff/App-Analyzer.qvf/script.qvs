@@ -1913,6 +1913,12 @@ Sub get_audit_large_app_consumption
     	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
     End If
                 
+    // The qix-sessions audit events moved from 'qlik.com/qix-sessions' to 'com.qlik/qix-sessions'.
+    // Query both sources so that the app works on tenants regardless of where the events are stored.
+    For Each vQixSessionsSource in 'com.qlik/qix-sessions','qlik.com/qix-sessions'
+
+    Let vNextURL = '';
+
     Do
     
         LIB Connect To '$(vu_rest_connection)';
@@ -1968,7 +1974,7 @@ Sub get_audit_large_app_consumption
             FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
         FROM JSON (wrap on) "root" PK "__KEY_root"
         WITH CONNECTION (
-        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=qlik.com/qix-sessions$(vISO_8601_Date_Range)$(vNextURL)"
+        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=$(vQixSessionsSource)$(vISO_8601_Date_Range)$(vNextURL)"
 		);
         
         [LargeAppConsumptionDetail]:
@@ -2004,7 +2010,8 @@ Sub get_audit_large_app_consumption
         Where Not IsNull([__FK_data])
         And (eventType = 'com.qlik.v1.quota.released'
         Or eventType = 'com.qlik.v1.quota.consumed'
-        Or eventType = 'com.qlik.v1.quota.allocation-failed');
+        Or eventType = 'com.qlik.v1.quota.allocation-failed')
+        And Not Exists(LargeAppConsumeID, eventId);
 
         [NextURL]:
         Load	
@@ -2029,6 +2036,8 @@ Sub get_audit_large_app_consumption
         Let vCounter = $(vCounter) + 1;
         
     Loop While $(vNextURLRows)>0;
+
+    Next vQixSessionsSource;
     
     Inner Join (LargeAppConsumption)
     Load * Resident LargeAppConsumptionDetail;
