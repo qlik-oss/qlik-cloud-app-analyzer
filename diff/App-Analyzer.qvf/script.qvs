@@ -3920,7 +3920,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name			= 'App Analyzer';
-Set app_version			= '6.6.1';
+Set app_version			= '6.6.2';
 Set app_schema_version	= 'sv_1.0.1';
 Let comp 				= ComputerName(); 
 Let engine_ver 			= PurgeChar(EngineVersion(),Chr(39)); 
