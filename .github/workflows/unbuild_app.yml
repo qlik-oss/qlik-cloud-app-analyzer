@@ -1,0 +1,153 @@
+name: Unbuild app
+
+on:
+  workflow_call:
+    inputs:
+      checkout_ref:
+        description: Branch or ref to checkout before generating the diff.
+        required: false
+        type: string
+    secrets:
+      QLIK_CLOUD_MONITORING_OAUTH_SECRET:
+        required: true
+  
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      assets: ${{ steps.filter.outputs.assets }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.head_ref || github.ref_name }}
+
+      - name: Check for asset changes
+        uses: dorny/paths-filter@0e4a8c6effa4802afeda77dc8d303f8176d7dfad # v3.0.4
+        id: filter
+        with:
+          filters: |
+            assets:
+              - 'assets/**'
+
+  unbuild:
+    needs: changes
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    if: ${{ github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]' && needs.changes.outputs.assets == 'true' }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.head_ref || github.ref_name }}
+    
+      - name: Checkout repo
+        run: echo ${{ github.triggering_actor }}
+          
+      - name: Download qlik-cli and unzip
+        run: |
+            wget https://github.com/qlik-oss/qlik-cli/releases/download/v3.3.0/qlik-Linux-x86_64.tar.gz -O qlik-cli.tar.gz
+            tar -xf qlik-cli.tar.gz
+            rm qlik-cli.tar.gz
+            chmod +x qlik
+          
+      - name: Retrieve qlik-cli version
+        run: ./qlik version
+        
+      - name: Create context in qlik-cli
+        env:
+          QLIK_MONITORING_TENANT: ${{ vars.QLIK_CLOUD_MONITORING_TENANT }}
+          QLIK_MONITORING_OAUTH_ID: ${{ vars.QLIK_CLOUD_MONITORING_OAUTH_ID }}
+          QLIK_MONITORING_OAUTH_SECRET: ${{ secrets.QLIK_CLOUD_MONITORING_OAUTH_SECRET }}
+        run: |
+            echo "::add-mask::$QLIK_MONITORING_TENANT"
+            echo "::add-mask::$QLIK_MONITORING_OAUTH_ID"
+            ./qlik context create veritenant \
+            --server "$QLIK_MONITORING_TENANT" \
+            --oauth-client-id "$QLIK_MONITORING_OAUTH_ID" \
+            --oauth-client-secret "$QLIK_MONITORING_OAUTH_SECRET" \
+            --server-type cloud
+          
+      - name: Select context
+        run: ./qlik context use veritenant
+
+      - name: Verify tenant connection
+        run: |
+            # Output is discarded so nothing about the tenant is printed; only the exit status is reported.
+            if ./qlik raw get v1/users/me --output-file /dev/null > /dev/null 2>&1; then
+                echo "Tenant connection OK"
+            else
+                echo "::error::Could not authenticate to the tenant (check tenant URL, OAuth client ID and secret)"
+                exit 1
+            fi
+
+      - name: Delete any existing diff dir
+        run: rm -rf diff
+
+      - name: Config git
+        run: |
+             git config --global user.name "github-actions[bot]"
+             git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+      - name: Unbuild apps
+        run: |
+            shopt -s nullglob nocaseglob
+            for FILE in ./assets/*.qvf; do
+                FILENAME=$(basename "$FILE")
+                cp "$FILE" ./import.qvf
+                APP_ID=$(./qlik raw post v1/apps/import --body-file "./import.qvf" | jq -r '.attributes.id')
+                echo "Imported appId $APP_ID"
+                ./qlik app unbuild --app "$APP_ID" --dir "./diff/$FILENAME" --no-data
+                find "./diff/$FILENAME" -type f | while read -r UBFILEA; do
+                    if [[ -f "$UBFILEA" ]]; then
+                    sed -i "s/$APP_ID/<appId>/g" "$UBFILEA"
+                        if [ "$(basename "$UBFILEA")" = "app-properties.json" ]; then
+                            jq 'del(.qSavedInProductVersion, .qLastReloadTime)' "${UBFILEA}" > "${UBFILEA}.tmp"
+                            mv "${UBFILEA}.tmp" "${UBFILEA}"
+                        fi
+                    fi
+                done
+
+                MEDIA_LIST=$(./qlik raw get "v1/apps/$APP_ID/media/list" --query "show=recursive")
+                IMAGE_LIST=$(echo "$MEDIA_LIST" | jq '[.[] | select(.type == "image") | {name: .name, link: .link}]')
+                IMAGE_COUNT=$(echo "$IMAGE_LIST" | jq 'length')
+                IMAGE_STORE_PATH="./diff/$FILENAME/images"
+                echo "Number of images found: $IMAGE_COUNT"
+
+
+                echo "$IMAGE_LIST" | jq -c '.[]' | while read -r IMAGE; do
+                    if [ ! -d "$IMAGE_STORE_PATH" ]; then
+                        mkdir -p "$IMAGE_STORE_PATH"
+                        echo "Created directory: $IMAGE_STORE_PATH"
+                    fi
+
+                    IMG_NAME=$(echo "$IMAGE" | jq -r '.name')
+                    IMG_LINK=$(echo "$IMAGE" | jq -r '.link')
+                    IMG_PATH="${IMG_LINK#/api/}"
+                    echo "Retrieving image: $IMG_NAME from: $IMG_PATH"
+                    ./qlik raw get "$IMG_PATH" --output-file "$IMAGE_STORE_PATH/$IMG_NAME"
+                done
+
+                ./qlik app rm "$APP_ID"
+            done
+
+
+      - name: Remove qlik-cli
+        run: rm qlik
+
+      - name: Commit /diff if changes
+        run: |
+             git add ./diff
+             GIT_STATUS=$(git status -uno -s)
+             if [ "$GIT_STATUS" ]; then
+                 echo "git change summary: $GIT_STATUS"
+                 git commit -m "Unbuilt .qvf files into /diff"
+                 git push origin HEAD
+             else
+                 echo "No changes found in /diff, skipping commit"
+             fi
+                 
