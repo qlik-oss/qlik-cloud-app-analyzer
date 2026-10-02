@@ -99,8 +99,18 @@ jobs:
             for FILE in ./assets/*.qvf; do
                 FILENAME=$(basename "$FILE")
                 cp "$FILE" ./import.qvf
-                APP_ID=$(./qlik raw post v1/apps/import --body-file "./import.qvf" | jq -r '.attributes.id')
+                echo "import.qvf: $(wc -c < ./import.qvf) bytes, sha1 $(sha1sum ./import.qvf | cut -d' ' -f1)"
+                IMPORT_RC=0
+                IMPORT_OUT=$(./qlik raw post v1/apps/import --body-file "./import.qvf" --verbose 2> ./import.log) || IMPORT_RC=$?
+                echo "import exit code: $IMPORT_RC"
+                # Redact tenant hostnames before printing the verbose request/response log
+                sed -E 's#https?://[^/ ]+#<server>#g; s#[A-Za-z0-9.-]+\.qlikcloud\.com#<tenant>#g' ./import.log
+                APP_ID=$(echo "$IMPORT_OUT" | jq -r '.attributes.id // empty')
                 echo "Imported appId $APP_ID"
+                if [ -z "$APP_ID" ]; then
+                    echo "::error::App import returned no app id"
+                    exit 1
+                fi
                 ./qlik app unbuild --app "$APP_ID" --dir "./diff/$FILENAME" --no-data
                 find "./diff/$FILENAME" -type f | while read -r UBFILEA; do
                     if [[ -f "$UBFILEA" ]]; then
