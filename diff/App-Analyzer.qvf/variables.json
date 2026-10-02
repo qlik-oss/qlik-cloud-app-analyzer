@@ -1458,16 +1458,44 @@
   },
   {
     "qInfo": {
-      "qId": "07950c7f-44d4-4f7d-bb43-8ddfd693b9b9",
+      "qId": "0e925cab-2330-4dbf-8930-5e1517df61b6",
       "qType": "variable"
     },
     "qMetaDef": {},
-    "qName": "file_size_LargeAppConsumption",
+    "qName": "vDbgMax",
     "qNumberPresentation": {
       "qType": "U",
       "qnDec": 10,
       "qUseThou": 0
     },
-    "qDefinition": "9053"
+    "qDefinition": "46296.4015625"
+  },
+  {
+    "qInfo": {
+      "qId": "510d159e-5026-43c0-929e-b69984757353",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "file_size_SheetConsumption",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "7174"
+  },
+  {
+    "qInfo": {
+      "qId": "bc02e4cd-8dce-4b0f-bf6b-68b31dd3d98f",
+      "qType": "variable"
+    },
+    "qMetaDef": {},
+    "qName": "file_size_DeprecatedChartsOpened",
+    "qNumberPresentation": {
+      "qType": "U",
+      "qnDec": 10,
+      "qUseThou": 0
+    },
+    "qDefinition": "12450"
   }
 ]
