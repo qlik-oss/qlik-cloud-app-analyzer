@@ -8,7 +8,7 @@
       "title": "App Metadata Analysis",
       "description": ""
     },
-    "rank": 4.5,
+    "rank": 0,
     "thumbnail": {
       "qStaticContentUrlDef": {
         "qUrl": "/api/v1/apps/<appId>/media/files/4.png"
@@ -243,7 +243,7 @@
       },
       {
         "name": "RJWsQcn",
-        "type": "container",
+        "type": "sn-tabbed-container",
         "col": 10,
         "row": 3,
         "colspan": 15,
@@ -1490,7 +1490,7 @@
       "qProperty": {
         "qInfo": {
           "qId": "RJWsQcn",
-          "qType": "container"
+          "qType": "sn-tabbed-container"
         },
         "qMetaDef": {},
         "children": [
@@ -1518,18 +1518,43 @@
         "useDropdown": true,
         "useScrollButton": true,
         "showIcons": false,
-        "visualization": "container",
+        "visualization": "sn-tabbed-container",
         "qChildListDef": {
           "qData": {
             "visualization": "/visualization",
-            "containerChildId": "/containerChildId",
             "qExtendsId": "/qExtendsId",
+            "containerChildId": "/containerChildId",
             "title": "/title",
+            "childRefId": "/childRefId",
             "showCondition": "/showCondition"
           }
         },
         "supportRefresh": false,
-        "hasExternalChildren": false
+        "hasExternalChildren": false,
+        "objects": [
+          {
+            "childRefId": "563c30ba-e8db-4749-ab4a-d9f6a4226f97",
+            "label": "App Memory Footprint (MB)"
+          },
+          {
+            "childRefId": "298bd623-dfef-45ab-bfaf-802f5db43c2e",
+            "label": "App Reload Peak RAM (MB)"
+          }
+        ],
+        "defaultTabId": "",
+        "components": [
+          {
+            "key": "tabs",
+            "width": {
+              "unit": "px",
+              "value": [
+                160,
+                200
+              ]
+            }
+          }
+        ],
+        "orientation": "top"
       },
       "qChildren": [
         {
@@ -1540,7 +1565,8 @@
             },
             "qExtendsId": "563c30ba-e8db-4749-ab4a-d9f6a4226f97",
             "qMetaDef": {},
-            "visualization": "barchart"
+            "visualization": "barchart",
+            "childRefId": "563c30ba-e8db-4749-ab4a-d9f6a4226f97"
           },
           "qChildren": []
         },
@@ -1552,7 +1578,8 @@
             },
             "qExtendsId": "298bd623-dfef-45ab-bfaf-802f5db43c2e",
             "qMetaDef": {},
-            "visualization": "barchart"
+            "visualization": "barchart",
+            "childRefId": "298bd623-dfef-45ab-bfaf-802f5db43c2e"
           },
           "qChildren": []
         }
