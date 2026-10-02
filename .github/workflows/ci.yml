@@ -22,7 +22,7 @@ jobs:
 
   unbuild:
     if: ${{ github.event_name != 'workflow_dispatch' || !inputs.tag }}
-    uses: ./.github/workflows/unbuild_app.yml
+    uses: qlik-oss/qlik-cloud-monitoring-app-workflows/.github/workflows/unbuild_app.yml@unbuild-improvements
     permissions:
       contents: write
       pull-requests: read
