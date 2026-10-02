@@ -3585,39 +3585,56 @@ Sub transform
             // Generate minute by minute data for large app concurrency
             ////////////////////////////////
 
-            LargeAppSessionMinMaxDates:
-            Load
-                Floor(Min("LargeAppConsumeStartTime"),1/24/60) AS "Large App Session Start Time Min",
-                Ceil(Max("LargeAppConsumeEndTime"),1/24/60) AS "Large App Session End Time Max"
-            Resident LargeAppConsumption;
+            ///// Large app events can all fall outside the analysis window (or be removed by the cleanup above), leaving no
+            ///// sessions. Min/max dates would then be null and break the minute generation, so only generate minutes when
+            ///// sessions remain. Denial events (if any) are still stacked on below.
+            If NoOfRows('LargeAppConsumption')>0 Then
 
-            Let vLargeAppConsumptionMinDate = Peek('Large App Session Start Time Min',0,'LargeAppSessionMinMaxDates');
-            Let vLargeAppConsumptionMaxDate = Peek('Large App Session End Time Max',0,'LargeAppSessionMinMaxDates');
+                LargeAppSessionMinMaxDates:
+                Load
+                    Floor(Min("LargeAppConsumeStartTime"),1/24/60) AS "Large App Session Start Time Min",
+                    Ceil(Max("LargeAppConsumeEndTime"),1/24/60) AS "Large App Session End Time Max"
+                Resident LargeAppConsumption;
 
-            Drop Table LargeAppSessionMinMaxDates;
+                Let vLargeAppConsumptionMinDate = Peek('Large App Session Start Time Min',0,'LargeAppSessionMinMaxDates');
+                Let vLargeAppConsumptionMaxDate = Peek('Large App Session End Time Max',0,'LargeAppSessionMinMaxDates');
 
-            Let vLargeAppMinutes = Ceil(($(vLargeAppConsumptionMaxDate)-$(vLargeAppConsumptionMinDate))*24*(60/$(vConsumptionMinutes)));
+                Drop Table LargeAppSessionMinMaxDates;
 
-            LargeAppConsumptionMinutesTemp:
-            Load Distinct
-                TimeStamp(Floor(Date($(vLargeAppConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) as LargeAppConsumptionConcurrencyMinute
-            Autogenerate $(vLargeAppMinutes);
+                Let vLargeAppMinutes = Ceil(($(vLargeAppConsumptionMaxDate)-$(vLargeAppConsumptionMinDate))*24*(60/$(vConsumptionMinutes)));
 
-            Left Join
-            IntervalMatch (LargeAppConsumptionConcurrencyMinute) 
-            Load 
-                LargeAppConsumeStartTime,
-                LargeAppConsumeEndTime
-            Resident LargeAppConsumption;
+                LargeAppConsumptionMinutesTemp:
+                Load Distinct
+                    TimeStamp(Floor(Date($(vLargeAppConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) as LargeAppConsumptionConcurrencyMinute
+                Autogenerate $(vLargeAppMinutes);
 
-            LargeAppConsumptionConcurrencyMinutes:
-            Left Keep (LargeAppConsumption)
-            Load
-                Timestamp(LargeAppConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') as LargeAppConsumptionConcurrencyMinute,
-                AutoNumber(LargeAppConsumeStartTime&'|'&LargeAppConsumeEndTime,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey
-            Resident LargeAppConsumptionMinutesTemp;
+                Left Join
+                IntervalMatch (LargeAppConsumptionConcurrencyMinute) 
+                Load 
+                    LargeAppConsumeStartTime,
+                    LargeAppConsumeEndTime
+                Resident LargeAppConsumption;
 
-            Drop Table LargeAppConsumptionMinutesTemp;
+                LargeAppConsumptionConcurrencyMinutes:
+                Left Keep (LargeAppConsumption)
+                Load
+                    Timestamp(LargeAppConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') as LargeAppConsumptionConcurrencyMinute,
+                    AutoNumber(LargeAppConsumeStartTime&'|'&LargeAppConsumeEndTime,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey
+                Resident LargeAppConsumptionMinutesTemp;
+
+                Drop Table LargeAppConsumptionMinutesTemp;
+
+            Else
+
+                Trace No large app sessions within the analysis window - skipping large app concurrency minute generation;
+
+                LargeAppConsumptionConcurrencyMinutes:
+                Load
+                    Null() AS LargeAppConsumptionConcurrencyMinute,
+                    Null() AS _LargeAppConsumptionExecutionConcurrencyKey
+                AutoGenerate 0;
+
+            End If
 
             // Join app id onto large app consume
             Left Join (LargeAppConsumptionConcurrencyMinutes)
