@@ -13,6 +13,7 @@
         "Sheet Consumption User ID"
       ],
       "qAlias": "Sheet Consumption User ID",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption User ID",
       "coloring": {
         "colorMapRef": "vuys",
@@ -40,6 +41,7 @@
         "Session User Subject"
       ],
       "qAlias": "Session User Subject",
+      "qOrigin": "PROGRAM",
       "title": "Session User Subject",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -67,6 +69,7 @@
         "Session Start Time"
       ],
       "qAlias": "Session Start Time",
+      "qOrigin": "PROGRAM",
       "title": "Session Start Time",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -94,6 +97,7 @@
         "Session End Time"
       ],
       "qAlias": "Session End Time",
+      "qOrigin": "PROGRAM",
       "title": "Session End Time",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -121,6 +125,7 @@
         "Sheet Not Accessed In Over 30 Days"
       ],
       "qAlias": "Sheet Not Accessed In Over 30 Days",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Not Accessed In Over 30 Days",
       "coloring": {
         "colorMapRef": "vuys",
@@ -148,6 +153,7 @@
         "Large App Consume"
       ],
       "qAlias": "Large App Consume",
+      "qOrigin": "PROGRAM",
       "title": "Large App Consume",
       "coloring": {
         "colorMapRef": "mCJtwpq",
@@ -174,6 +180,7 @@
       "qFieldLabels": [
         "Space Type"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Space Type",
       "coloring": {
         "colorMapRef": "jTp",
@@ -200,6 +207,7 @@
         "App Contains Synthetic Keys"
       ],
       "qLabelExpression": "='Synthetic Keys'",
+      "qOrigin": "PROGRAM",
       "title": "App Contains Synthetic Keys",
       "coloring": {
         "colorMapRef": "302103d0-76a0-4b28-adb5-a6772dd9f13f",
@@ -226,6 +234,7 @@
         "Export From App End Time"
       ],
       "qAlias": "Export From App End Time",
+      "qOrigin": "PROGRAM",
       "title": "Export From App End Time",
       "coloring": {
         "colorMapRef": "HGdfB",
@@ -252,6 +261,7 @@
       "qFieldLabels": [
         "Table is Island"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Table is Island",
       "coloring": {
         "colorMapRef": "38e85aea-6109-4979-9b51-5caea76a3fe2",
@@ -278,6 +288,7 @@
         "Session Duration Minutes"
       ],
       "qAlias": "Session Duration Minutes",
+      "qOrigin": "PROGRAM",
       "title": "Session Duration Minutes",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -305,6 +316,7 @@
         "App Not Accessed In Over 60 Days"
       ],
       "qAlias": "App Not Accessed In Over 60 Days",
+      "qOrigin": "PROGRAM",
       "title": "App Not Accessed In Over 60 Days",
       "coloring": {
         "colorMapRef": "zppEW",
@@ -332,6 +344,7 @@
         "Sheet Consumption Sheet ID"
       ],
       "qAlias": "Sheet Consumption Sheet ID",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption Sheet ID",
       "coloring": {
         "colorMapRef": "vuys",
@@ -359,6 +372,7 @@
         "Export From App Transaction ID"
       ],
       "qAlias": "Export From App Transaction ID",
+      "qOrigin": "PROGRAM",
       "title": "Export From App Transaction ID",
       "coloring": {
         "colorMapRef": "HGdfB",
@@ -386,6 +400,7 @@
         "Sheet Consumption User Name"
       ],
       "qAlias": "Sheet Consumption User Name",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption User Name",
       "coloring": {
         "colorMapRef": "vuys",
@@ -413,6 +428,7 @@
         "App RAM Over Threshold"
       ],
       "qLabelExpression": "='Over Threshold'",
+      "qOrigin": "PROGRAM",
       "title": "App RAM Over Threshold",
       "coloring": {
         "colorMapRef": "51444e43-428e-4182-b4c7-ac1297c2b439",
@@ -444,6 +460,7 @@
         "Session Week Beginning"
       ],
       "qAlias": "Session Week Beginning",
+      "qOrigin": "PROGRAM",
       "title": "Session Week Beginning",
       "coloring": {
         "colorMapRef": "fKStPS",
@@ -471,6 +488,7 @@
         "Export From App Template Type"
       ],
       "qAlias": "Export From App Template Type",
+      "qOrigin": "PROGRAM",
       "title": "Export From App Template Type",
       "coloring": {
         "colorMapRef": "HGdfB",
@@ -498,6 +516,7 @@
         "Sheet Consumption State"
       ],
       "qAlias": "Sheet Consumption State",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption State",
       "coloring": {
         "colorMapRef": "vuys",
@@ -525,6 +544,7 @@
         "Session User Name"
       ],
       "qAlias": "Session User Name",
+      "qOrigin": "PROGRAM",
       "title": "Session User Name",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -552,6 +572,7 @@
         "Session ID"
       ],
       "qAlias": "Session ID",
+      "qOrigin": "PROGRAM",
       "title": "Session ID",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -579,6 +600,7 @@
         "Session Timeframe"
       ],
       "qAlias": "Session Timeframe",
+      "qOrigin": "PROGRAM",
       "title": "Session Timeframe",
       "coloring": {
         "colorMapRef": "fKStPS",
@@ -606,6 +628,7 @@
         "Session Date"
       ],
       "qAlias": "Session Date",
+      "qOrigin": "PROGRAM",
       "title": "Session Date",
       "coloring": {
         "colorMapRef": "94a77138-5887-41ce-8774-69abed2dfb88",
@@ -633,6 +656,7 @@
         "Sheet Not Accessed In Over 90 Days"
       ],
       "qAlias": "Sheet Not Accessed In Over 90 Days",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Not Accessed In Over 90 Days",
       "coloring": {
         "colorMapRef": "vuys",
@@ -660,6 +684,7 @@
         "App Description"
       ],
       "qAlias": "App Description",
+      "qOrigin": "PROGRAM",
       "title": "App Description",
       "coloring": {
         "changeHash": "0.05519685162238541",
@@ -686,6 +711,7 @@
       "qFieldLabels": [
         "App Contains Circular Reference(s)"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Contains Circular Reference(s)",
       "coloring": {
         "changeHash": "0.3482140279209649"
@@ -710,6 +736,7 @@
       "qFieldLabels": [
         "Reload CPU Time (ms)"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Reload CPU Time (ms)",
       "coloring": {
         "changeHash": "0.6365413925956545",
@@ -735,6 +762,7 @@
       "qFieldLabels": [
         "Field Name"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Field Name",
       "coloring": {
         "changeHash": "0.28828767915577735",
@@ -761,6 +789,7 @@
         "Sheet Consumption Order Duration"
       ],
       "qAlias": "Sheet Consumption Order Duration",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption Order Duration",
       "coloring": {
         "changeHash": "0.5462255832567104",
@@ -787,6 +816,7 @@
         "Export From App Start Time"
       ],
       "qAlias": "Export From App Start Time",
+      "qOrigin": "PROGRAM",
       "title": "Export From App Start Time",
       "coloring": {
         "changeHash": "0.38317029797219737",
@@ -812,6 +842,7 @@
       "qFieldLabels": [
         "Table Name"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Table Name",
       "coloring": {
         "changeHash": "0.4065949123596533",
@@ -836,6 +867,7 @@
         "SpaceName"
       ],
       "qFieldLabels": [],
+      "qOrigin": "PROGRAM",
       "title": "Space Type / Space (Drill)",
       "coloring": {
         "changeHash": "0.311708625878961"
@@ -861,6 +893,7 @@
         "Session Day"
       ],
       "qAlias": "Session Day",
+      "qOrigin": "PROGRAM",
       "title": "Session Day",
       "coloring": {
         "changeHash": "0.942572528591781",
@@ -887,6 +920,7 @@
         "App Record Count Over Threshold"
       ],
       "qLabelExpression": "='Over Threshold'",
+      "qOrigin": "PROGRAM",
       "title": "App Record Count Over Threshold",
       "coloring": {
         "changeHash": "0.13545987601547305",
@@ -912,6 +946,7 @@
       "qFieldLabels": [
         "App Reload CPU Time Over Threshold"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Reload CPU Time Over Threshold",
       "coloring": {
         "changeHash": "0.6833195424484029",
@@ -943,6 +978,7 @@
       "qFieldLabels": [
         "App Owner Name"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Owner Name",
       "coloring": {
         "changeHash": "0.35235878554670896"
@@ -968,6 +1004,7 @@
         "Last Reload (Date)"
       ],
       "qLabelExpression": "='Last Reload'",
+      "qOrigin": "PROGRAM",
       "title": "Last Reload (Date)",
       "coloring": {
         "changeHash": "0.4317201136855524"
@@ -991,6 +1028,7 @@
         "TableNameUnique"
       ],
       "qFieldLabels": [],
+      "qOrigin": "PROGRAM",
       "title": "App/Table",
       "coloring": {
         "changeHash": "0.2674543464021011"
@@ -1015,6 +1053,7 @@
       "qFieldLabels": [
         "App RAM MB"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App RAM MB",
       "coloring": {
         "changeHash": "0.06142808807938471"
@@ -1040,6 +1079,7 @@
         "Session Duration"
       ],
       "qAlias": "Session Duration",
+      "qOrigin": "PROGRAM",
       "title": "Session Duration",
       "coloring": {
         "changeHash": "0.08403642768928687",
@@ -1066,6 +1106,7 @@
       "qFieldLabels": [
         "Table Rows Over Threshold"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Table Rows Over Threshold",
       "coloring": {
         "changeHash": "0.42966356192171795",
@@ -1097,6 +1138,7 @@
       "qFieldLabels": [
         "Field Name"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Field Name",
       "coloring": {
         "changeHash": "0.2228693499604315"
@@ -1122,6 +1164,7 @@
         "App ID"
       ],
       "qAlias": "App ID",
+      "qOrigin": "PROGRAM",
       "title": "App ID",
       "coloring": {
         "changeHash": "0.6490108795319958",
@@ -1148,6 +1191,7 @@
         "Last Reloaded (Timestamp)"
       ],
       "qLabelExpression": "='Last Reloaded'",
+      "qOrigin": "PROGRAM",
       "title": "Last Reloaded (Timestamp)",
       "coloring": {
         "changeHash": "0.01501817277729356",
@@ -1173,6 +1217,7 @@
       "qFieldLabels": [
         "AppID"
       ],
+      "qOrigin": "PROGRAM",
       "title": "AppID",
       "coloring": {
         "changeHash": "0.3365595010616116"
@@ -1197,6 +1242,7 @@
       "qFieldLabels": [
         "Space ID"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Space ID",
       "coloring": {
         "changeHash": "0.8141436690962127",
@@ -1223,6 +1269,7 @@
         "Sheet Consumption Link"
       ],
       "qAlias": "Sheet Consumption Link",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption Link",
       "coloring": {
         "changeHash": "0.8931134528115181",
@@ -1248,6 +1295,7 @@
       "qFieldLabels": [
         "Last Reloaded"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Last Reloaded",
       "coloring": {
         "changeHash": "0.2159770920474109"
@@ -1272,6 +1320,7 @@
         "FieldNameUnique"
       ],
       "qFieldLabels": [],
+      "qOrigin": "PROGRAM",
       "title": "App/Table/Field",
       "coloring": {
         "changeHash": "0.49197250112674396",
@@ -1297,6 +1346,7 @@
       "qFieldLabels": [
         "App Name"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Name",
       "coloring": {
         "changeHash": "0.4047392446283158",
@@ -1322,6 +1372,7 @@
       "qFieldLabels": [
         "Tenant ID"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Tenant ID",
       "coloring": {
         "changeHash": "0.0000655078187519198"
@@ -1346,6 +1397,7 @@
       "qFieldLabels": [
         "App Owner UserID"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Owner UserID",
       "coloring": {
         "changeHash": "0.26308138905732936",
@@ -1371,6 +1423,7 @@
       "qFieldLabels": [
         "App Type"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Type",
       "coloring": {
         "changeHash": "0.7374040589314534",
@@ -1396,6 +1449,7 @@
       "qFieldLabels": [
         "Field is Synthetic"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Field is Synthetic",
       "coloring": {
         "changeHash": "0.7975901477699365",
@@ -1420,6 +1474,7 @@
         "AppNameUnique"
       ],
       "qFieldLabels": [],
+      "qOrigin": "PROGRAM",
       "title": "Space / App Drill",
       "coloring": {
         "changeHash": "0.48802918054617495"
@@ -1444,6 +1499,7 @@
       "qFieldLabels": [
         "Field Value Count Over Threshold"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Field Value Count Over Threshold",
       "coloring": {
         "changeHash": "0.7131246903418667",
@@ -1476,6 +1532,7 @@
         "Session User ID"
       ],
       "qAlias": "Session User ID",
+      "qOrigin": "PROGRAM",
       "title": "Session User ID",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -1503,6 +1560,7 @@
         "Table Name (Unique)"
       ],
       "qLabelExpression": "='Table Name'",
+      "qOrigin": "PROGRAM",
       "title": "Table Name (Unique)",
       "coloring": {
         "colorMapRef": "b1075397-f3d7-4fe4-8c4b-c2ceaeeb5608",
@@ -1529,6 +1587,7 @@
         "Session Duration Interval"
       ],
       "qAlias": "Session Duration Interval",
+      "qOrigin": "PROGRAM",
       "title": "Session Duration Interval",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -1556,6 +1615,7 @@
         "Sheet Consumption Order"
       ],
       "qAlias": "Sheet Consumption Order",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption Order",
       "coloring": {
         "colorMapRef": "vuys",
@@ -1582,6 +1642,7 @@
       "qFieldLabels": [
         "Tenant Name"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Tenant Name",
       "coloring": {
         "colorMapRef": "VqbusF",
@@ -1608,6 +1669,7 @@
         "Sheet Consumption User Subject"
       ],
       "qAlias": "Sheet Consumption User Subject",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption User Subject",
       "coloring": {
         "colorMapRef": "vuys",
@@ -1635,6 +1697,7 @@
         "Sheet Not Accessed In Over 60 Days"
       ],
       "qAlias": "Sheet Not Accessed In Over 60 Days",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Not Accessed In Over 60 Days",
       "coloring": {
         "colorMapRef": "vuys",
@@ -1662,6 +1725,7 @@
         "App Not Accessed In Over 90 Days"
       ],
       "qAlias": "App Not Accessed In Over 90 Days",
+      "qOrigin": "PROGRAM",
       "title": "App Not Accessed In Over 90 Days",
       "coloring": {
         "colorMapRef": "zppEW",
@@ -1689,6 +1753,7 @@
         "Session Month/Year"
       ],
       "qAlias": "Session Month/Year",
+      "qOrigin": "PROGRAM",
       "title": "Session Month/Year",
       "coloring": {
         "changeHash": "0.7595221363510813",
@@ -1715,6 +1780,7 @@
         "Session Month"
       ],
       "qAlias": "Session Month",
+      "qOrigin": "PROGRAM",
       "title": "Session Month",
       "coloring": {
         "changeHash": "0.7748731024214093",
@@ -1740,6 +1806,7 @@
       "qFieldLabels": [
         "App Owner"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Owner",
       "coloring": {
         "colorMapRef": "fe0d6c30-0942-4bb7-9217-9e83ffca5786",
@@ -1766,6 +1833,7 @@
         "Session End Time Date"
       ],
       "qAlias": "Session End Time Date",
+      "qOrigin": "PROGRAM",
       "title": "Session End Time Date",
       "coloring": {
         "colorMapRef": "NpjPU",
@@ -1797,6 +1865,7 @@
         "Session Minute"
       ],
       "qAlias": "Session Time Drill",
+      "qOrigin": "PROGRAM",
       "title": "Session Time Drill",
       "coloring": {
         "changeHash": "0.10493989075402443",
@@ -1823,6 +1892,7 @@
       "qFieldLabels": [
         "Space Name"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Space Name",
       "coloring": {
         "changeHash": "0.6197249518793"
@@ -1848,6 +1918,7 @@
         "Large App Consume Is Denied"
       ],
       "qAlias": "Large App Consume Is Denied",
+      "qOrigin": "PROGRAM",
       "title": "Large App Consume Is Denied",
       "coloring": {
         "changeHash": "0.07229716072827608",
@@ -1874,6 +1945,7 @@
         "Session Year"
       ],
       "qAlias": "Session Year",
+      "qOrigin": "PROGRAM",
       "title": "Session Year",
       "coloring": {
         "changeHash": "0.09218944886025571",
@@ -1900,6 +1972,7 @@
         "Session Hour AM/PM"
       ],
       "qAlias": "Session Hour AM/PM",
+      "qOrigin": "PROGRAM",
       "title": "Session Hour AM/PM",
       "coloring": {
         "changeHash": "0.18353119612891078",
@@ -1925,6 +1998,7 @@
       "qFieldLabels": [
         "App Is Distributed"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Is Distributed",
       "coloring": {
         "changeHash": "0.7895209643916978",
@@ -1951,6 +2025,7 @@
         "Session Had Export"
       ],
       "qAlias": "Session Had Export",
+      "qOrigin": "PROGRAM",
       "title": "Session Had Export",
       "coloring": {
         "changeHash": "0.17899990140657662",
@@ -1977,6 +2052,7 @@
         "Session Concurrency Minute"
       ],
       "qAlias": "Session Concurrency Minute",
+      "qOrigin": "PROGRAM",
       "title": "Session Concurrency Minute",
       "coloring": {
         "changeHash": "0.9909567913386697",
@@ -2003,6 +2079,7 @@
         "App Contains Data Island(s)"
       ],
       "qLabelExpression": "='Data Island(s)'",
+      "qOrigin": "PROGRAM",
       "title": "App Contains Data Island(s)",
       "coloring": {
         "changeHash": "0.37825000562961386",
@@ -2029,6 +2106,7 @@
         "Session User Is OAuth Client"
       ],
       "qAlias": "Session User Is OAuth Client",
+      "qOrigin": "PROGRAM",
       "title": "Session User Is OAuth Client",
       "coloring": {
         "changeHash": "0.9194262235131749",
@@ -2055,6 +2133,7 @@
         "Sheet Consumption Event Time"
       ],
       "qAlias": "Sheet Consumption Event Time",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Consumption Event Time",
       "coloring": {
         "changeHash": "0.6631569806797164",
@@ -2079,6 +2158,7 @@
         "AppNameUnique"
       ],
       "qFieldLabels": [],
+      "qOrigin": "PROGRAM",
       "title": "Space Type / App Drill",
       "coloring": {
         "changeHash": "0.30076452731396386"
@@ -2104,6 +2184,7 @@
         "Sheet Title Historical"
       ],
       "qAlias": "Sheet Title Historical",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Title Historical",
       "coloring": {
         "changeHash": "0.03427602861489043",
@@ -2129,6 +2210,7 @@
       "qFieldLabels": [
         "App Rolling Timestamp"
       ],
+      "qOrigin": "PROGRAM",
       "title": "App Rolling Timestamp",
       "coloring": {
         "changeHash": "0.349107441106167"
@@ -2154,6 +2236,7 @@
         "App Name"
       ],
       "qLabelExpression": "='App Name'",
+      "qOrigin": "PROGRAM",
       "title": "App Name",
       "coloring": {
         "changeHash": "0.5579733322611093",
@@ -2179,6 +2262,7 @@
       "qFieldLabels": [
         "Table Contains Synthetic Keys"
       ],
+      "qOrigin": "PROGRAM",
       "title": "Table Contains Synthetic Keys",
       "coloring": {
         "changeHash": "0.023041202968332453",
@@ -2205,6 +2289,7 @@
         "Sheet Title"
       ],
       "qAlias": "Sheet Title",
+      "qOrigin": "PROGRAM",
       "title": "Sheet Title",
       "coloring": {
         "changeHash": "0.9093851131814039",
@@ -2231,6 +2316,7 @@
         "App Not Accessed In Over 30 Days"
       ],
       "qAlias": "App Not Accessed In Over 30 Days",
+      "qOrigin": "PROGRAM",
       "title": "App Not Accessed In Over 30 Days",
       "coloring": {
         "changeHash": "0.050399330459625524",
