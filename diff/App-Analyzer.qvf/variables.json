@@ -487,20 +487,6 @@
   },
   {
     "qInfo": {
-      "qId": "0e925cab-2330-4dbf-8930-5e1517df61b6",
-      "qType": "variable"
-    },
-    "qMetaDef": {},
-    "qName": "vDbgMax",
-    "qNumberPresentation": {
-      "qType": "U",
-      "qnDec": 10,
-      "qUseThou": 0
-    },
-    "qDefinition": "46296.4015625"
-  },
-  {
-    "qInfo": {
       "qId": "19ee4c31-30a9-4ca6-b864-c3f43974a0f4",
       "qType": "variable"
     },
