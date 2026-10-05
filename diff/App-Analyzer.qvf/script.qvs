@@ -1907,12 +1907,46 @@ Sub get_audit_large_app_consumption
     Let vNextURL = '';
     Let vUniqueKey = Num('$(reload_start)') & '$(vTenantID)';
     
-    If $(vIncrementalQVDsAvailable)=1 Then
-    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
-    Else
-    	Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vInitialDaysBack)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vInitialDaysBack)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+    // Resume from the latest event in the large app QVD rather than the sessions QVD, so that a gap in the large app
+    // events (e.g., audit source change) is back-filled. Overlap is removed using the event IDs.
+    Let vLargeAppIncrementalStartTime = '$(vInitialDaysBack)';
+
+    If $(vIncrementalLargeAppsQVDsAvailable)=1 Then
+
+        Let vLargeAppFileSize = If(IsNull(FileSize('$(vAppLargeAppsQVD)')),0,FileSize('$(vAppLargeAppsQVD)'));
+
+        If $(vLargeAppFileSize) > 0 Then
+
+            LargeAppMaxTimeTemp:
+            Load
+                LargeAppConsumeTime
+            From '$(vAppLargeAppsQVD)'(qvd)
+            Where Not Exists(LargeAppConsumeTime);
+
+            LargeAppMaxTime:
+            Load
+                Max(Alt(Num(LargeAppConsumeTime),Num(Timestamp#(LargeAppConsumeTime,'YYYY-MM-DDThh:mm:ssZ')))) AS LargeAppMaxTime
+            Resident LargeAppMaxTimeTemp;
+
+            // RangeMax ignores a null, so this falls back to the initial days back if there are no events in the QVD
+            Let vLargeAppIncrementalStartTime = RangeMax(Peek('LargeAppMaxTime',0,'LargeAppMaxTime') - (1 / 24 / 60), Num(Date#('$(vInitialDaysBack)','$(DateFormat)')));
+
+            Drop Tables LargeAppMaxTimeTemp,LargeAppMaxTime;
+
+        End If
+
+        Set vLargeAppFileSize =;
+
     End If
-                
+
+    Let vISO_8601_Date_Range = '&eventTime=' & Left(Date(TimeStamp('$(vLargeAppIncrementalStartTime)'),'YYYY-MM-DD'),10) & 'T' & Right('0' & Timestamp('$(vLargeAppIncrementalStartTime)','MM/DD/YYYY hh:mm:ss'),8) & 'Z/9999-01-01T00:00:00Z';
+
+    // The qix-sessions audit events moved from 'qlik.com/qix-sessions' to 'com.qlik/qix-sessions'.
+    // Query both sources so that the app works on tenants regardless of where the events are stored.
+    For Each vQixSessionsSource in 'com.qlik/qix-sessions','qlik.com/qix-sessions'
+
+    Let vNextURL = '';
+
     Do
     
         LIB Connect To '$(vu_rest_connection)';
@@ -1968,7 +2002,7 @@ Sub get_audit_large_app_consumption
             FROM "links" PK "__KEY_links_u0" FK "__FK_links_u0")
         FROM JSON (wrap on) "root" PK "__KEY_root"
         WITH CONNECTION (
-        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=qlik.com/qix-sessions$(vISO_8601_Date_Range)$(vNextURL)"
+        	URL "https://$(vu_tenant_fqdn)/api/v1/audits?limit=100&sort=-eventTime&source=$(vQixSessionsSource)$(vISO_8601_Date_Range)$(vNextURL)"
 		);
         
         [LargeAppConsumptionDetail]:
@@ -1980,7 +2014,7 @@ Sub get_audit_large_app_consumption
             [quota] AS LargeAppConsumeQuota,
             [released] AS LargeAppConsumeReleased,
             //[spaceId],
-            //[unit],
+            [unit] AS LargeAppConsumeUnit,
             [consumed] AS LargeAppConsumeConsumed,
             [__FK_data_u0] & '|' & $(vCounter) & '|' & '$(vUniqueKey)' AS [_LargeAppConsumeKey]
         Resident RestConnectorMasterTable
@@ -2004,7 +2038,8 @@ Sub get_audit_large_app_consumption
         Where Not IsNull([__FK_data])
         And (eventType = 'com.qlik.v1.quota.released'
         Or eventType = 'com.qlik.v1.quota.consumed'
-        Or eventType = 'com.qlik.v1.quota.allocation-failed');
+        Or eventType = 'com.qlik.v1.quota.allocation-failed')
+        And Not Exists(LargeAppConsumeID, eventId);
 
         [NextURL]:
         Load	
@@ -2029,6 +2064,8 @@ Sub get_audit_large_app_consumption
         Let vCounter = $(vCounter) + 1;
         
     Loop While $(vNextURLRows)>0;
+
+    Next vQixSessionsSource;
     
     Inner Join (LargeAppConsumption)
     Load * Resident LargeAppConsumptionDetail;
@@ -2670,7 +2707,8 @@ Sub load_qvd (table)
           
               If $(vAppLargeAppConsumeNoNewRecords)<>1 Then
           
-                  $(table):
+                  // Concatenate explicitly, as QVDs stored by earlier versions do not have the LargeAppConsumeUnit field
+                  Concatenate ($(table))
                   Load Distinct 
                       * 
                   From '$(qvd_name)'(qvd)
@@ -3316,15 +3354,35 @@ Sub transform
         
         If NoOfRows('LargeAppConsumption')>0 Then
         	Set vAppContainsLargeAppConsumption = 1;
+
+            ///// Normalise quota values to bytes. The events report values in different units, e.g., consumed and released
+            ///// events are in bytes whereas allocation-failed events are in MiB. QVDs stored before the unit was captured
+            ///// have no unit, in which case the unit is assumed from the event type.
+            If FieldNumber('LargeAppConsumeUnit','LargeAppConsumption')=0 Then
+                Left Join (LargeAppConsumption)
+                Load Null() AS LargeAppConsumeUnit AutoGenerate 1;
+            End If
+
+            Map_LargeAppConsumeUnitToBytes:
+            Mapping Load * Inline [
+                Unit, Bytes
+                byte, 1
+                b, 1
+                kib, 1024
+                mib, 1048576
+                gib, 1073741824
+            ];
+
+            Set vLargeAppUnitToBytes = Alt(ApplyMap('Map_LargeAppConsumeUnitToBytes',Lower(Trim(LargeAppConsumeUnit)),Null()),If(LargeAppConsumeQuotaType='com.qlik.v1.quota.allocation-failed',1048576,1));
             
             ///// Peel off denial events into a separate table
             LargeAppConsumptionDenials:
             Load
                 AppID,
                 LargeAppConsumeQuotaGroup AS LargeAppConsumeDenialQuotaGroup,
-                LargeAppConsumeRequested AS LargeAppConsumeDenialRequested,
-                LargeAppConsumeRequested AS LargeAppConsumeDenialAmount,
-                LargeAppConsumeLimit AS LargeAppConsumeDenialLimit,
+                LargeAppConsumeRequested * $(vLargeAppUnitToBytes) AS LargeAppConsumeDenialRequested,
+                LargeAppConsumeRequested * $(vLargeAppUnitToBytes) AS LargeAppConsumeDenialAmount,
+                LargeAppConsumeLimit * $(vLargeAppUnitToBytes) AS LargeAppConsumeDenialLimit,
                 LargeAppConsumeUserID AS LargeAppConsumeDenialUserID,
                 Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS LargeAppConsumeDenialTime,
                 TimeStamp(Ceil(Date(Date(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss')),1/24/60)) AS LargeAppConsumeDenialTimeMinute // using ceil it is one event with no duration so it provides the illusion of a short (sub 1 min) duration
@@ -3434,7 +3492,7 @@ Sub transform
                 Timestamp(Timestamp(LargeAppConsumeTime) + $(vReloadTimeDiffFromGMT),'YYYY-MM-DD hh:mm:ss') AS LargeAppConsumeStartTime,
                 RowNo() AS LargeAppConsumeID,
                 'interactive' AS LargeAppConsumeQuotaGroup,
-                Alt(LargeAppConsumeConsumed,LargeAppConsumeReleased) AS LargeAppConsumeAmount
+                Alt(LargeAppConsumeConsumed,LargeAppConsumeReleased) * $(vLargeAppUnitToBytes) AS LargeAppConsumeAmount
             Resident TEMP
             Where LargeAppConsumeQuotaType = 'com.qlik.v1.quota.consumed';
 
@@ -3527,39 +3585,56 @@ Sub transform
             // Generate minute by minute data for large app concurrency
             ////////////////////////////////
 
-            LargeAppSessionMinMaxDates:
-            Load
-                Floor(Min("LargeAppConsumeStartTime"),1/24/60) AS "Large App Session Start Time Min",
-                Ceil(Max("LargeAppConsumeEndTime"),1/24/60) AS "Large App Session End Time Max"
-            Resident LargeAppConsumption;
+            ///// Large app events can all fall outside the analysis window (or be removed by the cleanup above), leaving no
+            ///// sessions. Min/max dates would then be null and break the minute generation, so only generate minutes when
+            ///// sessions remain. Denial events (if any) are still stacked on below.
+            If NoOfRows('LargeAppConsumption')>0 Then
 
-            Let vLargeAppConsumptionMinDate = Peek('Large App Session Start Time Min',0,'LargeAppSessionMinMaxDates');
-            Let vLargeAppConsumptionMaxDate = Peek('Large App Session End Time Max',0,'LargeAppSessionMinMaxDates');
+                LargeAppSessionMinMaxDates:
+                Load
+                    Floor(Min("LargeAppConsumeStartTime"),1/24/60) AS "Large App Session Start Time Min",
+                    Ceil(Max("LargeAppConsumeEndTime"),1/24/60) AS "Large App Session End Time Max"
+                Resident LargeAppConsumption;
 
-            Drop Table LargeAppSessionMinMaxDates;
+                Let vLargeAppConsumptionMinDate = Peek('Large App Session Start Time Min',0,'LargeAppSessionMinMaxDates');
+                Let vLargeAppConsumptionMaxDate = Peek('Large App Session End Time Max',0,'LargeAppSessionMinMaxDates');
 
-            Let vLargeAppMinutes = Ceil(($(vLargeAppConsumptionMaxDate)-$(vLargeAppConsumptionMinDate))*24*(60/$(vConsumptionMinutes)));
+                Drop Table LargeAppSessionMinMaxDates;
 
-            LargeAppConsumptionMinutesTemp:
-            Load Distinct
-                TimeStamp(Floor(Date($(vLargeAppConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) as LargeAppConsumptionConcurrencyMinute
-            Autogenerate $(vLargeAppMinutes);
+                Let vLargeAppMinutes = Ceil(($(vLargeAppConsumptionMaxDate)-$(vLargeAppConsumptionMinDate))*24*(60/$(vConsumptionMinutes)));
 
-            Left Join
-            IntervalMatch (LargeAppConsumptionConcurrencyMinute) 
-            Load 
-                LargeAppConsumeStartTime,
-                LargeAppConsumeEndTime
-            Resident LargeAppConsumption;
+                LargeAppConsumptionMinutesTemp:
+                Load Distinct
+                    TimeStamp(Floor(Date($(vLargeAppConsumptionMinDate)+((1/24/(60/$(vConsumptionMinutes)))*RowNo())),1/24/60)) as LargeAppConsumptionConcurrencyMinute
+                Autogenerate $(vLargeAppMinutes);
 
-            LargeAppConsumptionConcurrencyMinutes:
-            Left Keep (LargeAppConsumption)
-            Load
-                Timestamp(LargeAppConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') as LargeAppConsumptionConcurrencyMinute,
-                AutoNumber(LargeAppConsumeStartTime&'|'&LargeAppConsumeEndTime,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey
-            Resident LargeAppConsumptionMinutesTemp;
+                Left Join
+                IntervalMatch (LargeAppConsumptionConcurrencyMinute) 
+                Load 
+                    LargeAppConsumeStartTime,
+                    LargeAppConsumeEndTime
+                Resident LargeAppConsumption;
 
-            Drop Table LargeAppConsumptionMinutesTemp;
+                LargeAppConsumptionConcurrencyMinutes:
+                Left Keep (LargeAppConsumption)
+                Load
+                    Timestamp(LargeAppConsumptionConcurrencyMinute,'YYYY-MM-DD hh:mm:ss') as LargeAppConsumptionConcurrencyMinute,
+                    AutoNumber(LargeAppConsumeStartTime&'|'&LargeAppConsumeEndTime,'LargeAppConsumptionExecutionConcurrency') as _LargeAppConsumptionExecutionConcurrencyKey
+                Resident LargeAppConsumptionMinutesTemp;
+
+                Drop Table LargeAppConsumptionMinutesTemp;
+
+            Else
+
+                Trace No large app sessions within the analysis window - skipping large app concurrency minute generation;
+
+                LargeAppConsumptionConcurrencyMinutes:
+                Load
+                    Null() AS LargeAppConsumptionConcurrencyMinute,
+                    Null() AS _LargeAppConsumptionExecutionConcurrencyKey
+                AutoGenerate 0;
+
+            End If
 
             // Join app id onto large app consume
             Left Join (LargeAppConsumptionConcurrencyMinutes)
@@ -3911,7 +3986,7 @@ Set comp=;
 Let vTenants = 0;
 
 Set app_name			= 'App Analyzer';
-Set app_version			= '6.6.1';
+Set app_version			= '6.6.2';
 Set app_schema_version	= 'sv_1.0.1';
 Let comp 				= ComputerName(); 
 Let engine_ver 			= PurgeChar(EngineVersion(),Chr(39)); 
