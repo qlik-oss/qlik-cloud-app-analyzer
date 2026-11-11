@@ -4,7 +4,7 @@
     "qType": "masterobject"
   },
   "qMetaDef": {
-    "title": "App RAM Footprint (MB)",
+    "title": "App RAM Footprint at Last Reload (MB)",
     "tags": []
   },
   "qHyperCubeDef": {
