@@ -19751,16 +19751,19 @@
                     "qGrouping": "N",
                     "qDef": "Sum({\u003cAppID={\"*\"},LargeAppConsumeIsDenied={'False'}\u003e}\r\n\tAggr(\n    \tMax(LargeAppConsumeAmount),\n        AppID,\n        LargeAppConsumptionConcurrencyMinute\n    )\n) / 1024 / 1024 / 1024",
                     "qNumFormat": {
-                      "qType": "U",
-                      "qnDec": 10,
-                      "qUseThou": 0
+                      "qType": "F",
+                      "qnDec": 2,
+                      "qUseThou": 0,
+                      "qFmt": "#,##0.00",
+                      "qDec": ".",
+                      "qThou": ","
                     },
                     "qAccumulate": 0,
                     "qActiveExpression": 0,
                     "qExpressions": [],
                     "autoSort": true,
                     "cId": "BpmNU",
-                    "numFormatFromTemplate": true,
+                    "numFormatFromTemplate": false,
                     "styling": [
                       {
                         "style": {
@@ -19784,7 +19787,8 @@
                       "lineCurve": "linear",
                       "showConfidence": true,
                       "confidence": 0.95
-                    }
+                    },
+                    "isCustomFormatted": true
                   },
                   "qSortBy": {
                     "qSortByNumeric": -1,
@@ -19825,16 +19829,20 @@
                     "qGrouping": "N",
                     "qDef": "Sum({\u003cAppID={\"*\"},LargeAppConsumeIsDenied={'True'}\u003e}\r\n\tAggr(\n    \tMax(LargeAppConsumeAmount),\n        AppID,\n        LargeAppConsumptionConcurrencyMinute\n    )\n) / 1024 / 1024 / 1024",
                     "qNumFormat": {
-                      "qType": "U",
-                      "qnDec": 10,
-                      "qUseThou": 0
+                      "qType": "F",
+                      "qnDec": 2,
+                      "qUseThou": 0,
+                      "qFmt": "#,##0.00",
+                      "qDec": ".",
+                      "qThou": ","
                     },
                     "qAccumulate": 0,
                     "qActiveExpression": 0,
                     "qExpressions": [],
                     "autoSort": true,
                     "cId": "GKjqna",
-                    "numFormatFromTemplate": true
+                    "numFormatFromTemplate": false,
+                    "isCustomFormatted": true
                   },
                   "qSortBy": {
                     "qSortByNumeric": -1,
@@ -20032,7 +20040,7 @@
             "showTitles": false,
             "title": "Large App Consumption",
             "subtitle": "",
-            "footnote": "",
+            "footnote": "Interactive Large App capacity: the sum of large apps open at that minute. A denial happens when current consumption plus the requested app would exceed your quota, so consumption can sit below the limit. Capacity charged can differ from App RAM Footprint at Last Reload (e.g. engine size overrides charge engine size / 4).",
             "disableNavMenu": true,
             "showDetails": true,
             "showDetailsExpression": false,

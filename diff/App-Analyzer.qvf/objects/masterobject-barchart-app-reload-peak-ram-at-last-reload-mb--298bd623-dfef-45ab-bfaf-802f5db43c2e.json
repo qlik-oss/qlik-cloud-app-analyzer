@@ -1,24 +1,21 @@
 {
   "qInfo": {
-    "qId": "563c30ba-e8db-4749-ab4a-d9f6a4226f97",
+    "qId": "298bd623-dfef-45ab-bfaf-802f5db43c2e",
     "qType": "masterobject"
   },
   "qMetaDef": {
-    "title": "App Memory Footprint (MB)",
+    "title": "App Reload Peak RAM at Last Reload (MB)",
     "description": "",
     "tags": []
   },
   "qHyperCubeDef": {
     "qDimensions": [
       {
+        "qLibraryId": "xdLfma",
         "qDef": {
           "qGrouping": "N",
-          "qFieldDefs": [
-            "AppNameUnique"
-          ],
-          "qFieldLabels": [
-            "App Name"
-          ],
+          "qFieldDefs": [],
+          "qFieldLabels": [],
           "qSortCriterias": [
             {
               "qSortByNumeric": 1,
@@ -29,7 +26,6 @@
           ],
           "qNumberPresentations": [],
           "qActiveField": 0,
-          "qLabelExpression": "='App Name'",
           "autoSort": true,
           "cId": "GVSvQdf",
           "othersLabel": "Others"
@@ -64,8 +60,9 @@
     ],
     "qMeasures": [
       {
-        "qLibraryId": "a2d994eb-b418-457f-826e-1512bb4caba0",
+        "qLibraryId": "MHfcB",
         "qDef": {
+          "qLabel": "App Reload Peak RAM at Last Reload (MB)",
           "qTags": [],
           "qGrouping": "N",
           "qNumFormat": {
@@ -127,7 +124,7 @@
           "qMaxNumberPoints": -1,
           "qAttributeExpressions": []
         },
-        "title": "App RAM Footprint (MB)"
+        "title": "App Reload Peak RAM at Last Reload (MB)"
       }
     ],
     "qInterColumnSortOrder": [
@@ -181,27 +178,84 @@
       }
     }
   },
+  "refLine": {
+    "refLines": [
+      {
+        "show": true,
+        "label": "100% Quota (MB)",
+        "paletteColor": {
+          "index": -1,
+          "color": "#ff0002"
+        },
+        "refLineExpr": {
+          "value": {
+            "qValueExpression": {
+              "qExpr": "=Sum($(vAppRAMPeakReloadSizeQuota)/1024/1024)"
+            }
+          },
+          "label": {
+            "qStringExpression": {
+              "qExpr": "=Sum($(vAppRAMPeakReloadSizeQuota)/1024/1024)"
+            }
+          }
+        },
+        "cId": "MEFPmt"
+      },
+      {
+        "show": true,
+        "label": "Threshold (MB)",
+        "paletteColor": {
+          "index": -1,
+          "color": "#E98D26"
+        },
+        "refLineExpr": {
+          "value": {
+            "qValueExpression": {
+              "qExpr": "=Only(AppRAMPeakReloadSizeThreshold/1024/1024)"
+            }
+          },
+          "label": {
+            "qStringExpression": {
+              "qExpr": "=Only(AppRAMPeakReloadSizeThreshold/1024/1024)"
+            }
+          }
+        },
+        "cId": "cMeXYJy"
+      }
+    ],
+    "dimRefLines": []
+  },
   "showTitles": false,
-  "title": "App Memory Footprint (MB)",
+  "title": "App Reload Peak RAM at Last Reload (MB)",
   "subtitle": "",
   "footnote": "",
+  "disableNavMenu": true,
   "showDetails": true,
+  "components": [],
   "barGrouping": {
     "grouping": "grouped"
   },
   "orientation": "horizontal",
+  "scrollbar": "bar",
   "scrollStartPos": 0,
+  "gridLine": {
+    "auto": false,
+    "spacing": 3
+  },
   "dataPoint": {
-    "show": false,
-    "showLineLabels": false,
-    "showBarLabels": true,
     "showLabels": true,
     "showSegmentLabels": false,
-    "showTotalLabels": true
+    "showTotalLabels": true,
+    "show": false,
+    "showLineLabels": false,
+    "showBarLabels": true
   },
   "color": {
     "auto": false,
     "mode": "primary",
+    "formatting": {
+      "numFormatFromTemplate": true
+    },
     "useBaseColors": "off",
     "paletteColor": {
       "index": 6
@@ -217,11 +271,11 @@
     "autoMinMax": true,
     "measureMin": 0,
     "measureMax": 10,
-    "altLabel": "App RAM Footprint (MB)",
+    "altLabel": "App Reload Peak RAM at Last Reload (MB)",
     "colorExpression": "",
     "byMeasureDef": {
-      "label": "App RAM Footprint (MB)",
-      "key": "=Sum(AppRAM_MB)",
+      "label": "App Reload Peak RAM at Last Reload (MB)",
+      "key": "=Sum(AppRAMPeakReload_MB)",
       "type": "expression"
     }
   },
@@ -239,75 +293,28 @@
     "maxVisibleItems": 10
   },
   "preferContinuousAxis": true,
-  "showMiniChartForContinuousAxis": true,
-  "visualization": "barchart",
   "measureAxis": {
-    "min": 0,
-    "max": {
-      "qValueExpression": {
-        "qExpr": "=Avg({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB)+500"
-      }
-    },
     "show": "none",
     "dock": "near",
     "spacing": 1,
     "autoMinMax": false,
     "minMax": "max",
+    "min": 0,
+    "max": {
+      "qValueExpression": {
+        "qExpr": "=Sum($(vAppRAMPeakReloadSizeQuota)/1024/1024)+1000"
+      }
+    },
     "logarithmic": false
   },
+  "tooltip": {
+    "auto": true,
+    "hideBasic": false,
+    "data": {}
+  },
+  "visualization": "barchart",
+  "version": "1.4.0",
+  "showMiniChartForContinuousAxis": true,
   "qLayoutExclude": {},
-  "refLine": {
-    "refLines": [
-      {
-        "show": true,
-        "label": "100% Quota (MB)",
-        "paletteColor": {
-          "index": -1,
-          "color": "#ff0002"
-        },
-        "refLineExpr": {
-          "value": {
-            "qValueExpression": {
-              "qExpr": "=If(GetPossibleCount(AppRAMSizeQuota)=1,Only({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB))"
-            }
-          },
-          "label": {
-            "qStringExpression": {
-              "qExpr": "=If(GetPossibleCount(AppRAMSizeQuota)=1,Only({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB))"
-            }
-          }
-        },
-        "cId": "MEFPmt"
-      },
-      {
-        "show": true,
-        "label": "Threshold (MB)",
-        "paletteColor": {
-          "index": -1,
-          "color": "#E98D26"
-        },
-        "refLineExpr": {
-          "value": {
-            "qValueExpression": {
-              "qExpr": "=If(GetPossibleCount(AppRAMSizeQuota)=1,Only({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB)*$(vAppRAMToQuotaPercentThreshold))"
-            }
-          },
-          "label": {
-            "qStringExpression": {
-              "qExpr": "=If(GetPossibleCount(AppRAMSizeQuota)=1,Only({\u003cQuotaResource={'app_mem_size'}\u003e} Quota_MB)*$(vAppRAMToQuotaPercentThreshold))"
-            }
-          }
-        },
-        "cId": "cMeXYJy"
-      }
-    ]
-  },
-  "scrollbar": "bar",
-  "gridLine": {
-    "auto": false,
-    "spacing": 3
-  },
-  "components": [],
-  "masterVersion": 0.96,
-  "disableNavMenu": true
+  "masterVersion": 0.96
 }

@@ -259,22 +259,25 @@
       "qType": "measure"
     },
     "qMeasure": {
-      "qLabel": "Avg App RAM Footprint (GB)",
-      "qDef": "Num(Avg(AppRAM_GB),'#,##0.0#')",
+      "qLabel": "Avg App RAM Footprint at Last Reload (GB)",
+      "qDef": "Num(Avg(AppRAM_Bytes)/1024/1024/1024,'#,##0.00')",
       "qGrouping": "N",
       "qExpressions": [],
       "qActiveExpression": 0,
       "qNumFormat": {
-        "qType": "U",
-        "qnDec": 10,
-        "qUseThou": 0
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0.00",
+        "qDec": ".",
+        "qThou": ","
       },
       "qOrigin": "PROGRAM",
       "coloring": {}
     },
     "qMetaDef": {
-      "title": "Avg App RAM Footprint (GB)",
-      "description": "(Average) The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "title": "Avg App RAM Footprint at Last Reload (GB)",
+      "description": "(Average) Static in-memory size of the app at its last successful reload (from /apps/{id}/data/metadata). This is the baseline memory of the app; as users make selections, additional memory is cached. It is not the Large App capacity charged when the app is opened, which can differ due to data changes since the reload or an engine size override (capacity charged = engine size / 4).",
       "tags": []
     }
   },
@@ -2020,22 +2023,25 @@
       "qType": "measure"
     },
     "qMeasure": {
-      "qLabel": "App Reload Peak RAM (MB)",
-      "qDef": "Num(Sum(AppRAMPeakReload_MB),'#,##0')",
+      "qLabel": "App Reload Peak RAM at Last Reload (MB)",
+      "qDef": "Num(Sum(AppRAMPeakReload_Byte)/1024/1024,'#,##0.0')",
       "qGrouping": "N",
       "qExpressions": [],
       "qActiveExpression": 0,
       "qNumFormat": {
-        "qType": "U",
-        "qnDec": 10,
-        "qUseThou": 0
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0.0",
+        "qDec": ".",
+        "qThou": ","
       },
       "qOrigin": "PROGRAM",
       "coloring": {}
     },
     "qMetaDef": {
-      "title": "App Reload Peak RAM (MB)",
-      "description": "The peak memory that an application consumes on reload, which can be significantly higher than the base RAM footprint due to temp RAM utilized for additional calculations, aggregations, memory intensive functions (think rand()), etc.",
+      "title": "App Reload Peak RAM at Last Reload (MB)",
+      "description": "The peak memory the app consumed during its last successful reload (from /apps/{id}/data/metadata). This can be significantly higher than the base RAM footprint due to temporary RAM used for calculations, aggregations and memory intensive functions. Reload peak RAM counts against reload capacity, not the interactive Large App capacity shown on the Sessions Overview sheet.",
       "tags": []
     }
   },
@@ -2570,15 +2576,18 @@
       "qType": "measure"
     },
     "qMeasure": {
-      "qLabel": "App RAM Footprint (MB)",
-      "qDef": "Num(Sum(AppRAM_MB),'#,##0')",
+      "qLabel": "App RAM Footprint at Last Reload (MB)",
+      "qDef": "Num(Sum(AppRAM_Bytes)/1024/1024,'#,##0.0')",
       "qGrouping": "N",
       "qExpressions": [],
       "qActiveExpression": 0,
       "qNumFormat": {
-        "qType": "U",
-        "qnDec": 10,
-        "qUseThou": 0
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0.0",
+        "qDec": ".",
+        "qThou": ","
       },
       "qOrigin": "PROGRAM",
       "coloring": {
@@ -2589,8 +2598,8 @@
       }
     },
     "qMetaDef": {
-      "title": "App RAM Footprint (MB)",
-      "description": "The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "title": "App RAM Footprint at Last Reload (MB)",
+      "description": "Static in-memory size of the app at its last successful reload (from /apps/{id}/data/metadata). This is the baseline memory of the app; as users make selections, additional memory is cached. It is not the Large App capacity charged when the app is opened, which can differ due to data changes since the reload or an engine size override (capacity charged = engine size / 4).",
       "tags": []
     }
   },
@@ -3078,22 +3087,25 @@
       "qType": "measure"
     },
     "qMeasure": {
-      "qLabel": "Avg App RAM Footprint (MB)",
-      "qDef": "Num(Avg(AppRAM_MB),'#,##0')",
+      "qLabel": "Avg App RAM Footprint at Last Reload (MB)",
+      "qDef": "Num(Avg(AppRAM_Bytes)/1024/1024,'#,##0.0')",
       "qGrouping": "N",
       "qExpressions": [],
       "qActiveExpression": 0,
       "qNumFormat": {
-        "qType": "U",
-        "qnDec": 10,
-        "qUseThou": 0
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0.0",
+        "qDec": ".",
+        "qThou": ","
       },
       "qOrigin": "PROGRAM",
       "coloring": {}
     },
     "qMetaDef": {
-      "title": "Avg App RAM Footprint (MB)",
-      "description": "(Average) The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "title": "Avg App RAM Footprint at Last Reload (MB)",
+      "description": "(Average) Static in-memory size of the app at its last successful reload (from /apps/{id}/data/metadata). This is the baseline memory of the app; as users make selections, additional memory is cached. It is not the Large App capacity charged when the app is opened, which can differ due to data changes since the reload or an engine size override (capacity charged = engine size / 4).",
       "tags": []
     }
   },
@@ -3344,15 +3356,18 @@
       "qType": "measure"
     },
     "qMeasure": {
-      "qLabel": "App RAM Footprint (GB)",
-      "qDef": "Num(Sum(AppRAM_GB),'#,##0')",
+      "qLabel": "App RAM Footprint at Last Reload (GB)",
+      "qDef": "Num(Sum(AppRAM_Bytes)/1024/1024/1024,'#,##0.00')",
       "qGrouping": "N",
       "qExpressions": [],
       "qActiveExpression": 0,
       "qNumFormat": {
-        "qType": "U",
-        "qnDec": 10,
-        "qUseThou": 0
+        "qType": "F",
+        "qnDec": 2,
+        "qUseThou": 0,
+        "qFmt": "#,##0.00",
+        "qDec": ".",
+        "qThou": ","
       },
       "qOrigin": "PROGRAM",
       "coloring": {
@@ -3363,8 +3378,8 @@
       }
     },
     "qMetaDef": {
-      "title": "App RAM Footprint (GB)",
-      "description": "The memory footprint of an app when reloaded. \nNote that in practice, this is the baseline memory consumed by an app. As users make selections and navigate the app, additional memory will be cached by the app.",
+      "title": "App RAM Footprint at Last Reload (GB)",
+      "description": "Static in-memory size of the app at its last successful reload (from /apps/{id}/data/metadata). This is the baseline memory of the app; as users make selections, additional memory is cached. It is not the Large App capacity charged when the app is opened, which can differ due to data changes since the reload or an engine size override (capacity charged = engine size / 4).",
       "tags": []
     }
   },
